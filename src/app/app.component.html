@@ -1,0 +1,41 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" [opened]="true" class="sidenav">
+
+    <div class="logo-container">
+
+      Menu
+    </div>
+
+    <div id="sidenav-navbar">
+
+      <a mat-fab extended color="primary" routerLink="dashboard" routerLinkActive="router-link-active">
+        <mat-icon>assignment</mat-icon>
+        Dashboard
+      </a>
+
+      <a mat-fab extended color="primary" routerLink="user" routerLinkActive="router-link-active">
+        <mat-icon>person</mat-icon>
+        User
+      </a>
+    </div>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <mat-toolbar id="toolbar" color="primary">
+
+      <button mat-icon-button class="example-icon" (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span>Simple CRM</span>
+
+    </mat-toolbar>
+
+    <div id="router-container">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
