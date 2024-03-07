@@ -7,18 +7,18 @@
         <div class="inputs-row">
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>First name</mat-label>
-                <input matInput [(ngModel)]="user.firstName" type="text" cdkFocusInitial required>
+                <input matInput [(ngModel)]="user.firstName" type="text" cdkFocusInitial required [disabled]="loading">
             </mat-form-field>
             
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Last name</mat-label>
-                <input matInput [(ngModel)]="user.lastName" type="text" required>
+                <input matInput [(ngModel)]="user.lastName" type="text" required [disabled]="loading">
             </mat-form-field>
         </div>
 
         <mat-form-field appearance="outline" [color]="'accent'">
             <mat-label>Birth Date</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="this.birthDate" required>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="this.birthDate" required [disabled]="loading">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -26,32 +26,34 @@
         <div class="inputs-row">
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Street</mat-label>
-                <input matInput [(ngModel)]="user.street" type="text" required>
+                <input matInput [(ngModel)]="user.street" type="text" required [disabled]="loading">
             </mat-form-field>
 
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>House number</mat-label>
-                <input matInput [(ngModel)]="user.houseNumber" type="text" required>
+                <input matInput [(ngModel)]="user.houseNumber" type="text" required [disabled]="loading">
             </mat-form-field>
         </div>
 
         <div class="inputs-row">
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Zip Code</mat-label>
-                <input matInput [(ngModel)]="user.zipCode" type="text" required>
+                <input matInput [(ngModel)]="user.zipCode" type="text" required [disabled]="loading">
             </mat-form-field>
 
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>City</mat-label>
-                <input matInput [(ngModel)]="user.city" type="text" required>
+                <input matInput [(ngModel)]="user.city" type="text" required [disabled]="loading">
             </mat-form-field>
         </div>
 
     </div>
 
+    <mat-progress-bar *ngIf="loading" id="progess-bar" mode="indeterminate"></mat-progress-bar>
+
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]="user" (click)="saveUser()">Save</button>
+    <button mat-button (click)="onNoClick()" [disabled]="loading">Cancel</button>
+    <button mat-button (click)="saveUser()" [disabled]="loading">Save</button>
 </mat-dialog-actions>

@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collectionData, collection, doc } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, doc, addDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 
@@ -19,7 +19,7 @@ export class FirestoreService {
 
     this.users = this.users$.subscribe((userList) => {
       userList.forEach(user => {
-        console.log(user);
+        // console.log(user);
       });
     })
   }
@@ -39,5 +39,13 @@ export class FirestoreService {
   getSingleDocumentRef(collectionId: string, documentId: string) {
 
     return doc(this.getCollectionRef(collectionId), documentId);
+  }
+
+  async addDocument(collectionId: string, item: object) {
+
+    await addDoc(this.getCollectionRef(collectionId), item)
+    .catch(() => {
+
+    })
   }
 }

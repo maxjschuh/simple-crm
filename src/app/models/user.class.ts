@@ -16,6 +16,18 @@ export class User {
         this.houseNumber = object ? object.houseNumber : '';
         this.zipCode = object ? object.zipCode : undefined;
         this.city = object ? object.city : '';
+    }
 
+    public toJSON() {
+        
+        return {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            birthDate: this.birthDate,
+            street: this.street,
+            houseNumber: this.houseNumber,
+            zipCode: this.zipCode,
+            city: this.city
+        }
     }
 }

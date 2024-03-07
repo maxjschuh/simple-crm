@@ -1,13 +1,16 @@
 import { Component, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { UserComponent } from '../user/user.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { User } from '../models/user.class';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FirestoreService } from '../services/firestore.service';
+import { NgIf } from '@angular/common';
 
 
 export interface DialogData {
@@ -34,7 +37,9 @@ export interface DialogData {
     MatDialogActions,
     MatDialogClose,
     UserComponent,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatProgressBarModule,
+    NgIf
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './dialog-add-user.component.html',
@@ -44,11 +49,12 @@ export class DialogAddUserComponent {
 
   user = new User();
   birthDate: Date | undefined = undefined;
+  loading = false;
 
   constructor(
     public dialogRef: MatDialogRef<DialogAddUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
+    private firestoreService: FirestoreService
+  ) { }
 
 
   onNoClick(): void {
@@ -56,17 +62,18 @@ export class DialogAddUserComponent {
   }
 
 
-  saveUser() {
+  async saveUser() {
+
+    this.loading = true;
     this.user.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
-    console.log(this.user);
 
-    // this.firestore
-    //   .collection('users')
-    //   .add(this.user)
-    //   .then((result: any) => {
-    //     console.log('upload to firestore finished', result);
-    //   });
-
+    const response = await this.firestoreService.addDocument('users', this.user.toJSON());
+    console.log(response);
+    
+    setTimeout(() => {
+      
+      this.loading = false;
+      this.dialogRef.close();
+    }, 2000);
   }
-
 }
