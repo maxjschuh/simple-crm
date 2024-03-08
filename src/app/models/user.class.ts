@@ -7,6 +7,7 @@ export class User {
     houseNumber: string;
     zipCode: number | undefined;
     city: string;
+    id: string;
 
     constructor(object?: any) {
 
@@ -18,6 +19,7 @@ export class User {
         this.houseNumber = object ? object.houseNumber : '';
         this.zipCode = object ? object.zipCode : undefined;
         this.city = object ? object.city : '';
+        this.id = object ? object.id : '';
     }
 
     public toJSON() {
@@ -30,7 +32,8 @@ export class User {
             street: this.street,
             houseNumber: this.houseNumber,
             zipCode: this.zipCode,
-            city: this.city
+            city: this.city,
+            id: this.id
         }
     }
 }

@@ -11,6 +11,7 @@ import { User } from '../models/user.class';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FirestoreService } from '../services/firestore.service';
 import { NgIf } from '@angular/common';
+import { BirtDateService } from '../services/birt-date.service';
 
 
 export interface DialogData {
@@ -53,7 +54,8 @@ export class DialogAddUserComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DialogAddUserComponent>,
-    private firestoreService: FirestoreService
+    private firestoreService: FirestoreService,
+    public birthDateService: BirtDateService
   ) { }
 
 
@@ -68,7 +70,6 @@ export class DialogAddUserComponent {
     this.user.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
     const response = await this.firestoreService.addDocument('users', this.user.toJSON());
-    console.log(response);
     
     setTimeout(() => {
       

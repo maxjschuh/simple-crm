@@ -21,11 +21,9 @@ export class FirestoreService {
 
     this.usersBackendSubscriber = this.users$
       .subscribe((userList) => {
-        console.log(userList)
+
         this.usersFrontendDistributor.next(userList);
-
-
-      })
+      });
 
   }
 

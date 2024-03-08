@@ -1,1 +1,36 @@
-<p>user-detail works!</p>
+<mat-card id="top-card" color="primary">
+
+    <img id="profile-img" src="./assets/img/profile_placeholder.svg" alt="placeholder for profile">
+
+    <mat-card-header>
+        <mat-card-title>{{ user.firstName + ' ' + user.lastName }}</mat-card-title>
+        <mat-card-subtitle>
+            <a mat-raised-button href="mailto:{{ user.email }}">
+                <mat-icon>mail</mat-icon>
+                {{ user.email }}</a>
+        </mat-card-subtitle>
+    </mat-card-header>
+</mat-card>
+
+<mat-card id="bottom-card">
+
+    <section>
+        <mat-card-title>
+            Address
+        </mat-card-title>
+        <div class="double-columns">
+            <div>{{ user.street + ' ' + user.houseNumber }}</div>
+            <div>{{ user.zipCode + ' ' + user.city }}</div>
+        </div>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section>
+        <mat-card-title>
+            Date of Birth
+        </mat-card-title>
+        <div>{{ user.birthDate ? (this.birthDateService.returnTimestampAsDate(user.birthDate) + ' ' + this.birthDateService.returnAge(user.birthDate)) : '-' }}</div>
+    </section>
+
+</mat-card>

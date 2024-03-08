@@ -10,6 +10,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FirestoreService } from '../services/firestore.service';
 import { User } from '../models/user.class';
 import { RouterModule } from '@angular/router';
+import { BirtDateService } from '../services/birt-date.service';
 
 
 @Component({
@@ -30,15 +31,20 @@ export class UserComponent {
 
   constructor(
     public dialog: MatDialog,
-    private firestoreService: FirestoreService
+    private firestoreService: FirestoreService,
+    public birthDateService: BirtDateService
   ) {
-    this.usersSubscriber = this.firestoreService.usersFrontendDistributor.subscribe((userList) => {
+    this.usersSubscriber = this.firestoreService.usersFrontendDistributor.subscribe((userList: User[]) => {
 
       this.updateTable(userList);
     });
   }
 
-  updateTable(userData: User[]) {
+  ngOnDestroy(): void {
+    this.usersSubscriber.unsubscribe();
+  }
+
+  updateTable(userData: User[]): void {
 
     this.dataSource = new MatTableDataSource(userData);
     this.dataSource.sort = this.sort;
