@@ -6,14 +6,31 @@
     right: 0;
 
     .sidenav {
-        width: 300px;
+        width: 250px;
 
         .logo-container {
             box-sizing: border-box;
             border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 16px;
+            padding: 6px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            height: 55px;
 
-            min-height: 55px;
+            img {
+                height: 43px;
+            }
+
+            span {
+                height: 43px;
+                line-height: 43px;
+                font-size: 30px;
+                font-weight: 700;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
 
         }
 

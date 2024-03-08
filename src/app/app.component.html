@@ -1,9 +1,11 @@
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav mode="side" [opened]="true" class="sidenav">
 
-    <div class="logo-container">
+    <div class="logo-container" routerLink="dashboard">
 
-      Menu
+      <img src="./assets/img/logo/logo_white.png" alt="logo purple">
+      <span>Simple-CRM</span>
+      
     </div>
 
     <div id="sidenav-navbar">
@@ -28,8 +30,6 @@
       <button mat-icon-button class="example-icon" (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-
-      <span>Simple CRM</span>
 
     </mat-toolbar>
 

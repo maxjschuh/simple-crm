@@ -2,7 +2,7 @@
 
   <ng-container matColumnDef="firstName">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
-        First name
+      First name
     </th>
     <td mat-cell *matCellDef="let user"> {{user.firstName}} </td>
   </ng-container>
@@ -57,11 +57,12 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/user', row.id]"></tr>
+
 </table>
 
 
-<button id="button-add" mat-fab color="primary" matTooltip="Add user"
-    [matTooltipPosition]="'left'" (click)="openDialog()">
-    <mat-icon>add</mat-icon>
+<button id="button-add" mat-fab color="primary" matTooltip="Add user" [matTooltipPosition]="'left'"
+  (click)="openDialog()">
+  <mat-icon>add</mat-icon>
 </button>

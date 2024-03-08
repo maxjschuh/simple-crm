@@ -19,10 +19,14 @@ export class FirestoreService {
 
     this.users$ = this.getBackendSubscriber('users');
 
-    this.usersBackendSubscriber = this.users$.subscribe((userList) => {
+    this.usersBackendSubscriber = this.users$
+      .subscribe((userList) => {
+        console.log(userList)
+        this.usersFrontendDistributor.next(userList);
 
-      this.usersFrontendDistributor.next(userList);
-    });
+
+      })
+
   }
 
 
@@ -35,7 +39,7 @@ export class FirestoreService {
   getBackendSubscriber(collectionId: string) {
 
     const collection = this.getCollectionRef(collectionId);
-    return collectionData(collection);
+    return collectionData(collection, { idField: 'id' });
   }
 
 
@@ -58,5 +62,4 @@ export class FirestoreService {
 
       })
   }
-
 }

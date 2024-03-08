@@ -8,14 +8,14 @@ import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.compo
 import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FirestoreService } from '../services/firestore.service';
-import { subscribe } from 'node:diagnostics_channel';
 import { User } from '../models/user.class';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddUserComponent, MatTableModule, MatSortModule],
+  imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddUserComponent, MatTableModule, MatSortModule, RouterModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
@@ -51,5 +51,4 @@ export class UserComponent {
 
     dialogRef.afterClosed().subscribe(result => { });
   }
-
 }
