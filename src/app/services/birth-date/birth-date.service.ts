@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class BirtDateService {
+export class BirthDateService {
 
   returnTimestampAsDate(timestamp: number): string {
     const date = new Date(timestamp);

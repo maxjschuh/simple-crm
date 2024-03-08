@@ -7,10 +7,10 @@ import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.compo
 
 import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { FirestoreService } from '../services/firestore.service';
+import { FirestoreService } from '../services/firestore/firestore.service';
 import { User } from '../models/user.class';
 import { RouterModule } from '@angular/router';
-import { BirtDateService } from '../services/birt-date.service';
+import { BirthDateService } from '../services/birth-date/birth-date.service';
 
 
 @Component({
@@ -32,7 +32,7 @@ export class UserComponent {
   constructor(
     public dialog: MatDialog,
     private firestoreService: FirestoreService,
-    public birthDateService: BirtDateService
+    public birthDateService: BirthDateService
   ) {
     this.usersSubscriber = this.firestoreService.usersFrontendDistributor.subscribe((userList: User[]) => {
 

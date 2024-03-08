@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { UserComponent } from '../user/user.component';
@@ -12,10 +12,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FirestoreService } from '../services/firestore/firestore.service';
 import { NgIf } from '@angular/common';
 import { BirthDateService } from '../services/birth-date/birth-date.service';
+import { dataForEditDialog } from '../interfaces/data-for-edit-dialog.interface';
 
 
 @Component({
-  selector: 'app-dialog-add-user',
+  selector: 'app-dialog-edit-user',
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -32,36 +33,40 @@ import { BirthDateService } from '../services/birth-date/birth-date.service';
     NgIf
   ],
   providers: [provideNativeDateAdapter()],
-  templateUrl: './dialog-add-user.component.html',
-  styleUrl: './dialog-add-user.component.scss'
+  templateUrl: './dialog-edit-user.component.html',
+  styleUrl: './dialog-edit-user.component.scss'
 })
-export class DialogAddUserComponent {
+export class DialogEditUserComponent {
 
-  user = new User();
+  user: User;
   birthDate: Date | undefined = undefined;
   loading = false;
+  fieldsToEdit: string;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogAddUserComponent>,
+    public dialogRef: MatDialogRef<DialogEditUserComponent>,
     private firestoreService: FirestoreService,
-    public birthDateService: BirthDateService
-  ) { }
+    public birthDateService: BirthDateService,
+    @Inject(MAT_DIALOG_DATA) public data: dataForEditDialog
+  ) {
+    this.user = data.user;
+    this.fieldsToEdit = data.fieldsToEdit;
+  }
 
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-
-  async saveUser() {
+  async saveUser(): Promise<void> {
 
     this.loading = true;
     this.user.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
     const response = await this.firestoreService.addDocument('users', this.user.toJSON());
-    
+
     setTimeout(() => {
-      
+
       this.loading = false;
       this.dialogRef.close();
     }, 2000);

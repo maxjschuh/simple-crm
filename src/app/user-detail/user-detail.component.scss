@@ -6,6 +6,7 @@
     align-items: flex-end;
     padding: 24px;
     background-color: #7B1FA2;
+    position: relative;
 
     #profile-img {
 
@@ -29,13 +30,13 @@
 #bottom-card {
     display: flex;
     flex-direction: column;
-    padding: 0 24px;
 
     section {
-        padding: 24px 0;
+        padding: 24px;
         display: flex;
         flex-direction: column;
         gap: 8px;
+        position: relative;
 
         .double-columns {
             display: flex;
@@ -47,3 +48,15 @@
         }
     }
 }
+
+.card-options {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+}
+
+#button-edit {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+  }

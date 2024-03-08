@@ -10,6 +10,17 @@
                 {{ user.email }}</a>
         </mat-card-subtitle>
     </mat-card-header>
+
+    <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu1">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu1="matMenu">
+        <button mat-menu-item (click)="openDialog('name+email')">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+        </button>
+    </mat-menu>
+
 </mat-card>
 
 <mat-card id="bottom-card">
@@ -22,6 +33,17 @@
             <div>{{ user.street + ' ' + user.houseNumber }}</div>
             <div>{{ user.zipCode + ' ' + user.city }}</div>
         </div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item (click)="openDialog('address')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+
     </section>
 
     <mat-divider></mat-divider>
@@ -30,7 +52,23 @@
         <mat-card-title>
             Date of Birth
         </mat-card-title>
-        <div>{{ user.birthDate ? (this.birthDateService.returnTimestampAsDate(user.birthDate) + ' ' + this.birthDateService.returnAge(user.birthDate)) : '-' }}</div>
+        <div>{{ user.birthDate ? (this.birthDateService.returnTimestampAsDate(user.birthDate) + ' ' +
+            this.birthDateService.returnAge(user.birthDate)) : '-' }}</div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu3">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu3="matMenu">
+            <button mat-menu-item (click)="openDialog('birthDate')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
     </section>
 
 </mat-card>
+
+<button id="button-edit" mat-fab color="primary" matTooltip="Edit user" [matTooltipPosition]="'left'"
+  (click)="openDialog('all')">
+  <mat-icon>edit</mat-icon>
+</button>
