@@ -23,6 +23,11 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
+        <mat-form-field appearance="outline" [color]="'accent'">
+            <mat-label>E-mail</mat-label>
+            <input matInput [(ngModel)]="user.email" type="email" required [disabled]="loading">
+        </mat-form-field>
+
         <div class="inputs-row">
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Street</mat-label>

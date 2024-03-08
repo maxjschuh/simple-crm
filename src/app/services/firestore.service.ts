@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, collectionData, collection, doc, addDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { User } from '../models/user.class';
 
 
 @Injectable({
@@ -10,42 +11,52 @@ export class FirestoreService {
 
   firestore: Firestore = inject(Firestore);
   users$: Observable<any[]>;
-  users!: any;
+  usersBackendSubscriber: any;
+  usersFrontendDistributor = new BehaviorSubject<User[]>([]);
+
 
   constructor() {
 
-    const usersCollection = this.getCollectionRef('users');
-    this.users$ = collectionData(usersCollection);
+    this.users$ = this.getBackendSubscriber('users');
 
-    this.users = this.users$.subscribe((userList) => {
-      userList.forEach(user => {
-        // console.log(user);
-      });
-    })
+    this.usersBackendSubscriber = this.users$.subscribe((userList) => {
+
+      this.usersFrontendDistributor.next(userList);
+    });
   }
 
 
   ngOnDestroy(): void {
 
-    this.users.unsubscribe();
+    this.usersBackendSubscriber.unsubscribe();
+  }
+
+
+  getBackendSubscriber(collectionId: string) {
+
+    const collection = this.getCollectionRef(collectionId);
+    return collectionData(collection);
   }
 
 
   getCollectionRef(collectionId: string) {
+
     return collection(this.firestore, collectionId);
   }
 
-  
-  getSingleDocumentRef(collectionId: string, documentId: string) {
+
+  getSingleDocumentRef(collectionId: string, documentId: string) { //currently not in use
 
     return doc(this.getCollectionRef(collectionId), documentId);
   }
 
+
   async addDocument(collectionId: string, item: object) {
 
     await addDoc(this.getCollectionRef(collectionId), item)
-    .catch(() => {
+      .catch(() => {
 
-    })
+      })
   }
+
 }
