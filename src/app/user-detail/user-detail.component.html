@@ -52,7 +52,7 @@
         <mat-card-title>
             Date of Birth
         </mat-card-title>
-        <div>{{ user.birthDate ? (this.birthDateService.returnTimestampAsDate(user.birthDate) + ' ' +
+        <div>{{ user.birthDate ? (this.birthDateService.returnTimestampAsDateString(user.birthDate) + ' ' +
             this.birthDateService.returnAge(user.birthDate)) : '-' }}</div>
 
         <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu3">

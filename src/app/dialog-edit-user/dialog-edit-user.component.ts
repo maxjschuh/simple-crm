@@ -51,6 +51,7 @@ export class DialogEditUserComponent {
   ) {
     this.user = data.user;
     this.fieldsToEdit = data.fieldsToEdit;
+    this.birthDate = this.user.birthDate ? new Date(this.user.birthDate) : undefined;
   }
 
 

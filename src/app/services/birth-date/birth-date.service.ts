@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class BirthDateService {
 
-  returnTimestampAsDate(timestamp: number): string {
+  returnTimestampAsDateString(timestamp: number): string {
     const date = new Date(timestamp);
     return date.toLocaleDateString('de');
   }
