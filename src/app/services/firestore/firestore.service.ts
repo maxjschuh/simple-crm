@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collectionData, collection, doc, addDoc } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Firestore, collectionData, collection, doc, addDoc } from '@angular/fire/firestore';
 import { User } from '../../models/user.class';
 
 
