@@ -1,5 +1,5 @@
 import { BirthDateService } from '../services/birth-date/birth-date.service';
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { dataForEditDialog } from '../interfaces/data-for-edit-dialog.interface';
 import { FirestoreService } from '../services/firestore/firestore.service';
 import { FormsModule } from '@angular/forms';
@@ -43,11 +43,18 @@ export class DialogEditUserComponent {
   loading = false;
   fieldsToEdit: string;
 
+  @Output() savedEdits = new EventEmitter<any>();
+
+  // Function to emit the event
+  emitEvent(data: any) {
+    this.savedEdits.emit(data);
+  }
+
   constructor(
     public dialogRef: MatDialogRef<DialogEditUserComponent>,
     private firestoreService: FirestoreService,
     public birthDateService: BirthDateService,
-    @Inject(MAT_DIALOG_DATA) public data: dataForEditDialog
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.user = data.user;
     this.fieldsToEdit = data.fieldsToEdit;
@@ -62,14 +69,16 @@ export class DialogEditUserComponent {
   async saveUser(): Promise<void> {
 
     this.loading = true;
-    this.user.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
+    // this.user.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
-    const response = await this.firestoreService.addDocument('users', this.user.toJSON());
+    // const response = await this.firestoreService.addDocument('users', this.user.toJSON());
 
     setTimeout(() => {
 
       this.loading = false;
+      this.emitEvent(this.user)
       this.dialogRef.close();
     }, 2000);
+
   }
 }

@@ -26,7 +26,8 @@ export class UserDetailComponent implements OnInit {
 
   private routeSubscriber = new Subscription;
   usersSubscriber: any;
-  user = new User();
+  editsSubscriber: any;
+  user: User = new User();
   userId = '';
 
   constructor(private route: ActivatedRoute, private firestoreService: FirestoreService, public birthDateService: BirthDateService, public dialog: MatDialog) { }
@@ -45,6 +46,9 @@ export class UserDetailComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.routeSubscriber.unsubscribe();
+    this.usersSubscriber.unsubscribe();
+    this.editsSubscriber.unsubscribe();
+
   }
 
 
@@ -55,7 +59,7 @@ export class UserDetailComponent implements OnInit {
 
       if (user.id === this.userId) {
 
-        this.user = user;
+        this.user = new User(user);
         return;
       }
     }
@@ -65,10 +69,15 @@ export class UserDetailComponent implements OnInit {
 
     const data: dataForEditDialog = {
       fieldsToEdit: fieldsToEdit,
-      user: this.user
+      user: new User(this.user)
     };
 
-    const dialogRef = this.dialog.open(DialogEditUserComponent, {data: data});
+
+    const dialogRef = this.dialog.open(DialogEditUserComponent, { data: data });
+
+    this.editsSubscriber = dialogRef.componentInstance.savedEdits.subscribe((eventData: any) => {
+      this.user = new User(eventData)
+    });
 
     dialogRef.afterClosed().subscribe(result => { });
   }
