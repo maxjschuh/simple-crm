@@ -52,7 +52,7 @@ export class DialogEditUserComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DialogEditUserComponent>,
-    private firestoreService: FirestoreService,
+    public firestoreService: FirestoreService,
     public birthDateService: BirthDateService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -66,12 +66,13 @@ export class DialogEditUserComponent {
     this.dialogRef.close();
   }
 
-  async saveUser(): Promise<void> {
+  async saveEdits(): Promise<void> {
 
     this.loading = true;
-    // this.user.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
+    
+    this.user.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
-    // const response = await this.firestoreService.addDocument('users', this.user.toJSON());
+    await this.firestoreService.updateDocument('users', this.user.id, this.user.toJSON());
 
     setTimeout(() => {
 
