@@ -1,5 +1,5 @@
 #button-add {
-  position: absolute;
+  position: fixed;
   right: 24px;
   bottom: 24px;
 }
@@ -8,14 +8,11 @@
 
 
 //Sorted Table
-table {
+mat-table {
   width: 100%;
 
-  th.mat-sort-header-sorted {
-    color: black;
-  }
 
-  tr {
+  mat-row {
 
     &:hover {
       cursor: pointer;
@@ -23,11 +20,60 @@ table {
     }
   }
 
-  tr[mat-header-row] {
+  mat-header-row {
 
     &:hover {
       cursor: unset;
       outline: none;
+    }
+
+  }
+}
+
+
+
+@media (max-width: 1000px) {
+
+
+  mat-table {
+    display: flex;
+    flex-direction: column;
+    background: none;
+    border: none;
+    box-shadow: none;
+
+    mat-row {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border: unset;
+      border-bottom-color: var(--mat-table-row-item-outline-color, rgba(0, 0, 0, 0.12));
+      border-bottom-width: var(--mat-table-row-item-outline-width, 1px);
+      border-bottom-style: solid;
+      padding: 24px 0;
+
+      // border-radius: var(--mdc-elevated-card-container-shape);
+      // background-color: var(--mdc-elevated-card-container-color);
+      // border-width: 0;
+      // border-style: solid;
+      // border-color: var(--mdc-elevated-card-container-color);
+      // box-shadow: var(--mdc-elevated-card-container-elevation);
+      // box-sizing: border-box;
+    }
+
+    
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      border: unset;
+      padding-bottom: 0;
+    }
+
+    mat-cell {
+      border: none;
+      padding: 0 16px;
     }
 
   }
