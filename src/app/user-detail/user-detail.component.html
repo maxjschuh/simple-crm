@@ -52,8 +52,12 @@
         <mat-card-title>
             Date of Birth
         </mat-card-title>
-        <div>{{ user.birthDate ? (this.birthDateService.returnTimestampAsDateString(user.birthDate) + ' ' +
-            this.birthDateService.returnAge(user.birthDate)) : '-' }}</div>
+        <div>
+            {{ user.birthDate ?
+            (this.birthDateService.returnTimestampAsDateString(user.birthDate) + ' (Age: ' +
+            this.birthDateService.returnAge(user.birthDate)) + ')' : '' }}
+
+        </div>
 
         <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu3">
             <mat-icon>more_vert</mat-icon>
@@ -69,11 +73,11 @@
 </mat-card>
 
 <button id="button-edit" mat-fab color="primary" matTooltip="Edit user" [matTooltipPosition]="'left'"
-  (click)="openDialog('all')">
-  <mat-icon>edit</mat-icon>
+    (click)="openDialog('all')">
+    <mat-icon>edit</mat-icon>
 </button>
 
 <button id="button-delete" mat-fab color="primary" matTooltip="Delete user" [matTooltipPosition]="'left'"
-  (click)="openDeleteUserDialog()">
-  <mat-icon>delete</mat-icon>
+    (click)="openDeleteUserDialog()">
+    <mat-icon>delete</mat-icon>
 </button>

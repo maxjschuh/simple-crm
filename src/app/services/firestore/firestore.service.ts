@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Firestore, collectionData, collection, doc, addDoc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, doc, addDoc, setDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { User } from '../../models/user.class';
 
 
@@ -73,5 +73,12 @@ export class FirestoreService {
     const doc = this.getSingleDocumentRef(collectionId, documentId);
 
     await updateDoc(doc, { fieldToUpdate: valueToSet});
+  }
+
+
+  async deleteDocument(collectionId: string, documentId: string) {
+
+    const doc = this.getSingleDocumentRef(collectionId, documentId);
+    await deleteDoc(doc);
   }
 }

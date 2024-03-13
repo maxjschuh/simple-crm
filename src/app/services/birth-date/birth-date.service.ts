@@ -10,7 +10,7 @@ export class BirthDateService {
     return date.toLocaleDateString('de');
   }
 
-  returnAge(timestamp: number): string {
+  returnAge(timestamp: number): number {
 
     const today = new Date();
     const birthDate = new Date(timestamp);
@@ -24,7 +24,7 @@ export class BirthDateService {
       (monthDiff === 0 && today.getDate() < birthDate.getDate())
     ) age--;
 
-    return `(Age: ${age})`;
+    return age;
   }
 
   getToday(): Date {

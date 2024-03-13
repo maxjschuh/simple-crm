@@ -75,11 +75,11 @@
 
     </div>
 
-    <mat-progress-bar *ngIf="loading" id="progess-bar" mode="indeterminate"></mat-progress-bar>
-
 </mat-dialog-content>
 
 <mat-dialog-actions>
     <button mat-button (click)="onNoClick()" [disabled]="loading">Cancel</button>
     <button mat-button (click)="saveEdits()" [disabled]="loading">Save</button>
 </mat-dialog-actions>
+
+<mat-progress-bar *ngIf="loading" id="progess-bar" mode="indeterminate"></mat-progress-bar>

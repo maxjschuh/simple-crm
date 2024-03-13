@@ -37,7 +37,16 @@ export class DialogDeleteContactComponent {
     this.dialogRef.close();
   }
 
-  deleteContact() {
+  async deleteContact() {
 
+    this.loading = true;
+    await this.firestoreService.deleteDocument('users', this.user.id);
+
+    setTimeout(() => {
+
+      this.loading = false;
+      this.deletionConfirmed = false;
+      this.dialogRef.close();
+    }, 1000);
   }
 }
