@@ -1,0 +1,20 @@
+#inputs {
+    display: flex;
+    flex-direction: column;
+
+    mat-form-field {
+        padding: 8px 0;
+    }
+
+    .inputs-row {
+        display: flex;
+        gap: 16px;
+    }
+}
+
+#progess-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}

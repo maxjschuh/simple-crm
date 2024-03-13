@@ -19,6 +19,7 @@ import { DialogDeleteContactComponent } from '../dialog-delete-contact/dialog-de
 
 
 import { Transaction } from '@angular/fire/firestore';
+import { DialogAddTransactionComponent } from '../dialog-add-transaction/dialog-add-transaction.component';
 
 @Component({
   selector: 'app-transactions',
@@ -99,7 +100,7 @@ export class TransactionsComponent {
 
 
   openAddTransactionDialog() {
-
+    this.dialog.open(DialogAddTransactionComponent, {})
   }
 
   openEditTransactionDialog() {

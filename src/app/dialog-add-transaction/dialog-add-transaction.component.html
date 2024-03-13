@@ -1,0 +1,71 @@
+<h2 mat-dialog-title>Add Transaction</h2>
+
+<mat-dialog-content>
+
+    <div id="inputs">
+
+        <mat-form-field appearance="outline" [color]="'accent'">
+            <mat-label>Title</mat-label>
+            <input cdkFocusInitial matInput [(ngModel)]="transaction.title" type="text" required [disabled]="loading">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput></textarea>
+        </mat-form-field>
+
+        <div class="inputs-row">
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Type</mat-label>
+                <mat-select required [disabled]="loading">
+                    <mat-option [value]="transaction.type">{{'Sale'}}</mat-option>
+                    <mat-option [value]="transaction.type">{{'Purchase'}}</mat-option>
+                    <mat-option [value]="transaction.type">{{'Refund'}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Amount</mat-label>
+                <input matInput [(ngModel)]="transaction.amount" type="number" required [disabled]="loading">
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" [color]="'accent'">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="this.date" required [disabled]="loading"
+                [max]="dateService.getToday()">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="inputs-row">
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Payer</mat-label>
+                <input matInput [(ngModel)]="transaction.payer" type="text" required [disabled]="loading">
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Recipient</mat-label>
+                <input matInput [(ngModel)]="transaction.recipient" type="text" required [disabled]="loading">
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" [color]="'accent'">
+            <mat-label>Closed by</mat-label>
+            <input matInput [(ngModel)]="transaction.closedBy" type="text" required [disabled]="loading">
+        </mat-form-field>
+
+
+
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" [disabled]="loading">Cancel</button>
+    <button mat-button (click)="saveTransaction()" [disabled]="loading">Save</button>
+</mat-dialog-actions>
+
+<mat-progress-bar *ngIf="loading" id="progess-bar" mode="indeterminate"></mat-progress-bar>
