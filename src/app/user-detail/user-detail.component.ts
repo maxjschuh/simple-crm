@@ -7,7 +7,7 @@ import { FirestoreService } from '../services/firestore/firestore.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
-import { BirthDateService } from '../services/birth-date/birth-date.service';
+import { DateService } from '../services/date/date.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -35,7 +35,7 @@ export class UserDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private firestoreService: FirestoreService, 
-    public birthDateService: BirthDateService, 
+    public dateService: DateService, 
     public dialog: MatDialog,
     private commonService: CommonService) { }
 
@@ -45,7 +45,7 @@ export class UserDetailComponent implements OnInit {
       this.userId = params['id'];
     });
 
-    this.usersSubscriber = this.firestoreService.usersFrontendDistributor.subscribe((userList: User[]) => {
+    this.usersSubscriber = this.firestoreService.contactsFrontendDistributor.subscribe((userList: User[]) => {
       this.user = this.commonService.getUserFromUserList(userList, this.userId);
     });
   }

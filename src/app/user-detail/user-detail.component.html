@@ -54,8 +54,8 @@
         </mat-card-title>
         <div>
             {{ user.birthDate ?
-            (this.birthDateService.returnTimestampAsDateString(user.birthDate) + ' (Age: ' +
-            this.birthDateService.returnAge(user.birthDate)) + ')' : '' }}
+            (this.dateService.returnTimestampAsDateString(user.birthDate) + ' (Age: ' +
+            this.dateService.returnAge(user.birthDate)) + ')' : '' }}
 
         </div>
 
@@ -64,6 +64,27 @@
         </button>
         <mat-menu #menu3="matMenu">
             <button mat-menu-item (click)="openDialog('birthDate')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section>
+        <mat-card-title>
+            Sales
+        </mat-card-title>
+        <div>
+            Last purchase
+        </div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu4">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu4="matMenu">
+            <button mat-menu-item>
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>

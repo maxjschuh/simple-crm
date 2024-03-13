@@ -6,7 +6,7 @@ import { FirestoreService } from '../services/firestore/firestore.service';
 import { User } from '../models/user.class';
 import { NgIf } from '@angular/common';
 import { isPlatformBrowser } from "@angular/common";
-import { BirthDateService } from '../services/birth-date/birth-date.service';
+import { DateService } from '../services/date/date.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -58,12 +58,12 @@ export class DashboardComponent implements OnInit {
   constructor(
     private firestoreService: FirestoreService,
     @Inject(PLATFORM_ID) private platformId: any,
-    private birthDateService: BirthDateService
+    private dateService: DateService
   ) {
 
     this.usersSubscriber =
       this.firestoreService
-        .usersFrontendDistributor
+        .contactsFrontendDistributor
         .subscribe((userList: User[]) => {
 
           this.userList = userList;
@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit {
 
       if (user.birthDate) {
 
-        const age = this.birthDateService.returnAge(user.birthDate);
+        const age = this.dateService.returnAge(user.birthDate);
 
         if (age < 30) ageDistribution[0]++;
 

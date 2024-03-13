@@ -30,8 +30,8 @@
     <mat-cell *matCellDef="let user" [routerLink]="['/user', user.id]">
 
       {{ user.birthDate ?
-      (this.birthDateService.returnTimestampAsDateString(user.birthDate) + ' (Age: ' +
-      this.birthDateService.returnAge(user.birthDate)) + ')' : '' }}
+      (this.dateService.returnTimestampAsDateString(user.birthDate) + ' (Age: ' +
+      this.dateService.returnAge(user.birthDate)) + ')' : '' }}
 
     </mat-cell>
 
@@ -41,7 +41,7 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by email">
       E-mail
     </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
+    <mat-cell *matCellDef="let user" [routerLink]="['/user', user.id]"> {{user.email}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="street">

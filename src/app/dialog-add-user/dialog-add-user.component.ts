@@ -1,4 +1,4 @@
-import { BirthDateService } from '../services/birth-date/birth-date.service';
+import { DateService } from '../services/date/date.service';
 import { Component } from '@angular/core';
 import { FirestoreService } from '../services/firestore/firestore.service';
 import { FormsModule } from '@angular/forms';
@@ -44,7 +44,7 @@ export class DialogAddUserComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogAddUserComponent>,
     private firestoreService: FirestoreService,
-    public birthDateService: BirthDateService
+    public dateService: DateService
   ) { }
 
 

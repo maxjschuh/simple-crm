@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Firestore, collectionData, collection, doc, addDoc, setDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { User } from '../../models/user.class';
+import { Transaction } from '@angular/fire/firestore';
 
 
 @Injectable({
@@ -10,27 +11,39 @@ import { User } from '../../models/user.class';
 export class FirestoreService {
 
   firestore: Firestore = inject(Firestore);
-  users$: Observable<any[]>;
-  usersBackendSubscriber: any;
-  usersFrontendDistributor = new BehaviorSubject<User[]>([]);
+
+  contacts$: Observable<any[]>;
+  contactsBackendSubscriber: any;
+  contactsFrontendDistributor = new BehaviorSubject<User[]>([]);
+
+  transactions$: Observable<any[]>;
+  transactionsBackendSubscriber: any;
+  transactionsFrontendDistributor = new BehaviorSubject<Transaction[]>([]);
 
 
   constructor() {
 
-    this.users$ = this.getBackendSubscriber('users');
+    this.contacts$ = this.getBackendSubscriber('users');
+    this.transactions$ = this.getBackendSubscriber('transactions');
 
-    this.usersBackendSubscriber = this.users$
-      .subscribe((userList) => {
+    this.contactsBackendSubscriber =
+      this.contacts$.subscribe(contactList => {
 
-        this.usersFrontendDistributor.next(userList);
+        this.contactsFrontendDistributor.next(contactList);
       });
 
+    this.transactionsBackendSubscriber =
+      this.transactions$.subscribe(transactionList => {
+
+        this.transactionsFrontendDistributor.next(transactionList);
+      });
   }
 
 
   ngOnDestroy(): void {
 
-    this.usersBackendSubscriber.unsubscribe();
+    this.contactsBackendSubscriber.unsubscribe();
+    this.transactionsBackendSubscriber.unsubscribe();
   }
 
 
@@ -72,7 +85,7 @@ export class FirestoreService {
 
     const doc = this.getSingleDocumentRef(collectionId, documentId);
 
-    await updateDoc(doc, { fieldToUpdate: valueToSet});
+    await updateDoc(doc, { fieldToUpdate: valueToSet });
   }
 
 

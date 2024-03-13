@@ -1,4 +1,4 @@
-import { BirthDateService } from '../services/birth-date/birth-date.service';
+import { DateService } from '../services/date/date.service';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FirestoreService } from '../services/firestore/firestore.service';
 import { FormsModule } from '@angular/forms';
@@ -52,7 +52,7 @@ export class DialogEditUserComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogEditUserComponent>,
     public firestoreService: FirestoreService,
-    public birthDateService: BirthDateService,
+    public dateService: DateService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.user = data.user;

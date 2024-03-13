@@ -1,0 +1,133 @@
+<mat-chip-listbox multiple>
+
+    <mat-chip-option [selected]="columnSelectorButtons.date" (click)="toggleColumns(['date'])">
+        Date
+    </mat-chip-option>
+
+    <mat-chip-option [selected]="columnSelectorButtons.closedBy" (click)="toggleColumns(['closedBy'])">
+        Closed by
+    </mat-chip-option>
+
+    <mat-chip-option [selected]="columnSelectorButtons.amount" (click)="toggleColumns(['amount'])">
+        Amount
+    </mat-chip-option>
+
+    <mat-chip-option [selected]="columnSelectorButtons.type" (click)="toggleColumns(['type'])">
+        Type
+    </mat-chip-option>
+
+    <mat-chip-option [selected]="columnSelectorButtons.payer" (click)="toggleColumns(['payer'])">
+        Payer
+    </mat-chip-option>
+
+    <mat-chip-option [selected]="columnSelectorButtons.recipient" (click)="toggleColumns(['recipient'])">
+        Recipient
+    </mat-chip-option>
+
+</mat-chip-listbox>
+
+
+
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">
+            Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
+            {{this.dateService.returnTimestampAsDateString(transaction.date)}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by title">
+            Title
+        </mat-header-cell>
+        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
+            {{transaction.title}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="closedBy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by closed by">
+            Closed by
+        </mat-header-cell>
+        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
+            {{transaction.closedBy}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by amount">
+            Amount
+        </mat-header-cell>
+        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
+            {{transaction.amount}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by type">
+            Type
+        </mat-header-cell>
+        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
+            {{transaction.type}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="payer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by payer">
+            Payer
+        </mat-header-cell>
+        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
+            {{transaction.payer}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="recipient">
+        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by recipient">
+            Recipient
+        </mat-header-cell>
+        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
+            {{transaction.recipient}}
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="options">
+        <mat-header-cell class="options-cell" *matHeaderCellDef>
+        </mat-header-cell>
+        <mat-cell class="options-cell" *matCellDef="let transaction">
+
+            <button mat-icon-button [matMenuTriggerFor]="rowMenu" (click)="setDocumentInFocus(transaction.id)">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+
+
+</mat-table>
+
+
+<button id="button-add" mat-fab color="primary" matTooltip="Add transaction" [matTooltipPosition]="'left'"
+    (click)="openAddTransactionDialog()">
+    <mat-icon>add</mat-icon>
+</button>
+
+
+<mat-menu #rowMenu="matMenu">
+    <button mat-menu-item (click)="openEditTransactionDialog()">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+    </button>
+    <button mat-menu-item (click)="openDeleteTransactionDialog()">
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+    </button>
+</mat-menu>

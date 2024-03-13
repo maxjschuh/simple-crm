@@ -8,41 +8,44 @@ import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.compo
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FirestoreService } from '../services/firestore/firestore.service';
-import { User } from '../models/user.class';
 import { RouterModule } from '@angular/router';
 import { DateService } from '../services/date/date.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
 import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
-import { dataForEditDialog } from '../interfaces/data-for-edit-dialog.interface';
 import { CommonService } from '../services/common/common.service';
 import { DialogDeleteContactComponent } from '../dialog-delete-contact/dialog-delete-contact.component';
 
+
+import { Transaction } from '@angular/fire/firestore';
+
 @Component({
-  selector: 'app-user',
+  selector: 'app-transactions',
   standalone: true,
   imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddUserComponent, MatTableModule, MatSortModule, RouterModule, MatCardModule, MatChipsModule, MatMenuModule, DialogEditUserComponent, DialogDeleteContactComponent],
-  templateUrl: './user.component.html',
-  styleUrl: './user.component.scss'
+  templateUrl: './transactions.component.html',
+  styleUrl: './transactions.component.scss'
 })
-export class UserComponent {
+export class TransactionsComponent {
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'options'];
+  displayedColumns: string[] = ['title', 'date'];
   dataSource: any;
-  usersSubscriber: any;
+  transactionsSubscriber: any;
   documentInFocus!: string;
-  userList!: User[];
+  transactionsList!: Transaction[];
 
   columnSelectorButtons = {
-    birthDate: false,
-    email: false,
-    address: false
+    date: false,
+    closedBy: false,
+    amount: false,
+    type: false,
+    payer: false,
+    recipient: false
   }
 
   @ViewChild(MatSort)
   sort!: MatSort;
-
 
   constructor(
     public dialog: MatDialog,
@@ -50,54 +53,25 @@ export class UserComponent {
     public dateService: DateService,
     private commonService: CommonService) {
 
-    this.usersSubscriber = this.firestoreService.contactsFrontendDistributor.subscribe((userList: User[]) => {
+    this.transactionsSubscriber =
+      this.firestoreService
+        .transactionsFrontendDistributor
+        .subscribe((transactionsList: Transaction[]) => {
 
-      this.userList = userList;
-      this.updateTable(userList);
-    });
-
-    this.initializeColumnSelectorButtons();
-
+          this.transactionsList = transactionsList;
+          this.updateTable(transactionsList);
+        });
   }
 
   ngOnDestroy(): void {
-    this.usersSubscriber.unsubscribe();
+    this.transactionsSubscriber.unsubscribe();
   }
 
-  updateTable(userData: User[]): void {
+  updateTable(transactionsList: Transaction[]): void {
 
-    this.dataSource = new MatTableDataSource(userData);
+    this.dataSource = new MatTableDataSource(transactionsList);
     this.dataSource.sort = this.sort;
   }
-
-
-  openAddUserDialog(): void {
-    this.dialog.open(DialogAddUserComponent, {});
-
-  }
-
-  openEditUserDialog(): void {
-
-    const data: dataForEditDialog = {
-      fieldsToEdit: 'all',
-      user: this.commonService.getUserFromUserList(this.userList, this.documentInFocus)
-    };
-
-    this.dialog.open(DialogEditUserComponent, { data: data });
-  }
-
-  openDeleteUserDialog() {
-
-    const data = {
-      user: this.commonService.getUserFromUserList(this.userList, this.documentInFocus)
-    };
-
-    this.dialog.open(DialogDeleteContactComponent, { data: data });
-
-  }
-
-
-
 
   toggleColumns(columnsToToggle: string[]): void {
 
@@ -116,29 +90,6 @@ export class UserComponent {
 
   }
 
-  initializeColumnSelectorButtons(): void {
-
-    this.displayedColumns.forEach(column => {
-
-      switch (column) {
-
-        case 'birthDate':
-          this.columnSelectorButtons.birthDate = true;
-          break;
-
-        case 'email':
-          this.columnSelectorButtons.email = true;
-          break;
-
-        case 'street':
-          this.columnSelectorButtons.address = true;
-          break;
-
-        default:
-          break;
-      }
-    });
-  }
 
   setDocumentInFocus(documentId: string): void {
 
@@ -147,8 +98,16 @@ export class UserComponent {
   }
 
 
+  openAddTransactionDialog() {
+
+  }
+
+  openEditTransactionDialog() {
 
 
+  }
 
+  openDeleteTransactionDialog() {
 
+  }
 }
