@@ -89,17 +89,17 @@
 
 
 <button id="button-add" mat-fab color="primary" matTooltip="Add user" [matTooltipPosition]="'left'"
-  (click)="openDialog()">
+  (click)="openAddUserDialog()">
   <mat-icon>add</mat-icon>
 </button>
 
 
 <mat-menu #rowMenu="matMenu">
-  <button mat-menu-item (click)="test('edit')">
+  <button mat-menu-item (click)="openEditUserDialog()">
     <mat-icon>edit</mat-icon>
     <span>Edit</span>
   </button>
-  <button mat-menu-item (click)="test('delete')">
+  <button mat-menu-item (click)="openDeleteUserDialog()">
     <mat-icon>delete</mat-icon>
     <span>Delete</span>
   </button>

@@ -1,6 +1,5 @@
 import { BirthDateService } from '../services/birth-date/birth-date.service';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { dataForEditDialog } from '../interfaces/data-for-edit-dialog.interface';
 import { FirestoreService } from '../services/firestore/firestore.service';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';

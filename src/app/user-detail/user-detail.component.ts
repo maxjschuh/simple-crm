@@ -13,6 +13,8 @@ import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.co
 import { MatDialog } from '@angular/material/dialog';
 import { dataForEditDialog } from '../interfaces/data-for-edit-dialog.interface';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CommonService } from '../services/common/common.service';
+import { DialogDeleteContactComponent } from '../dialog-delete-contact/dialog-delete-contact.component';
 
 
 @Component({
@@ -27,10 +29,15 @@ export class UserDetailComponent implements OnInit {
   private routeSubscriber = new Subscription;
   usersSubscriber: any;
   editsSubscriber: any;
-  user: User = new User();
+  user = new User();
   userId = '';
 
-  constructor(private route: ActivatedRoute, private firestoreService: FirestoreService, public birthDateService: BirthDateService, public dialog: MatDialog) { }
+  constructor(
+    private route: ActivatedRoute,
+    private firestoreService: FirestoreService, 
+    public birthDateService: BirthDateService, 
+    public dialog: MatDialog,
+    private commonService: CommonService) { }
 
   ngOnInit(): void {
 
@@ -39,7 +46,7 @@ export class UserDetailComponent implements OnInit {
     });
 
     this.usersSubscriber = this.firestoreService.usersFrontendDistributor.subscribe((userList: User[]) => {
-      this.getUserFromUserList(userList);
+      this.user = this.commonService.getUserFromUserList(userList, this.userId);
     });
   }
 
@@ -49,20 +56,6 @@ export class UserDetailComponent implements OnInit {
     this.usersSubscriber.unsubscribe();
     // this.editsSubscriber.unsubscribe();
 
-  }
-
-
-  getUserFromUserList(userList: User[]): void {
-
-    for (let i = 0; i < userList.length; i++) {
-      const user = userList[i];
-
-      if (user.id === this.userId) {
-
-        this.user = new User(user);
-        return;
-      }
-    }
   }
 
   openDialog(fieldsToEdit: 'name+email' | 'address' | 'birthDate' | 'all'): void {
@@ -79,6 +72,15 @@ export class UserDetailComponent implements OnInit {
       this.user = new User(eventData)
     });
 
-    dialogRef.afterClosed().subscribe(result => { });
+  }
+
+  openDeleteUserDialog() {
+
+    const data = {
+      user: this.user
+    };
+
+    this.dialog.open(DialogDeleteContactComponent, { data: data });
+
   }
 }

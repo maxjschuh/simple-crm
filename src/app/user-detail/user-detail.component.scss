@@ -41,7 +41,7 @@
         .double-columns {
             display: flex;
             gap: 16px;
-        
+
             div {
                 width: calc(50% - 8px);
             }
@@ -58,5 +58,11 @@
 #button-edit {
     position: fixed;
     right: 24px;
+    bottom: 96px;
+}
+
+#button-delete {
+    position: fixed;
+    right: 24px;
     bottom: 24px;
-  }
+}

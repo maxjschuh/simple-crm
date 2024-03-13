@@ -5,30 +5,24 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 
-import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FirestoreService } from '../services/firestore/firestore.service';
 import { User } from '../models/user.class';
 import { RouterModule } from '@angular/router';
 import { BirthDateService } from '../services/birth-date/birth-date.service';
-import { MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
-
-
-export interface Dessert {
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
-}
+import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
+import { dataForEditDialog } from '../interfaces/data-for-edit-dialog.interface';
+import { CommonService } from '../services/common/common.service';
+import { DialogDeleteContactComponent } from '../dialog-delete-contact/dialog-delete-contact.component';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddUserComponent, MatTableModule, MatSortModule, RouterModule, MatRippleModule, MatCardModule, MatChipsModule, MatMenuModule],
+  imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddUserComponent, MatTableModule, MatSortModule, RouterModule, MatCardModule, MatChipsModule, MatMenuModule, DialogEditUserComponent, DialogDeleteContactComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
@@ -37,7 +31,8 @@ export class UserComponent {
   displayedColumns: string[] = ['firstName', 'lastName', 'options'];
   dataSource: any;
   usersSubscriber: any;
-  documentInFocus: number | undefined;
+  documentInFocus!: string;
+  userList!: User[];
 
   columnSelectorButtons = {
     birthDate: false,
@@ -49,21 +44,15 @@ export class UserComponent {
   sort!: MatSort;
 
 
-  desserts: Dessert[] = [
-    { name: 'Frozen yogurt', calories: 159, fat: 6, carbs: 24, protein: 4 },
-    { name: 'Ice cream sandwich', calories: 237, fat: 9, carbs: 37, protein: 4 },
-    { name: 'Eclair', calories: 262, fat: 16, carbs: 24, protein: 6 },
-    { name: 'Cupcake', calories: 305, fat: 4, carbs: 67, protein: 4 },
-    { name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4 },
-  ];
-
   constructor(
     public dialog: MatDialog,
     private firestoreService: FirestoreService,
-    public birthDateService: BirthDateService
-  ) {
+    public birthDateService: BirthDateService,
+    private commonService: CommonService) {
+
     this.usersSubscriber = this.firestoreService.usersFrontendDistributor.subscribe((userList: User[]) => {
 
+      this.userList = userList;
       this.updateTable(userList);
     });
 
@@ -82,12 +71,33 @@ export class UserComponent {
   }
 
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogAddUserComponent, {
-    });
+  openAddUserDialog(): void {
+    this.dialog.open(DialogAddUserComponent, {});
 
-    dialogRef.afterClosed().subscribe(result => { });
   }
+
+  openEditUserDialog(): void {
+
+    const data: dataForEditDialog = {
+      fieldsToEdit: 'all',
+      user: this.commonService.getUserFromUserList(this.userList, this.documentInFocus)
+    };
+
+    this.dialog.open(DialogEditUserComponent, { data: data });
+  }
+
+  openDeleteUserDialog() {
+
+    const data = {
+      user: this.commonService.getUserFromUserList(this.userList, this.documentInFocus)
+    };
+
+    this.dialog.open(DialogDeleteContactComponent, { data: data });
+
+  }
+
+
+
 
   toggleColumns(columnsToToggle: string[]): void {
 
@@ -130,11 +140,7 @@ export class UserComponent {
     });
   }
 
-  test(input: string) {
-    console.log(input, this.documentInFocus);
-  }
-
-  setDocumentInFocus(documentId: number): void {
+  setDocumentInFocus(documentId: string): void {
 
     this.documentInFocus = documentId;
 
