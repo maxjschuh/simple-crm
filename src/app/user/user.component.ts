@@ -14,6 +14,7 @@ import { BirthDateService } from '../services/birth-date/birth-date.service';
 import { MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 export interface Dessert {
@@ -27,24 +28,26 @@ export interface Dessert {
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddUserComponent, MatTableModule, MatSortModule, RouterModule, MatRippleModule, MatCardModule, MatChipsModule],
+  imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddUserComponent, MatTableModule, MatSortModule, RouterModule, MatRippleModule, MatCardModule, MatChipsModule, MatMenuModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
 export class UserComponent {
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'birthDate'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'options'];
   dataSource: any;
   usersSubscriber: any;
-
-  @ViewChild(MatSort)
-  sort!: MatSort;
+  documentInFocus: number | undefined;
 
   columnSelectorButtons = {
     birthDate: false,
     email: false,
     address: false
   }
+
+  @ViewChild(MatSort)
+  sort!: MatSort;
+
 
   desserts: Dessert[] = [
     { name: 'Frozen yogurt', calories: 159, fat: 6, carbs: 24, protein: 4 },
@@ -86,7 +89,9 @@ export class UserComponent {
     dialogRef.afterClosed().subscribe(result => { });
   }
 
-  toggleColumns(columnsToToggle: string[]) {
+  toggleColumns(columnsToToggle: string[]): void {
+
+    this.displayedColumns.pop(); //removing the 'options'...
 
     columnsToToggle.forEach(column => {
 
@@ -96,9 +101,12 @@ export class UserComponent {
 
       else this.displayedColumns.splice(index, 1);
     });
+
+    this.displayedColumns.push('options'); //... and adding them again at the end of the array so that they are always the most right column
+
   }
 
-  initializeColumnSelectorButtons() {
+  initializeColumnSelectorButtons(): void {
 
     this.displayedColumns.forEach(column => {
 
@@ -120,8 +128,18 @@ export class UserComponent {
           break;
       }
     });
+  }
+
+  test(input: string) {
+    console.log(input, this.documentInFocus);
+  }
+
+  setDocumentInFocus(documentId: number): void {
+
+    this.documentInFocus = documentId;
 
   }
+
 
 
 

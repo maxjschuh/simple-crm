@@ -1,7 +1,9 @@
 <mat-chip-listbox multiple>
-  <mat-chip-option [selected]="columnSelectorButtons.birthDate" (click)="toggleColumns(['birthDate'])">Birth Date</mat-chip-option>
+  <mat-chip-option [selected]="columnSelectorButtons.birthDate" (click)="toggleColumns(['birthDate'])">Birth
+    Date</mat-chip-option>
   <mat-chip-option [selected]="columnSelectorButtons.email" (click)="toggleColumns(['email'])">E-mail</mat-chip-option>
-  <mat-chip-option [selected]="columnSelectorButtons.address" (click)="toggleColumns(['street', 'houseNumber', 'zipCode', 'city'])">Address</mat-chip-option>
+  <mat-chip-option [selected]="columnSelectorButtons.address"
+    (click)="toggleColumns(['street', 'houseNumber', 'zipCode', 'city'])">Address</mat-chip-option>
 </mat-chip-listbox>
 
 
@@ -11,21 +13,21 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by firstName">
       First name
     </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{user.firstName}} </mat-cell>
+    <mat-cell *matCellDef="let user" [routerLink]="['/user', user.id]"> {{user.firstName}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="lastName">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by lastName">
       Last name
     </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{user.lastName}} </mat-cell>
+    <mat-cell *matCellDef="let user" [routerLink]="['/user', user.id]"> {{user.lastName}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="birthDate">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by birthDate">
       Birth Date
     </mat-header-cell>
-    <mat-cell *matCellDef="let user">{{ user.birthDate ?
+    <mat-cell *matCellDef="let user" [routerLink]="['/user', user.id]">{{ user.birthDate ?
       (this.birthDateService.returnTimestampAsDateString(user.birthDate) + ' ' +
       this.birthDateService.returnAge(user.birthDate)) : '-' }}</mat-cell>
   </ng-container>
@@ -41,34 +43,46 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by street">
       Street
     </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{user.street}} </mat-cell>
+    <mat-cell *matCellDef="let user" [routerLink]="['/user', user.id]"> {{user.street}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="houseNumber">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by houseNumber">
       House number
     </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{user.houseNumber}} </mat-cell>
+    <mat-cell *matCellDef="let user" [routerLink]="['/user', user.id]"> {{user.houseNumber}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="zipCode">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by zipCode">
       Zip code
     </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{user.zipCode}} </mat-cell>
+    <mat-cell *matCellDef="let user" [routerLink]="['/user', user.id]"> {{user.zipCode}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="city">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by city">
       City
     </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{user.city}} </mat-cell>
+    <mat-cell *matCellDef="let user" [routerLink]="['/user', user.id]"> {{user.city}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="options">
+    <mat-header-cell class="options-cell" *matHeaderCellDef>
+    </mat-header-cell>
+    <mat-cell class="options-cell" *matCellDef="let user">
+
+      <button mat-icon-button [matMenuTriggerFor]="rowMenu" (click)="setDocumentInFocus(user.id)">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+    </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
-    <mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/user', row.id]">
-    </mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;">
+  </mat-row>
 
 
 </mat-table>
@@ -78,3 +92,15 @@
   (click)="openDialog()">
   <mat-icon>add</mat-icon>
 </button>
+
+
+<mat-menu #rowMenu="matMenu">
+  <button mat-menu-item (click)="test('edit')">
+    <mat-icon>edit</mat-icon>
+    <span>Edit</span>
+  </button>
+  <button mat-menu-item (click)="test('delete')">
+    <mat-icon>delete</mat-icon>
+    <span>Delete</span>
+  </button>
+</mat-menu>
