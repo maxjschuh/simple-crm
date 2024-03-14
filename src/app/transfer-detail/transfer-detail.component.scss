@@ -1,0 +1,62 @@
+#top-card {
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: flex-end;
+    padding: 24px;
+    background-color: #7B1FA2;
+    position: relative;
+
+    mat-card-title {
+        margin-bottom: 8px;
+    }
+
+    mat-card-subtitle {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+    }
+
+
+}
+
+#bottom-card {
+    display: flex;
+    flex-direction: column;
+
+    section {
+        padding: 24px;
+        position: relative;
+
+
+    }
+}
+
+.double-columns {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+
+    div {
+        width: calc(50% - 8px);
+    }
+}
+
+.card-options {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+}
+
+#button-edit {
+    position: fixed;
+    right: 24px;
+    bottom: 96px;
+}
+
+#button-delete {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+}

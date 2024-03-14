@@ -1,1 +1,125 @@
-<p>transfer-detail works!</p>
+<mat-card id="top-card" color="primary">
+
+    <mat-card-header>
+        <mat-card-title>{{ transfer.title }}</mat-card-title>
+
+        <mat-card-subtitle>
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu1">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu1="matMenu">
+        <button mat-menu-item (click)="openDialog('name+email')">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+        </button>
+    </mat-menu>
+
+</mat-card>
+
+<mat-card id="bottom-card">
+
+    <section class="double-columns">
+
+        <div>
+            <mat-card-subtitle>
+                Payer
+            </mat-card-subtitle>
+            {{ transfer.payer }}
+        </div>
+
+        <div>
+            <mat-card-subtitle>
+                Recipient
+            </mat-card-subtitle>
+            {{ transfer.recipient }}
+        </div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item (click)="openDialog('address')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+
+    </section>
+
+    <mat-divider></mat-divider>
+
+
+    <section class="double-columns">
+
+        <div>
+            <mat-card-subtitle>
+                Type
+            </mat-card-subtitle>
+            {{ transfer.type }}
+        </div>
+
+        <div>
+            <mat-card-subtitle>
+                Amount
+            </mat-card-subtitle>
+            {{ transfer.amount }}€
+        </div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item (click)="openDialog('address')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section class="double-columns">
+
+        <div>
+            <mat-card-subtitle>
+                Closed by
+            </mat-card-subtitle>
+            {{ transfer.closedBy }}
+        </div>
+
+        <div>
+            <mat-card-subtitle>
+                Date
+            </mat-card-subtitle>
+            {{ transfer.date ? dateService.returnTimestampAsDateString(transfer.date) : '' }}
+        </div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item (click)="openDialog('address')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+
+    </section>
+
+</mat-card>
+
+<button id="button-edit" mat-fab color="primary" matTooltip="Edit transfer" [matTooltipPosition]="'left'"
+    (click)="openDialog('all')">
+    <mat-icon>edit</mat-icon>
+</button>
+
+<button id="button-delete" mat-fab color="primary" matTooltip="Delete transfer" [matTooltipPosition]="'left'">
+    <mat-icon>delete</mat-icon>
+</button>

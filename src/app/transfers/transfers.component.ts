@@ -59,7 +59,6 @@ export class TransfersComponent {
         .transfersFrontendDistributor
         .subscribe((transfersList: Transfer[]) => {
 
-          console.log(transfersList)
           this.transfersList = transfersList;
           this.updateTable(transfersList);
         });

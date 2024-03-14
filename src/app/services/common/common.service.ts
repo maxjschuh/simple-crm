@@ -18,9 +18,9 @@ export class CommonService {
     for (let i = 0; i < collection.length; i++) {
       const document = collection[i];
 
-      if (document.id === documentId) return new constructor();
+      if (document.id === documentId) return new constructor(document);
     }
 
-    return new User();
+    return new constructor();
   }
 }

@@ -53,4 +53,21 @@ export class TransferDetailComponent {
         });
   }
 
+
+  openDialog(fieldsToEdit: 'name+email' | 'address' | 'birthDate' | 'all'): void {
+
+    // const data: dataForEditDialog = {
+    //   fieldsToEdit: fieldsToEdit,
+    //   user: new User(this.user)
+    // };
+
+
+    // const dialogRef = this.dialog.open(DialogEditUserComponent, { data: data });
+
+    // this.editsSubscriber = dialogRef.componentInstance.savedEdits.subscribe((eventData: any) => {
+    //   this.user = new User(eventData)
+    // });
+
+  }
+
 }
