@@ -1,4 +1,4 @@
-export class Transaction {
+export class Transfer {
 
     date: number | undefined;
     title: string;

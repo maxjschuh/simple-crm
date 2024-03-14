@@ -34,8 +34,8 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">
             Date
         </mat-header-cell>
-        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
-            {{this.dateService.returnTimestampAsDateString(transaction.date)}}
+        <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            {{this.dateService.returnTimestampAsDateString(transfer.date)}}
         </mat-cell>
     </ng-container>
 
@@ -43,8 +43,8 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by title">
             Title
         </mat-header-cell>
-        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
-            {{transaction.title}}
+        <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            {{transfer.title}}
         </mat-cell>
     </ng-container>
 
@@ -52,8 +52,8 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by closed by">
             Closed by
         </mat-header-cell>
-        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
-            {{transaction.closedBy}}
+        <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            {{transfer.closedBy}}
         </mat-cell>
     </ng-container>
 
@@ -61,8 +61,8 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by amount">
             Amount
         </mat-header-cell>
-        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
-            {{transaction.amount}}
+        <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            {{transfer.amount}}
         </mat-cell>
     </ng-container>
 
@@ -70,8 +70,8 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by type">
             Type
         </mat-header-cell>
-        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
-            {{transaction.type}}
+        <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            {{transfer.type}}
         </mat-cell>
     </ng-container>
 
@@ -79,8 +79,8 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by payer">
             Payer
         </mat-header-cell>
-        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
-            {{transaction.payer}}
+        <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            {{transfer.payer}}
         </mat-cell>
     </ng-container>
 
@@ -88,8 +88,8 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by recipient">
             Recipient
         </mat-header-cell>
-        <mat-cell *matCellDef="let transaction" [routerLink]="['/transaction', transaction.id]">
-            {{transaction.recipient}}
+        <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            {{transfer.recipient}}
         </mat-cell>
     </ng-container>
 
@@ -97,9 +97,9 @@
     <ng-container matColumnDef="options">
         <mat-header-cell class="options-cell" *matHeaderCellDef>
         </mat-header-cell>
-        <mat-cell class="options-cell" *matCellDef="let transaction">
+        <mat-cell class="options-cell" *matCellDef="let transfer">
 
-            <button mat-icon-button [matMenuTriggerFor]="rowMenu" (click)="setDocumentInFocus(transaction.id)">
+            <button mat-icon-button [matMenuTriggerFor]="rowMenu" (click)="setDocumentInFocus(transfer.id)">
                 <mat-icon>more_vert</mat-icon>
             </button>
 
@@ -115,18 +115,18 @@
 </mat-table>
 
 
-<button id="button-add" mat-fab color="primary" matTooltip="Add transaction" [matTooltipPosition]="'left'"
-    (click)="openAddTransactionDialog()">
+<button id="button-add" mat-fab color="primary" matTooltip="Add transfer" [matTooltipPosition]="'left'"
+    (click)="openAddTransferDialog()">
     <mat-icon>add</mat-icon>
 </button>
 
 
 <mat-menu #rowMenu="matMenu">
-    <button mat-menu-item (click)="openEditTransactionDialog()">
+    <button mat-menu-item (click)="openEditTransferDialog()">
         <mat-icon>edit</mat-icon>
         <span>Edit</span>
     </button>
-    <button mat-menu-item (click)="openDeleteTransactionDialog()">
+    <button mat-menu-item (click)="openDeleteTransferDialog()">
         <mat-icon>delete</mat-icon>
         <span>Delete</span>
     </button>

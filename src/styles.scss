@@ -1,4 +1,3 @@
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -14,7 +13,7 @@ app-user {
     gap: 24px;
 }
 
-app-transactions {
+app-transfers {
     display: flex;
     flex-direction: column;
     gap: 24px;

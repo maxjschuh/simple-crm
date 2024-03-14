@@ -5,6 +5,7 @@
 up.bat
 .angular
 todo.txt
+.VSCodeCounter
 
 # Compiled output
 /dist

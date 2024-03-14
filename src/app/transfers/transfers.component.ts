@@ -18,23 +18,23 @@ import { CommonService } from '../services/common/common.service';
 import { DialogDeleteContactComponent } from '../dialog-delete-contact/dialog-delete-contact.component';
 
 
-import { Transaction } from '@angular/fire/firestore';
-import { DialogAddTransactionComponent } from '../dialog-add-transaction/dialog-add-transaction.component';
+import { Transfer } from '../models/transfer.class';
+import { DialogAddTransferComponent } from '../dialog-add-transfer/dialog-add-transfer.component';
 
 @Component({
-  selector: 'app-transactions',
+  selector: 'app-transfers',
   standalone: true,
   imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddUserComponent, MatTableModule, MatSortModule, RouterModule, MatCardModule, MatChipsModule, MatMenuModule, DialogEditUserComponent, DialogDeleteContactComponent],
-  templateUrl: './transactions.component.html',
-  styleUrl: './transactions.component.scss'
+  templateUrl: './transfers.component.html',
+  styleUrl: './transfers.component.scss'
 })
-export class TransactionsComponent {
+export class TransfersComponent {
 
   displayedColumns: string[] = ['title', 'date'];
   dataSource: any;
-  transactionsSubscriber: any;
+  transfersSubscriber: any;
   documentInFocus!: string;
-  transactionsList!: Transaction[];
+  transfersList!: Transfer[];
 
   columnSelectorButtons = {
     date: false,
@@ -54,23 +54,24 @@ export class TransactionsComponent {
     public dateService: DateService,
     private commonService: CommonService) {
 
-    this.transactionsSubscriber =
+    this.transfersSubscriber =
       this.firestoreService
-        .transactionsFrontendDistributor
-        .subscribe((transactionsList: Transaction[]) => {
+        .transfersFrontendDistributor
+        .subscribe((transfersList: Transfer[]) => {
 
-          this.transactionsList = transactionsList;
-          this.updateTable(transactionsList);
+          console.log(transfersList)
+          this.transfersList = transfersList;
+          this.updateTable(transfersList);
         });
   }
 
   ngOnDestroy(): void {
-    this.transactionsSubscriber.unsubscribe();
+    this.transfersSubscriber.unsubscribe();
   }
 
-  updateTable(transactionsList: Transaction[]): void {
+  updateTable(transfersList: Transfer[]): void {
 
-    this.dataSource = new MatTableDataSource(transactionsList);
+    this.dataSource = new MatTableDataSource(transfersList);
     this.dataSource.sort = this.sort;
   }
 
@@ -99,16 +100,16 @@ export class TransactionsComponent {
   }
 
 
-  openAddTransactionDialog() {
-    this.dialog.open(DialogAddTransactionComponent, {})
+  openAddTransferDialog() {
+    this.dialog.open(DialogAddTransferComponent, {})
   }
 
-  openEditTransactionDialog() {
+  openEditTransferDialog() {
 
 
   }
 
-  openDeleteTransactionDialog() {
+  openDeleteTransferDialog() {
 
   }
 }

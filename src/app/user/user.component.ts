@@ -80,7 +80,7 @@ export class UserComponent {
 
     const data: dataForEditDialog = {
       fieldsToEdit: 'all',
-      user: this.commonService.getUserFromUserList(this.userList, this.documentInFocus)
+      user: this.commonService.getDocumentFromCollection(this.userList, this.documentInFocus, User)
     };
 
     this.dialog.open(DialogEditUserComponent, { data: data });
@@ -89,7 +89,7 @@ export class UserComponent {
   openDeleteUserDialog() {
 
     const data = {
-      user: this.commonService.getUserFromUserList(this.userList, this.documentInFocus)
+      user: this.commonService.getDocumentFromCollection(this.userList, this.documentInFocus, User)
     };
 
     this.dialog.open(DialogDeleteContactComponent, { data: data });

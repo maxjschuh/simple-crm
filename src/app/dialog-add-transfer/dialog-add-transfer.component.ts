@@ -10,12 +10,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgIf } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { Transaction } from '../models/transaction.class';
+import { Transfer } from '../models/transfer.class';
 
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-dialog-add-transaction',
+  selector: 'app-dialog-add-transfer',
   standalone: true,
   imports: [FormsModule,
     MatButtonModule,
@@ -30,17 +30,17 @@ import { MatSelectModule } from '@angular/material/select';
     NgIf, 
     MatSelectModule],
   providers: [provideNativeDateAdapter()],
-  templateUrl: './dialog-add-transaction.component.html',
-  styleUrl: './dialog-add-transaction.component.scss'
+  templateUrl: './dialog-add-transfer.component.html',
+  styleUrl: './dialog-add-transfer.component.scss'
 })
-export class DialogAddTransactionComponent {
+export class DialogAddTransferComponent {
 
-  transaction = new Transaction();
+  transfer = new Transfer();
   date: Date | undefined = undefined;
   loading = false;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogAddTransactionComponent>,
+    public dialogRef: MatDialogRef<DialogAddTransferComponent>,
     private firestoreService: FirestoreService,
     public dateService: DateService
   ) { }
@@ -50,7 +50,18 @@ export class DialogAddTransactionComponent {
     this.dialogRef.close();
   }
 
-  saveTransaction() {
 
+  async saveTransfer() {
+
+    this.loading = true;
+    this.transfer.date = this.date ? this.date.getTime() : undefined;
+
+    const response = await this.firestoreService.addDocument('transfers', this.transfer.toJSON());
+    
+    setTimeout(() => {
+      
+      this.loading = false;
+      this.dialogRef.close();
+    }, 2000);
   }
 }
