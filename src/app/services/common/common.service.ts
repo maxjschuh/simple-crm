@@ -1,5 +1,5 @@
 import { Injectable, Type } from '@angular/core';
-import { User } from '../../models/user.class';
+import { Contact } from '../../models/contact.class';
 import { Transfer } from '../../models/transfer.class';
 
 @Injectable({
@@ -10,9 +10,9 @@ export class CommonService {
   constructor() { }
 
   getDocumentFromCollection(
-    collection: User[] | Transfer[],
+    collection: Contact[] | Transfer[],
     documentId: string,
-    constructor: Type<User | Transfer>
+    constructor: Type<Contact | Transfer>
   ): any {
 
     for (let i = 0; i < collection.length; i++) {

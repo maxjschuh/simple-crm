@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Delete Contact</h2>
+
+<mat-dialog-content>
+
+    <div>{{ contact.firstName + ' ' + contact.lastName }}</div>
+
+    <div>{{ contact.email }}</div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+    <mat-checkbox color="warn" [(ngModel)]="deletionConfirmed">
+        I understand that the contact will be deleted permanently and cannot be restored.
+    </mat-checkbox>
+
+    <button cdkFocusInitial mat-button (click)="onNoClick()" [disabled]="loading">Cancel</button>
+    <div [matTooltip]="deletionConfirmed ? '' : 'Accept checkbox to proceed'" [matTooltipPosition]="'right'">
+
+        <button mat-button color="warn" (click)="deleteContact()"
+            [disabled]="loading || !deletionConfirmed">Delete</button>
+    </div>
+</mat-dialog-actions>
+
+<mat-progress-bar *ngIf="loading" id="progess-bar" mode="indeterminate"></mat-progress-bar>

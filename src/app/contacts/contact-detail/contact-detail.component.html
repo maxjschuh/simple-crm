@@ -1,0 +1,104 @@
+<mat-card id="top-card" color="primary">
+
+    <img id="profile-img" src="./assets/img/profile_placeholder.svg" alt="placeholder for profile">
+
+    <mat-card-header>
+        <mat-card-title>{{ contact.firstName + ' ' + contact.lastName }}</mat-card-title>
+        <mat-card-subtitle>
+            <a mat-raised-button href="mailto:{{ contact.email }}">
+                <mat-icon>mail</mat-icon>
+                {{ contact.email }}</a>
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu1">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu1="matMenu">
+        <button mat-menu-item (click)="openDialog('name+email')">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+        </button>
+    </mat-menu>
+
+</mat-card>
+
+<mat-card id="bottom-card">
+
+    <section>
+        <mat-card-title>
+            Address
+        </mat-card-title>
+        <div class="double-columns">
+            <div>{{ contact.street + ' ' + contact.houseNumber }}</div>
+            <div>{{ contact.zipCode + ' ' + contact.city }}</div>
+        </div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item (click)="openDialog('address')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section>
+        <mat-card-title>
+            Date of Birth
+        </mat-card-title>
+        <div>
+            {{ contact.birthDate ?
+            (this.dateService.returnTimestampAsDateString(contact.birthDate) + ' (Age: ' +
+            this.dateService.returnAge(contact.birthDate)) + ')' : '' }}
+
+        </div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu3">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu3="matMenu">
+            <button mat-menu-item (click)="openDialog('birthDate')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section>
+        <mat-card-title>
+            Sales
+        </mat-card-title>
+        <div>
+            Last purchase
+        </div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu4">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu4="matMenu">
+            <button mat-menu-item>
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+    </section>
+
+</mat-card>
+
+<button id="button-edit" mat-fab color="primary" matTooltip="Edit contact" [matTooltipPosition]="'left'"
+    (click)="openDialog('all')">
+    <mat-icon>edit</mat-icon>
+</button>
+
+<button id="button-delete" mat-fab color="primary" matTooltip="Delete contact" [matTooltipPosition]="'left'"
+    (click)="openDeleteUserDialog()">
+    <mat-icon>delete</mat-icon>
+</button>

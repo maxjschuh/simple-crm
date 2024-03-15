@@ -3,7 +3,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { MatCardModule } from '@angular/material/card';
 import { FirestoreService } from '../services/firestore/firestore.service';
-import { User } from '../models/user.class';
+import { Contact } from '../models/contact.class';
 import { NgIf } from '@angular/common';
 import { isPlatformBrowser } from "@angular/common";
 import { DateService } from '../services/date/date.service';
@@ -18,7 +18,7 @@ import { DateService } from '../services/date/date.service';
 export class DashboardComponent implements OnInit {
 
   usersSubscriber: any;
-  userList!: User[];
+  userList!: Contact[];
 
   isBrowser!: boolean;
 
@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
     this.usersSubscriber =
       this.firestoreService
         .contactsFrontendDistributor
-        .subscribe((userList: User[]) => {
+        .subscribe((userList: Contact[]) => {
 
           this.userList = userList;
           this.pieChartData.datasets[0].data = this.createDataset();
@@ -84,11 +84,11 @@ export class DashboardComponent implements OnInit {
     let ageDistribution = [0, 0, 0, 0];
 
     for (let i = 0; i < this.userList.length; i++) {
-      const user = this.userList[i];
+      const contact = this.userList[i];
 
-      if (user.birthDate) {
+      if (contact.birthDate) {
 
-        const age = this.dateService.returnAge(user.birthDate);
+        const age = this.dateService.returnAge(contact.birthDate);
 
         if (age < 30) ageDistribution[0]++;
 

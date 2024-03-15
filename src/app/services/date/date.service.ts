@@ -18,7 +18,7 @@ export class DateService {
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
 
-    // If the user hasn't had their birthday yet this year, subtract one year
+    // If the contact hasn't had their birthday yet this year, subtract one year
     if (
       monthDiff < 0 ||
       (monthDiff === 0 && today.getDate() < birthDate.getDate())

@@ -1,15 +1,17 @@
 import { Routes } from '@angular/router';
-import { UserComponent } from './user/user.component';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserDetailComponent } from './user-detail/user-detail.component';
-import { TransfersComponent } from './transfers/transfers.component';
-import { TransferDetailComponent } from './transfer-detail/transfer-detail.component';
+
+import { TransfersComponent } from './transfers/transfers-table/transfers-table.component';
+import { TransferDetailComponent } from './transfers/transfer-detail/transfer-detail.component';
+import { ContactsTableComponent } from './contacts/contacts-table/contacts-table.component';
+import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 
 export const routes: Routes = [
-    { path: "", component: UserComponent, title: ""},
+    { path: "", component: ContactsTableComponent, title: ""},
     { path: "dashboard", component: DashboardComponent, title: "Simple-CRM | Dashboard"},
-    { path: "user", component: UserComponent, title: "Simple-CRM | User"}, 
-    { path: "user/:id", component: UserDetailComponent, title: "Simple-CRM | User-Details" },
+    { path: "contact", component: ContactsTableComponent, title: "Simple-CRM | Contact"}, 
+    { path: "contact/:id", component: ContactDetailComponent, title: "Simple-CRM | Contact-Details" },
     { path: "transfers", component: TransfersComponent, title: "Simple-CRM | Transfers" },
     { path: "transfer/:id", component: TransferDetailComponent, title: "Simple-CRM | Transfer-Details" }
 ];

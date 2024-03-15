@@ -1,13 +1,13 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-app-user-detail {
+app-contact-detail {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-app-user {
+app-contact {
     display: flex;
     flex-direction: column;
     gap: 24px;

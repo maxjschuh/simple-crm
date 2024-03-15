@@ -1,6 +1,6 @@
-import { User } from "../models/user.class"
+import { Contact } from "../models/contact.class"
 
 export interface dataForEditDialog {
     fieldsToEdit: 'name+email' | 'address' | 'birthDate' | 'all',
-    user: User
+    contact: Contact
 }
