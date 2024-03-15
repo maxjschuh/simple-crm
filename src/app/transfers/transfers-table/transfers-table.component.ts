@@ -5,7 +5,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddContactComponent } from '../../contacts/dialog-add-contact/dialog-add-contact.component';
 
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { RouterModule } from '@angular/router';
@@ -16,21 +16,27 @@ import { MatMenuModule } from '@angular/material/menu';
 import { DialogEditContactComponent } from '../../contacts/dialog-edit-contact/dialog-edit-contact.component';
 import { CommonService } from '../../services/common/common.service';
 import { DialogDeleteContactComponent } from '../../contacts/dialog-delete-contact/dialog-delete-contact.component';
+import { MatFormField } from '@angular/material/form-field';
+import { MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/select';
 
 
 import { Transfer } from '../../models/transfer.class';
 import { DialogAddTransferComponent } from '../dialog-add-transfer/dialog-add-transfer.component';
+import { MobileSort } from '../../interfaces/mobile-sort.interface';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-transfers-table',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddContactComponent, MatTableModule, MatSortModule, RouterModule, MatCardModule, MatChipsModule, MatMenuModule, DialogEditContactComponent, DialogDeleteContactComponent],
+  imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddContactComponent, MatTableModule, MatSortModule, RouterModule, MatCardModule, MatChipsModule, MatMenuModule, DialogEditContactComponent, DialogDeleteContactComponent, MatFormField, MatLabel, MatSelect, MatOption, NgIf],
   templateUrl: './transfers-table.component.html',
   styleUrl: './transfers-table.component.scss'
 })
 export class TransfersTableComponent {
 
-  displayedColumns: string[] = ['title', 'date'];
+  displayedColumns: string[] = ['title', 'date', 'options'];
   dataSource: any;
   transfersSubscriber: any;
   documentInFocus!: string;
@@ -43,7 +49,14 @@ export class TransfersTableComponent {
     type: false,
     payer: false,
     recipient: false
-  }
+  };
+
+  mobileSort: MobileSort = {
+    column: '',
+    direction: 'asc',
+    directionPicker: false,
+    directionPickerIcon: 'arrow_downward'
+  };
 
   @ViewChild(MatSort)
   sort!: MatSort;
@@ -110,5 +123,31 @@ export class TransfersTableComponent {
 
   openDeleteTransferDialog() {
 
+  }
+
+  changeSortDirectionMobile() {
+
+    if (this.mobileSort.direction === 'asc') {
+
+      this.mobileSort.direction = 'desc';
+      this.mobileSort.directionPickerIcon = 'arrow_upward';
+      
+    } else {
+      
+      this.mobileSort.direction = 'asc'
+      this.mobileSort.directionPickerIcon = 'arrow_downward';
+    }
+
+    this.sortTableMobile(undefined);
+  }
+
+  sortTableMobile(sortByColumn: string | undefined) {
+
+    this.mobileSort.directionPicker = true;
+
+    if (sortByColumn) this.mobileSort.column = sortByColumn;
+
+    this.sort.sort(({ id: this.mobileSort.column, start: this.mobileSort.direction }) as MatSortable);
+    this.dataSource.sort = this.sort;
   }
 }

@@ -1,26 +1,65 @@
 <mat-chip-listbox multiple>
-  <mat-chip-option [selected]="columnSelectorButtons.birthDate" (click)="toggleColumns(['birthDate'])">Birth
-    Date</mat-chip-option>
-  <mat-chip-option [selected]="columnSelectorButtons.email" (click)="toggleColumns(['email'])">E-mail</mat-chip-option>
+
+  <mat-chip-option [selected]="columnSelectorButtons.birthDate" (click)="toggleColumns(['birthDate'])">
+    BirthDate
+  </mat-chip-option>
+
+  <mat-chip-option [selected]="columnSelectorButtons.email" (click)="toggleColumns(['email'])">
+    E-mail
+  </mat-chip-option>
+
+  <mat-chip-option [selected]="columnSelectorButtons.phone" (click)="toggleColumns(['phone'])">
+    Phone
+  </mat-chip-option>
+
   <mat-chip-option [selected]="columnSelectorButtons.address"
-    (click)="toggleColumns(['street', 'houseNumber', 'zipCode', 'city'])">Address</mat-chip-option>
+    (click)="toggleColumns(['street', 'houseNumber', 'zipCode', 'city'])">
+    Address
+  </mat-chip-option>
+
 </mat-chip-listbox>
 
 
-<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+<div id="sort-mobile">
+  <mat-form-field>
+    <mat-label>Sort by</mat-label>
+    <mat-select (selectionChange)="sortTableMobile($event.value)">
+      <mat-option [value]="'firstName'">First name</mat-option>
+      <mat-option [value]="'lastName'">Last name</mat-option>
+      <mat-option [value]="'email'">E-mail</mat-option>
+      <mat-option [value]="'phone'">Phone</mat-option>
+      <mat-option [value]="'street'">Street</mat-option>
+      <mat-option [value]="'houseNumber'">House number</mat-option>
+      <mat-option [value]="'zipCode'">Zip code</mat-option>
+      <mat-option [value]="'city'">City</mat-option>
+      <mat-option [value]="'birthDate'">Birth Date</mat-option>
+
+    </mat-select>
+  </mat-form-field>
+
+  <button *ngIf="mobileSort.directionPicker" mat-icon-button (click)="changeSortDirectionMobile()">
+    <mat-icon [innerHTML]="mobileSort.directionPickerIcon"></mat-icon>
+  </button>
+</div>
+
+
+
+<mat-table id="table-desktop" [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
   <ng-container matColumnDef="firstName">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by firstName">
       First name
     </mat-header-cell>
-    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.firstName}} </mat-cell>
+    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.firstName}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="lastName">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by lastName">
       Last name
     </mat-header-cell>
-    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.lastName}} </mat-cell>
+    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.lastName}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="birthDate">
@@ -41,35 +80,48 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by email">
       E-mail
     </mat-header-cell>
-    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.email}} </mat-cell>
+    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.email}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="phone">
+    <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by phone">
+      Phone
+    </mat-header-cell>
+    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.phone}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="street">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by street">
       Street
     </mat-header-cell>
-    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.street}} </mat-cell>
+    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.street}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="houseNumber">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by houseNumber">
       House number
     </mat-header-cell>
-    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.houseNumber}} </mat-cell>
+    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]">
+      {{contact.houseNumber}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="zipCode">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by zipCode">
       Zip code
     </mat-header-cell>
-    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.zipCode}} </mat-cell>
+    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.zipCode}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="city">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by city">
       City
     </mat-header-cell>
-    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.city}} </mat-cell>
+    <mat-cell *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.city}}
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="options">
@@ -91,6 +143,84 @@
 
 
 </mat-table>
+
+
+
+
+<!-- stacked list table (for mobile view) -->
+<mat-card>
+
+  <mat-table id="table-mobile" [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <ng-container matColumnDef="firstName">
+      <mat-cell class="name" *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.firstName + '
+        ' + contact.lastName}}
+      </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="birthDate">
+      <mat-cell class="birthDate" *matCellDef="let contact" [routerLink]="['/contact', contact.id]">
+        {{ contact.birthDate ?
+        (this.dateService.returnTimestampAsDateString(contact.birthDate) + ' (Age: ' +
+        this.dateService.returnAge(contact.birthDate)) + ')' : '' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-cell class="email" *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.email}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <mat-cell class="phone" *matCellDef="let contact" [routerLink]="['/contact', contact.id]"> {{contact.phone}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="street">
+      <mat-cell class="street-houseNumber" *matCellDef="let contact" [routerLink]="['/contact', contact.id]">
+        {{contact.street + ' ' + contact.houseNumber }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="zipCode">
+      <mat-cell class="zipCode-city" *matCellDef="let contact" [routerLink]="['/contact', contact.id]">
+        {{contact.zipCode + ' ' + contact.city}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+      <mat-cell class="options-cell" *matCellDef="let contact">
+
+        <button mat-icon-button [matMenuTriggerFor]="rowMenu" (click)="setDocumentInFocus(contact.id)">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+      </mat-cell>
+    </ng-container>
+
+
+    <!-- Always hidden containers needed for mat-table functionality -->
+    <ng-container matColumnDef="city" style="display: none !important;">
+      <mat-cell *matCellDef="let contact" style="display: none !important;">
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName" style="display: none !important;">
+      <mat-cell class="empty-cell" *matCellDef="let contact" [routerLink]="['/contact', contact.id]">
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="houseNumber" style="display: none !important;">
+      <mat-cell *matCellDef="let contact" style="display: none !important;">
+      </mat-cell>
+    </ng-container>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+
+  </mat-table>
+</mat-card>
+
 
 
 <button id="button-add" mat-fab color="primary" matTooltip="Add contact" [matTooltipPosition]="'left'"

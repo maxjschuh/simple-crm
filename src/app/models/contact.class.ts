@@ -1,9 +1,10 @@
 export class Contact {
-    
+
     firstName: string;
     lastName: string;
     birthDate: number | undefined;
     email: string;
+    phone: number;
     street: string;
     houseNumber: string;
     zipCode: number | undefined;
@@ -16,6 +17,7 @@ export class Contact {
         this.lastName = object ? object.lastName : '';
         this.birthDate = object ? object.birthDate : undefined;
         this.email = object ? object.email : '';
+        this.phone = object ? object.phone : '';
         this.street = object ? object.street : '';
         this.houseNumber = object ? object.houseNumber : '';
         this.zipCode = object ? object.zipCode : undefined;
@@ -30,6 +32,7 @@ export class Contact {
             lastName: this.lastName,
             birthDate: this.birthDate,
             email: this.email,
+            phone: this.phone,
             street: this.street,
             houseNumber: this.houseNumber,
             zipCode: this.zipCode,

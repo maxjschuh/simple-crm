@@ -61,7 +61,7 @@ export class ContactDetailComponent implements OnInit {
 
   }
 
-  openEditDialog(fieldsToEdit: 'name+email' | 'address' | 'birthDate' | 'all'): void {
+  openEditDialog(fieldsToEdit: 'name+email+phone' | 'address' | 'birthDate' | 'all'): void {
 
     const data: dataForEditDialog = {
       fieldsToEdit: fieldsToEdit,

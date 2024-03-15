@@ -7,7 +7,13 @@
         <mat-card-subtitle>
             <a mat-raised-button href="mailto:{{ contact.email }}">
                 <mat-icon>mail</mat-icon>
-                {{ contact.email }}</a>
+                {{ contact.email }}
+            </a>
+
+            <a mat-raised-button href="tel:{{ contact.phone }}">
+                <mat-icon>call</mat-icon>
+                {{ contact.phone }}
+            </a>
         </mat-card-subtitle>
     </mat-card-header>
 
@@ -15,7 +21,7 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu1="matMenu">
-        <button mat-menu-item (click)="openEditDialog('name+email')">
+        <button mat-menu-item (click)="openEditDialog('name+email+phone')">
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
         </button>

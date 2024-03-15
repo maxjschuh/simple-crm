@@ -27,17 +27,28 @@
 </mat-chip-listbox>
 
 
+<div id="sort-mobile">
+    <mat-form-field>
+        <mat-label>Sort by</mat-label>
+        <mat-select (selectionChange)="sortTableMobile($event.value)">
+            <mat-option [value]="'title'">Title</mat-option>
+            <mat-option [value]="'date'">Date</mat-option>
+            <mat-option [value]="'closedBy'">Closed by</mat-option>
+            <mat-option [value]="'amount'">Amount</mat-option>
+            <mat-option [value]="'type'">Type</mat-option>
+            <mat-option [value]="'payer'">Payer</mat-option>
+            <mat-option [value]="'recipient'">Recipient</mat-option>
+        </mat-select>
+    </mat-form-field>
 
-<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <button *ngIf="mobileSort.directionPicker" mat-icon-button (click)="changeSortDirectionMobile()">
+        <mat-icon [innerHTML]="mobileSort.directionPickerIcon"></mat-icon>
+    </button>
+</div>
 
-    <ng-container matColumnDef="date">
-        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">
-            Date
-        </mat-header-cell>
-        <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
-            {{this.dateService.returnTimestampAsDateString(transfer.date)}}
-        </mat-cell>
-    </ng-container>
+
+
+<mat-table id="table-desktop" [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
     <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by title">
@@ -45,6 +56,15 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
             {{transfer.title}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">
+            Date
+        </mat-header-cell>
+        <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            {{this.dateService.returnTimestampAsDateString(transfer.date)}}
         </mat-cell>
     </ng-container>
 
@@ -93,7 +113,6 @@
         </mat-cell>
     </ng-container>
 
-
     <ng-container matColumnDef="options">
         <mat-header-cell class="options-cell" *matHeaderCellDef>
         </mat-header-cell>
@@ -113,6 +132,74 @@
 
 
 </mat-table>
+
+
+
+
+
+<!-- stacked list table (for mobile view) -->
+<mat-card>
+
+    <mat-table id="table-mobile" [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <ng-container matColumnDef="title">
+            <mat-cell class="closedBy" *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+                {{transfer.title}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="closedBy">
+            <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+                {{ 'Closed by: ' + transfer.closedBy}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+            <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+                {{this.dateService.returnTimestampAsDateString(transfer.date)}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+            <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+                {{transfer.amount}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+            <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+                {{transfer.type}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="payer">
+            <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+                {{ 'Payer: ' + transfer.payer}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="recipient">
+            <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+                {{ 'Recipient: ' + transfer.recipient}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="options">
+            <mat-cell class="options-cell" *matCellDef="let transfer">
+
+                <button mat-icon-button [matMenuTriggerFor]="rowMenu" (click)="setDocumentInFocus(transfer.id)">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+
+            </mat-cell>
+        </ng-container>
+
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+
+
+    </mat-table>
+</mat-card>
 
 
 <button id="button-add" mat-fab color="primary" matTooltip="Add transfer" [matTooltipPosition]="'left'"

@@ -5,7 +5,7 @@
     <div id="inputs">
 
         @if (
-        fieldsToEdit === 'name+email' ||
+        fieldsToEdit === 'name+email+phone' ||
         fieldsToEdit === 'all'
         ) {
         <div class="inputs-row">
@@ -35,12 +35,17 @@
         }
 
         @if (
-        fieldsToEdit === 'name+email' ||
+        fieldsToEdit === 'name+email+phone' ||
         fieldsToEdit === 'all'
         ) {
         <mat-form-field appearance="outline" [color]="'accent'">
             <mat-label>E-mail</mat-label>
-            <input matInput [(ngModel)]="contact.email" type="email" required [disabled]="loading">
+            <input matInput [(ngModel)]="contact.email" type="email" [disabled]="loading">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" [color]="'accent'">
+            <mat-label>Phone</mat-label>
+            <input matInput [(ngModel)]="contact.phone" type="tel" [disabled]="loading">
         </mat-form-field>
         }
 

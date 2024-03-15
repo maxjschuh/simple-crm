@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { Contact } from '../../models/contact.class';
@@ -18,11 +18,15 @@ import { CommonService } from '../../services/common/common.service';
 import { DialogDeleteContactComponent } from '../dialog-delete-contact/dialog-delete-contact.component';
 import { DialogAddContactComponent } from '../dialog-add-contact/dialog-add-contact.component';
 import { DialogEditContactComponent } from '../dialog-edit-contact/dialog-edit-contact.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MobileSort } from '../../interfaces/mobile-sort.interface';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-contacts-table',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddContactComponent, MatTableModule, MatSortModule, RouterModule, MatCardModule, MatChipsModule, MatMenuModule, DialogEditContactComponent, DialogDeleteContactComponent],
+  imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddContactComponent, MatTableModule, MatSortModule, RouterModule, MatCardModule, MatChipsModule, MatMenuModule, DialogEditContactComponent, DialogDeleteContactComponent, MatSelectModule, MatFormFieldModule, NgIf],
   templateUrl: './contacts-table.component.html',
   styleUrl: './contacts-table.component.scss'
 })
@@ -37,6 +41,7 @@ export class ContactsTableComponent {
   columnSelectorButtons = {
     birthDate: false,
     email: false,
+    phone: false,
     address: false
   }
 
@@ -59,6 +64,40 @@ export class ContactsTableComponent {
     this.initializeColumnSelectorButtons();
 
   }
+
+  mobileSort: MobileSort = {
+    column: '',
+    direction: 'asc',
+    directionPicker: false,
+    directionPickerIcon: 'arrow_downward'
+  }
+
+  changeSortDirectionMobile() {
+
+    if (this.mobileSort.direction === 'asc') {
+
+      this.mobileSort.direction = 'desc';
+      this.mobileSort.directionPickerIcon = 'arrow_upward';
+      
+    } else {
+      
+      this.mobileSort.direction = 'asc'
+      this.mobileSort.directionPickerIcon = 'arrow_downward';
+    }
+
+    this.sortTableMobile(undefined);
+  }
+
+  sortTableMobile(sortByColumn: string | undefined) {
+
+    this.mobileSort.directionPicker = true;
+
+    if (sortByColumn) this.mobileSort.column = sortByColumn;
+
+    this.sort.sort(({ id: this.mobileSort.column, start: this.mobileSort.direction }) as MatSortable);
+    this.dataSource.sort = this.sort;
+  }
+
 
   ngOnDestroy(): void {
     this.contactsSubscriber.unsubscribe();
@@ -123,13 +162,13 @@ export class ContactsTableComponent {
       switch (column) {
 
         case 'birthDate': this.columnSelectorButtons.birthDate = true;
-        break;
+          break;
 
         case 'email': this.columnSelectorButtons.email = true;
-        break;
+          break;
 
         case 'street': this.columnSelectorButtons.address = true;
-        break;
+          break;
 
         default:
           break;
