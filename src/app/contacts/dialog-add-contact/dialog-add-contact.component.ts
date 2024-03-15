@@ -50,12 +50,12 @@ export class DialogAddContactComponent {
   }
 
 
-  async saveUser() {
+  async saveContact() {
 
     this.loading = true;
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
-    const response = await this.firestoreService.addDocument('users', this.contact.toJSON());
+    const response = await this.firestoreService.addDocument('contacts', this.contact.toJSON());
     
     setTimeout(() => {
       

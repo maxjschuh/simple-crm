@@ -22,13 +22,13 @@ import { Transfer } from '../../models/transfer.class';
 import { DialogAddTransferComponent } from '../dialog-add-transfer/dialog-add-transfer.component';
 
 @Component({
-  selector: 'app-transfers',
+  selector: 'app-transfers-table',
   standalone: true,
   imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddContactComponent, MatTableModule, MatSortModule, RouterModule, MatCardModule, MatChipsModule, MatMenuModule, DialogEditContactComponent, DialogDeleteContactComponent],
   templateUrl: './transfers-table.component.html',
   styleUrl: './transfers-table.component.scss'
 })
-export class TransfersComponent {
+export class TransfersTableComponent {
 
   displayedColumns: string[] = ['title', 'date'];
   dataSource: any;

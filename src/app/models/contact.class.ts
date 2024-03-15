@@ -1,4 +1,5 @@
 export class Contact {
+    
     firstName: string;
     lastName: string;
     birthDate: number | undefined;

@@ -15,7 +15,7 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu1="matMenu">
-        <button mat-menu-item (click)="openDialog('name+email')">
+        <button mat-menu-item (click)="openEditDialog('name+email')">
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
         </button>
@@ -38,7 +38,7 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu2="matMenu">
-            <button mat-menu-item (click)="openDialog('address')">
+            <button mat-menu-item (click)="openEditDialog('address')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>
@@ -63,7 +63,7 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu3="matMenu">
-            <button mat-menu-item (click)="openDialog('birthDate')">
+            <button mat-menu-item (click)="openEditDialog('birthDate')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>
@@ -94,11 +94,11 @@
 </mat-card>
 
 <button id="button-edit" mat-fab color="primary" matTooltip="Edit contact" [matTooltipPosition]="'left'"
-    (click)="openDialog('all')">
+    (click)="openEditDialog('all')">
     <mat-icon>edit</mat-icon>
 </button>
 
 <button id="button-delete" mat-fab color="primary" matTooltip="Delete contact" [matTooltipPosition]="'left'"
-    (click)="openDeleteUserDialog()">
+    (click)="openDeleteContactDialog()">
     <mat-icon>delete</mat-icon>
 </button>

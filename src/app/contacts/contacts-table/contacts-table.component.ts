@@ -20,7 +20,7 @@ import { DialogAddContactComponent } from '../dialog-add-contact/dialog-add-cont
 import { DialogEditContactComponent } from '../dialog-edit-contact/dialog-edit-contact.component';
 
 @Component({
-  selector: 'app-contact',
+  selector: 'app-contacts-table',
   standalone: true,
   imports: [MatIconModule, MatButtonModule, MatTooltipModule, DialogAddContactComponent, MatTableModule, MatSortModule, RouterModule, MatCardModule, MatChipsModule, MatMenuModule, DialogEditContactComponent, DialogDeleteContactComponent],
   templateUrl: './contacts-table.component.html',
@@ -30,9 +30,9 @@ export class ContactsTableComponent {
 
   displayedColumns: string[] = ['firstName', 'lastName', 'options'];
   dataSource: any;
-  usersSubscriber: any;
+  contactsSubscriber: any;
   documentInFocus!: string;
-  userList!: Contact[];
+  contactsList!: Contact[];
 
   columnSelectorButtons = {
     birthDate: false,
@@ -50,10 +50,10 @@ export class ContactsTableComponent {
     public dateService: DateService,
     private commonService: CommonService) {
 
-    this.usersSubscriber = this.firestoreService.contactsFrontendDistributor.subscribe((userList: Contact[]) => {
+    this.contactsSubscriber = this.firestoreService.contactsFrontendDistributor.subscribe((contactsList: Contact[]) => {
 
-      this.userList = userList;
-      this.updateTable(userList);
+      this.contactsList = contactsList;
+      this.updateTable(contactsList);
     });
 
     this.initializeColumnSelectorButtons();
@@ -61,35 +61,35 @@ export class ContactsTableComponent {
   }
 
   ngOnDestroy(): void {
-    this.usersSubscriber.unsubscribe();
+    this.contactsSubscriber.unsubscribe();
   }
 
-  updateTable(userData: Contact[]): void {
+  updateTable(data: Contact[]): void {
 
-    this.dataSource = new MatTableDataSource(userData);
+    this.dataSource = new MatTableDataSource(data);
     this.dataSource.sort = this.sort;
   }
 
 
-  openAddUserDialog(): void {
+  openAddContactDialog(): void {
     this.dialog.open(DialogAddContactComponent, {});
 
   }
 
-  openEditUserDialog(): void {
+  openEditContactDialog(): void {
 
     const data: dataForEditDialog = {
       fieldsToEdit: 'all',
-      contact: this.commonService.getDocumentFromCollection(this.userList, this.documentInFocus, Contact)
+      contact: this.commonService.getDocumentFromCollection(this.contactsList, this.documentInFocus, Contact)
     };
 
     this.dialog.open(DialogEditContactComponent, { data: data });
   }
 
-  openDeleteUserDialog() {
+  openDeleteContactDialog() {
 
     const data = {
-      contact: this.commonService.getDocumentFromCollection(this.userList, this.documentInFocus, Contact)
+      contact: this.commonService.getDocumentFromCollection(this.contactsList, this.documentInFocus, Contact)
     };
 
     this.dialog.open(DialogDeleteContactComponent, { data: data });
@@ -122,17 +122,14 @@ export class ContactsTableComponent {
 
       switch (column) {
 
-        case 'birthDate':
-          this.columnSelectorButtons.birthDate = true;
-          break;
+        case 'birthDate': this.columnSelectorButtons.birthDate = true;
+        break;
 
-        case 'email':
-          this.columnSelectorButtons.email = true;
-          break;
+        case 'email': this.columnSelectorButtons.email = true;
+        break;
 
-        case 'street':
-          this.columnSelectorButtons.address = true;
-          break;
+        case 'street': this.columnSelectorButtons.address = true;
+        break;
 
         default:
           break;

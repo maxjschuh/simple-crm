@@ -40,7 +40,7 @@ export class DialogDeleteContactComponent {
   async deleteContact() {
 
     this.loading = true;
-    await this.firestoreService.deleteDocument('users', this.contact.id);
+    await this.firestoreService.deleteDocument('contacts', this.contact.id);
 
     setTimeout(() => {
 

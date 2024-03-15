@@ -71,7 +71,7 @@ export class DialogEditContactComponent {
     
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
-    await this.firestoreService.updateDocument('users', this.contact.id, this.contact.toJSON());
+    await this.firestoreService.updateDocument('contacts', this.contact.id, this.contact.toJSON());
 
     setTimeout(() => {
 

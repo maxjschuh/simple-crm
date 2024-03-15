@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DialogAddContactComponent } from './dialog-add-contact.component';
 
-describe('DialogAddUserComponent', () => {
+describe('DialogAddContactComponent', () => {
   let component: DialogAddContactComponent;
   let fixture: ComponentFixture<DialogAddContactComponent>;
 

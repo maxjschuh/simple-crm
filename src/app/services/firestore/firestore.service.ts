@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Firestore, collectionData, collection, doc, addDoc, setDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { Contact } from '../../models/contact.class';
 import { Transfer } from '../../models/transfer.class';
+import { Employee } from '../../models/employee.class';
 
 
 @Injectable({
@@ -20,22 +21,33 @@ export class FirestoreService {
   transfersBackendSubscriber: any;
   transfersFrontendDistributor = new BehaviorSubject<Transfer[]>([]);
 
+  employees$: Observable<any[]>;
+  employeesBackendSubscriber: any;
+  employeesFrontendDistributor = new BehaviorSubject<Employee[]>([]);
+
 
   constructor() {
 
-    this.contacts$ = this.getBackendSubscriber('users');
+    this.contacts$ = this.getBackendSubscriber('contacts');
     this.transfers$ = this.getBackendSubscriber('transfers');
+    this.employees$ = this.getBackendSubscriber('employees');
 
     this.contactsBackendSubscriber =
-      this.contacts$.subscribe(contactList => {
+      this.contacts$.subscribe(collection => {
 
-        this.contactsFrontendDistributor.next(contactList);
+        this.contactsFrontendDistributor.next(collection);
       });
 
     this.transfersBackendSubscriber =
-      this.transfers$.subscribe(transferList => {
+      this.transfers$.subscribe(collection => {
 
-        this.transfersFrontendDistributor.next(transferList);
+        this.transfersFrontendDistributor.next(collection);
+      });
+
+      this.employeesBackendSubscriber =
+      this.employees$.subscribe(collection => {
+
+        this.employeesFrontendDistributor.next(collection);
       });
   }
 
@@ -44,6 +56,7 @@ export class FirestoreService {
 
     this.contactsBackendSubscriber.unsubscribe();
     this.transfersBackendSubscriber.unsubscribe();
+    this.employeesBackendSubscriber.unsubscribe();
   }
 
 

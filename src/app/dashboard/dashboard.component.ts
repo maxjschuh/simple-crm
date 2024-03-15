@@ -17,8 +17,8 @@ import { DateService } from '../services/date/date.service';
 })
 export class DashboardComponent implements OnInit {
 
-  usersSubscriber: any;
-  userList!: Contact[];
+  contactsSubscriber: any;
+  contactsList!: Contact[];
 
   isBrowser!: boolean;
 
@@ -61,12 +61,12 @@ export class DashboardComponent implements OnInit {
     private dateService: DateService
   ) {
 
-    this.usersSubscriber =
+    this.contactsSubscriber =
       this.firestoreService
         .contactsFrontendDistributor
-        .subscribe((userList: Contact[]) => {
+        .subscribe((contactsList: Contact[]) => {
 
-          this.userList = userList;
+          this.contactsList = contactsList;
           this.pieChartData.datasets[0].data = this.createDataset();
         });
   }
@@ -76,15 +76,15 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    // this.usersSubscriber.unsubscribe();
+    // this.contactsSubscriber.unsubscribe();
   }
 
   createDataset() {
 
     let ageDistribution = [0, 0, 0, 0];
 
-    for (let i = 0; i < this.userList.length; i++) {
-      const contact = this.userList[i];
+    for (let i = 0; i < this.contactsList.length; i++) {
+      const contact = this.contactsList[i];
 
       if (contact.birthDate) {
 

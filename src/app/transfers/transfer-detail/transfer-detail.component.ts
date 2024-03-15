@@ -53,8 +53,7 @@ export class TransferDetailComponent {
         });
   }
 
-
-  openDialog(fieldsToEdit: 'name+email' | 'address' | 'birthDate' | 'all'): void {
+  openEditDialog(fieldsToEdit: 'name+email' | 'address' | 'birthDate' | 'all'): void {
 
     // const data: dataForEditDialog = {
     //   fieldsToEdit: fieldsToEdit,
@@ -62,7 +61,7 @@ export class TransferDetailComponent {
     // };
 
 
-    // const dialogRef = this.dialog.open(DialogEditUserComponent, { data: data });
+    // const dialogRef = this.dialog.open(DialogEditContactComponent, { data: data });
 
     // this.editsSubscriber = dialogRef.componentInstance.savedEdits.subscribe((eventData: any) => {
     //   this.contact = new Contact(eventData)

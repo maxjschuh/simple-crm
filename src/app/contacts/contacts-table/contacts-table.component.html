@@ -94,17 +94,17 @@
 
 
 <button id="button-add" mat-fab color="primary" matTooltip="Add contact" [matTooltipPosition]="'left'"
-  (click)="openAddUserDialog()">
+  (click)="openAddContactDialog()">
   <mat-icon>add</mat-icon>
 </button>
 
 
 <mat-menu #rowMenu="matMenu">
-  <button mat-menu-item (click)="openEditUserDialog()">
+  <button mat-menu-item (click)="openEditContactDialog()">
     <mat-icon>edit</mat-icon>
     <span>Edit</span>
   </button>
-  <button mat-menu-item (click)="openDeleteUserDialog()">
+  <button mat-menu-item (click)="openDeleteContactDialog()">
     <mat-icon>delete</mat-icon>
     <span>Delete</span>
   </button>

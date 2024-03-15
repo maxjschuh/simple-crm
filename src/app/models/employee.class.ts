@@ -1,4 +1,5 @@
 export class Employee {
+
     firstName: string;
     lastName: string;
     birthDate: number | undefined;
@@ -22,7 +23,7 @@ export class Employee {
         this.position = object ? object.position : '';
         this.supervisor = object ? object.supervisor : '';
         this.supervisorId = object ? object.supervisorId : '';
-        this.closingsIds = object ? object.closingsIds : [];        
+        this.closingsIds = object ? object.closingsIds : [];
         this.id = object ? object.id : '';
     }
 

@@ -27,10 +27,10 @@ import { DialogEditContactComponent } from '../dialog-edit-contact/dialog-edit-c
 export class ContactDetailComponent implements OnInit {
 
   private routeSubscriber = new Subscription;
-  usersSubscriber: any;
+  contactsSubscriber: any;
   editsSubscriber: any;
   contact = new Contact();
-  userId = '';
+  contactId = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -42,26 +42,26 @@ export class ContactDetailComponent implements OnInit {
   ngOnInit(): void {
 
     this.routeSubscriber = this.route.params.subscribe(params => {
-      this.userId = params['id'];
+      this.contactId = params['id'];
     });
 
-    this.usersSubscriber =
+    this.contactsSubscriber =
       this.firestoreService
         .contactsFrontendDistributor
-        .subscribe((userList: Contact[]) => {
-          this.contact = this.commonService.getDocumentFromCollection(userList, this.userId, Contact);
+        .subscribe((contactsList: Contact[]) => {
+          this.contact = this.commonService.getDocumentFromCollection(contactsList, this.contactId, Contact);
         });
   }
 
 
   ngOnDestroy(): void {
     this.routeSubscriber.unsubscribe();
-    this.usersSubscriber.unsubscribe();
+    this.contactsSubscriber.unsubscribe();
     // this.editsSubscriber.unsubscribe();
 
   }
 
-  openDialog(fieldsToEdit: 'name+email' | 'address' | 'birthDate' | 'all'): void {
+  openEditDialog(fieldsToEdit: 'name+email' | 'address' | 'birthDate' | 'all'): void {
 
     const data: dataForEditDialog = {
       fieldsToEdit: fieldsToEdit,
@@ -77,7 +77,7 @@ export class ContactDetailComponent implements OnInit {
 
   }
 
-  openDeleteUserDialog() {
+  openDeleteContactDialog() {
 
     const data = {
       contact: this.contact
