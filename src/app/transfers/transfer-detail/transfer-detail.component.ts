@@ -53,11 +53,11 @@ export class TransferDetailComponent {
         });
   }
 
-  openEditDialog(fieldsToEdit: 'name+email' | 'address' | 'birthDate' | 'all'): void {
+  openEditDialog(fieldsToEdit: any): void {
 
     // const data: dataForEditDialog = {
     //   fieldsToEdit: fieldsToEdit,
-    //   contact: new Contact(this.contact)
+    //   document: new Contact(this.contact)
     // };
 
 

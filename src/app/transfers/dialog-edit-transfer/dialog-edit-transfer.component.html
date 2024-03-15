@@ -1,0 +1,110 @@
+<h2 mat-dialog-title>Edit Transfer</h2>
+
+<mat-dialog-content>
+
+    <div id="inputs">
+
+        @if (
+        fieldsToEdit === 'title' ||
+        fieldsToEdit === 'all'
+        ) {
+
+        <mat-form-field appearance="outline" [color]="'accent'">
+            <mat-label>Title</mat-label>
+            <input cdkFocusInitial matInput [(ngModel)]="transfer.title" type="text" required [disabled]="loading">
+        </mat-form-field>
+
+        }
+
+        @if (
+        fieldsToEdit === 'payer+recipient' ||
+        fieldsToEdit === 'all'
+        ) {
+        <div class="inputs-row">
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Payer</mat-label>
+                <input type="text" matInput [formControl]="personPicker" [matAutocomplete]="auto"
+                    [value]="transfer.payer" required>
+
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+
+                    @for (person of personPickerFilteredOptions | async; track person; let index = $index ) {
+                    <mat-option [value]="person">{{person}}</mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <!-- <mat-form-field appearance="outline" [color]="'accent'">
+                    <mat-label>Recipient</mat-label>
+                    <input type="text" matInput [formControl]="personPicker"
+                        [matAutocomplete]="auto" [(ngModel)]="transfer.recipient" required>
+    
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        
+                        @for (person of personPickerFilteredOptions | async; track person; let index = $index ) {
+                        <mat-option [value]="person + index">{{person}}</mat-option>
+                        }
+                    </mat-autocomplete>
+                </mat-form-field> -->
+
+            <!-- <mat-form-field appearance="outline" [color]="'accent'">
+                    <mat-label>Recipient</mat-label>
+                    <input matInput [(ngModel)]="transfer.recipient" type="text" required [disabled]="loading">
+                </mat-form-field> -->
+        </div>
+        }
+
+        @if (
+        fieldsToEdit === 'type+amount' ||
+        fieldsToEdit === 'all'
+        ) {
+        <div class="inputs-row">
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Type</mat-label>
+                <mat-select required [disabled]="loading" [(value)]="transfer.type">
+                    <mat-option value="Sale">{{'Sale'}}</mat-option>
+                    <mat-option value="Purchase">{{'Purchase'}}</mat-option>
+                    <mat-option value="Refund">{{'Refund'}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Amount</mat-label>
+                <input matInput [(ngModel)]="transfer.amount" type="number" required [disabled]="loading">
+            </mat-form-field>
+        </div>
+        }
+
+        @if (
+        fieldsToEdit === 'closedBy+date' ||
+        fieldsToEdit === 'all'
+        ) {
+        <div class="inputs-row">
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="this.date" required [disabled]="loading"
+                    [max]="dateService.getToday()">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Closed by</mat-label>
+                <input matInput [(ngModel)]="transfer.closedBy" type="text" required [disabled]="loading">
+            </mat-form-field>
+        </div>
+        }
+
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" [disabled]="loading">Cancel</button>
+    <button mat-button (click)="saveEdits()" [disabled]="loading">Save</button>
+</mat-dialog-actions>
+
+<mat-progress-bar *ngIf="loading" id="progess-bar" mode="indeterminate"></mat-progress-bar>

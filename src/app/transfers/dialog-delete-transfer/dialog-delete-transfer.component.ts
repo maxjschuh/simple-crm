@@ -8,16 +8,16 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogDeleteContactComponent } from '../../contacts/dialog-delete-contact/dialog-delete-contact.component';
 import { FirestoreService } from '../../services/firestore/firestore.service';
-import { Employee } from '../../models/employee.class';
+import { Transfer } from '../../models/transfer.class';
 
 @Component({
-  selector: 'app-dialog-delete-employee',
+  selector: 'app-dialog-delete-transfer',
   standalone: true,
   imports: [MatDialogContent, MatCheckboxModule, MatDialogActions, MatDialogClose, MatProgressBarModule, MatButtonModule, MatDialogTitle, NgIf, FormsModule, MatTooltipModule],
-  templateUrl: './dialog-delete-employee.component.html',
-  styleUrl: './dialog-delete-employee.component.scss'
+  templateUrl: './dialog-delete-transfer.component.html',
+  styleUrl: './dialog-delete-transfer.component.scss'
 })
-export class DialogDeleteEmployeeComponent {
+export class DialogDeleteTransferComponent {
 
   loading = false;
   deletionConfirmed = false;
@@ -25,17 +25,17 @@ export class DialogDeleteEmployeeComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogDeleteContactComponent>,
     public firestoreService: FirestoreService,
-    @Inject(MAT_DIALOG_DATA) public employee: Employee
+    @Inject(MAT_DIALOG_DATA) public transfer: Transfer
   ) { }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  async deleteEmployee() {
+  async deleteTransfer() {
 
     this.loading = true;
-    await this.firestoreService.deleteDocument('employees', this.employee.id);
+    await this.firestoreService.deleteDocument('transfers', this.transfer.id);
 
     setTimeout(() => {
 

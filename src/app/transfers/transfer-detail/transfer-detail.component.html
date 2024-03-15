@@ -113,6 +113,28 @@
 
     </section>
 
+    <section class="double-columns">
+
+        <div>
+            <mat-card-subtitle>
+                Description
+            </mat-card-subtitle>
+            {{ transfer.description }}
+        </div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item (click)="openEditDialog('description')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+
+    </section>
+
 </mat-card>
 
 <button id="button-edit" mat-fab color="primary" matTooltip="Edit transfer" [matTooltipPosition]="'left'"

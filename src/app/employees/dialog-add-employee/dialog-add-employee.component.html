@@ -1,1 +1,68 @@
-<p>dialog-add-employee works!</p>
+<h2 mat-dialog-title>Add employee</h2>
+
+<mat-dialog-content>
+
+    <div id="inputs">
+
+        <div class="inputs-row">
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>First name</mat-label>
+                <input matInput [(ngModel)]="employee.firstName" type="text" cdkFocusInitial required
+                    [disabled]="loading">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Last name</mat-label>
+                <input matInput [(ngModel)]="employee.lastName" type="text" required [disabled]="loading">
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" [color]="'accent'">
+            <mat-label>Birth Date</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="this.birthDate" required [disabled]="loading"
+                [max]="dateService.getToday()">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="inputs-row">
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>E-mail</mat-label>
+                <input matInput [(ngModel)]="employee.email" type="email" required [disabled]="loading">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Phone</mat-label>
+                <input matInput [(ngModel)]="employee.phone" type="tel" [disabled]="loading">
+            </mat-form-field>
+
+        </div>
+
+        <mat-form-field appearance="outline" [color]="'accent'">
+            <mat-label>Position</mat-label>
+            <input matInput [(ngModel)]="employee.position" type="text" required [disabled]="loading">
+        </mat-form-field>
+
+        <div class="inputs-row">
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Department</mat-label>
+                <input matInput [(ngModel)]="employee.department" type="text" required [disabled]="loading">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Supervisor</mat-label>
+                <input matInput [(ngModel)]="employee.supervisor" type="text" required [disabled]="loading">
+            </mat-form-field>
+        </div>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" [disabled]="loading">Cancel</button>
+    <button mat-button (click)="saveEmployee()" [disabled]="loading">Save</button>
+</mat-dialog-actions>
+
+
+<mat-progress-bar *ngIf="loading" id="progess-bar" mode="indeterminate"></mat-progress-bar>

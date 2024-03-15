@@ -32,7 +32,7 @@ import { NgIf } from '@angular/common';
 })
 export class ContactsTableComponent {
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'options'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'options'];
   dataSource: any;
   contactsSubscriber: any;
   documentInFocus!: string;
@@ -40,9 +40,16 @@ export class ContactsTableComponent {
 
   columnSelectorButtons = {
     birthDate: false,
-    email: false,
+    email: true,
     phone: false,
     address: false
+  }
+
+  mobileSort: MobileSort = {
+    column: '',
+    direction: 'asc',
+    directionPicker: false,
+    directionPickerIcon: 'arrow_downward'
   }
 
   @ViewChild(MatSort)
@@ -65,22 +72,15 @@ export class ContactsTableComponent {
 
   }
 
-  mobileSort: MobileSort = {
-    column: '',
-    direction: 'asc',
-    directionPicker: false,
-    directionPickerIcon: 'arrow_downward'
-  }
-
   changeSortDirectionMobile() {
 
     if (this.mobileSort.direction === 'asc') {
 
       this.mobileSort.direction = 'desc';
       this.mobileSort.directionPickerIcon = 'arrow_upward';
-      
+
     } else {
-      
+
       this.mobileSort.direction = 'asc'
       this.mobileSort.directionPickerIcon = 'arrow_downward';
     }
@@ -119,7 +119,7 @@ export class ContactsTableComponent {
 
     const data: dataForEditDialog = {
       fieldsToEdit: 'all',
-      contact: this.commonService.getDocumentFromCollection(this.contactsList, this.documentInFocus, Contact)
+      document: this.commonService.getDocumentFromCollection(this.contactsList, this.documentInFocus, Contact)
     };
 
     this.dialog.open(DialogEditContactComponent, { data: data });
@@ -127,11 +127,9 @@ export class ContactsTableComponent {
 
   openDeleteContactDialog() {
 
-    const data = {
-      contact: this.commonService.getDocumentFromCollection(this.contactsList, this.documentInFocus, Contact)
-    };
+    const document = this.commonService.getDocumentFromCollection(this.contactsList, this.documentInFocus, Contact);
 
-    this.dialog.open(DialogDeleteContactComponent, { data: data });
+    this.dialog.open(DialogDeleteContactComponent, { data: document });
 
   }
 
@@ -168,6 +166,9 @@ export class ContactsTableComponent {
           break;
 
         case 'street': this.columnSelectorButtons.address = true;
+          break;
+
+        case 'phone': this.columnSelectorButtons.phone = true;
           break;
 
         default:

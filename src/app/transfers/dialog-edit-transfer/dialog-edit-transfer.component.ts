@@ -1,21 +1,23 @@
-import { NgIf } from '@angular/common';
+import { NgIf, AsyncPipe } from '@angular/common';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { ContactsTableComponent } from '../../contacts/contacts-table/contacts-table.component';
+import { MatSelectModule } from '@angular/material/select';
 import { DateService } from '../../services/date/date.service';
 import { FirestoreService } from '../../services/firestore/firestore.service';
-import { Employee } from '../../models/employee.class';
+import { Transfer } from '../../models/transfer.class';
 
 @Component({
-  selector: 'app-dialog-edit-employee',
+  selector: 'app-dialog-edit-transfer',
   standalone: true,
-  imports: [FormsModule,
+  imports: [
+    FormsModule,
     MatButtonModule,
     MatDatepickerModule,
     MatDialogActions,
@@ -25,16 +27,19 @@ import { Employee } from '../../models/employee.class';
     MatFormFieldModule,
     MatInputModule,
     MatProgressBarModule,
-    NgIf,
-    ContactsTableComponent
+    NgIf, 
+    MatSelectModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    AsyncPipe
   ],
-  templateUrl: './dialog-edit-employee.component.html',
-  styleUrl: './dialog-edit-employee.component.scss'
+  templateUrl: './dialog-edit-transfer.component.html',
+  styleUrl: './dialog-edit-transfer.component.scss'
 })
-export class DialogEditEmployeeComponent {
+export class DialogEditTransferComponent {
 
-  employee: Employee;
-  birthDate: Date | undefined = undefined;
+  transfer: Transfer;
+  date: Date | undefined = undefined;
   loading = false;
   fieldsToEdit: string;
 
@@ -46,14 +51,14 @@ export class DialogEditEmployeeComponent {
   }
 
   constructor(
-    public dialogRef: MatDialogRef<DialogEditEmployeeComponent>,
+    public dialogRef: MatDialogRef<DialogEditTransferComponent>,
     public firestoreService: FirestoreService,
     public dateService: DateService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.employee = data.contact;
+    this.transfer = data.contact;
     this.fieldsToEdit = data.fieldsToEdit;
-    this.birthDate = this.employee.birthDate ? new Date(this.employee.birthDate) : undefined;
+    this.date = this.transfer.date ? new Date(this.transfer.date) : undefined;
   }
 
 
@@ -65,14 +70,14 @@ export class DialogEditEmployeeComponent {
 
     this.loading = true;
     
-    this.employee.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
+    this.transfer.date = this.date ? this.date.getTime() : undefined;
 
-    await this.firestoreService.updateDocument('employees', this.employee.id, this.employee.toJSON());
+    await this.firestoreService.updateDocument('contacts', this.transfer.id, this.transfer.toJSON());
 
     setTimeout(() => {
 
       this.loading = false;
-      this.emitEvent(this.employee)
+      this.emitEvent(this.transfer)
       this.dialogRef.close();
     }, 2000);
 

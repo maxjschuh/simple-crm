@@ -65,7 +65,7 @@ export class ContactDetailComponent implements OnInit {
 
     const data: dataForEditDialog = {
       fieldsToEdit: fieldsToEdit,
-      contact: new Contact(this.contact)
+      document: new Contact(this.contact)
     };
 
 

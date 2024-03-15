@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { RouterModule } from '@angular/router';
@@ -14,10 +14,15 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonService } from '../../services/common/common.service';
 import { Employee } from '../../models/employee.class';
-
+import { DialogAddEmployeeComponent } from '../dialog-add-employee/dialog-add-employee.component';
+import { DialogDeleteEmployeeComponent } from '../dialog-delete-employee/dialog-delete-employee.component';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatOption, MatSelect } from '@angular/material/select';
+import { MobileSort } from '../../interfaces/mobile-sort.interface';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-employees',
+  selector: 'app-employees-table',
   standalone: true,
   imports: [
     MatIconModule,
@@ -28,14 +33,19 @@ import { Employee } from '../../models/employee.class';
     RouterModule,
     MatCardModule,
     MatChipsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    NgIf
   ],
   templateUrl: './employees-table.component.html',
   styleUrl: './employees-table.component.scss'
 })
 export class EmployeesTableComponent {
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'options'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'position', 'email', 'options'];
   dataSource: any;
   employeesSubscriber: any;
   documentInFocus!: string;
@@ -50,6 +60,13 @@ export class EmployeesTableComponent {
     supervisor: false
   }
 
+  mobileSort: MobileSort = {
+    column: '',
+    direction: 'asc',
+    directionPicker: false,
+    directionPickerIcon: 'arrow_downward'
+  }
+
   @ViewChild(MatSort)
   sort!: MatSort;
 
@@ -60,14 +77,14 @@ export class EmployeesTableComponent {
     public dateService: DateService,
     private commonService: CommonService) {
 
-    this.employeesSubscriber = 
-    this.firestoreService
-    .employeesFrontendDistributor
-    .subscribe((employeesList: Employee[]) => {
+    this.employeesSubscriber =
+      this.firestoreService
+        .employeesFrontendDistributor
+        .subscribe((employeesList: Employee[]) => {
 
-      this.employeesList = employeesList;
-      this.updateTable(employeesList);
-    });
+          this.employeesList = employeesList;
+          this.updateTable(employeesList);
+        });
 
     this.initializeColumnSelectorButtons();
 
@@ -91,23 +108,23 @@ export class EmployeesTableComponent {
       switch (column) {
 
         case 'birthDate': this.columnSelectorButtons.birthDate = true;
-        break;
-    
+          break;
+
         case 'email': this.columnSelectorButtons.email = true;
-        break;
-    
+          break;
+
         case 'phone': this.columnSelectorButtons.phone = true;
-        break;
-    
+          break;
+
         case 'department': this.columnSelectorButtons.department = true;
-        break;
-    
+          break;
+
         case 'position': this.columnSelectorButtons.position = true;
-        break;
-    
+          break;
+
         case 'supervisor': this.columnSelectorButtons.supervisor = true;
-        break;
-    
+          break;
+
         default:
           break;
       }
@@ -143,11 +160,42 @@ export class EmployeesTableComponent {
   }
 
   openAddEmployeeDialog() {
-
-
+    this.dialog.open(DialogAddEmployeeComponent, {});
   }
 
   openDeleteEmployeeDialog() {
 
+    const document = this.commonService.getDocumentFromCollection(this.employeesList, this.documentInFocus, Employee);
+
+    this.dialog.open(DialogDeleteEmployeeComponent, { data: document });
+  }
+
+
+
+
+  changeSortDirectionMobile() {
+
+    if (this.mobileSort.direction === 'asc') {
+
+      this.mobileSort.direction = 'desc';
+      this.mobileSort.directionPickerIcon = 'arrow_upward';
+
+    } else {
+
+      this.mobileSort.direction = 'asc'
+      this.mobileSort.directionPickerIcon = 'arrow_downward';
+    }
+
+    this.sortTableMobile(undefined);
+  }
+
+  sortTableMobile(sortByColumn: string | undefined) {
+
+    this.mobileSort.directionPicker = true;
+
+    if (sortByColumn) this.mobileSort.column = sortByColumn;
+
+    this.sort.sort(({ id: this.mobileSort.column, start: this.mobileSort.direction }) as MatSortable);
+    this.dataSource.sort = this.sort;
   }
 }

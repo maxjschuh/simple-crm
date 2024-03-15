@@ -1,15 +1,15 @@
 <mat-chip-listbox multiple>
 
-  <mat-chip-option [selected]="columnSelectorButtons.birthDate" (click)="toggleColumns(['birthDate'])">
-    BirthDate
-  </mat-chip-option>
-
   <mat-chip-option [selected]="columnSelectorButtons.email" (click)="toggleColumns(['email'])">
     E-mail
   </mat-chip-option>
 
   <mat-chip-option [selected]="columnSelectorButtons.phone" (click)="toggleColumns(['phone'])">
     Phone
+  </mat-chip-option>
+
+  <mat-chip-option [selected]="columnSelectorButtons.birthDate" (click)="toggleColumns(['birthDate'])">
+    BirthDate
   </mat-chip-option>
 
   <mat-chip-option [selected]="columnSelectorButtons.address"

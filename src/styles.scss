@@ -1,25 +1,24 @@
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-app-contact-detail {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+html,
+body {
+    height: 100%;
 }
 
-app-contacts-table {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-app-transfers-table {
+app-transfers-table,
+app-contacts-table,
+app-employees-table {
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
 
-app-transfer-detail {
+app-contact-detail,
+app-transfer-detail,
+app-employee-detail {
     display: flex;
     flex-direction: column;
     gap: 16px;

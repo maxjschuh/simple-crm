@@ -2,13 +2,13 @@ import { Component, Inject } from '@angular/core';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { Contact } from '../../models/contact.class';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Contact } from '../../models/contact.class';
 
 
 @Component({
@@ -21,17 +21,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class DialogDeleteContactComponent {
 
-  contact: Contact;
   loading = false;
   deletionConfirmed = false;
 
   constructor(
     public dialogRef: MatDialogRef<DialogDeleteContactComponent>,
     public firestoreService: FirestoreService,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    this.contact = data.contact;
-  }
+    @Inject(MAT_DIALOG_DATA) public contact: Contact
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();

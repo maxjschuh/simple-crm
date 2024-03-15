@@ -1,23 +1,29 @@
-<h2 mat-dialog-title>Delete Employee</h2>
+<h2 mat-dialog-title>Delete Transfer</h2>
 
 <mat-dialog-content>
 
-    <div>{{ employee.firstName + ' ' + employee.lastName }}</div>
+    <div>{{ transfer.title }}</div>
 
-    <div>{{ employee.email }}</div>
+    <div>
+        {{ 'Closed by: ' + transfer.closedBy + ' on ' + transfer.date }}
+    </div>
+
+    <div>
+        {{ 'Amount: ' + transfer.amount }}
+    </div>
 
 </mat-dialog-content>
 
 <mat-dialog-actions>
 
     <mat-checkbox color="warn" [(ngModel)]="deletionConfirmed">
-        I understand that the employee will be deleted permanently and cannot be restored.
+        I understand that the transfer will be deleted permanently and cannot be restored.
     </mat-checkbox>
 
     <button cdkFocusInitial mat-button (click)="onNoClick()" [disabled]="loading">Cancel</button>
     <div [matTooltip]="deletionConfirmed ? '' : 'Accept checkbox to proceed'" [matTooltipPosition]="'right'">
 
-        <button mat-button color="warn" (click)="deleteEmployee()"
+        <button mat-button color="warn" (click)="deleteTransfer()"
             [disabled]="loading || !deletionConfirmed">Delete</button>
     </div>
 </mat-dialog-actions>

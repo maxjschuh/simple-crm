@@ -15,7 +15,7 @@ import { Transfer } from '../../models/transfer.class';
 import { MatSelectModule } from '@angular/material/select';
 
 
-import {Observable, Subscriber, Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {AsyncPipe} from '@angular/common';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -24,7 +24,8 @@ import { Contact } from '../../models/contact.class';
 @Component({
   selector: 'app-dialog-add-transfer',
   standalone: true,
-  imports: [FormsModule,
+  imports: [
+    FormsModule,
     MatButtonModule,
     MatDatepickerModule,
     MatDialogActions,
@@ -38,7 +39,8 @@ import { Contact } from '../../models/contact.class';
     MatSelectModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    AsyncPipe],
+    AsyncPipe
+  ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './dialog-add-transfer.component.html',
   styleUrl: './dialog-add-transfer.component.scss'

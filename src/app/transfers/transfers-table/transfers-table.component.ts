@@ -26,6 +26,9 @@ import { Transfer } from '../../models/transfer.class';
 import { DialogAddTransferComponent } from '../dialog-add-transfer/dialog-add-transfer.component';
 import { MobileSort } from '../../interfaces/mobile-sort.interface';
 import { NgIf } from '@angular/common';
+import { dataForEditDialog } from '../../interfaces/data-for-edit-dialog.interface';
+import { DialogEditTransferComponent } from '../dialog-edit-transfer/dialog-edit-transfer.component';
+import { DialogDeleteTransferComponent } from '../dialog-delete-transfer/dialog-delete-transfer.component';
 
 @Component({
   selector: 'app-transfers-table',
@@ -36,15 +39,15 @@ import { NgIf } from '@angular/common';
 })
 export class TransfersTableComponent {
 
-  displayedColumns: string[] = ['title', 'date', 'options'];
+  displayedColumns: string[] = ['title', 'date', 'closedBy', 'options'];
   dataSource: any;
   transfersSubscriber: any;
   documentInFocus!: string;
   transfersList!: Transfer[];
 
   columnSelectorButtons = {
-    date: false,
-    closedBy: false,
+    date: true,
+    closedBy: true,
     amount: false,
     type: false,
     payer: false,
@@ -118,11 +121,19 @@ export class TransfersTableComponent {
 
   openEditTransferDialog() {
 
+    const data: dataForEditDialog = {
+      fieldsToEdit: 'all',
+      document: this.commonService.getDocumentFromCollection(this.transfersList, this.documentInFocus, Transfer)
+    };
 
+    this.dialog.open(DialogEditTransferComponent, { data: data });
   }
 
   openDeleteTransferDialog() {
 
+    const document = this.commonService.getDocumentFromCollection(this.transfersList, this.documentInFocus, Transfer);
+
+    this.dialog.open(DialogDeleteTransferComponent, { data: document });
   }
 
   changeSortDirectionMobile() {
@@ -131,9 +142,9 @@ export class TransfersTableComponent {
 
       this.mobileSort.direction = 'desc';
       this.mobileSort.directionPickerIcon = 'arrow_upward';
-      
+
     } else {
-      
+
       this.mobileSort.direction = 'asc'
       this.mobileSort.directionPickerIcon = 'arrow_downward';
     }
@@ -149,5 +160,35 @@ export class TransfersTableComponent {
 
     this.sort.sort(({ id: this.mobileSort.column, start: this.mobileSort.direction }) as MatSortable);
     this.dataSource.sort = this.sort;
+  }
+
+  initializeColumnSelectorButtons(): void {
+
+    this.displayedColumns.forEach(column => {
+
+      switch (column) {
+
+        case 'date': this.columnSelectorButtons.date = true;
+          break;
+
+        case 'closedBy': this.columnSelectorButtons.closedBy = true;
+          break;
+
+        case 'amount': this.columnSelectorButtons.amount = true;
+          break;
+
+        case 'type': this.columnSelectorButtons.type = true;
+          break;
+
+        case 'payer': this.columnSelectorButtons.payer = true;
+          break;
+
+        case 'recipient': this.columnSelectorButtons.recipient = true;
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 }

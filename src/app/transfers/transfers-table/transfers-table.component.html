@@ -1,19 +1,11 @@
 <mat-chip-listbox multiple>
 
-    <mat-chip-option [selected]="columnSelectorButtons.date" (click)="toggleColumns(['date'])">
-        Date
-    </mat-chip-option>
-
     <mat-chip-option [selected]="columnSelectorButtons.closedBy" (click)="toggleColumns(['closedBy'])">
         Closed by
     </mat-chip-option>
 
-    <mat-chip-option [selected]="columnSelectorButtons.amount" (click)="toggleColumns(['amount'])">
-        Amount
-    </mat-chip-option>
-
-    <mat-chip-option [selected]="columnSelectorButtons.type" (click)="toggleColumns(['type'])">
-        Type
+    <mat-chip-option [selected]="columnSelectorButtons.date" (click)="toggleColumns(['date'])">
+        Date
     </mat-chip-option>
 
     <mat-chip-option [selected]="columnSelectorButtons.payer" (click)="toggleColumns(['payer'])">
@@ -22,6 +14,14 @@
 
     <mat-chip-option [selected]="columnSelectorButtons.recipient" (click)="toggleColumns(['recipient'])">
         Recipient
+    </mat-chip-option>
+
+    <mat-chip-option [selected]="columnSelectorButtons.type" (click)="toggleColumns(['type'])">
+        Type
+    </mat-chip-option>
+
+    <mat-chip-option [selected]="columnSelectorButtons.amount" (click)="toggleColumns(['amount'])">
+        Amount
     </mat-chip-option>
 
 </mat-chip-listbox>
@@ -143,43 +143,43 @@
     <mat-table id="table-mobile" [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
         <ng-container matColumnDef="title">
-            <mat-cell class="closedBy" *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            <mat-cell class="title" *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
                 {{transfer.title}}
             </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="closedBy">
-            <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            <mat-cell class="closedBy" *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
                 {{ 'Closed by: ' + transfer.closedBy}}
             </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="date">
-            <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            <mat-cell class="date" *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
                 {{this.dateService.returnTimestampAsDateString(transfer.date)}}
             </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="amount">
-            <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            <mat-cell class="amount" *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
                 {{transfer.amount}}
             </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="type">
-            <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            <mat-cell class="type" *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
                 {{transfer.type}}
             </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="payer">
-            <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            <mat-cell class="payer" *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
                 {{ 'Payer: ' + transfer.payer}}
             </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="recipient">
-            <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
+            <mat-cell class="recipient" *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
                 {{ 'Recipient: ' + transfer.recipient}}
             </mat-cell>
         </ng-container>

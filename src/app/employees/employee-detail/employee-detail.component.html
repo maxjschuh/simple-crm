@@ -1,1 +1,130 @@
-<p>employee-detail works!</p>
+<mat-card id="top-card" color="primary">
+
+    <img id="profile-img" src="./assets/img/profile_placeholder.svg" alt="placeholder for profile">
+
+    <mat-card-header>
+        <mat-card-title>{{ employee.firstName + ' ' + employee.lastName }}</mat-card-title>
+        <mat-card-subtitle>
+            <a mat-raised-button href="mailto:{{ employee.email }}">
+                <mat-icon>mail</mat-icon>
+                {{ employee.email }}
+            </a>
+
+            <a mat-raised-button href="tel:{{ employee.phone }}">
+                <mat-icon>call</mat-icon>
+                {{ employee.phone }}
+            </a>
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu1">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu1="matMenu">
+        <button mat-menu-item (click)="openEditDialog('name+email+phone')">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+        </button>
+    </mat-menu>
+
+</mat-card>
+
+<mat-card id="bottom-card">
+
+    <section class="double-columns">
+
+        <div>
+            <mat-card-subtitle>
+                Position
+            </mat-card-subtitle>
+            {{ employee.position }}
+        </div>
+
+        <div>
+            <mat-card-subtitle>
+                Department
+            </mat-card-subtitle>
+            {{ employee.department }}
+        </div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item (click)="openEditDialog('position+department')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section class="double-columns">
+
+        <div>
+            <mat-card-subtitle>
+                Date of Birth
+            </mat-card-subtitle>
+            {{ employee.birthDate ?
+            (this.dateService.returnTimestampAsDateString(employee.birthDate) + ' (Age: ' +
+            this.dateService.returnAge(employee.birthDate)) + ')' : '' }}
+        </div>
+
+        <div>
+            <mat-card-subtitle>
+                Supervisor
+            </mat-card-subtitle>
+
+            <a mat-raised-button [routerLink]="['/employee', employee.supervisorId]">
+                {{ employee.supervisor }}
+            </a>
+        </div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item (click)="openEditDialog('birthDate+supervisor')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section>
+        <mat-card-title>
+            Sales
+        </mat-card-title>
+        <div>
+            Last purchase
+        </div>
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu4">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu4="matMenu">
+            <button mat-menu-item>
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+    </section>
+
+</mat-card>
+
+<button id="button-edit" mat-fab color="primary" matTooltip="Edit employee" [matTooltipPosition]="'left'"
+    (click)="openEditDialog('all')">
+    <mat-icon>edit</mat-icon>
+</button>
+
+<button id="button-delete" mat-fab color="primary" matTooltip="Delete employee" [matTooltipPosition]="'left'"
+    (click)="openDeleteEmployeeDialog()">
+    <mat-icon>delete</mat-icon>
+</button>
