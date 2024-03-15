@@ -1,7 +1,7 @@
 import { DateService } from '../services/date/date.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../services/firestore/firestore.service';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
@@ -13,6 +13,13 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { Transfer } from '../models/transfer.class';
 
 import { MatSelectModule } from '@angular/material/select';
+
+
+import {Observable, Subscriber, Subscription} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {AsyncPipe} from '@angular/common';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-dialog-add-transfer',
@@ -28,22 +35,70 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatProgressBarModule,
     NgIf, 
-    MatSelectModule],
+    MatSelectModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    AsyncPipe],
   providers: [provideNativeDateAdapter()],
   templateUrl: './dialog-add-transfer.component.html',
   styleUrl: './dialog-add-transfer.component.scss'
 })
-export class DialogAddTransferComponent {
+export class DialogAddTransferComponent implements OnInit {
+
+
 
   transfer = new Transfer();
   date: Date | undefined = undefined;
   loading = false;
 
+  contactsSubscriber = new Subscription;
+  contactsList: User[] = [];
+
+
+  personPicker = new FormControl({value: '', disabled: false});
+  personPickerOptions: string[] = [];
+  personPickerFilteredOptions!: Observable<string[]>;
+
   constructor(
     public dialogRef: MatDialogRef<DialogAddTransferComponent>,
     private firestoreService: FirestoreService,
     public dateService: DateService
-  ) { }
+  ) { 
+
+     this.contactsSubscriber = this.firestoreService.contactsFrontendDistributor.subscribe((contactsList: User[]) => {
+
+      this.contactsList = contactsList;
+    });
+  }
+
+
+  createDataForPersonsPicker() {
+
+    for (let i = 0; i < this.contactsList.length; i++) {
+      const contact = this.contactsList[i];
+      
+      const fullName = contact.firstName + ' ' + contact.lastName;
+
+      this.personPickerOptions.push(fullName);
+    }
+  }
+
+  ngOnInit() {
+
+    this.createDataForPersonsPicker();
+
+    this.personPickerFilteredOptions = this.personPicker.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+  }
+
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.personPickerOptions.filter(option => option.toLowerCase().includes(filterValue));
+  }
 
 
   onNoClick(): void {
@@ -52,6 +107,8 @@ export class DialogAddTransferComponent {
 
 
   async saveTransfer() {
+
+    this.personPicker = new FormControl({value: '', disabled: true});
 
     this.loading = true;
     this.transfer.date = this.date ? this.date.getTime() : undefined;
@@ -63,5 +120,10 @@ export class DialogAddTransferComponent {
       this.loading = false;
       this.dialogRef.close();
     }, 2000);
+  }
+
+  test(index: number, person: string) {
+
+    console.log(index, person)
   }
 }

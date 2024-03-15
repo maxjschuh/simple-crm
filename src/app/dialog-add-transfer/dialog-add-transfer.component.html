@@ -40,16 +40,37 @@
         </mat-form-field>
 
         <div class="inputs-row">
+
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Payer</mat-label>
-                <input matInput [(ngModel)]="transfer.payer" type="text" required [disabled]="loading">
+                <input type="text" matInput [formControl]="personPicker"
+                    [matAutocomplete]="auto" [value]="transfer.payer" required>
+
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    
+                    @for (person of personPickerFilteredOptions | async; track person; let index = $index ) {
+                    <mat-option [value]="person">{{person}}</mat-option>
+                    }
+                </mat-autocomplete>
             </mat-form-field>
 
+            <!-- <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Recipient</mat-label>
+                <input type="text" matInput [formControl]="personPicker"
+                    [matAutocomplete]="auto" [(ngModel)]="transfer.recipient" required>
 
-            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    
+                    @for (person of personPickerFilteredOptions | async; track person; let index = $index ) {
+                    <mat-option [value]="person + index">{{person}}</mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field> -->
+
+            <!-- <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Recipient</mat-label>
                 <input matInput [(ngModel)]="transfer.recipient" type="text" required [disabled]="loading">
-            </mat-form-field>
+            </mat-form-field> -->
         </div>
 
         <mat-form-field appearance="outline" [color]="'accent'">
