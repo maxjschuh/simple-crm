@@ -7,11 +7,12 @@ import { Contact } from '../models/contact.class';
 import { NgIf } from '@angular/common';
 import { isPlatformBrowser } from "@angular/common";
 import { DateService } from '../services/date/date.service';
+import { CashflowChartComponent } from './cashflow-chart/cashflow-chart.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [BaseChartDirective, MatCardModule, NgIf],
+  imports: [BaseChartDirective, MatCardModule, NgIf, CashflowChartComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -102,6 +103,7 @@ export class DashboardComponent implements OnInit {
 
     return ageDistribution;
   }
+
 
 
 

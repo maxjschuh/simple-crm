@@ -64,13 +64,17 @@ mat-table {
     display: none;
   }
 
+  #table-mobile-container {
+    background-color: var(--mat-table-background-color);
+
+  }
+
 
   mat-table {
     display: flex;
     flex-direction: column;
     background: none;
     border: none;
-    box-shadow: none;
 
     mat-row {
       display: flex;
@@ -128,7 +132,7 @@ mat-table {
         grid-column-end: 2;
         grid-row-start: 4;
         grid-row-end: 4;
-      }    
+      }
 
       .options-cell {
         position: absolute;
@@ -150,7 +154,7 @@ mat-table {
     }
 
     &:last-child {
-      border: unset;
+      border: none !important;
       padding-bottom: 0;
     }
 

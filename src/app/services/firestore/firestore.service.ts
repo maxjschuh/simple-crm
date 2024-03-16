@@ -44,7 +44,7 @@ export class FirestoreService {
         this.transfersFrontendDistributor.next(collection);
       });
 
-      this.employeesBackendSubscriber =
+    this.employeesBackendSubscriber =
       this.employees$.subscribe(collection => {
 
         this.employeesFrontendDistributor.next(collection);

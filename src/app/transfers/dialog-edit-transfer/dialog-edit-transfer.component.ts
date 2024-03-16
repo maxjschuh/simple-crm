@@ -70,7 +70,7 @@ export class DialogEditTransferComponent {
 
     this.loading = true;
     
-    this.transfer.date = this.date ? this.date.getTime() : undefined;
+    this.transfer.date = this.date ? this.date.getTime() : 0;
 
     await this.firestoreService.updateDocument('contacts', this.transfer.id, this.transfer.toJSON());
 

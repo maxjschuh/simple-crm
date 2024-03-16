@@ -1,11 +1,11 @@
 export class Transfer {
 
-    date: number | undefined;
+    date: number;
     title: string;
     description: string;
     closedBy: string;
     closedyById: string;
-    amount: number | undefined;
+    amount: number;
     type: 'Sale' | 'Refund' | 'Purchase' | '';
     payer: string;
     recipient: string;
@@ -15,12 +15,12 @@ export class Transfer {
 
 
     constructor(object?: any) {
-        this.date = object ? object.date : undefined;
+        this.date = object ? object.date : 0;
         this.title = object ? object.title : '';
         this.description = object ? object.description : '';
         this.closedBy = object ? object.closedBy : '';
         this.closedyById = object ? object.closedyById : '';
-        this.amount = object ? object.amount : undefined;
+        this.amount = object ? object.amount : 0;
         this.type = object ? object.type : '';
         this.payer = object ? object.payer : '';
         this.recipient = object ? object.recipient : '';

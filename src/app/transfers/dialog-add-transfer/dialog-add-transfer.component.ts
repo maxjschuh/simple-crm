@@ -113,7 +113,7 @@ export class DialogAddTransferComponent implements OnInit {
     this.personPicker = new FormControl({value: '', disabled: true});
 
     this.loading = true;
-    this.transfer.date = this.date ? this.date.getTime() : undefined;
+    this.transfer.date = this.date ? this.date.getTime() : 0;
 
     const response = await this.firestoreService.addDocument('transfers', this.transfer.toJSON());
     
