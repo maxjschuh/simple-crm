@@ -5,15 +5,17 @@ import { BaseChartDirective } from 'ng2-charts';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { Subscription } from 'rxjs';
 import { Transfer } from '../../models/transfer.class';
-import { isPlatformBrowser } from '@angular/common';
+import { NgIf, isPlatformBrowser } from '@angular/common';
 import { Employee } from '../../models/employee.class';
+import { DashboardDataService } from '../../services/dashboard-data/dashboard-data.service';
 
 @Component({
   selector: 'app-cashflow-chart',
   standalone: true,
   imports: [
     BaseChartDirective,
-    MatCardModule
+    MatCardModule,
+    NgIf
   ],
   templateUrl: './cashflow-chart.component.html',
   styleUrl: './cashflow-chart.component.scss'
@@ -40,6 +42,7 @@ export class CashflowChartComponent implements OnInit {
   };
 
   public lineChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
     elements: {
       line: {
         tension: 0.5,
@@ -77,10 +80,11 @@ export class CashflowChartComponent implements OnInit {
   transfersByLastSixMonths: any[] = [];
   isBrowser!: boolean;
 
-  topDealer = {id: '', revenue: 0};
+  topDealer = { employeeId: '', revenue: 0 };
 
   constructor(
     private firestoreService: FirestoreService,
+    private dashboardDataService: DashboardDataService,
     @Inject(PLATFORM_ID) private platformId: any,
   ) {
     this.transfersSubscriber =
@@ -110,7 +114,9 @@ export class CashflowChartComponent implements OnInit {
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
-    this.findTopDealer();
+    this.topDealer =
+      this.dashboardDataService
+        .returnTopEmployee(this.employeesList, this.transfersByLastSixMonths);
   }
 
   ngOnDestroy(): void {
@@ -196,47 +202,14 @@ export class CashflowChartComponent implements OnInit {
 
 
 
-  findTopDealer() {
-
-    let revenuesByEmployee: {id: string, revenue: number}[] = [];
-
-    for (let i = 0; i < this.employeesList.length; i++) {
-      const employee = this.employeesList[i];
-
-      revenuesByEmployee.push(this.computeTotalRevenueForEmployee(employee));
-    }
-
-    for (let j = 0; j < revenuesByEmployee.length; j++) {
-      const revenueEmployee = revenuesByEmployee[j];
-
-      if (revenueEmployee.revenue > this.topDealer.revenue) {
-        
-        this.topDealer = {id: revenueEmployee.id, revenue: revenueEmployee.revenue};
-      }
-    }
-  }
 
 
 
-  computeTotalRevenueForEmployee(employee: Employee): {id: string, revenue: number} {
-
-    let revenue = 0;
-  
-    for (let j = 0; j < this.transfersByLastSixMonths.length; j++) {
-      const transfer = this.transfersByLastSixMonths[j];
-  
-      if (transfer.closedyById === employee.id && transfer.amount > 0) {
-       
-        revenue = revenue + transfer.amount;
-      }
-    }
-
-    return {id: employee.id, revenue: revenue};
-  }
 
 
 
-  
+
+
 }
 
 

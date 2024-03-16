@@ -7,6 +7,7 @@
     <mat-card-content>
 
         <canvas
+        *ngIf="isBrowser"
         baseChart
         [data]="lineChartData"
         [options]="lineChartOptions"
@@ -14,11 +15,12 @@
       ></canvas>
 
     </mat-card-content>
-</mat-card>
- -->
+</mat-card> -->
 
 
+<mat-card id="cashflow-chart">
 
-<mat-card>
-    {{ 'topDealer' + topDealer.revenue + topDealer.id }}
+    <!-- <canvas *ngIf="isBrowser" baseChart [data]="lineChartData" [options]="lineChartOptions"
+        [type]="lineChartType"></canvas> -->
+
 </mat-card>
