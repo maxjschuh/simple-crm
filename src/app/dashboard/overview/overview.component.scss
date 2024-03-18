@@ -1,0 +1,30 @@
+.stats-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #424242;
+    border-radius: 16px;
+
+    &:hover {
+        background-color: rgba(66, 66, 66, 0.5);
+        cursor: pointer;
+    }
+}
+
+#single-row-container {
+    height: 100%;
+    width: calc(50% - 4px);
+}
+
+#double-row-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+    width: calc(50% - 4px);
+
+    div {
+        height: calc(50% - 4px);
+    }
+}

@@ -18,9 +18,11 @@
 </mat-card> -->
 
 
-<mat-card id="cashflow-chart">
+<canvas *ngIf="isBrowser" baseChart [data]="lineChartData" [options]="lineChartOptions"
+        [type]="lineChartType"></canvas>
 
-    <!-- <canvas *ngIf="isBrowser" baseChart [data]="lineChartData" [options]="lineChartOptions"
-        [type]="lineChartType"></canvas> -->
+<!-- <mat-card id="cashflow-chart">
 
-</mat-card>
+
+
+</mat-card> -->

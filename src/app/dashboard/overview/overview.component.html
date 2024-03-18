@@ -1,0 +1,23 @@
+<div id="single-row-container" class="stats-card" routerLink="./../contacts">
+    <mat-card-title>
+        Contacts
+    </mat-card-title>
+    {{dataService.returnDatabaseLength('contacts')}}
+</div>
+
+<div id="double-row-container">
+    <div class="stats-card" routerLink="./../transfers">
+        <mat-card-title>
+            Transfers
+        </mat-card-title>
+        {{dataService.returnDatabaseLength('transfers')}}
+    </div>
+
+
+    <div class="stats-card" routerLink="./../employees">
+        <mat-card-title>
+            Employees
+        </mat-card-title>
+        {{dataService.returnDatabaseLength('employees')}}
+    </div>
+</div>

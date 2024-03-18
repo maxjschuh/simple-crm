@@ -12,7 +12,7 @@ import { EmployeeDetailComponent } from './employees/employee-detail/employee-de
 export const routes: Routes = [
     { path: "", component: ContactsTableComponent, title: ""},
     { path: "dashboard", component: DashboardComponent, title: "Simple-CRM | Dashboard"},
-    { path: "contact", component: ContactsTableComponent, title: "Simple-CRM | Contact"}, 
+    { path: "contacts", component: ContactsTableComponent, title: "Simple-CRM | Contacts"}, 
     { path: "contact/:id", component: ContactDetailComponent, title: "Simple-CRM | Contact-Details" },
     { path: "transfers", component: TransfersTableComponent, title: "Simple-CRM | Transfers" },
     { path: "transfer/:id", component: TransferDetailComponent, title: "Simple-CRM | Transfer-Details" },
