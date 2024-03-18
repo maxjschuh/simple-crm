@@ -165,7 +165,7 @@ export class EmployeesTableComponent {
 
   openDeleteEmployeeDialog() {
 
-    const document = this.commonService.getDocumentFromCollection(this.employeesList, this.documentInFocus, Employee);
+    const document = this.commonService.getDocumentFromCollection('employees', this.documentInFocus, Employee);
 
     this.dialog.open(DialogDeleteEmployeeComponent, { data: document });
   }

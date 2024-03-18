@@ -4,6 +4,7 @@ import { Transfer } from '../../models/transfer.class';
 import { FirestoreService } from '../firestore/firestore.service';
 import { Subscription } from 'rxjs';
 import { Contact } from '../../models/contact.class';
+import { DateService } from '../date/date.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,17 @@ export class DashboardDataService {
   transfersSubscriber = new Subscription;
   transfers: Transfer[] = [];
 
-  contactsSubscriber = new Subscription;
+  contactsSubscriber = new Subscription; //not yet in use
   contacts: Contact[] = [];
 
+  transfersByLastSixMonths: any[] = [];
+
+  topDealer = { employeeId: '', revenue: 0 };
+
+
   constructor(
-    private firestoreService: FirestoreService) {
+    private firestoreService: FirestoreService,
+    private dateService: DateService) {
 
     this.employeesSubscriber =
       this.firestoreService
@@ -42,6 +49,8 @@ export class DashboardDataService {
         .subscribe(contacts => {
           this.contacts = contacts;
         });
+
+    this.transfersByLastSixMonths = this.returnTransfersLastSixMonths();
   }
 
   ngOnDestroy(): void {
@@ -53,17 +62,86 @@ export class DashboardDataService {
 
 
 
-  //Cashflow-Graph
 
-  returnTopEmployee(employeesList: Employee[], transfersSortedLastSixMonths: Transfer[][]) {
+
+
+  //Last six months sales data
+
+  returnTransfersLastSixMonths(): Transfer[][] {
+    const today = new Date();
+    let transfersLastSixMonths = [];
+
+    for (let i = 5; i >= 0; i--) {
+
+      const startOfMonth = new Date(today.getFullYear(), today.getMonth() - i, 1);
+      const endOfMonth = new Date(today.getFullYear(), today.getMonth() - i + 1, 0);
+
+      const objectsInMonth = this.transfers.filter(obj => {
+
+        const objDate = new Date(obj.date); // Convert milliseconds to Date object
+        return objDate >= startOfMonth && objDate <= endOfMonth;
+      });
+
+      transfersLastSixMonths.push(objectsInMonth);
+    }
+
+    return transfersLastSixMonths;
+  }
+
+
+
+  //Cashflow-Graph
+  returnDepositLastSixMonths() {
+
+    let depositCurrently = 0;
+
+    let depositMonthly: number[] = [];
+
+    for (let i = 0; i < this.transfersByLastSixMonths.length; i++) {
+      const transfersMonthly = this.transfersByLastSixMonths[i];
+
+      for (let j = 0; j < transfersMonthly.length; j++) {
+        const transfer = transfersMonthly[j];
+
+        depositCurrently = depositCurrently + transfer.amount;
+      }
+
+      depositMonthly.push(depositCurrently);
+    }
+
+    return depositMonthly;
+  }
+
+
+  returnNamesLastSixMonths(): string[] {
+    const months: string[] = [];
+    const currentDate: Date = new Date();
+    const monthNames: string[] = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    for (let i = 5; i >= 0; i--) {
+      const monthIndex = (currentDate.getMonth() - i + 12) % 12; // Ensure month index is in range [0, 11]
+      months.push(monthNames[monthIndex]);
+    }
+
+    return months;
+  }
+
+
+
+  //top employee
+
+  returnTopEmployee() {
 
     let revenuesByEmployee: { employeeId: string, revenue: number }[] = [];
 
-    for (let i = 0; i < employeesList.length; i++) {
-      const employee = employeesList[i];
+    for (let i = 0; i < this.employees.length; i++) {
+      const employee = this.employees[i];
 
       revenuesByEmployee.push(
-        this.computeTotalRevenueOfEmployee(employee, transfersSortedLastSixMonths)
+        this.computeTotalRevenueOfEmployee(employee, this.transfersByLastSixMonths)
       );
     }
 
@@ -111,18 +189,47 @@ export class DashboardDataService {
     return topDealer;
   }
 
-  //Overview Box
-  returnDatabaseLength(database: 'employees' | 'transfers' | 'contacts'): number | undefined {
 
-    switch (database) {
+  //pie chart
+  returnPieChartData(): number[] {
 
-      case 'employees': return this.employees.length;
+    let ageDistribution = [0, 0, 0, 0];
 
-      case 'transfers': return this.transfers.length;
+    for (let i = 0; i < this.contacts.length; i++) {
+      const contact = this.contacts[i];
 
-      case 'contacts': return this.contacts.length;
+      if (contact.birthDate) {
 
-      default: return undefined;
+        const age = this.dateService.returnAge(contact.birthDate);
+
+        if (age < 30) ageDistribution[0]++;
+
+        else if (age < 50) ageDistribution[1]++;
+
+        else if (age < 70) ageDistribution[2]++;
+
+        else ageDistribution[3]++;
+      }
     }
+
+    return ageDistribution;
   }
+
+
+
+
+  // dataArray: any[] = [
+  //   { id: 1, date: new Date('2024-03-01').getTime() }, // March 2024
+  //   { id: 2, date: new Date('2024-02-15').getTime() }, // February 2024
+  //   { id: 3, date: new Date('2024-01-05').getTime() }, // January 2024
+  //   { id: 4, date: new Date('2023-12-20').getTime() }, // December 2023
+  //   { id: 1, date: new Date('2024-03-01').getTime() }, // March 2024
+  //   { id: 2, date: new Date('2024-02-15').getTime() }, // February 2024
+  //   { id: 3, date: new Date('2024-01-05').getTime() }, // January 2024
+  //   { id: 4, date: new Date('2023-12-20').getTime() }, // December 2023
+  //   { id: 2, date: new Date('2024-02-15').getTime() }, // February 2024
+  //   { id: 3, date: new Date('2024-01-05').getTime() }, // January 2024
+  //   { id: 4, date: new Date('2023-12-20').getTime() }, // December 2023
+  //   // Add more sample objects as needed
+  // ];
 }

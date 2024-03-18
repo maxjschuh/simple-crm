@@ -3,10 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { FirestoreService } from '../../services/firestore/firestore.service';
-import { Subscription } from 'rxjs';
-import { Transfer } from '../../models/transfer.class';
 import { NgIf, isPlatformBrowser } from '@angular/common';
-import { Employee } from '../../models/employee.class';
 import { DashboardDataService } from '../../services/dashboard-data/dashboard-data.service';
 
 @Component({
@@ -30,12 +27,12 @@ export class CashflowChartComponent implements OnInit {
         data: [65, 59, 80, 81, 56, 55, 40],
         label: 'Cashflow',
         backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
+        borderColor: 'rgba(123,31,162,1)',
+        pointBackgroundColor: 'rgba(123,31,162,1)',
+        pointBorderColor: 'rgba(123,31,162,1)',
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
+        fill: 'rgba(123,31,162,1)',
       }
     ],
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -46,170 +43,59 @@ export class CashflowChartComponent implements OnInit {
     elements: {
       line: {
         tension: 0.5,
-      },
+      }
     },
-    scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
+    scales: { // We use this empty structure as a placeholder for dynamic theming.
       y: {
         position: 'left',
+        ticks: {
+          color: '#fff',
+        }
+      },
+      x: {
+        ticks: {
+          color: '#fff',
+        },
+        grid: {
+          color: 'rgba(255,255,255,0.2)',
+        }
       },
       y1: {
         position: 'right',
         grid: {
-          color: 'rgba(255,0,0,0.3)',
+          color: 'rgba(255,255,255,0.2)',
         },
         ticks: {
-          color: 'red',
-        },
-      },
+          color: 'rgb(66,66,66)',
+        }
+      }
     },
-
     plugins: {
       legend: { display: true }
-    },
+    }
   };
+
+  isBrowser!: boolean;
+
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  transfersSubscriber: Subscription;
-  transfersList: Transfer[] = [];
-
-  employeesSubscriber: Subscription;
-  employeesList: Employee[] = [];
-
-  transfersByLastSixMonths: any[] = [];
-  isBrowser!: boolean;
-
-  topDealer = { employeeId: '', revenue: 0 };
 
   constructor(
     private firestoreService: FirestoreService,
-    private dashboardDataService: DashboardDataService,
+    private dataService: DashboardDataService,
     @Inject(PLATFORM_ID) private platformId: any,
   ) {
-    this.transfersSubscriber =
-      this.firestoreService
-        .transfersFrontendDistributor
-        .subscribe(transfersList => {
 
-          this.transfersList = transfersList;
-        });
+    this.lineChartData.datasets[0].data = this.dataService.returnDepositLastSixMonths();
 
-    this.employeesSubscriber =
-      this.firestoreService
-        .employeesFrontendDistributor
-        .subscribe(employeesList => {
-
-          this.employeesList = employeesList;
-        });
-
-
-    this.generateArraysForLastSixMonths();
-    this.aggregateData();
-    console.log(this.transfersByLastSixMonths);
-
-    this.lineChartData.labels = this.getLastSixMonths();
+    this.lineChartData.labels = this.dataService.returnNamesLastSixMonths();
   }
+
 
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
-
-    this.topDealer =
-      this.dashboardDataService
-        .returnTopEmployee(this.employeesList, this.transfersByLastSixMonths);
   }
-
-  ngOnDestroy(): void {
-    // this.transfersSubscriber.unsubscribe();
-    this.employeesSubscriber.unsubscribe();
-  }
-
-  aggregateData() {
-
-    let depositCurrently = 0;
-
-    let depositMonthly: number[] = [];
-
-    for (let i = 0; i < this.transfersByLastSixMonths.length; i++) {
-      const transfersMonthly = this.transfersByLastSixMonths[i];
-
-      for (let j = 0; j < transfersMonthly.length; j++) {
-        const transfer = transfersMonthly[j];
-
-        depositCurrently = depositCurrently + transfer.amount;
-      }
-      console.log(depositCurrently)
-      depositMonthly.push(depositCurrently);
-    }
-    console.log(depositMonthly)
-    this.lineChartData.datasets[0].data = depositMonthly;
-  }
-
-  // dataArray: any[] = [
-  //   { id: 1, date: new Date('2024-03-01').getTime() }, // March 2024
-  //   { id: 2, date: new Date('2024-02-15').getTime() }, // February 2024
-  //   { id: 3, date: new Date('2024-01-05').getTime() }, // January 2024
-  //   { id: 4, date: new Date('2023-12-20').getTime() }, // December 2023
-  //   { id: 1, date: new Date('2024-03-01').getTime() }, // March 2024
-  //   { id: 2, date: new Date('2024-02-15').getTime() }, // February 2024
-  //   { id: 3, date: new Date('2024-01-05').getTime() }, // January 2024
-  //   { id: 4, date: new Date('2023-12-20').getTime() }, // December 2023
-  //   { id: 2, date: new Date('2024-02-15').getTime() }, // February 2024
-  //   { id: 3, date: new Date('2024-01-05').getTime() }, // January 2024
-  //   { id: 4, date: new Date('2023-12-20').getTime() }, // December 2023
-  //   // Add more sample objects as needed
-  // ];
-
-
-  generateArraysForLastSixMonths(): void {
-    const today = new Date();
-    let dataArray = this.transfersList;
-    this.transfersByLastSixMonths = [];
-
-    for (let i = 5; i >= 0; i--) {
-
-      const startOfMonth = new Date(today.getFullYear(), today.getMonth() - i, 1);
-      const endOfMonth = new Date(today.getFullYear(), today.getMonth() - i + 1, 0);
-
-      const objectsInMonth = dataArray.filter(obj => {
-
-        const objDate = new Date(obj.date); // Convert milliseconds to Date object
-        return objDate >= startOfMonth && objDate <= endOfMonth;
-      });
-
-      this.transfersByLastSixMonths.push(objectsInMonth);
-    }
-  }
-
-  getLastSixMonths(): string[] {
-    const months: string[] = [];
-    const currentDate: Date = new Date();
-    const monthNames: string[] = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ];
-
-    for (let i = 5; i >= 0; i--) {
-      const monthIndex = (currentDate.getMonth() - i + 12) % 12; // Ensure month index is in range [0, 11]
-      months.push(monthNames[monthIndex]);
-    }
-
-    console.log(months)
-    return months;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

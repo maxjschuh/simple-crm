@@ -123,7 +123,7 @@ export class TransfersTableComponent {
 
     const data: dataForEditDialog = {
       fieldsToEdit: 'all',
-      document: this.commonService.getDocumentFromCollection(this.transfersList, this.documentInFocus, Transfer)
+      document: this.commonService.getDocumentFromCollection('transfers', this.documentInFocus, Transfer)
     };
 
     this.dialog.open(DialogEditTransferComponent, { data: data });
@@ -131,7 +131,7 @@ export class TransfersTableComponent {
 
   openDeleteTransferDialog() {
 
-    const document = this.commonService.getDocumentFromCollection(this.transfersList, this.documentInFocus, Transfer);
+    const document = this.commonService.getDocumentFromCollection('transfers', this.documentInFocus, Transfer);
 
     this.dialog.open(DialogDeleteTransferComponent, { data: document });
   }

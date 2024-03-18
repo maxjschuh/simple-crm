@@ -49,7 +49,7 @@ export class TransferDetailComponent {
         .transfersFrontendDistributor
         .subscribe((transferList: Transfer[]) => {
 
-          this.transfer = this.commonService.getDocumentFromCollection(transferList, this.transferId, Transfer);
+          this.transfer = this.commonService.getDocumentFromCollection('transfers', this.transferId, Transfer);
         });
   }
 

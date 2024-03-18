@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { DashboardDataService } from '../../services/dashboard-data/dashboard-data.service';
 import { RouterModule } from '@angular/router';
+import { CommonService } from '../../services/common/common.service';
 
 @Component({
   selector: 'app-overview',
@@ -13,9 +13,7 @@ import { RouterModule } from '@angular/router';
 export class OverviewComponent {
 
   constructor(
-    public dataService: DashboardDataService
-  ) {
-
-  }
+    public commonService: CommonService
+  ) { }
 
 }

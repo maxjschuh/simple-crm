@@ -49,7 +49,7 @@ export class EmployeeDetailComponent implements OnInit {
         .employeesFrontendDistributor
         .subscribe((employeesList: Employee[]) => {
 
-          this.employee = this.commonService.getDocumentFromCollection(employeesList, this.employeeId, Employee);
+          this.employee = this.commonService.getDocumentFromCollection('employees', this.employeeId, Employee);
         });
   }
 

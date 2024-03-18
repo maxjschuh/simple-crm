@@ -123,9 +123,4 @@ export class DialogAddTransferComponent implements OnInit {
       this.dialogRef.close();
     }, 2000);
   }
-
-  test(index: number, person: string) {
-
-    console.log(index, person)
-  }
 }

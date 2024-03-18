@@ -1,29 +1,15 @@
-<!-- <mat-card id="age-demographic-chart">
-
-    <mat-card-header>
-        <mat-card-title>Contacts: Age demographic</mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content>
-
-        <canvas *ngIf="isBrowser" baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions">
-        </canvas>
-
-    </mat-card-content>
-</mat-card> -->
-
-
-
-<mat-card class="element element1">
-
+<mat-card id="bento1" class="bento">
+    <app-pie-chart></app-pie-chart>
 </mat-card>
 
-<mat-card class="element element2">
+<mat-card id="bento2" class="bento">
     <app-cashflow-chart></app-cashflow-chart>
-
 </mat-card>
 
-<div class="element element3">
+<div id="bento3" class="bento">
     <app-overview></app-overview>
 </div>
-<div class="element element4">Element 4</div>
+
+<mat-card id="bento4" class="bento">
+    <app-top-revenue-employee></app-top-revenue-employee>
+</mat-card>

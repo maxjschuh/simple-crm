@@ -119,7 +119,7 @@ export class ContactsTableComponent {
 
     const data: dataForEditDialog = {
       fieldsToEdit: 'all',
-      document: this.commonService.getDocumentFromCollection(this.contactsList, this.documentInFocus, Contact)
+      document: this.commonService.getDocumentFromCollection('contacts', this.documentInFocus, Contact)
     };
 
     this.dialog.open(DialogEditContactComponent, { data: data });
@@ -127,7 +127,7 @@ export class ContactsTableComponent {
 
   openDeleteContactDialog() {
 
-    const document = this.commonService.getDocumentFromCollection(this.contactsList, this.documentInFocus, Contact);
+    const document = this.commonService.getDocumentFromCollection('contacts', this.documentInFocus, Contact);
 
     this.dialog.open(DialogDeleteContactComponent, { data: document });
 

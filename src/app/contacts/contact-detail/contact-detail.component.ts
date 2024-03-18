@@ -49,7 +49,7 @@ export class ContactDetailComponent implements OnInit {
       this.firestoreService
         .contactsFrontendDistributor
         .subscribe((contactsList: Contact[]) => {
-          this.contact = this.commonService.getDocumentFromCollection(contactsList, this.contactId, Contact);
+          this.contact = this.commonService.getDocumentFromCollection('contacts', this.contactId, Contact);
         });
   }
 

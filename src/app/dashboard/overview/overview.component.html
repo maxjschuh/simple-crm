@@ -2,7 +2,7 @@
     <mat-card-title>
         Contacts
     </mat-card-title>
-    {{dataService.returnDatabaseLength('contacts')}}
+    {{commonService.returnCollectionByName('contacts').length}}
 </div>
 
 <div id="double-row-container">
@@ -10,7 +10,7 @@
         <mat-card-title>
             Transfers
         </mat-card-title>
-        {{dataService.returnDatabaseLength('transfers')}}
+        {{commonService.returnCollectionByName('transfers').length}}
     </div>
 
 
@@ -18,6 +18,6 @@
         <mat-card-title>
             Employees
         </mat-card-title>
-        {{dataService.returnDatabaseLength('employees')}}
+        {{commonService.returnCollectionByName('employees').length}}
     </div>
 </div>
