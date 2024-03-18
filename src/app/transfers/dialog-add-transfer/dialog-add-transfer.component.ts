@@ -15,11 +15,12 @@ import { Transfer } from '../../models/transfer.class';
 import { MatSelectModule } from '@angular/material/select';
 
 
-import {Observable, Subscription} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {AsyncPipe} from '@angular/common';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { Observable, Subscription } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Contact } from '../../models/contact.class';
+import { Employee } from '../../models/employee.class';
 
 @Component({
   selector: 'app-dialog-add-transfer',
@@ -35,7 +36,7 @@ import { Contact } from '../../models/contact.class';
     MatFormFieldModule,
     MatInputModule,
     MatProgressBarModule,
-    NgIf, 
+    NgIf,
     MatSelectModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
@@ -47,60 +48,99 @@ import { Contact } from '../../models/contact.class';
 })
 export class DialogAddTransferComponent implements OnInit {
 
+  contactsSubscriber = new Subscription;
+  contacts: Contact[] = [];
 
+  employeesSubscriber = new Subscription;
+  employees: Employee[] = [];
 
   transfer = new Transfer();
   date: Date | undefined = undefined;
   loading = false;
 
-  contactsSubscriber = new Subscription;
-  contactsList: Contact[] = [];
+  contactPicker1 = new FormControl({ value: '', disabled: false });
+  contactPickerOptions1: string[] = [];
+  contactPickerFilteredOptions1!: Observable<string[]>;
 
+  contactPicker2 = new FormControl({ value: '', disabled: false });
+  contactPickerOptions2: string[] = [];
+  contactPickerFilteredOptions2!: Observable<string[]>;
 
-  personPicker = new FormControl({value: '', disabled: false});
-  personPickerOptions: string[] = [];
-  personPickerFilteredOptions!: Observable<string[]>;
+  employeePicker = new FormControl({ value: '', disabled: false });
+  employeePickerOptions: string[] = [];
+  employeePickerFilteredOptions!: Observable<string[]>;
 
   constructor(
     public dialogRef: MatDialogRef<DialogAddTransferComponent>,
     private firestoreService: FirestoreService,
     public dateService: DateService
-  ) { 
+  ) {
 
-     this.contactsSubscriber = this.firestoreService.contactsFrontendDistributor.subscribe((contactsList: Contact[]) => {
+    this.contactsSubscriber =
+      this.firestoreService
+        .contactsFrontendDistributor
+        .subscribe(contacts => {
+          this.contacts = contacts;
+        });
 
-      this.contactsList = contactsList;
-    });
+    this.employeesSubscriber =
+      this.firestoreService
+        .employeesFrontendDistributor
+        .subscribe(employees => {
+          this.employees = employees;
+        });;
   }
 
+  ngOnInit(): void {
 
-  createDataForPersonsPicker() {
+    this.contactPickerOptions1 = this.returnDataForPersonPicker(this.contacts);
+    this.contactPickerOptions2 = this.returnDataForPersonPicker(this.contacts);
+    this.employeePickerOptions = this.returnDataForPersonPicker(this.employees);
 
-    for (let i = 0; i < this.contactsList.length; i++) {
-      const contact = this.contactsList[i];
-      
-      const fullName = contact.firstName + ' ' + contact.lastName;
-
-      this.personPickerOptions.push(fullName);
-    }
-  }
-
-  ngOnInit() {
-
-    this.createDataForPersonsPicker();
-
-    this.personPickerFilteredOptions = this.personPicker.valueChanges.pipe(
+    this.contactPickerFilteredOptions1 = this.contactPicker1.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '')),
+      map(value => this._filter(value || '', this.contactPickerOptions1)),
+    );
+
+    this.contactPickerFilteredOptions2 = this.contactPicker2.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '', this.contactPickerOptions2)),
+    );
+
+    this.employeePickerFilteredOptions = this.employeePicker.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '', this.employeePickerOptions)),
     );
   }
 
 
-  private _filter(value: string): string[] {
+  ngOnDestroy(): void {
+    this.employeesSubscriber.unsubscribe();
+    this.contactsSubscriber.unsubscribe();
+  }
+
+  private _filter(value: string, pickerOptions: string[]): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.personPickerOptions.filter(option => option.toLowerCase().includes(filterValue));
+    return pickerOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
+
+
+  returnDataForPersonPicker(collection: Contact[] | Employee[]): string[] {
+
+    let pickerOptions = [];
+
+    for (let i = 0; i < collection.length; i++) {
+      const person = collection[i];
+
+      const fullName = person.firstName + ' ' + person.lastName;
+
+      pickerOptions.push(fullName);
+    }
+
+    return pickerOptions;
+  }
+
 
 
   onNoClick(): void {
@@ -108,19 +148,55 @@ export class DialogAddTransferComponent implements OnInit {
   }
 
 
+
+
   async saveTransfer() {
 
-    this.personPicker = new FormControl({value: '', disabled: true});
+    this.contactPicker1 = new FormControl({ value: '', disabled: true });
 
     this.loading = true;
     this.transfer.date = this.date ? this.date.getTime() : 0;
 
     const response = await this.firestoreService.addDocument('transfers', this.transfer.toJSON());
-    
+
     setTimeout(() => {
-      
+
       this.loading = false;
       this.dialogRef.close();
     }, 2000);
+  }
+
+  test(input: any, input2: any) {
+    console.log(input)
+    console.log(input2)
+  }
+
+  selectedPersonIndex = {
+    contactPicker1: 0,
+    contactPicker2: 0,
+    employeePicker: 0
+  }
+
+  savePersonIndex(
+    isUserInput: boolean,
+    pickerId: 'contact1' | 'contact2' | 'employee', 
+    personIndex: number) {
+
+    if (!isUserInput) return;
+
+    switch (pickerId) {
+      
+      case 'contact1': this.selectedPersonIndex.contactPicker1 = personIndex;
+        break;
+
+      case 'contact2': this.selectedPersonIndex.contactPicker2 = personIndex;
+        break;
+
+      case 'employee': this.selectedPersonIndex.employeePicker = personIndex;
+        break
+
+      default:
+        break;
+    }
   }
 }
