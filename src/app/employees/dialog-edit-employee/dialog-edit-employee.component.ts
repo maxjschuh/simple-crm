@@ -14,6 +14,7 @@ import { Employee } from '../../models/employee.class';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription, Observable, startWith, map } from 'rxjs';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-dialog-edit-employee',
@@ -35,6 +36,7 @@ import { Subscription, Observable, startWith, map } from 'rxjs';
     ReactiveFormsModule,
     AsyncPipe
   ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './dialog-edit-employee.component.html',
   styleUrl: './dialog-edit-employee.component.scss'
 })
@@ -60,7 +62,7 @@ export class DialogEditEmployeeComponent {
     public dateService: DateService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    
+
     this.employee = data.document;
     this.fieldsToEdit = data.fieldsToEdit;
     this.birthDate = this.employee.birthDate ? new Date(this.employee.birthDate) : undefined;

@@ -69,11 +69,11 @@
             {{ transfer.amount }}€
         </div>
 
-        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu3">
             <mat-icon>more_vert</mat-icon>
         </button>
 
-        <mat-menu #menu2="matMenu">
+        <mat-menu #menu3="matMenu">
             <button mat-menu-item (click)="openEditTransferDialog('type+amount')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
@@ -100,11 +100,11 @@
             {{ transfer.date ? dateService.returnTimestampAsDateString(transfer.date) : '' }}
         </div>
 
-        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu4">
             <mat-icon>more_vert</mat-icon>
         </button>
 
-        <mat-menu #menu2="matMenu">
+        <mat-menu #menu4="matMenu">
             <button mat-menu-item (click)="openEditTransferDialog('closedBy+date')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
@@ -122,11 +122,11 @@
             {{ transfer.description }}
         </div>
 
-        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu5">
             <mat-icon>more_vert</mat-icon>
         </button>
 
-        <mat-menu #menu2="matMenu">
+        <mat-menu #menu5="matMenu">
             <button mat-menu-item (click)="openEditTransferDialog('description')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>

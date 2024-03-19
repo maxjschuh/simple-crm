@@ -36,3 +36,31 @@ app-dashboard {
     // grid-template-rows: auto auto;
     // gap: 16px;
 }
+
+
+/* ----------------------------------
+custom scrollbar
+---------------------------------- */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #424242;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 100vw;
+    background: #7B1FA2;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #69F0AE;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: rgba(105, 240, 174, 0.4);
+}

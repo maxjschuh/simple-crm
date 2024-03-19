@@ -65,7 +65,7 @@
                 <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
 
                     @for (contact2 of contactPickerFilteredOptions2 | async; track contact2; let index = $index ) {
-                    <mat-option [value]="contact2" (onSelectionChange)="savePersonIndex($event.isUserInput, 'contact2', index)">{{contact2}}</mat-option>
+                    <mat-option [value]="transfer.recipient" (onSelectionChange)="savePersonIndex($event.isUserInput, 'contact2', index)">{{contact2}}</mat-option>
                     }
                 </mat-autocomplete>
             </mat-form-field>
