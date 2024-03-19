@@ -30,11 +30,13 @@ export class DialogDeleteContactComponent {
     @Inject(MAT_DIALOG_DATA) public contact: Contact
   ) { }
 
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  async deleteContact() {
+
+  async deleteContact(): Promise<void> {
 
     this.loading = true;
     await this.firestoreService.deleteDocument('contacts', this.contact.id);

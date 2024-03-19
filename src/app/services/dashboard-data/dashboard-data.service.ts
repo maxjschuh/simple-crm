@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Contact } from '../../models/contact.class';
 import { DateService } from '../date/date.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -53,16 +54,12 @@ export class DashboardDataService {
     this.transfersByLastSixMonths = this.returnTransfersLastSixMonths();
   }
 
+
   ngOnDestroy(): void {
     this.employeesSubscriber.unsubscribe();
     this.transfersSubscriber.unsubscribe();
     this.contactsSubscriber.unsubscribe();
   }
-
-
-
-
-
 
 
   //Last six months sales data
@@ -92,6 +89,8 @@ export class DashboardDataService {
 
   //Cashflow-Graph
   returnDepositLastSixMonths() {
+
+    this.transfersByLastSixMonths = this.returnTransfersLastSixMonths();
 
     let depositCurrently = 0;
 
@@ -214,22 +213,4 @@ export class DashboardDataService {
 
     return ageDistribution;
   }
-
-
-
-
-  // dataArray: any[] = [
-  //   { id: 1, date: new Date('2024-03-01').getTime() }, // March 2024
-  //   { id: 2, date: new Date('2024-02-15').getTime() }, // February 2024
-  //   { id: 3, date: new Date('2024-01-05').getTime() }, // January 2024
-  //   { id: 4, date: new Date('2023-12-20').getTime() }, // December 2023
-  //   { id: 1, date: new Date('2024-03-01').getTime() }, // March 2024
-  //   { id: 2, date: new Date('2024-02-15').getTime() }, // February 2024
-  //   { id: 3, date: new Date('2024-01-05').getTime() }, // January 2024
-  //   { id: 4, date: new Date('2023-12-20').getTime() }, // December 2023
-  //   { id: 2, date: new Date('2024-02-15').getTime() }, // February 2024
-  //   { id: 3, date: new Date('2024-01-05').getTime() }, // January 2024
-  //   { id: 4, date: new Date('2023-12-20').getTime() }, // December 2023
-  //   // Add more sample objects as needed
-  // ];
 }

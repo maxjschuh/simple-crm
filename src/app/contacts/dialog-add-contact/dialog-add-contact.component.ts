@@ -12,6 +12,7 @@ import { NgIf } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Contact } from '../../models/contact.class';
 
+
 @Component({
   selector: 'app-dialog-add-contact',
   standalone: true,
@@ -50,7 +51,7 @@ export class DialogAddContactComponent {
   }
 
 
-  async saveContact() {
+  async saveContact(): Promise<void> {
 
     this.loading = true;
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;

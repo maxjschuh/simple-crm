@@ -24,10 +24,10 @@ import { DialogEditEmployeeComponent } from '../dialog-edit-employee/dialog-edit
   styleUrl: './employee-detail.component.scss'
 })
 export class EmployeeDetailComponent implements OnInit {
-  
+
   private routeSubscriber = new Subscription;
-  employeesSubscriber: any;
-  editsSubscriber: any;
+  employeesSubscriber = new Subscription;
+  editsSubscriber = new Subscription;
   employee = new Employee();
   employeeId = '';
 
@@ -38,6 +38,7 @@ export class EmployeeDetailComponent implements OnInit {
     public dialog: MatDialog,
     private commonService: CommonService) { }
 
+
   ngOnInit(): void {
 
     this.routeSubscriber = this.route.params.subscribe(params => {
@@ -47,43 +48,40 @@ export class EmployeeDetailComponent implements OnInit {
     this.employeesSubscriber =
       this.firestoreService
         .employeesFrontendDistributor
-        .subscribe((employeesList: Employee[]) => {
+        .subscribe(() => {
 
-          this.employee = this.commonService.getDocumentFromCollection('employees', this.employeeId, Employee);
+          this.employee =
+            this.commonService
+              .getDocumentFromCollection('employees', this.employeeId, Employee);
         });
   }
 
 
   ngOnDestroy(): void {
+
     this.routeSubscriber.unsubscribe();
     this.employeesSubscriber.unsubscribe();
     // this.editsSubscriber.unsubscribe();
-
   }
 
-  openEditDialog(fieldsToEdit: 'name+email+phone' | 'position+department' | 'birthDate+supervisor' | 'all'): void {
+
+  openEditEmployeeDialog(fieldsToEdit: 'name+email+phone' | 'position+department' | 'birthDate+supervisor' | 'all'): void {
 
     const data: dataForEditDialog = {
       fieldsToEdit: fieldsToEdit,
       document: new Employee(this.employee)
     };
 
-
     const dialogRef = this.dialog.open(DialogEditEmployeeComponent, { data: data });
 
     this.editsSubscriber = dialogRef.componentInstance.savedEdits.subscribe((eventData: any) => {
       this.employee = new Employee(eventData)
     });
-
   }
 
-  openDeleteEmployeeDialog() {
 
-    const data = {
-      contact: this.employee
-    };
+  openDeleteEmployeeDialog(): void {
 
-    this.dialog.open(DialogDeleteContactComponent, { data: data });
-
+    this.dialog.open(DialogDeleteContactComponent, { data: this.employee });
   }
 }

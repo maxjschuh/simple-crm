@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddContactComponent } from '../../contacts/dialog-add-contact/dialog-add-contact.component';
-
 import { MatSort, MatSortModule, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FirestoreService } from '../../services/firestore/firestore.service';
@@ -20,8 +19,6 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/select';
-
-
 import { Transfer } from '../../models/transfer.class';
 import { DialogAddTransferComponent } from '../dialog-add-transfer/dialog-add-transfer.component';
 import { MobileSort } from '../../interfaces/mobile-sort.interface';
@@ -29,6 +26,7 @@ import { NgIf } from '@angular/common';
 import { dataForEditDialog } from '../../interfaces/data-for-edit-dialog.interface';
 import { DialogEditTransferComponent } from '../dialog-edit-transfer/dialog-edit-transfer.component';
 import { DialogDeleteTransferComponent } from '../dialog-delete-transfer/dialog-delete-transfer.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-transfers-table',
@@ -41,7 +39,7 @@ export class TransfersTableComponent {
 
   displayedColumns: string[] = ['title', 'date', 'closedBy', 'options'];
   dataSource: any;
-  transfersSubscriber: any;
+  transfersSubscriber = new Subscription;
   documentInFocus!: string;
   transfersList!: Transfer[];
 
@@ -80,15 +78,18 @@ export class TransfersTableComponent {
         });
   }
 
+
   ngOnDestroy(): void {
     this.transfersSubscriber.unsubscribe();
   }
+
 
   updateTable(transfersList: Transfer[]): void {
 
     this.dataSource = new MatTableDataSource(transfersList);
     this.dataSource.sort = this.sort;
   }
+
 
   toggleColumns(columnsToToggle: string[]): void {
 
@@ -104,22 +105,22 @@ export class TransfersTableComponent {
     });
 
     this.displayedColumns.push('options'); //... and adding them again at the end of the array so that they are always the most right column
-
   }
 
 
   setDocumentInFocus(documentId: string): void {
 
     this.documentInFocus = documentId;
-
   }
 
 
-  openAddTransferDialog() {
+  openAddTransferDialog(): void {
+
     this.dialog.open(DialogAddTransferComponent, {})
   }
 
-  openEditTransferDialog() {
+
+  openEditTransferDialog(): void {
 
     const data: dataForEditDialog = {
       fieldsToEdit: 'all',
@@ -129,14 +130,16 @@ export class TransfersTableComponent {
     this.dialog.open(DialogEditTransferComponent, { data: data });
   }
 
-  openDeleteTransferDialog() {
+
+  openDeleteTransferDialog(): void {
 
     const document = this.commonService.getDocumentFromCollection('transfers', this.documentInFocus, Transfer);
 
     this.dialog.open(DialogDeleteTransferComponent, { data: document });
   }
 
-  changeSortDirectionMobile() {
+
+  changeSortDirectionMobile(): void {
 
     if (this.mobileSort.direction === 'asc') {
 
@@ -152,7 +155,8 @@ export class TransfersTableComponent {
     this.sortTableMobile(undefined);
   }
 
-  sortTableMobile(sortByColumn: string | undefined) {
+
+  sortTableMobile(sortByColumn: string | undefined): void {
 
     this.mobileSort.directionPicker = true;
 
@@ -162,6 +166,7 @@ export class TransfersTableComponent {
     this.dataSource.sort = this.sort;
   }
 
+  
   initializeColumnSelectorButtons(): void {
 
     this.displayedColumns.forEach(column => {

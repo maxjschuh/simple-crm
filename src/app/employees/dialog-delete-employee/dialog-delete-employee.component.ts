@@ -28,11 +28,13 @@ export class DialogDeleteEmployeeComponent {
     @Inject(MAT_DIALOG_DATA) public employee: Employee
   ) { }
 
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  async deleteEmployee() {
+
+  async deleteEmployee(): Promise<void> {
 
     this.loading = true;
     await this.firestoreService.deleteDocument('employees', this.employee.id);

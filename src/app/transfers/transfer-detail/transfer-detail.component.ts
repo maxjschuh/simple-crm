@@ -12,9 +12,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { dataForEditDialog } from '../../interfaces/data-for-edit-dialog.interface';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonService } from '../../services/common/common.service';
-import { DialogDeleteContactComponent } from '../../contacts/dialog-delete-contact/dialog-delete-contact.component';
 import { Transfer } from '../../models/transfer.class';
-import { Contact } from '../../models/contact.class';
+import { DialogEditTransferComponent } from '../dialog-edit-transfer/dialog-edit-transfer.component';
+import { DialogDeleteTransferComponent } from '../dialog-delete-transfer/dialog-delete-transfer.component';
 
 @Component({
   selector: 'app-transfer-detail',
@@ -26,10 +26,11 @@ import { Contact } from '../../models/contact.class';
 export class TransferDetailComponent {
 
   private routeSubscriber = new Subscription;
-  transfersSubscriber: any;
-  editsSubscriber: any;
+  transfersSubscriber = new Subscription;
+  editsSubscriber = new Subscription;
   transfer = new Transfer();
   transferId = '';
+
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +38,7 @@ export class TransferDetailComponent {
     public dateService: DateService,
     public dialog: MatDialog,
     private commonService: CommonService) { }
+
 
   ngOnInit(): void {
 
@@ -47,26 +49,39 @@ export class TransferDetailComponent {
     this.transfersSubscriber =
       this.firestoreService
         .transfersFrontendDistributor
-        .subscribe((transferList: Transfer[]) => {
+        .subscribe(() => {
 
-          this.transfer = this.commonService.getDocumentFromCollection('transfers', this.transferId, Transfer);
+          this.transfer =
+            this.commonService
+              .getDocumentFromCollection('transfers', this.transferId, Transfer);
         });
   }
 
-  openEditDialog(fieldsToEdit: any): void {
 
-    // const data: dataForEditDialog = {
-    //   fieldsToEdit: fieldsToEdit,
-    //   document: new Contact(this.contact)
-    // };
-
-
-    // const dialogRef = this.dialog.open(DialogEditContactComponent, { data: data });
-
-    // this.editsSubscriber = dialogRef.componentInstance.savedEdits.subscribe((eventData: any) => {
-    //   this.contact = new Contact(eventData)
-    // });
-
+  ngOnDestroy(): void {
+    this.routeSubscriber.unsubscribe();
+    this.transfersSubscriber.unsubscribe();
+    // this.editsSubscriber.unsubscribe();
   }
 
+
+  openEditTransferDialog(fieldsToEdit: 'all' | 'title' | 'payer+recipient' | 'type+amount' | 'closedBy+date' | 'description'): void {
+
+    const data: dataForEditDialog = {
+      fieldsToEdit: fieldsToEdit,
+      document: new Transfer(this.transfer)
+    };
+
+    const dialogRef = this.dialog.open(DialogEditTransferComponent, { data: data });
+
+    this.editsSubscriber = dialogRef.componentInstance.savedEdits.subscribe((eventData: any) => {
+      this.transfer = new Transfer(eventData)
+    });
+  }
+
+
+  openDeleteTransferDialog():void {
+
+    this.dialog.open(DialogDeleteTransferComponent, { data: this.transfer });
+  }
 }

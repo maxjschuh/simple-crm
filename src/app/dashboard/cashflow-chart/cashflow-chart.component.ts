@@ -1,10 +1,12 @@
-import { Component, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { FirestoreService } from '../../services/firestore/firestore.service';
 import { NgIf, isPlatformBrowser } from '@angular/common';
 import { DashboardDataService } from '../../services/dashboard-data/dashboard-data.service';
+import { Transfer } from '../../models/transfer.class';
+import { Subscription } from 'rxjs';
+import { FirestoreService } from '../../services/firestore/firestore.service';
 
 @Component({
   selector: 'app-cashflow-chart',
@@ -18,6 +20,12 @@ import { DashboardDataService } from '../../services/dashboard-data/dashboard-da
   styleUrl: './cashflow-chart.component.scss'
 })
 export class CashflowChartComponent implements OnInit {
+
+  transfersSubscriber = new Subscription;
+  transfers: Transfer[] = [];
+
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+
 
   public lineChartType: ChartType = 'line';
 
@@ -78,24 +86,42 @@ export class CashflowChartComponent implements OnInit {
   isBrowser!: boolean;
 
 
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
 
   constructor(
-    private firestoreService: FirestoreService,
     private dataService: DashboardDataService,
     @Inject(PLATFORM_ID) private platformId: any,
+    private firestoreService: FirestoreService
   ) {
 
-    this.lineChartData.datasets[0].data = this.dataService.returnDepositLastSixMonths();
+    this.transfersSubscriber =
+    this.firestoreService
+      .transfersFrontendDistributor
+      .subscribe(transfers => {
+        this.transfers = transfers;
 
-    this.lineChartData.labels = this.dataService.returnNamesLastSixMonths();
+
+        this.update();
+      });
   }
-
 
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
+
+  update() {
+    const data = this.dataService.returnDepositLastSixMonths();
+    this.lineChartData.datasets[0].data = data;
+    console.log(data)
+
+    this.lineChartData.labels = this.dataService.returnNamesLastSixMonths();
+
+    this.chart?.chart?.update();
+
+
+  }
+
+
 }
 
 

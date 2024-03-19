@@ -3,7 +3,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
-
 import { MatSort, MatSortModule, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FirestoreService } from '../../services/firestore/firestore.service';
@@ -20,6 +19,9 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MobileSort } from '../../interfaces/mobile-sort.interface';
 import { NgIf } from '@angular/common';
+import { DialogEditEmployeeComponent } from '../dialog-edit-employee/dialog-edit-employee.component';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-employees-table',
@@ -47,7 +49,7 @@ export class EmployeesTableComponent {
 
   displayedColumns: string[] = ['firstName', 'lastName', 'position', 'email', 'options'];
   dataSource: any;
-  employeesSubscriber: any;
+  employeesSubscriber = new Subscription;
   documentInFocus!: string;
   employeesList!: Employee[];
 
@@ -70,7 +72,6 @@ export class EmployeesTableComponent {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-
   constructor(
     public dialog: MatDialog,
     private firestoreService: FirestoreService,
@@ -87,17 +88,18 @@ export class EmployeesTableComponent {
         });
 
     this.initializeColumnSelectorButtons();
-
   }
+
+
+  ngOnDestroy(): void {
+    this.employeesSubscriber.unsubscribe();
+  }
+
 
   updateTable(data: Employee[]): void {
 
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.sort = this.sort;
-  }
-
-  ngOnDestroy(): void {
-    this.employeesSubscriber.unsubscribe();
   }
 
 
@@ -131,6 +133,7 @@ export class EmployeesTableComponent {
     });
   }
 
+
   toggleColumns(columnsToToggle: string[]): void {
 
     this.displayedColumns.pop(); //removing the 'options'...
@@ -145,25 +148,27 @@ export class EmployeesTableComponent {
     });
 
     this.displayedColumns.push('options'); //... and adding them again at the end of the array so that they are always the most right column
-
   }
+
 
   setDocumentInFocus(documentId: string): void {
 
     this.documentInFocus = documentId;
-
   }
 
-  openEditEmployeeDialog() {
 
-
-  }
-
-  openAddEmployeeDialog() {
+  openAddEmployeeDialog(): void {
     this.dialog.open(DialogAddEmployeeComponent, {});
   }
 
-  openDeleteEmployeeDialog() {
+
+  openEditEmployeeDialog(): void {
+
+    this.dialog.open(DialogEditEmployeeComponent, {});
+  }
+
+
+  openDeleteEmployeeDialog(): void {
 
     const document = this.commonService.getDocumentFromCollection('employees', this.documentInFocus, Employee);
 
@@ -171,9 +176,7 @@ export class EmployeesTableComponent {
   }
 
 
-
-
-  changeSortDirectionMobile() {
+  changeSortDirectionMobile(): void {
 
     if (this.mobileSort.direction === 'asc') {
 
@@ -189,7 +192,8 @@ export class EmployeesTableComponent {
     this.sortTableMobile(undefined);
   }
 
-  sortTableMobile(sortByColumn: string | undefined) {
+
+  sortTableMobile(sortByColumn: string | undefined): void {
 
     this.mobileSort.directionPicker = true;
 

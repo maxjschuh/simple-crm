@@ -44,20 +44,20 @@ export class DialogEditContactComponent {
 
   @Output() savedEdits = new EventEmitter<any>();
 
-  // Function to emit the event
-  emitEvent(data: any) {
-    this.savedEdits.emit(data);
-  }
-
   constructor(
     public dialogRef: MatDialogRef<DialogEditContactComponent>,
     public firestoreService: FirestoreService,
     public dateService: DateService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.contact = data.contact;
+    this.contact = data.document;
     this.fieldsToEdit = data.fieldsToEdit;
-    this.birthDate = this.contact.birthDate ? new Date(this.contact.birthDate) : undefined;
+    // this.birthDate = this.contact.birthDate ? new Date(this.contact.birthDate) : undefined;
+  }
+
+
+  emitEvent(data: any): void {
+    this.savedEdits.emit(data);
   }
 
 
@@ -65,10 +65,11 @@ export class DialogEditContactComponent {
     this.dialogRef.close();
   }
 
+
   async saveEdits(): Promise<void> {
 
     this.loading = true;
-    
+
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
     await this.firestoreService.updateDocument('contacts', this.contact.id, this.contact.toJSON());
@@ -79,6 +80,5 @@ export class DialogEditContactComponent {
       this.emitEvent(this.contact)
       this.dialogRef.close();
     }, 2000);
-
   }
 }

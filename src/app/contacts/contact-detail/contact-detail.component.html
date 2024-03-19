@@ -21,7 +21,7 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu1="matMenu">
-        <button mat-menu-item (click)="openEditDialog('name+email+phone')">
+        <button mat-menu-item (click)="openEditContactDialog('name+email+phone')">
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
         </button>
@@ -44,7 +44,7 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu2="matMenu">
-            <button mat-menu-item (click)="openEditDialog('address')">
+            <button mat-menu-item (click)="openEditContactDialog('address')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>
@@ -60,8 +60,8 @@
         </mat-card-title>
         <div>
             {{ contact.birthDate ?
-            (this.dateService.returnTimestampAsDateString(contact.birthDate) + ' (Age: ' +
-            this.dateService.returnAge(contact.birthDate)) + ')' : '' }}
+            (dateService.returnTimestampAsDateString(contact.birthDate) + ' (Age: ' +
+            dateService.returnAge(contact.birthDate)) + ')' : '' }}
 
         </div>
 
@@ -69,7 +69,7 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu3="matMenu">
-            <button mat-menu-item (click)="openEditDialog('birthDate')">
+            <button mat-menu-item (click)="openEditContactDialog('birthDate')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>
@@ -100,7 +100,7 @@
 </mat-card>
 
 <button id="button-edit" mat-fab color="primary" matTooltip="Edit contact" [matTooltipPosition]="'left'"
-    (click)="openEditDialog('all')">
+    (click)="openEditContactDialog('all')">
     <mat-icon>edit</mat-icon>
 </button>
 

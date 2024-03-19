@@ -63,8 +63,8 @@
     <mat-cell *matCellDef="let employee" [routerLink]="['/employee', employee.id]">
 
       {{ employee.birthDate ?
-      (this.dateService.returnTimestampAsDateString(employee.birthDate) + ' (Age: ' +
-      this.dateService.returnAge(employee.birthDate)) + ')' : '' }}
+      (dateService.returnTimestampAsDateString(employee.birthDate) + ' (Age: ' +
+      dateService.returnAge(employee.birthDate)) + ')' : '' }}
 
     </mat-cell>
 
@@ -168,8 +168,8 @@
       <mat-cell class="birthDate" *matCellDef="let employee" [routerLink]="['/employee', employee.id]">
 
         {{ employee.birthDate ?
-        (this.dateService.returnTimestampAsDateString(employee.birthDate) + ' (Age: ' +
-        this.dateService.returnAge(employee.birthDate)) + ')' : '' }}
+        (dateService.returnTimestampAsDateString(employee.birthDate) + ' (Age: ' +
+        dateService.returnAge(employee.birthDate)) + ')' : '' }}
 
       </mat-cell>
 

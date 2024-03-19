@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Firestore, collectionData, collection, doc, addDoc, setDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { BehaviorSubject, Observable, Subscribable } from 'rxjs';
+import { Firestore, collectionData, collection, doc, addDoc, setDoc, updateDoc, deleteDoc, DocumentReference, CollectionReference } from '@angular/fire/firestore';
 import { Contact } from '../../models/contact.class';
 import { Transfer } from '../../models/transfer.class';
 import { Employee } from '../../models/employee.class';
@@ -67,19 +67,19 @@ export class FirestoreService {
   }
 
 
-  getCollectionRef(collectionId: string) {
+  getCollectionRef(collectionId: string): CollectionReference {
 
     return collection(this.firestore, collectionId);
   }
 
 
-  getSingleDocumentRef(collectionId: string, documentId: string) {
+  getSingleDocumentRef(collectionId: string, documentId: string): DocumentReference {
 
     return doc(this.getCollectionRef(collectionId), documentId);
   }
 
 
-  async addDocument(collectionId: string, item: object) {
+  async addDocument(collectionId: string, item: object): Promise<void> {
 
     await addDoc(this.getCollectionRef(collectionId), item)
       .catch(() => {
@@ -87,14 +87,15 @@ export class FirestoreService {
       })
   }
 
-  async updateDocument(collectionId: string, documentId: string, updatedDocument: object) {
+
+  async updateDocument(collectionId: string, documentId: string, updatedDocument: object): Promise<void> {
 
     const doc = this.getSingleDocumentRef(collectionId, documentId);
 
     await setDoc(doc, updatedDocument);
   }
 
-  async updateSingleField(collectionId: string, documentId: string, fieldToUpdate: string, valueToSet: any) {//currently not in use
+  async updateSingleField(collectionId: string, documentId: string, fieldToUpdate: string, valueToSet: any): Promise<void> {//currently not in use
 
     const doc = this.getSingleDocumentRef(collectionId, documentId);
 
@@ -102,7 +103,7 @@ export class FirestoreService {
   }
 
 
-  async deleteDocument(collectionId: string, documentId: string) {
+  async deleteDocument(collectionId: string, documentId: string): Promise<void> {
 
     const doc = this.getSingleDocumentRef(collectionId, documentId);
     await deleteDoc(doc);

@@ -3,7 +3,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
-
 import { MatSort, MatSortModule, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FirestoreService } from '../../services/firestore/firestore.service';
@@ -22,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MobileSort } from '../../interfaces/mobile-sort.interface';
 import { NgIf } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-contacts-table',
@@ -34,7 +34,7 @@ export class ContactsTableComponent {
 
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'options'];
   dataSource: any;
-  contactsSubscriber: any;
+  contactsSubscriber = new Subscription;
   documentInFocus!: string;
   contactsList!: Contact[];
 
@@ -62,17 +62,25 @@ export class ContactsTableComponent {
     public dateService: DateService,
     private commonService: CommonService) {
 
-    this.contactsSubscriber = this.firestoreService.contactsFrontendDistributor.subscribe((contactsList: Contact[]) => {
+    this.contactsSubscriber =
+      this.firestoreService
+        .contactsFrontendDistributor
+        .subscribe((contactsList: Contact[]) => {
 
-      this.contactsList = contactsList;
-      this.updateTable(contactsList);
-    });
+          this.contactsList = contactsList;
+          this.updateTable(contactsList);
+        });
 
     this.initializeColumnSelectorButtons();
-
   }
 
-  changeSortDirectionMobile() {
+
+  ngOnDestroy(): void {
+    this.contactsSubscriber.unsubscribe();
+  }
+
+
+  changeSortDirectionMobile(): void {
 
     if (this.mobileSort.direction === 'asc') {
 
@@ -88,7 +96,8 @@ export class ContactsTableComponent {
     this.sortTableMobile(undefined);
   }
 
-  sortTableMobile(sortByColumn: string | undefined) {
+
+  sortTableMobile(sortByColumn: string | undefined): void {
 
     this.mobileSort.directionPicker = true;
 
@@ -99,10 +108,6 @@ export class ContactsTableComponent {
   }
 
 
-  ngOnDestroy(): void {
-    this.contactsSubscriber.unsubscribe();
-  }
-
   updateTable(data: Contact[]): void {
 
     this.dataSource = new MatTableDataSource(data);
@@ -111,9 +116,10 @@ export class ContactsTableComponent {
 
 
   openAddContactDialog(): void {
-    this.dialog.open(DialogAddContactComponent, {});
 
+    this.dialog.open(DialogAddContactComponent, {});
   }
+
 
   openEditContactDialog(): void {
 
@@ -125,15 +131,14 @@ export class ContactsTableComponent {
     this.dialog.open(DialogEditContactComponent, { data: data });
   }
 
-  openDeleteContactDialog() {
+
+  openDeleteContactDialog(): void {
 
     const document = this.commonService.getDocumentFromCollection('contacts', this.documentInFocus, Contact);
 
     this.dialog.open(DialogDeleteContactComponent, { data: document });
 
   }
-
-
 
 
   toggleColumns(columnsToToggle: string[]): void {
@@ -150,8 +155,8 @@ export class ContactsTableComponent {
     });
 
     this.displayedColumns.push('options'); //... and adding them again at the end of the array so that they are always the most right column
-
   }
+
 
   initializeColumnSelectorButtons(): void {
 
@@ -177,15 +182,9 @@ export class ContactsTableComponent {
     });
   }
 
+  
   setDocumentInFocus(documentId: string): void {
 
     this.documentInFocus = documentId;
-
   }
-
-
-
-
-
-
 }

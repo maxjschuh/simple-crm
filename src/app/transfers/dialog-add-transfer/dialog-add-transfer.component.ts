@@ -11,10 +11,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgIf } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Transfer } from '../../models/transfer.class';
-
 import { MatSelectModule } from '@angular/material/select';
-
-
 import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
@@ -70,6 +67,12 @@ export class DialogAddTransferComponent implements OnInit {
   employeePickerOptions: string[] = [];
   employeePickerFilteredOptions!: Observable<string[]>;
 
+  selectedPersonIndex = {
+    contactPicker1: 0,
+    contactPicker2: 0,
+    employeePicker: 0
+  }
+
   constructor(
     public dialogRef: MatDialogRef<DialogAddTransferComponent>,
     private firestoreService: FirestoreService,
@@ -119,6 +122,7 @@ export class DialogAddTransferComponent implements OnInit {
     this.contactsSubscriber.unsubscribe();
   }
 
+
   private _filter(value: string, pickerOptions: string[]): string[] {
     const filterValue = value.toLowerCase();
 
@@ -142,15 +146,12 @@ export class DialogAddTransferComponent implements OnInit {
   }
 
 
-
   onNoClick(): void {
     this.dialogRef.close();
   }
 
 
-
-
-  async saveTransfer() {
+  async saveTransfer(): Promise<void> {
 
     this.contactPicker1 = new FormControl({ value: '', disabled: true });
 
@@ -166,21 +167,11 @@ export class DialogAddTransferComponent implements OnInit {
     }, 2000);
   }
 
-  test(input: any, input2: any) {
-    console.log(input)
-    console.log(input2)
-  }
-
-  selectedPersonIndex = {
-    contactPicker1: 0,
-    contactPicker2: 0,
-    employeePicker: 0
-  }
 
   savePersonIndex(
     isUserInput: boolean,
     pickerId: 'contact1' | 'contact2' | 'employee', 
-    personIndex: number) {
+    personIndex: number): void {
 
     if (!isUserInput) return;
 

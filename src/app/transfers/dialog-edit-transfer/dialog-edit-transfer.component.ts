@@ -27,7 +27,7 @@ import { Transfer } from '../../models/transfer.class';
     MatFormFieldModule,
     MatInputModule,
     MatProgressBarModule,
-    NgIf, 
+    NgIf,
     MatSelectModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
@@ -45,20 +45,20 @@ export class DialogEditTransferComponent {
 
   @Output() savedEdits = new EventEmitter<any>();
 
-  // Function to emit the event
-  emitEvent(data: any) {
-    this.savedEdits.emit(data);
-  }
-
   constructor(
     public dialogRef: MatDialogRef<DialogEditTransferComponent>,
     public firestoreService: FirestoreService,
     public dateService: DateService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.transfer = data.contact;
+    this.transfer = data.document;
     this.fieldsToEdit = data.fieldsToEdit;
     this.date = this.transfer.date ? new Date(this.transfer.date) : undefined;
+  }
+
+
+  emitEvent(data: any): void {
+    this.savedEdits.emit(data);
   }
 
 
@@ -69,7 +69,7 @@ export class DialogEditTransferComponent {
   async saveEdits(): Promise<void> {
 
     this.loading = true;
-    
+
     this.transfer.date = this.date ? this.date.getTime() : 0;
 
     await this.firestoreService.updateDocument('contacts', this.transfer.id, this.transfer.toJSON());
@@ -80,6 +80,5 @@ export class DialogEditTransferComponent {
       this.emitEvent(this.transfer)
       this.dialogRef.close();
     }, 2000);
-
   }
 }

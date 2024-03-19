@@ -1,5 +1,5 @@
 import { NgIf, isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { DashboardDataService } from '../../services/dashboard-data/dashboard-data.service';
@@ -50,11 +50,13 @@ export class PieChartComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: any
   ) {
 
-    this.pieChartData.datasets[0].data = this.dataService.returnPieChartData();
+
   }
 
 
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
+
+    this.pieChartData.datasets[0].data = this.dataService.returnPieChartData();
   }
 }

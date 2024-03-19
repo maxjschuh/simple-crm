@@ -40,20 +40,20 @@ export class DialogEditEmployeeComponent {
 
   @Output() savedEdits = new EventEmitter<any>();
 
-  // Function to emit the event
-  emitEvent(data: any) {
-    this.savedEdits.emit(data);
-  }
-
   constructor(
     public dialogRef: MatDialogRef<DialogEditEmployeeComponent>,
     public firestoreService: FirestoreService,
     public dateService: DateService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.employee = data.contact;
+    this.employee = data.document;
     this.fieldsToEdit = data.fieldsToEdit;
     this.birthDate = this.employee.birthDate ? new Date(this.employee.birthDate) : undefined;
+  }
+
+
+  emitEvent(data: any): void {
+    this.savedEdits.emit(data);
   }
 
 
@@ -61,10 +61,11 @@ export class DialogEditEmployeeComponent {
     this.dialogRef.close();
   }
 
+
   async saveEdits(): Promise<void> {
 
     this.loading = true;
-    
+
     this.employee.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
     await this.firestoreService.updateDocument('employees', this.employee.id, this.employee.toJSON());
@@ -75,6 +76,5 @@ export class DialogEditEmployeeComponent {
       this.emitEvent(this.employee)
       this.dialogRef.close();
     }, 2000);
-
   }
 }

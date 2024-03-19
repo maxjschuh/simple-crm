@@ -25,11 +25,9 @@ app-employee-detail {
 }
 
 app-dashboard {
-    height: calc(100vh - 90px);
-    border: 1px solid red;
-
+    height: calc(100vh - 88px);
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, calc((100% - 48px) / 4));
     grid-template-rows: repeat(2, 1fr);
     gap: 16px;
 

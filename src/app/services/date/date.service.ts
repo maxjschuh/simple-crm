@@ -5,10 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class DateService {
 
+
   returnTimestampAsDateString(timestamp: number): string {
+
     const date = new Date(timestamp);
     return date.toLocaleDateString('de');
   }
+
 
   returnAge(timestamp: number): number {
 
@@ -26,6 +29,7 @@ export class DateService {
 
     return age;
   }
+
 
   getToday(): Date {
     return new Date();

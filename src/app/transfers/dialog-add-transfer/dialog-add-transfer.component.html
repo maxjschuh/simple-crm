@@ -33,7 +33,7 @@
 
         <mat-form-field appearance="outline" [color]="'accent'">
             <mat-label>Date</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="this.date" required [disabled]="loading"
+            <input matInput [matDatepicker]="picker" [(ngModel)]="date" required [disabled]="loading"
                 [max]="dateService.getToday()">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>

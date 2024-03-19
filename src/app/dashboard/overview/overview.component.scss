@@ -14,17 +14,17 @@
 
 #single-row-container {
     height: 100%;
-    width: calc(50% - 4px);
+    width: calc(50% - 8px);
 }
 
 #double-row-container {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
     height: 100%;
-    width: calc(50% - 4px);
+    width: calc(50% - 8px);
 
     div {
-        height: calc(50% - 4px);
+        height: calc(50% - 8px);
     }
 }

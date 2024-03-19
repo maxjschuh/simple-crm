@@ -11,7 +11,7 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu1="matMenu">
-        <button mat-menu-item (click)="openEditDialog('name+email')">
+        <button mat-menu-item (click)="openEditTransferDialog('title')">
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
         </button>
@@ -42,7 +42,7 @@
         </button>
 
         <mat-menu #menu2="matMenu">
-            <button mat-menu-item (click)="openEditDialog('address')">
+            <button mat-menu-item (click)="openEditTransferDialog('payer+recipient')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>
@@ -74,7 +74,7 @@
         </button>
 
         <mat-menu #menu2="matMenu">
-            <button mat-menu-item (click)="openEditDialog('address')">
+            <button mat-menu-item (click)="openEditTransferDialog('type+amount')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>
@@ -105,7 +105,7 @@
         </button>
 
         <mat-menu #menu2="matMenu">
-            <button mat-menu-item (click)="openEditDialog('address')">
+            <button mat-menu-item (click)="openEditTransferDialog('closedBy+date')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>
@@ -127,7 +127,7 @@
         </button>
 
         <mat-menu #menu2="matMenu">
-            <button mat-menu-item (click)="openEditDialog('description')">
+            <button mat-menu-item (click)="openEditTransferDialog('description')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>
@@ -138,10 +138,10 @@
 </mat-card>
 
 <button id="button-edit" mat-fab color="primary" matTooltip="Edit transfer" [matTooltipPosition]="'left'"
-    (click)="openEditDialog('all')">
+    (click)="openEditTransferDialog('all')">
     <mat-icon>edit</mat-icon>
 </button>
 
-<button id="button-delete" mat-fab color="primary" matTooltip="Delete transfer" [matTooltipPosition]="'left'">
+<button id="button-delete" mat-fab color="primary" matTooltip="Delete transfer" [matTooltipPosition]="'left'" (click)="openDeleteTransferDialog()">
     <mat-icon>delete</mat-icon>
 </button>

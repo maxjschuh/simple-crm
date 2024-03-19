@@ -10,7 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgIf } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { Contact } from '../../models/contact.class';
 import { Employee } from '../../models/employee.class';
 
 @Component({
@@ -50,7 +49,7 @@ export class DialogAddEmployeeComponent {
   }
 
 
-  async saveEmployee() {
+  async saveEmployee(): Promise<void> {
 
     this.loading = true;
     this.employee.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;

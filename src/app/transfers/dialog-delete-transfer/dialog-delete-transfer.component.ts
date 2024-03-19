@@ -28,11 +28,13 @@ export class DialogDeleteTransferComponent {
     @Inject(MAT_DIALOG_DATA) public transfer: Transfer
   ) { }
 
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  async deleteTransfer() {
+  
+  async deleteTransfer(): Promise<void> {
 
     this.loading = true;
     await this.firestoreService.deleteDocument('transfers', this.transfer.id);

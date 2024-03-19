@@ -64,7 +64,7 @@
             Date
         </mat-header-cell>
         <mat-cell *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
-            {{this.dateService.returnTimestampAsDateString(transfer.date)}}
+            {{dateService.returnTimestampAsDateString(transfer.date)}}
         </mat-cell>
     </ng-container>
 
@@ -156,7 +156,7 @@
 
         <ng-container matColumnDef="date">
             <mat-cell class="date" *matCellDef="let transfer" [routerLink]="['/transfer', transfer.id]">
-                {{this.dateService.returnTimestampAsDateString(transfer.date)}}
+                {{dateService.returnTimestampAsDateString(transfer.date)}}
             </mat-cell>
         </ng-container>
 
