@@ -21,6 +21,7 @@ import { MobileSort } from '../../interfaces/mobile-sort.interface';
 import { NgIf } from '@angular/common';
 import { DialogEditEmployeeComponent } from '../dialog-edit-employee/dialog-edit-employee.component';
 import { Subscription } from 'rxjs';
+import { dataForEditDialog } from '../../interfaces/data-for-edit-dialog.interface';
 
 
 @Component({
@@ -164,7 +165,12 @@ export class EmployeesTableComponent {
 
   openEditEmployeeDialog(): void {
 
-    this.dialog.open(DialogEditEmployeeComponent, {});
+    const data: dataForEditDialog = {
+      fieldsToEdit: 'all',
+      document: this.commonService.getDocumentFromCollection('employees', this.documentInFocus, Employee)
+    };
+
+    this.dialog.open(DialogEditEmployeeComponent, {data: data});
   }
 
 
@@ -172,7 +178,7 @@ export class EmployeesTableComponent {
 
     const document = this.commonService.getDocumentFromCollection('employees', this.documentInFocus, Employee);
 
-    this.dialog.open(DialogDeleteEmployeeComponent, { data: document });
+    this.dialog.open(DialogDeleteEmployeeComponent, {data: document});
   }
 
 

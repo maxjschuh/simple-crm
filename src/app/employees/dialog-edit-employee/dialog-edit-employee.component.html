@@ -68,16 +68,22 @@
         }
 
         @if (
-            fieldsToEdit === 'birthDate+supervisor' ||
-            fieldsToEdit === 'all'
-            ) {
-            <div class="inputs-row">
-                <mat-form-field appearance="outline" [color]="'accent'">
-                    <mat-label>Supervisor</mat-label>
-                    <input matInput [(ngModel)]="employee.position" type="text" required [disabled]="loading">
-                </mat-form-field>
-            </div>
-            }
+        fieldsToEdit === 'birthDate+supervisor' ||
+        fieldsToEdit === 'all'
+        ) {
+        <mat-form-field appearance="outline" [color]="'accent'">
+            <mat-label>Supervisor</mat-label>
+            <input type="text" matInput [formControl]="employeePicker" [matAutocomplete]="auto"
+                [value]="employee.supervisor" required>
+
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+
+                @for (employee of employeePickerFilteredOptions | async; track employee; let index = $index ) {
+                <mat-option [value]="employee">{{employee}}</mat-option>
+                }
+            </mat-autocomplete>
+        </mat-form-field>
+        }
 
     </div>
 
