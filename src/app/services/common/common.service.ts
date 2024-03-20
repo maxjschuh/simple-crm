@@ -141,15 +141,18 @@ export class CommonService {
     for (let i = 0; i < collection.length; i++) {
       const person = collection[i];
 
-      const fullName = person.lastName + ', ' + person.firstName;
+      if (person.id !== 'WjVzeiDUXvRcx8MVZBbq') { //person is not the owner of the database
+        
+        const fullName = person.lastName + ', ' + person.firstName;
 
-      pickerOptions.push(fullName);
+        pickerOptions.push(fullName);
+      }
     }
 
     return pickerOptions;
   }
 
-  
+
   returnLinkToPerson(
     type: '/employee' | '/contact',
     id: string

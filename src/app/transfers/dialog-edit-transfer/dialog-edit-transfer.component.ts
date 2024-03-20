@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, Ma
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { DateService } from '../../services/date/date.service';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { Transfer } from '../../models/transfer.class';
@@ -66,6 +66,9 @@ export class DialogEditTransferComponent {
   employeePicker = new FormControl({ value: '', disabled: false });
   employeePickerOptions: string[] = [];
   employeePickerFilteredOptions!: Observable<string[]>;
+
+  changedTypeBefore = false;
+  readonly demoOwner = 'Doe Demo-Owner, John';
 
   @Output() savedEdits = new EventEmitter<any>();
 
@@ -187,5 +190,26 @@ export class DialogEditTransferComponent {
 
     this.transfer[nameField] = this.commonService.returnFormattedName(name);
     this.transfer[idField] = this.commonService.returnIdByName(name, collection);
+  }
+
+
+  setPayerRecipient(event: MatSelectChange): void {
+
+    if (this.changedTypeBefore) {
+
+      this.payerPicker = new FormControl({value: '', disabled: false});
+      this.recipientPicker = new FormControl({value: '', disabled: false});
+    }
+
+    if (event.value === 'Sale') {
+
+      this.recipientPicker = new FormControl({value: this.demoOwner, disabled: true});
+
+    } else {
+
+      this.payerPicker = new FormControl({ value: this.demoOwner, disabled: true });
+    }
+
+    this.changedTypeBefore = true;
   }
 }

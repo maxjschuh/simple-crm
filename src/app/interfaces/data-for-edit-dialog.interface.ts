@@ -9,10 +9,9 @@ export interface dataForEditDialog {
     'address' |
     'birthDate' |
     'position+department' |
-    'birthDate+supervisor' | 
+    'birthDate+supervisor' |
     'title' |
-    'payer+recipient' |
-    'type+amount' |
+    'type+amount+payer+recipient' |
     'closedBy+date' |
     'description',
     document: Contact | Transfer | Employee

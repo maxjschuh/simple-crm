@@ -11,7 +11,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgIf } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Transfer } from '../../models/transfer.class';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
@@ -68,11 +68,14 @@ export class DialogAddTransferComponent implements OnInit {
   employeePickerOptions: string[] = [];
   employeePickerFilteredOptions!: Observable<string[]>;
 
-  selectedPersonIndex = {
+  selectedPersonIndex = { //not yet in use
     payerPicker: 0,
     recipientPicker: 0,
     employeePicker: 0
   }
+
+  changedTypeBefore = false;
+  readonly demoOwner = 'Doe Demo-Owner, John';
 
   constructor(
     public dialogRef: MatDialogRef<DialogAddTransferComponent>,
@@ -143,14 +146,13 @@ export class DialogAddTransferComponent implements OnInit {
     this.addPersonFromPicker('recipient', 'recipientId', this.payerPicker.value, this.contacts);
     this.addPersonFromPicker('closedBy', 'closedById', this.employeePicker.value, this.employees);
 
-    this.payerPicker = new FormControl({ value: '', disabled: true });
-    this.recipientPicker = new FormControl({ value: '', disabled: true });
-    this.employeePicker = new FormControl({ value: '', disabled: true });
+    this.payerPicker = new FormControl({ value: this.payerPicker.value, disabled: true });
+    this.recipientPicker = new FormControl({ value: this.recipientPicker.value, disabled: true });
+    this.employeePicker = new FormControl({ value: this.employeePicker.value, disabled: true });
 
     this.loading = true;
     this.transfer.date = this.date ? this.date.getTime() : 0;
-    
-    console.log(this.transfer)
+
     const response = await this.firestoreService.addDocument('transfers', this.transfer.toJSON());
 
     setTimeout(() => {
@@ -198,5 +200,26 @@ export class DialogAddTransferComponent implements OnInit {
       default:
         break;
     }
+  }
+
+
+  setPayerRecipient(event: MatSelectChange): void {
+
+    if (this.changedTypeBefore) {
+
+      this.payerPicker = new FormControl({value: '', disabled: false});
+      this.recipientPicker = new FormControl({value: '', disabled: false});
+    }
+
+    if (event.value === 'Sale') {
+
+      this.recipientPicker = new FormControl({value: this.demoOwner, disabled: true});
+
+    } else {
+
+      this.payerPicker = new FormControl({ value: this.demoOwner, disabled: true });
+    }
+
+    this.changedTypeBefore = true;
   }
 }

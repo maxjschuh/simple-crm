@@ -59,7 +59,7 @@
         </button>
 
         <mat-menu #menu2="matMenu">
-            <button mat-menu-item (click)="openEditTransferDialog('payer+recipient')">
+            <button mat-menu-item (click)="openEditTransferDialog('type+amount+payer+recipient')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>
@@ -91,7 +91,7 @@
         </button>
 
         <mat-menu #menu3="matMenu">
-            <button mat-menu-item (click)="openEditTransferDialog('type+amount')">
+            <button mat-menu-item (click)="openEditTransferDialog('type+amount+payer+recipient')">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>

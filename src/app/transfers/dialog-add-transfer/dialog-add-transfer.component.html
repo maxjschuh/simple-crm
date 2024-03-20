@@ -16,6 +16,23 @@
 
         <div class="inputs-row">
             <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Type</mat-label>
+                <mat-select required [disabled]="loading" [(value)]="transfer.type" (selectionChange)="setPayerRecipient($event)">
+                    <mat-option value="Sale">{{'Sale'}}</mat-option>
+                    <mat-option value="Purchase">{{'Purchase'}}</mat-option>
+                    <mat-option value="Refund">{{'Refund'}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Amount</mat-label>
+                <input matInput [(ngModel)]="transfer.amount" type="number" required [disabled]="loading">
+            </mat-form-field>
+        </div>
+
+        <div class="inputs-row">
+            <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Payer</mat-label>
                 <input type="text" matInput [formControl]="payerPicker" [matAutocomplete]="auto1" required>
 
@@ -42,23 +59,6 @@
                         (onSelectionChange)="savePersonIndex($event.isUserInput, 'recipient', index)">{{recipient}}</mat-option>
                     } -->
                 </mat-autocomplete>
-            </mat-form-field>
-        </div>
-
-        <div class="inputs-row">
-            <mat-form-field appearance="outline" [color]="'accent'">
-                <mat-label>Type</mat-label>
-                <mat-select required [disabled]="loading" [(value)]="transfer.type">
-                    <mat-option value="Sale">{{'Sale'}}</mat-option>
-                    <mat-option value="Purchase">{{'Purchase'}}</mat-option>
-                    <mat-option value="Refund">{{'Refund'}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-
-            <mat-form-field appearance="outline" [color]="'accent'">
-                <mat-label>Amount</mat-label>
-                <input matInput [(ngModel)]="transfer.amount" type="number" required [disabled]="loading">
             </mat-form-field>
         </div>
 

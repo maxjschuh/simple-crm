@@ -83,7 +83,7 @@ export class TransferDetailComponent {
   }
 
 
-  openEditTransferDialog(fieldsToEdit: 'all' | 'title' | 'payer+recipient' | 'type+amount' | 'closedBy+date' | 'description'): void {
+  openEditTransferDialog(fieldsToEdit: 'all' | 'title' | 'type+amount+payer+recipient' | 'closedBy+date' | 'description'): void {
 
     const data: dataForEditDialog = {
       fieldsToEdit: fieldsToEdit,

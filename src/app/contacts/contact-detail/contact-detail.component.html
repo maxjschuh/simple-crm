@@ -3,23 +3,36 @@
     <img id="profile-img" src="./assets/img/profile_placeholder.svg" alt="placeholder for profile">
 
     <mat-card-header>
-        <mat-card-title>{{ contact.firstName + ' ' + contact.lastName }}</mat-card-title>
+
+        <mat-card-title>
+
+            @if (contact.id === 'WjVzeiDUXvRcx8MVZBbq') {
+
+            {{ contact.firstName + ' ' + contact.lastName + ' (You)' }}
+
+            } @else {
+
+            {{ contact.firstName + ' ' + contact.lastName}}
+            }
+
+        </mat-card-title>
+
         <mat-card-subtitle>
 
             @if (contact.email) {
 
-                <a mat-raised-button href="mailto:{{ contact.email }}">
-                    <mat-icon>mail</mat-icon>
-                    {{ contact.email }}
-                </a>
+            <a mat-raised-button href="mailto:{{ contact.email }}">
+                <mat-icon>mail</mat-icon>
+                {{ contact.email }}
+            </a>
             }
 
             @if (contact.phone) {
 
-                <a mat-raised-button href="tel:{{ contact.phone }}">
-                    <mat-icon>call</mat-icon>
-                    {{ contact.phone }}
-                </a>
+            <a mat-raised-button href="tel:{{ contact.phone }}">
+                <mat-icon>call</mat-icon>
+                {{ contact.phone }}
+            </a>
             }
 
         </mat-card-subtitle>
@@ -86,6 +99,8 @@
 
     <mat-divider></mat-divider>
 
+    @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
+
     <section>
         <mat-card-title>
             Sales
@@ -95,8 +110,11 @@
         </div>
 
     </section>
+    }
 
 </mat-card>
+
+@if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
 
 <button id="button-edit" mat-fab color="primary" matTooltip="Edit contact" [matTooltipPosition]="'left'"
     (click)="openEditContactDialog('all')">
@@ -107,3 +125,4 @@
     (click)="openDeleteContactDialog()">
     <mat-icon>delete</mat-icon>
 </button>
+}
