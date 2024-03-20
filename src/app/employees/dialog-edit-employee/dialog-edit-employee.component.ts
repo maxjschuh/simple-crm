@@ -46,7 +46,7 @@ export class DialogEditEmployeeComponent {
   employeesSubscriber = new Subscription;
   employees: Employee[] = [];
 
-  employeePicker = new FormControl({value: '', disabled: false});
+  employeePicker = new FormControl({ value: '', disabled: false });
   employeePickerOptions: string[] = [];
   employeePickerFilteredOptions!: Observable<string[]>;
 
@@ -66,7 +66,7 @@ export class DialogEditEmployeeComponent {
   ) {
 
     this.employee = data.document;
-    this.employeePicker = new FormControl({value: this.employee.supervisor, disabled: false});
+    this.employeePicker = new FormControl({ value: this.employee.supervisor, disabled: false });
 
     this.fieldsToEdit = data.fieldsToEdit;
     this.birthDate = this.employee.birthDate ? new Date(this.employee.birthDate) : undefined;
@@ -152,12 +152,14 @@ export class DialogEditEmployeeComponent {
 
   addSupervisorFromPicker(): void {
 
+    this.employee.supervisor = '';
+    this.employee.supervisorId = '';
+
     const supervisorName = this.employeePicker.value;
 
-    if (supervisorName) {
+    if (!supervisorName) return;
 
-      this.employee.supervisor = supervisorName;
-      this.employee.supervisorId = this.commonService.returnIdByName(supervisorName, this.employees);
-    }
+    this.employee.supervisor = this.commonService.returnFormattedName(supervisorName);
+    this.employee.supervisorId = this.commonService.returnIdByName(supervisorName, this.employees);
   }
 }

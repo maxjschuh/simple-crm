@@ -44,7 +44,7 @@ export class DialogAddEmployeeComponent {
 
   employeesSubscriber = new Subscription;
   employees: Employee[] = [];
-  
+
   employee = new Employee();
   birthDate: Date | undefined = undefined;
   loading = false;
@@ -58,14 +58,14 @@ export class DialogAddEmployeeComponent {
     private firestoreService: FirestoreService,
     public dateService: DateService,
     private commonService: CommonService
-  ) { 
+  ) {
 
     this.employeesSubscriber =
-    this.firestoreService
-      .employeesFrontendDistributor
-      .subscribe(employees => {
-        this.employees = employees;
-      });;
+      this.firestoreService
+        .employeesFrontendDistributor
+        .subscribe(employees => {
+          this.employees = employees;
+        });;
   }
 
 
@@ -100,7 +100,7 @@ export class DialogAddEmployeeComponent {
     for (let i = 0; i < this.employees.length; i++) {
       const person = this.employees[i];
 
-      const fullName = person.firstName + ' ' + person.lastName;
+      const fullName = person.lastName + ', ' + person.firstName;
 
       pickerOptions.push(fullName);
     }
@@ -116,6 +116,7 @@ export class DialogAddEmployeeComponent {
 
   async saveEmployee(): Promise<void> {
 
+    // debugger
     this.addSupervisorFromPicker();
 
     this.employeePicker = new FormControl({ value: '', disabled: true });
@@ -123,9 +124,9 @@ export class DialogAddEmployeeComponent {
     this.employee.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
     const response = await this.firestoreService.addDocument('employees', this.employee.toJSON());
-    
+
     setTimeout(() => {
-      
+
       this.loading = false;
       this.dialogRef.close();
     }, 2000);
@@ -134,12 +135,14 @@ export class DialogAddEmployeeComponent {
 
   addSupervisorFromPicker(): void {
 
+    this.employee.supervisor = '';
+    this.employee.supervisorId = '';
+
     const supervisorName = this.employeePicker.value;
-    this.employee.supervisor = supervisorName ? supervisorName : '';
 
-    if (supervisorName) {
+    if (!supervisorName) return;
 
-      this.employee.supervisorId = this.commonService.returnIdByName(supervisorName, this.employees);
-    } 
+    this.employee.supervisor = this.commonService.returnFormattedName(supervisorName);
+    this.employee.supervisorId = this.commonService.returnIdByName(supervisorName, this.employees);
   }
 }

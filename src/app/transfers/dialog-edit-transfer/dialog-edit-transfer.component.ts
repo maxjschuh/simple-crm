@@ -196,9 +196,12 @@ export class DialogEditTransferComponent {
     name: string | null,
     collection: Employee[] | Contact[]): void {
 
+    this.transfer[nameField] = '';
+    this.transfer[idField] = '';
+
     if (!name) return;
 
-    this.transfer[nameField] = name;
+    this.transfer[nameField] = this.commonService.returnFormattedName(name);
     this.transfer[idField] = this.commonService.returnIdByName(name, collection);
   }
 }

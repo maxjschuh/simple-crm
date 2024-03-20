@@ -78,9 +78,13 @@
                 Supervisor
             </mat-card-subtitle>
 
-            <a mat-raised-button [routerLink]="['/employee', employee.supervisorId]">
-                {{ employee.supervisor }}
-            </a>
+            @if (linkToSupervisor.length) {
+
+                <a mat-raised-button [routerLink]="linkToSupervisor">
+                    {{ employee.supervisor }}
+                </a>
+            }
+
         </div>
 
         <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu3">

@@ -30,6 +30,7 @@ export class EmployeeDetailComponent implements OnInit {
   editsSubscriber = new Subscription;
   employee = new Employee();
   employeeId = '';
+  linkToSupervisor: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -41,9 +42,18 @@ export class EmployeeDetailComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.routeSubscriber.unsubscribe();
+
     this.routeSubscriber = this.route.params.subscribe(params => {
+      
       this.employeeId = params['id'];
+      this.init();
     });
+  }
+
+  init(): void {
+
+    this.employeesSubscriber.unsubscribe();
 
     this.employeesSubscriber =
       this.firestoreService
@@ -53,7 +63,20 @@ export class EmployeeDetailComponent implements OnInit {
           this.employee =
             this.commonService
               .getDocumentFromCollection('employees', this.employeeId, Employee);
+
+              this.setLinkToSupervisor();
         });
+  }
+
+
+  setLinkToSupervisor(): void {
+
+    this.linkToSupervisor = [];
+
+    if (this.employee.supervisorId) {
+
+      this.linkToSupervisor = ['/employee', this.employee.supervisorId];
+    }
   }
 
 

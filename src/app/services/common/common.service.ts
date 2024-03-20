@@ -101,14 +101,15 @@ export class CommonService {
     else return person.id;
   }
 
-  
+
   returnPersonByName(
     name: string,
     collection: Employee[] | Contact[]
   ): Contact | Employee | void {
 
-    const firstName = name.split(',')[0];
-    const lastName = name.split(',')[1];
+    debugger
+    const lastName = name.split(',')[0];
+    const firstName = name.split(',')[1].slice(1);
 
     for (let i = 0; i < collection.length; i++) {
       const person = collection[i];
@@ -119,5 +120,16 @@ export class CommonService {
 
       ) return person;
     }
+  }
+
+  
+  returnFormattedName(
+    lastNameCommaFirstName: string
+  ): string {
+
+    const firstName = lastNameCommaFirstName.split(',')[1].slice(1);
+    const lastName = lastNameCommaFirstName.split(',')[0];
+
+    return firstName + ' ' + lastName;
   }
 }

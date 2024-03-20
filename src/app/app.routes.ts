@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
-
 import { DashboardComponent } from './dashboard/dashboard.component';
-
 import { TransfersTableComponent } from './transfers/transfers-table/transfers-table.component';
 import { TransferDetailComponent } from './transfers/transfer-detail/transfer-detail.component';
 import { ContactsTableComponent } from './contacts/contacts-table/contacts-table.component';
