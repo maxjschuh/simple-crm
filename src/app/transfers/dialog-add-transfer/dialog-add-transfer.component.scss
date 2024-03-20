@@ -9,6 +9,10 @@
     .inputs-row {
         display: flex;
         gap: 16px;
+
+        mat-form-field {
+            width: calc(50% - 8px);
+        }
     }
 }
 

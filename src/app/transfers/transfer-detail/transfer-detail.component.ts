@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +19,7 @@ import { DialogDeleteTransferComponent } from '../dialog-delete-transfer/dialog-
 @Component({
   selector: 'app-transfer-detail',
   standalone: true,
-  imports: [MatButtonModule, MatCardModule, MatDividerModule, MatIconModule, MatMenuModule, MatTooltipModule],
+  imports: [MatButtonModule, MatCardModule, MatDividerModule, MatIconModule, MatMenuModule, MatTooltipModule, RouterModule],
   templateUrl: './transfer-detail.component.html',
   styleUrl: './transfer-detail.component.scss'
 })
@@ -31,6 +31,9 @@ export class TransferDetailComponent {
   transfer = new Transfer();
   transferId = '';
 
+  linkToPayer: string[] = [];
+  linkToRecipient: string[] = [];
+  linkToClosedBy: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -42,9 +45,20 @@ export class TransferDetailComponent {
 
   ngOnInit(): void {
 
+    this.routeSubscriber.unsubscribe();
+
     this.routeSubscriber = this.route.params.subscribe(params => {
+
       this.transferId = params['id'];
+      this.init();
     });
+
+
+  }
+
+  init(): void {
+
+    this.transfersSubscriber.unsubscribe();
 
     this.transfersSubscriber =
       this.firestoreService
@@ -54,6 +68,10 @@ export class TransferDetailComponent {
           this.transfer =
             this.commonService
               .getDocumentFromCollection('transfers', this.transferId, Transfer);
+
+          this.linkToPayer = this.commonService.returnLinkToPerson('/contact', this.transfer.payerId);
+          this.linkToRecipient = this.commonService.returnLinkToPerson('/contact', this.transfer.recipientId);
+          this.linkToClosedBy = this.commonService.returnLinkToPerson('/employee', this.transfer.closedById);
         });
   }
 
@@ -80,7 +98,7 @@ export class TransferDetailComponent {
   }
 
 
-  openDeleteTransferDialog():void {
+  openDeleteTransferDialog(): void {
 
     this.dialog.open(DialogDeleteTransferComponent, { data: this.transfer });
   }

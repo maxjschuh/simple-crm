@@ -8,7 +8,7 @@ export class Employee {
     department: string;
     position: string;
     supervisor: string;
-    supervisorId: string;
+    supervisorId: string; //is '' when supervisor is not in database
     closingsIds: string[];
     id: string;
 

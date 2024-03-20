@@ -107,7 +107,6 @@ export class CommonService {
     collection: Employee[] | Contact[]
   ): Contact | Employee | void {
 
-    debugger
     const lastName = name.split(',')[0];
     const firstName = name.split(',')[1].slice(1);
 
@@ -122,7 +121,7 @@ export class CommonService {
     }
   }
 
-  
+
   returnFormattedName(
     lastNameCommaFirstName: string
   ): string {
@@ -131,5 +130,33 @@ export class CommonService {
     const lastName = lastNameCommaFirstName.split(',')[0];
 
     return firstName + ' ' + lastName;
+  }
+
+
+
+  returnDataForPersonPicker(collection: Contact[] | Employee[]): string[] {
+
+    let pickerOptions = [];
+
+    for (let i = 0; i < collection.length; i++) {
+      const person = collection[i];
+
+      const fullName = person.lastName + ', ' + person.firstName;
+
+      pickerOptions.push(fullName);
+    }
+
+    return pickerOptions;
+  }
+
+  
+  returnLinkToPerson(
+    type: '/employee' | '/contact',
+    id: string
+  ): string[] {
+
+    if (id) return [type, id];
+      
+    else return [];
   }
 }

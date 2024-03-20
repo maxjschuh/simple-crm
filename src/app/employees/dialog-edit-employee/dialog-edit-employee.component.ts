@@ -82,7 +82,7 @@ export class DialogEditEmployeeComponent {
 
   ngOnInit(): void {
 
-    this.employeePickerOptions = this.returnDataForPersonPicker();
+    this.employeePickerOptions = this.commonService.returnDataForPersonPicker(this.employees);
 
     this.employeePickerFilteredOptions = this.employeePicker.valueChanges.pipe(
       startWith(''),
@@ -101,22 +101,6 @@ export class DialogEditEmployeeComponent {
     const filterValue = value.toLowerCase();
 
     return this.employeePickerOptions.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
-
-  returnDataForPersonPicker(): string[] {
-
-    let pickerOptions = [];
-
-    for (let i = 0; i < this.employees.length; i++) {
-      const person = this.employees[i];
-
-      const fullName = person.firstName + ' ' + person.lastName;
-
-      pickerOptions.push(fullName);
-    }
-
-    return pickerOptions;
   }
 
 

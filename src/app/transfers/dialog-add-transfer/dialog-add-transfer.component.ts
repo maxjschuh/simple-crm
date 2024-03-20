@@ -98,9 +98,9 @@ export class DialogAddTransferComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.payerPickerOptions = this.returnDataForPersonPicker(this.contacts);
-    this.recipientPickerOptions = this.returnDataForPersonPicker(this.contacts);
-    this.employeePickerOptions = this.returnDataForPersonPicker(this.employees);
+    this.payerPickerOptions = this.commonService.returnDataForPersonPicker(this.contacts);
+    this.recipientPickerOptions = this.commonService.returnDataForPersonPicker(this.contacts);
+    this.employeePickerOptions = this.commonService.returnDataForPersonPicker(this.employees);
 
     this.payerPickerFilteredOptions = this.payerPicker.valueChanges.pipe(
       startWith(''),
@@ -132,22 +132,6 @@ export class DialogAddTransferComponent implements OnInit {
   }
 
 
-  returnDataForPersonPicker(collection: Contact[] | Employee[]): string[] {
-
-    let pickerOptions = [];
-
-    for (let i = 0; i < collection.length; i++) {
-      const person = collection[i];
-
-      const fullName = person.firstName + ' ' + person.lastName;
-
-      pickerOptions.push(fullName);
-    }
-
-    return pickerOptions;
-  }
-
-
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -165,7 +149,8 @@ export class DialogAddTransferComponent implements OnInit {
 
     this.loading = true;
     this.transfer.date = this.date ? this.date.getTime() : 0;
-
+    
+    console.log(this.transfer)
     const response = await this.firestoreService.addDocument('transfers', this.transfer.toJSON());
 
     setTimeout(() => {

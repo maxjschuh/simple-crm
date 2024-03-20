@@ -5,15 +5,23 @@
     <mat-card-header>
         <mat-card-title>{{ contact.firstName + ' ' + contact.lastName }}</mat-card-title>
         <mat-card-subtitle>
-            <a mat-raised-button href="mailto:{{ contact.email }}">
-                <mat-icon>mail</mat-icon>
-                {{ contact.email }}
-            </a>
 
-            <a mat-raised-button href="tel:{{ contact.phone }}">
-                <mat-icon>call</mat-icon>
-                {{ contact.phone }}
-            </a>
+            @if (contact.email) {
+
+                <a mat-raised-button href="mailto:{{ contact.email }}">
+                    <mat-icon>mail</mat-icon>
+                    {{ contact.email }}
+                </a>
+            }
+
+            @if (contact.phone) {
+
+                <a mat-raised-button href="tel:{{ contact.phone }}">
+                    <mat-icon>call</mat-icon>
+                    {{ contact.phone }}
+                </a>
+            }
+
         </mat-card-subtitle>
     </mat-card-header>
 

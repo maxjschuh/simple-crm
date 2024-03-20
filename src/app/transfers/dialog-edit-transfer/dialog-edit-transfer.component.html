@@ -13,7 +13,17 @@
             <mat-label>Title</mat-label>
             <input cdkFocusInitial matInput [(ngModel)]="transfer.title" type="text" required [disabled]="loading">
         </mat-form-field>
+        }
 
+        @if (
+        fieldsToEdit === 'description' ||
+        fieldsToEdit === 'all'
+        ) {
+
+        <mat-form-field appearance="outline" [color]="'accent'">
+            <mat-label>Description</mat-label>
+            <textarea matInput [disabled]="loading"></textarea>
+        </mat-form-field>
         }
 
         @if (
@@ -34,8 +44,6 @@
                 </mat-autocomplete>
             </mat-form-field>
 
-
-
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Recipient</mat-label>
                 <input type="text" matInput [formControl]="recipientPicker" [matAutocomplete]="auto2" required>
@@ -43,12 +51,10 @@
                 <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
 
                     @for (recipient of recipientPickerFilteredOptions | async; track recipient; let index = $index ) {
-                    <mat-option [value]="transfer.recipient">{{recipient}}</mat-option>
+                    <mat-option [value]="recipient">{{recipient}}</mat-option>
                     }
                 </mat-autocomplete>
             </mat-form-field>
-
-
         </div>
         }
 
@@ -91,28 +97,16 @@
 
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Closed by</mat-label>
-                <input type="text" matInput [formControl]="employeePicker" [matAutocomplete]="auto3"
-                    [value]="transfer.closedBy" required>
+                <input type="text" matInput [formControl]="employeePicker" [matAutocomplete]="auto3" required>
 
                 <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete">
 
                     @for (employee of employeePickerFilteredOptions | async; track employee; let index = $index ) {
-                    <mat-option [value]="index">{{employee}}</mat-option>
+                    <mat-option [value]="employee">{{employee}}</mat-option>
                     }
                 </mat-autocomplete>
             </mat-form-field>
         </div>
-        }
-
-        @if (
-        fieldsToEdit === 'description' ||
-        fieldsToEdit === 'all'
-        ) {
-            
-        <mat-form-field appearance="outline" [color]="'accent'">
-            <mat-label>Description</mat-label>
-            <textarea matInput [disabled]="loading"></textarea>
-        </mat-form-field>
         }
 
     </div>

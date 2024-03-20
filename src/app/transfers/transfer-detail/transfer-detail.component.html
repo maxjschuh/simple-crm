@@ -2,9 +2,6 @@
 
     <mat-card-header>
         <mat-card-title>{{ transfer.title }}</mat-card-title>
-
-        <mat-card-subtitle>
-        </mat-card-subtitle>
     </mat-card-header>
 
     <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu1">
@@ -27,14 +24,34 @@
             <mat-card-subtitle>
                 Payer
             </mat-card-subtitle>
+
+            @if (linkToPayer.length) {
+
+            <a mat-raised-button [routerLink]="linkToPayer">
+                {{ transfer.payer }}
+            </a>
+
+            } @else {
+
             {{ transfer.payer }}
+            }
         </div>
 
         <div>
             <mat-card-subtitle>
                 Recipient
             </mat-card-subtitle>
+
+            @if (linkToRecipient.length) {
+
+            <a mat-raised-button [routerLink]="linkToRecipient">
+                {{ transfer.recipient }}
+            </a>
+
+            } @else {
+
             {{ transfer.recipient }}
+            }
         </div>
 
         <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
@@ -90,7 +107,17 @@
             <mat-card-subtitle>
                 Closed by
             </mat-card-subtitle>
+
+            @if (linkToClosedBy.length) {
+
+            <a mat-raised-button [routerLink]="linkToClosedBy">
+                {{ transfer.closedBy }}
+            </a>
+
+            } @else {
+
             {{ transfer.closedBy }}
+            }
         </div>
 
         <div>
@@ -142,6 +169,7 @@
     <mat-icon>edit</mat-icon>
 </button>
 
-<button id="button-delete" mat-fab color="primary" matTooltip="Delete transfer" [matTooltipPosition]="'left'" (click)="openDeleteTransferDialog()">
+<button id="button-delete" mat-fab color="primary" matTooltip="Delete transfer" [matTooltipPosition]="'left'"
+    (click)="openDeleteTransferDialog()">
     <mat-icon>delete</mat-icon>
 </button>

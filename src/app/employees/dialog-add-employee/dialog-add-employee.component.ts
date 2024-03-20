@@ -71,7 +71,7 @@ export class DialogAddEmployeeComponent {
 
   ngOnInit(): void {
 
-    this.employeePickerOptions = this.returnDataForPersonPicker();
+    this.employeePickerOptions = this.commonService.returnDataForPersonPicker(this.employees);
 
     this.employeePickerFilteredOptions = this.employeePicker.valueChanges.pipe(
       startWith(''),
@@ -93,20 +93,7 @@ export class DialogAddEmployeeComponent {
   }
 
 
-  returnDataForPersonPicker(): string[] {
 
-    let pickerOptions = [];
-
-    for (let i = 0; i < this.employees.length; i++) {
-      const person = this.employees[i];
-
-      const fullName = person.lastName + ', ' + person.firstName;
-
-      pickerOptions.push(fullName);
-    }
-
-    return pickerOptions;
-  }
 
 
   onNoClick(): void {
@@ -116,7 +103,6 @@ export class DialogAddEmployeeComponent {
 
   async saveEmployee(): Promise<void> {
 
-    // debugger
     this.addSupervisorFromPicker();
 
     this.employeePicker = new FormControl({ value: '', disabled: true });

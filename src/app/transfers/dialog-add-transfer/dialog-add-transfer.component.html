@@ -16,6 +16,37 @@
 
         <div class="inputs-row">
             <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Payer</mat-label>
+                <input type="text" matInput [formControl]="payerPicker" [matAutocomplete]="auto1" required>
+
+                <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+
+                    @for (payer of payerPickerFilteredOptions | async; track payer; let index = $index ) {
+                    <mat-option [value]="payer">{{payer}}</mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Recipient</mat-label>
+                <input type="text" matInput [formControl]="recipientPicker" [matAutocomplete]="auto2" required>
+
+                <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+
+                    @for (recipient of recipientPickerFilteredOptions | async; track recipient; let index = $index ) {
+                    <mat-option [value]="recipient">{{recipient}}</mat-option>
+                    }
+
+                    <!-- @for (recipient of recipientPickerFilteredOptions | async; track recipient; let index = $index ) {
+                    <mat-option [value]="transfer.recipient"
+                        (onSelectionChange)="savePersonIndex($event.isUserInput, 'recipient', index)">{{recipient}}</mat-option>
+                    } -->
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+
+        <div class="inputs-row">
+            <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Type</mat-label>
                 <mat-select required [disabled]="loading" [(value)]="transfer.type">
                     <mat-option value="Sale">{{'Sale'}}</mat-option>
@@ -31,61 +62,27 @@
             </mat-form-field>
         </div>
 
-        <mat-form-field appearance="outline" [color]="'accent'">
-            <mat-label>Date</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="date" required [disabled]="loading"
-                [max]="dateService.getToday()">
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
-
         <div class="inputs-row">
-
             <mat-form-field appearance="outline" [color]="'accent'">
-                <mat-label>Payer</mat-label>
-                <input type="text" matInput [formControl]="payerPicker" [matAutocomplete]="auto1" required>
-
-                <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
-
-                    @for (payer of payerPickerFilteredOptions | async; track payer; let index = $index ) {
-                    <mat-option [value]="payer">{{payer}}</mat-option>
-                    }
-                </mat-autocomplete>
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="date" required [disabled]="loading"
+                    [max]="dateService.getToday()">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-
-
-
+    
             <mat-form-field appearance="outline" [color]="'accent'">
-                <mat-label>Recipient</mat-label>
-                <input type="text" matInput [formControl]="recipientPicker" [matAutocomplete]="auto2" required>
-
-                <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
-
-                    @for (recipient of recipientPickerFilteredOptions | async; track recipient; let index = $index ) {
-                    <mat-option [value]="transfer.recipient" (onSelectionChange)="savePersonIndex($event.isUserInput, 'recipient', index)">{{recipient}}</mat-option>
+                <mat-label>Closed by</mat-label>
+                <input type="text" matInput [formControl]="employeePicker" [matAutocomplete]="auto3" required>
+    
+                <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete">
+    
+                    @for (employee of employeePickerFilteredOptions | async; track employee; let index = $index ) {
+                    <mat-option [value]="employee">{{employee}}</mat-option>
                     }
                 </mat-autocomplete>
             </mat-form-field>
         </div>
-
-
-        <mat-form-field appearance="outline" [color]="'accent'">
-            <mat-label>Closed by</mat-label>
-            <input type="text" matInput [formControl]="employeePicker" [matAutocomplete]="auto3"
-                [value]="transfer.closedBy" required>
-
-            <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete">
-
-                @for (employee of employeePickerFilteredOptions | async; track employee; let index = $index ) {
-                <mat-option [value]="index">{{employee}}</mat-option>
-                }
-            </mat-autocomplete>
-        </mat-form-field>
-
-
-
-
     </div>
 
 </mat-dialog-content>

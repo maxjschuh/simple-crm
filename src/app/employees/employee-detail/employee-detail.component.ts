@@ -45,7 +45,7 @@ export class EmployeeDetailComponent implements OnInit {
     this.routeSubscriber.unsubscribe();
 
     this.routeSubscriber = this.route.params.subscribe(params => {
-      
+
       this.employeeId = params['id'];
       this.init();
     });
@@ -64,19 +64,8 @@ export class EmployeeDetailComponent implements OnInit {
             this.commonService
               .getDocumentFromCollection('employees', this.employeeId, Employee);
 
-              this.setLinkToSupervisor();
+          this.linkToSupervisor = this.commonService.returnLinkToPerson('/employee', this.employee.supervisorId);
         });
-  }
-
-
-  setLinkToSupervisor(): void {
-
-    this.linkToSupervisor = [];
-
-    if (this.employee.supervisorId) {
-
-      this.linkToSupervisor = ['/employee', this.employee.supervisorId];
-    }
   }
 
 

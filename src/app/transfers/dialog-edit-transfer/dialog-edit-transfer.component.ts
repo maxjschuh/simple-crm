@@ -106,9 +106,9 @@ export class DialogEditTransferComponent {
 
   ngOnInit(): void {
 
-    this.payerPickerOptions = this.returnDataForPersonPicker(this.contacts);
-    this.recipientPickerOptions = this.returnDataForPersonPicker(this.contacts);
-    this.employeePickerOptions = this.returnDataForPersonPicker(this.employees);
+    this.payerPickerOptions = this.commonService.returnDataForPersonPicker(this.contacts);
+    this.recipientPickerOptions = this.commonService.returnDataForPersonPicker(this.contacts);
+    this.employeePickerOptions = this.commonService.returnDataForPersonPicker(this.employees);
 
     this.payerPickerFilteredOptions = this.payerPicker.valueChanges.pipe(
       startWith(''),
@@ -137,22 +137,6 @@ export class DialogEditTransferComponent {
     const filterValue = value.toLowerCase();
 
     return pickerOptions.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
-
-  returnDataForPersonPicker(collection: Contact[] | Employee[]): string[] {
-
-    let pickerOptions = [];
-
-    for (let i = 0; i < collection.length; i++) {
-      const person = collection[i];
-
-      const fullName = person.firstName + ' ' + person.lastName;
-
-      pickerOptions.push(fullName);
-    }
-
-    return pickerOptions;
   }
 
 

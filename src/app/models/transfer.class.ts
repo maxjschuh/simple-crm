@@ -3,14 +3,14 @@ export class Transfer {
     date: number;
     title: string;
     description: string;
-    closedBy: string;
-    closedById: string;
+    closedBy: string; //always an employee
+    closedById: string; //is '' when employee is not in database
     amount: number;
     type: 'Sale' | 'Refund' | 'Purchase' | '';
-    payer: string;
-    recipient: string;
-    payerId: string;
-    recipientId: string;
+    payer: string; //always a contact
+    recipient: string; //always a contact
+    payerId: string; //is '' when payer is not in database
+    recipientId: string; //is '' when recipient is not in database
     id: string;
 
 
