@@ -4,7 +4,7 @@ export class Transfer {
     title: string;
     description: string;
     closedBy: string;
-    closedyById: string;
+    closedById: string;
     amount: number;
     type: 'Sale' | 'Refund' | 'Purchase' | '';
     payer: string;
@@ -19,7 +19,7 @@ export class Transfer {
         this.title = object ? object.title : '';
         this.description = object ? object.description : '';
         this.closedBy = object ? object.closedBy : '';
-        this.closedyById = object ? object.closedyById : '';
+        this.closedById = object ? object.closedById : '';
         this.amount = object ? object.amount : 0;
         this.type = object ? object.type : '';
         this.payer = object ? object.payer : '';
@@ -37,7 +37,7 @@ export class Transfer {
             title: this.title,
             description: this.description,
             closedBy: this.closedBy,
-            closedyById: this.closedyById,
+            closedById: this.closedById,
             amount: this.amount,
             type: this.type,
             payer: this.payer,

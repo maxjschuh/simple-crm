@@ -88,7 +88,7 @@ export class DashboardDataService {
 
 
   //Cashflow-Graph
-  returnDepositLastSixMonths() {
+  returnDepositLastSixMonths(): number[] {
 
     this.transfersByLastSixMonths = this.returnTransfersLastSixMonths();
 
@@ -132,7 +132,7 @@ export class DashboardDataService {
 
   //top employee
 
-  returnTopEmployee() {
+  returnTopEmployee(): { employeeId: string, revenue: number } {
 
     let revenuesByEmployee: { employeeId: string, revenue: number }[] = [];
 
@@ -160,7 +160,7 @@ export class DashboardDataService {
       for (let j = 0; j < transfersMonthly.length; j++) {
         const transfer = transfersMonthly[j];
 
-        if (transfer.closedyById === employee.id && transfer.amount > 0) {
+        if (transfer.closedById === employee.id && transfer.amount > 0) {
 
           revenue = revenue + transfer.amount;
         }

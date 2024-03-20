@@ -5,11 +5,11 @@
     <div>{{ transfer.title }}</div>
 
     <div>
-        {{ 'Closed by: ' + transfer.closedBy + ' on ' + transfer.date }}
+        {{ 'Closed by: ' + transfer.closedBy + ' on ' + dateService.returnTimestampAsDateString(transfer.date) }}
     </div>
 
     <div>
-        {{ 'Amount: ' + transfer.amount }}
+        {{ 'Amount: ' + transfer.amount + '€' }}
     </div>
 
 </mat-dialog-content>

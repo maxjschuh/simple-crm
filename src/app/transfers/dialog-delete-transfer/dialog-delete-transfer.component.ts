@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogDeleteContactComponent } from '../../contacts/dialog-delete-contact/dialog-delete-contact.component';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { Transfer } from '../../models/transfer.class';
+import { DateService } from '../../services/date/date.service';
 
 @Component({
   selector: 'app-dialog-delete-transfer',
@@ -25,6 +26,7 @@ export class DialogDeleteTransferComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogDeleteContactComponent>,
     public firestoreService: FirestoreService,
+    public dateService: DateService,
     @Inject(MAT_DIALOG_DATA) public transfer: Transfer
   ) { }
 

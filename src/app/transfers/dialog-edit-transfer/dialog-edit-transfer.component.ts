@@ -16,6 +16,7 @@ import { Observable, Subscription, map, startWith } from 'rxjs';
 import { Contact } from '../../models/contact.class';
 import { Employee } from '../../models/employee.class';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { CommonService } from '../../services/common/common.service';
 
 @Component({
   selector: 'app-dialog-edit-transfer',
@@ -54,13 +55,13 @@ export class DialogEditTransferComponent {
   loading = false;
   fieldsToEdit: string;
 
-  contactPicker1 = new FormControl({ value: '', disabled: false });
-  contactPickerOptions1: string[] = [];
-  contactPickerFilteredOptions1!: Observable<string[]>;
+  payerPicker = new FormControl({ value: '', disabled: false });
+  payerPickerOptions: string[] = [];
+  payerPickerFilteredOptions!: Observable<string[]>;
 
-  contactPicker2 = new FormControl({ value: '', disabled: false });
-  contactPickerOptions2: string[] = [];
-  contactPickerFilteredOptions2!: Observable<string[]>;
+  recipientPicker = new FormControl({ value: '', disabled: false });
+  recipientPickerOptions: string[] = [];
+  recipientPickerFilteredOptions!: Observable<string[]>;
 
   employeePicker = new FormControl({ value: '', disabled: false });
   employeePickerOptions: string[] = [];
@@ -73,6 +74,7 @@ export class DialogEditTransferComponent {
     public dialogRef: MatDialogRef<DialogEditTransferComponent>,
     public firestoreService: FirestoreService,
     public dateService: DateService,
+    private commonService: CommonService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
 
@@ -93,24 +95,29 @@ export class DialogEditTransferComponent {
 
     this.transfer = data.document;
     this.fieldsToEdit = data.fieldsToEdit;
+
+    this.payerPicker = new FormControl({value: this.transfer.payer, disabled: false});
+    this.recipientPicker = new FormControl({value: this.transfer.recipient, disabled: false});
+    this.employeePicker = new FormControl({value: this.transfer.closedBy, disabled: false});
+
     this.date = this.transfer.date ? new Date(this.transfer.date) : undefined;
   }
 
 
   ngOnInit(): void {
 
-    this.contactPickerOptions1 = this.returnDataForPersonPicker(this.contacts);
-    this.contactPickerOptions2 = this.returnDataForPersonPicker(this.contacts);
+    this.payerPickerOptions = this.returnDataForPersonPicker(this.contacts);
+    this.recipientPickerOptions = this.returnDataForPersonPicker(this.contacts);
     this.employeePickerOptions = this.returnDataForPersonPicker(this.employees);
 
-    this.contactPickerFilteredOptions1 = this.contactPicker1.valueChanges.pipe(
+    this.payerPickerFilteredOptions = this.payerPicker.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '', this.contactPickerOptions1)),
+      map(value => this._filter(value || '', this.payerPickerOptions)),
     );
 
-    this.contactPickerFilteredOptions2 = this.contactPicker2.valueChanges.pipe(
+    this.recipientPickerFilteredOptions = this.recipientPicker.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '', this.contactPickerOptions2)),
+      map(value => this._filter(value || '', this.recipientPickerOptions)),
     );
 
     this.employeePickerFilteredOptions = this.employeePicker.valueChanges.pipe(
@@ -161,6 +168,13 @@ export class DialogEditTransferComponent {
 
   async saveEdits(): Promise<void> {
 
+    this.addPersonFromPicker('payer', 'payerId', this.recipientPicker.value, this.contacts);
+    this.addPersonFromPicker('recipient', 'recipientId', this.payerPicker.value, this.contacts);
+    this.addPersonFromPicker('closedBy', 'closedById', this.employeePicker.value, this.employees);
+
+    this.payerPicker = new FormControl({ value: '', disabled: true });
+    this.recipientPicker = new FormControl({ value: '', disabled: true });
+    this.employeePicker = new FormControl({ value: '', disabled: true });
     this.loading = true;
 
     this.transfer.date = this.date ? this.date.getTime() : 0;
@@ -173,5 +187,18 @@ export class DialogEditTransferComponent {
       this.emitEvent(this.transfer)
       this.dialogRef.close();
     }, 2000);
+  }
+
+
+  addPersonFromPicker(
+    nameField: 'recipient' | 'payer' | 'closedBy',
+    idField: 'recipientId' | 'payerId' | 'closedById',
+    name: string | null,
+    collection: Employee[] | Contact[]): void {
+
+    if (!name) return;
+
+    this.transfer[nameField] = name;
+    this.transfer[idField] = this.commonService.returnIdByName(name, collection);
   }
 }

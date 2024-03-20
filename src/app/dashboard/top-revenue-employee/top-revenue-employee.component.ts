@@ -21,11 +21,10 @@ export class TopRevenueEmployeeComponent implements OnInit {
     private dataService: DashboardDataService
   ) {
 
-  }
+    const topEmployee: { employeeId: string, revenue: number } =
+      this.dataService
+        .returnTopEmployee();
 
-  ngOnInit(): void {
-    
-    const topEmployee = this.dataService.returnTopEmployee();
     this.revenue = topEmployee.revenue;
 
     this.topEmployee =
@@ -33,7 +32,13 @@ export class TopRevenueEmployeeComponent implements OnInit {
         'employees',
         topEmployee.employeeId,
         Employee);
+  }
 
-    console.log(this.topEmployee)
+  ngOnInit(): void {
+
+
+
+    console.log('top employee is', this.topEmployee)
+
   }
 }

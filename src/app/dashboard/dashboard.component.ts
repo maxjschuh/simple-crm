@@ -4,15 +4,19 @@ import { CashflowChartComponent } from './cashflow-chart/cashflow-chart.componen
 import { OverviewComponent } from './overview/overview.component';
 import { TopRevenueEmployeeComponent } from './top-revenue-employee/top-revenue-employee.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { RouterModule } from '@angular/router';
+import { DashboardDataService } from '../services/dashboard-data/dashboard-data.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatCardModule, PieChartComponent, CashflowChartComponent, OverviewComponent, TopRevenueEmployeeComponent],
+  imports: [MatCardModule, PieChartComponent, CashflowChartComponent, OverviewComponent, TopRevenueEmployeeComponent, RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
 
-
+  constructor(
+    public dataService: DashboardDataService
+  ) { }
 }

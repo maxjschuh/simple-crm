@@ -14,6 +14,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { Observable, Subscription, map, startWith } from 'rxjs';
+import { CommonService } from '../../services/common/common.service';
 
 
 @Component({
@@ -55,7 +56,8 @@ export class DialogAddEmployeeComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogAddEmployeeComponent>,
     private firestoreService: FirestoreService,
-    public dateService: DateService
+    public dateService: DateService,
+    private commonService: CommonService
   ) { 
 
     this.employeesSubscriber =
@@ -114,6 +116,9 @@ export class DialogAddEmployeeComponent {
 
   async saveEmployee(): Promise<void> {
 
+    this.addSupervisorFromPicker();
+
+    this.employeePicker = new FormControl({ value: '', disabled: true });
     this.loading = true;
     this.employee.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
@@ -124,5 +129,17 @@ export class DialogAddEmployeeComponent {
       this.loading = false;
       this.dialogRef.close();
     }, 2000);
+  }
+
+
+  addSupervisorFromPicker(): void {
+
+    const supervisorName = this.employeePicker.value;
+    this.employee.supervisor = supervisorName ? supervisorName : '';
+
+    if (supervisorName) {
+
+      this.employee.supervisorId = this.commonService.returnIdByName(supervisorName, this.employees);
+    } 
   }
 }

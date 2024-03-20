@@ -15,6 +15,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription, Observable, startWith, map } from 'rxjs';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { CommonService } from '../../services/common/common.service';
 
 @Component({
   selector: 'app-dialog-edit-employee',
@@ -45,7 +46,7 @@ export class DialogEditEmployeeComponent {
   employeesSubscriber = new Subscription;
   employees: Employee[] = [];
 
-  employeePicker = new FormControl({ value: '', disabled: false });
+  employeePicker = new FormControl({value: '', disabled: false});
   employeePickerOptions: string[] = [];
   employeePickerFilteredOptions!: Observable<string[]>;
 
@@ -60,19 +61,22 @@ export class DialogEditEmployeeComponent {
     public dialogRef: MatDialogRef<DialogEditEmployeeComponent>,
     public firestoreService: FirestoreService,
     public dateService: DateService,
+    private commonService: CommonService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
 
     this.employee = data.document;
+    this.employeePicker = new FormControl({value: this.employee.supervisor, disabled: false});
+
     this.fieldsToEdit = data.fieldsToEdit;
     this.birthDate = this.employee.birthDate ? new Date(this.employee.birthDate) : undefined;
 
     this.employeesSubscriber =
-    this.firestoreService
-      .employeesFrontendDistributor
-      .subscribe(employees => {
-        this.employees = employees;
-      });;
+      this.firestoreService
+        .employeesFrontendDistributor
+        .subscribe(employees => {
+          this.employees = employees;
+        });;
   }
 
 
@@ -128,6 +132,9 @@ export class DialogEditEmployeeComponent {
 
   async saveEdits(): Promise<void> {
 
+    this.addSupervisorFromPicker();
+
+    this.employeePicker = new FormControl({ value: '', disabled: true });
     this.loading = true;
 
     this.employee.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
@@ -140,5 +147,17 @@ export class DialogEditEmployeeComponent {
       this.emitEvent(this.employee)
       this.dialogRef.close();
     }, 2000);
+  }
+
+
+  addSupervisorFromPicker(): void {
+
+    const supervisorName = this.employeePicker.value;
+
+    if (supervisorName) {
+
+      this.employee.supervisor = supervisorName;
+      this.employee.supervisorId = this.commonService.returnIdByName(supervisorName, this.employees);
+    }
   }
 }

@@ -18,6 +18,7 @@ import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Contact } from '../../models/contact.class';
 import { Employee } from '../../models/employee.class';
+import { CommonService } from '../../services/common/common.service';
 
 @Component({
   selector: 'app-dialog-add-transfer',
@@ -55,28 +56,29 @@ export class DialogAddTransferComponent implements OnInit {
   date: Date | undefined = undefined;
   loading = false;
 
-  contactPicker1 = new FormControl({ value: '', disabled: false });
-  contactPickerOptions1: string[] = [];
-  contactPickerFilteredOptions1!: Observable<string[]>;
+  payerPicker = new FormControl({ value: '', disabled: false });
+  payerPickerOptions: string[] = [];
+  payerPickerFilteredOptions!: Observable<string[]>;
 
-  contactPicker2 = new FormControl({ value: '', disabled: false });
-  contactPickerOptions2: string[] = [];
-  contactPickerFilteredOptions2!: Observable<string[]>;
+  recipientPicker = new FormControl({ value: '', disabled: false });
+  recipientPickerOptions: string[] = [];
+  recipientPickerFilteredOptions!: Observable<string[]>;
 
   employeePicker = new FormControl({ value: '', disabled: false });
   employeePickerOptions: string[] = [];
   employeePickerFilteredOptions!: Observable<string[]>;
 
   selectedPersonIndex = {
-    contactPicker1: 0,
-    contactPicker2: 0,
+    payerPicker: 0,
+    recipientPicker: 0,
     employeePicker: 0
   }
 
   constructor(
     public dialogRef: MatDialogRef<DialogAddTransferComponent>,
     private firestoreService: FirestoreService,
-    public dateService: DateService
+    public dateService: DateService,
+    private commonService: CommonService
   ) {
 
     this.contactsSubscriber =
@@ -96,18 +98,18 @@ export class DialogAddTransferComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.contactPickerOptions1 = this.returnDataForPersonPicker(this.contacts);
-    this.contactPickerOptions2 = this.returnDataForPersonPicker(this.contacts);
+    this.payerPickerOptions = this.returnDataForPersonPicker(this.contacts);
+    this.recipientPickerOptions = this.returnDataForPersonPicker(this.contacts);
     this.employeePickerOptions = this.returnDataForPersonPicker(this.employees);
 
-    this.contactPickerFilteredOptions1 = this.contactPicker1.valueChanges.pipe(
+    this.payerPickerFilteredOptions = this.payerPicker.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '', this.contactPickerOptions1)),
+      map(value => this._filter(value || '', this.payerPickerOptions)),
     );
 
-    this.contactPickerFilteredOptions2 = this.contactPicker2.valueChanges.pipe(
+    this.recipientPickerFilteredOptions = this.recipientPicker.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '', this.contactPickerOptions2)),
+      map(value => this._filter(value || '', this.recipientPickerOptions)),
     );
 
     this.employeePickerFilteredOptions = this.employeePicker.valueChanges.pipe(
@@ -153,7 +155,13 @@ export class DialogAddTransferComponent implements OnInit {
 
   async saveTransfer(): Promise<void> {
 
-    this.contactPicker1 = new FormControl({ value: '', disabled: true });
+    this.addPersonFromPicker('payer', 'payerId', this.recipientPicker.value, this.contacts);
+    this.addPersonFromPicker('recipient', 'recipientId', this.payerPicker.value, this.contacts);
+    this.addPersonFromPicker('closedBy', 'closedById', this.employeePicker.value, this.employees);
+
+    this.payerPicker = new FormControl({ value: '', disabled: true });
+    this.recipientPicker = new FormControl({ value: '', disabled: true });
+    this.employeePicker = new FormControl({ value: '', disabled: true });
 
     this.loading = true;
     this.transfer.date = this.date ? this.date.getTime() : 0;
@@ -168,19 +176,32 @@ export class DialogAddTransferComponent implements OnInit {
   }
 
 
+  addPersonFromPicker(
+    nameField: 'recipient' | 'payer' | 'closedBy',
+    idField: 'recipientId' | 'payerId' | 'closedById',
+    name: string | null,
+    collection: Employee[] | Contact[]): void {
+
+    if (!name) return;
+
+    this.transfer[nameField] = name;
+    this.transfer[idField] = this.commonService.returnIdByName(name, collection);
+  }
+
+
   savePersonIndex(
     isUserInput: boolean,
-    pickerId: 'contact1' | 'contact2' | 'employee', 
+    pickerId: 'payer' | 'recipient' | 'employee',
     personIndex: number): void {
 
     if (!isUserInput) return;
 
     switch (pickerId) {
-      
-      case 'contact1': this.selectedPersonIndex.contactPicker1 = personIndex;
+
+      case 'payer': this.selectedPersonIndex.payerPicker = personIndex;
         break;
 
-      case 'contact2': this.selectedPersonIndex.contactPicker2 = personIndex;
+      case 'recipient': this.selectedPersonIndex.recipientPicker = personIndex;
         break;
 
       case 'employee': this.selectedPersonIndex.employeePicker = personIndex;

@@ -45,14 +45,14 @@ export class CommonService {
         });
   }
 
-  
+
   ngOnDestroy(): void {
     this.employeesSubscriber.unsubscribe();
     this.transfersSubscriber.unsubscribe();
     this.contactsSubscriber.unsubscribe();
   }
 
-  
+
   getDocumentFromCollection(
     collection: 'employees' | 'transfers' | 'contacts',
     documentId: string,
@@ -86,6 +86,38 @@ export class CommonService {
       case 'contacts': return this.contacts;
 
       default: return [];
+    }
+  }
+
+  returnIdByName(
+    name: string,
+    collection: Employee[] | Contact[]
+    ): string {
+
+    const person =  this.returnPersonByName(name, collection);
+
+    if (!person) return '';
+     
+    else return person.id;
+  }
+
+  
+  returnPersonByName(
+    name: string,
+    collection: Employee[] | Contact[]
+  ): Contact | Employee | void {
+
+    const firstName = name.split(',')[0];
+    const lastName = name.split(',')[1];
+
+    for (let i = 0; i < collection.length; i++) {
+      const person = collection[i];
+
+      if (
+        firstName === person.firstName &&
+        lastName === person.lastName
+
+      ) return person;
     }
   }
 }

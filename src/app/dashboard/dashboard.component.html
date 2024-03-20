@@ -10,6 +10,6 @@
     <app-overview></app-overview>
 </div>
 
-<mat-card id="bento4" class="bento">
+<mat-card id="bento4" class="bento" [routerLink]="['employee/', dataService.returnTopEmployee().employeeId]">
     <app-top-revenue-employee></app-top-revenue-employee>
 </mat-card>
