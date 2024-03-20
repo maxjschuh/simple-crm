@@ -57,12 +57,12 @@
         <div class="inputs-row">
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Position</mat-label>
-                <input matInput [(ngModel)]="employee.position" type="text" required [disabled]="loading">
+                <input matInput [(ngModel)]="employee.position" type="text" [disabled]="loading">
             </mat-form-field>
 
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Department</mat-label>
-                <input matInput [(ngModel)]="employee.department" type="text" required [disabled]="loading">
+                <input matInput [(ngModel)]="employee.department" type="text" [disabled]="loading">
             </mat-form-field>
         </div>
         }

@@ -28,12 +28,12 @@
             @if (linkToPayer.length) {
 
             <a mat-raised-button [routerLink]="linkToPayer">
-                {{ transfer.payer }}
+                {{ commonService.returnFormattedName(transfer.payer) }}
             </a>
 
             } @else {
 
-            {{ transfer.payer }}
+            {{ transfer.payer ? commonService.returnFormattedName(transfer.payer) : '' }}
             }
         </div>
 
@@ -45,12 +45,12 @@
             @if (linkToRecipient.length) {
 
             <a mat-raised-button [routerLink]="linkToRecipient">
-                {{ transfer.recipient }}
+                {{ commonService.returnFormattedName(transfer.recipient) }}
             </a>
 
             } @else {
 
-            {{ transfer.recipient }}
+            {{ transfer.recipient ? commonService.returnFormattedName(transfer.recipient) : '' }}
             }
         </div>
 
@@ -111,12 +111,12 @@
             @if (linkToClosedBy.length) {
 
             <a mat-raised-button [routerLink]="linkToClosedBy">
-                {{ transfer.closedBy }}
+                {{ commonService.returnFormattedName(transfer.closedBy) }}
             </a>
 
             } @else {
 
-            {{ transfer.closedBy }}
+            {{ transfer.closedBy ? commonService.returnFormattedName(transfer.closedBy) : '' }}
             }
         </div>
 
@@ -139,6 +139,8 @@
         </mat-menu>
 
     </section>
+
+    <mat-divider></mat-divider>
 
     <section class="double-columns">
 

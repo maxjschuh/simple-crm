@@ -40,7 +40,7 @@ export class TransferDetailComponent {
     private firestoreService: FirestoreService,
     public dateService: DateService,
     public dialog: MatDialog,
-    private commonService: CommonService) { }
+    public commonService: CommonService) { }
 
 
   ngOnInit(): void {

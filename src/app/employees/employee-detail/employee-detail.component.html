@@ -5,15 +5,23 @@
     <mat-card-header>
         <mat-card-title>{{ employee.firstName + ' ' + employee.lastName }}</mat-card-title>
         <mat-card-subtitle>
-            <a mat-raised-button href="mailto:{{ employee.email }}">
-                <mat-icon>mail</mat-icon>
-                {{ employee.email }}
-            </a>
 
-            <a mat-raised-button href="tel:{{ employee.phone }}">
-                <mat-icon>call</mat-icon>
-                {{ employee.phone }}
-            </a>
+            @if (employee.email) {
+
+                <a mat-raised-button href="mailto:{{ employee.email }}">
+                    <mat-icon>mail</mat-icon>
+                    {{ employee.email }}
+                </a>
+            }
+
+            @if (employee.phone) {
+
+                <a mat-raised-button href="tel:{{ employee.phone }}">
+                    <mat-icon>call</mat-icon>
+                    {{ employee.phone }}
+                </a>
+            }
+
         </mat-card-subtitle>
     </mat-card-header>
 
@@ -80,9 +88,12 @@
 
             @if (linkToSupervisor.length) {
 
-                <a mat-raised-button [routerLink]="linkToSupervisor">
-                    {{ employee.supervisor }}
-                </a>
+            <a mat-raised-button [routerLink]="linkToSupervisor">
+                {{ commonService.returnFormattedName(employee.supervisor) }}
+            </a>
+
+            } @else {
+            {{ employee.supervisor ? commonService.returnFormattedName(employee.supervisor) : '' }}
             }
 
         </div>

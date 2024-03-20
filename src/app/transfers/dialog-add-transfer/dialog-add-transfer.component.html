@@ -17,7 +17,7 @@
         <div class="inputs-row">
             <mat-form-field appearance="outline" [color]="'accent'">
                 <mat-label>Type</mat-label>
-                <mat-select required [disabled]="loading" [(value)]="transfer.type" (selectionChange)="setPayerRecipient($event)">
+                <mat-select required [disabled]="loading" [(value)]="transfer.type" (selectionChange)="setPayerRecipient($event.value)">
                     <mat-option value="Sale">{{'Sale'}}</mat-option>
                     <mat-option value="Purchase">{{'Purchase'}}</mat-option>
                     <mat-option value="Refund">{{'Refund'}}</mat-option>

@@ -37,7 +37,7 @@ export class EmployeeDetailComponent implements OnInit {
     private firestoreService: FirestoreService,
     public dateService: DateService,
     public dialog: MatDialog,
-    private commonService: CommonService) { }
+    public commonService: CommonService) { }
 
 
   ngOnInit(): void {

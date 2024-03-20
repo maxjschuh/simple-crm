@@ -11,7 +11,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgIf } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Transfer } from '../../models/transfer.class';
-import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
@@ -174,7 +174,7 @@ export class DialogAddTransferComponent implements OnInit {
 
     if (!name) return;
 
-    this.transfer[nameField] = this.commonService.returnFormattedName(name);
+    this.transfer[nameField] = name;
     this.transfer[idField] = this.commonService.returnIdByName(name, collection);
   }
 
@@ -203,7 +203,7 @@ export class DialogAddTransferComponent implements OnInit {
   }
 
 
-  setPayerRecipient(event: MatSelectChange): void {
+  setPayerRecipient(type: string): void {
 
     if (this.changedTypeBefore) {
 
@@ -211,7 +211,7 @@ export class DialogAddTransferComponent implements OnInit {
       this.recipientPicker = new FormControl({value: '', disabled: false});
     }
 
-    if (event.value === 'Sale') {
+    if (type === 'Sale') {
 
       this.recipientPicker = new FormControl({value: this.demoOwner, disabled: true});
 

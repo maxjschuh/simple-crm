@@ -128,7 +128,7 @@ export class DialogAddEmployeeComponent {
 
     if (!supervisorName) return;
 
-    this.employee.supervisor = this.commonService.returnFormattedName(supervisorName);
+    this.employee.supervisor = supervisorName;
     this.employee.supervisorId = this.commonService.returnIdByName(supervisorName, this.employees);
   }
 }

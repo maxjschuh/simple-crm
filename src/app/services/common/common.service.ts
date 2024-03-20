@@ -126,8 +126,8 @@ export class CommonService {
     lastNameCommaFirstName: string
   ): string {
 
-    const firstName = lastNameCommaFirstName.split(',')[1].slice(1);
     const lastName = lastNameCommaFirstName.split(',')[0];
+    const firstName = lastNameCommaFirstName.split(',')[1].slice(1);
 
     return firstName + ' ' + lastName;
   }

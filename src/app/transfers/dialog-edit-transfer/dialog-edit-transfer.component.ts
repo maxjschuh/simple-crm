@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, Ma
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { DateService } from '../../services/date/date.service';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { Transfer } from '../../models/transfer.class';
@@ -188,12 +188,12 @@ export class DialogEditTransferComponent {
 
     if (!name) return;
 
-    this.transfer[nameField] = this.commonService.returnFormattedName(name);
+    this.transfer[nameField] = name;
     this.transfer[idField] = this.commonService.returnIdByName(name, collection);
   }
 
 
-  setPayerRecipient(event: MatSelectChange): void {
+  setPayerRecipient(type: string): void {
 
     if (this.changedTypeBefore) {
 
@@ -201,7 +201,7 @@ export class DialogEditTransferComponent {
       this.recipientPicker = new FormControl({value: '', disabled: false});
     }
 
-    if (event.value === 'Sale') {
+    if (type === 'Sale') {
 
       this.recipientPicker = new FormControl({value: this.demoOwner, disabled: true});
 
