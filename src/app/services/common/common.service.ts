@@ -92,12 +92,12 @@ export class CommonService {
   returnIdByName(
     name: string,
     collection: Employee[] | Contact[]
-    ): string {
+  ): string {
 
-    const person =  this.returnPersonByName(name, collection);
+    const person = this.returnPersonByName(name, collection);
 
     if (!person) return '';
-     
+
     else return person.id;
   }
 
@@ -142,7 +142,7 @@ export class CommonService {
       const person = collection[i];
 
       if (person.id !== 'WjVzeiDUXvRcx8MVZBbq') { //person is not the owner of the database
-        
+
         const fullName = person.lastName + ', ' + person.firstName;
 
         pickerOptions.push(fullName);
@@ -159,7 +159,40 @@ export class CommonService {
   ): string[] {
 
     if (id) return [type, id];
-      
+
     else return [];
+  }
+
+
+  returnTransactionsOfContact(contactId: string): Transfer[] {
+
+    let transactions: Transfer[] = [];
+
+    for (let i = 0; i < this.transfers.length; i++) {
+      const transfer = this.transfers[i];
+
+      if (
+        transfer.payerId === contactId ||
+        transfer.recipientId === contactId
+      ) {
+        transactions.push(transfer);
+      }
+    }
+
+    return transactions;
+  }
+
+
+  returnClosingsOfEmployee(employeeId: string): Transfer[] {
+
+    let closings: Transfer[] = [];
+
+    for (let i = 0; i < this.transfers.length; i++) {
+      const transfer = this.transfers[i];
+
+      if (transfer.closedById === employeeId) closings.push(transfer);
+    }
+
+    return closings;
   }
 }

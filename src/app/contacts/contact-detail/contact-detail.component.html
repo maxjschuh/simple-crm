@@ -25,6 +25,12 @@
                 <mat-icon>mail</mat-icon>
                 {{ contact.email }}
             </a>
+            } @else {
+
+            <button mat-raised-button (click)="openEditContactDialog('name+email+phone')">
+                <mat-icon>mail</mat-icon>
+                Add e-mail
+            </button>
             }
 
             @if (contact.phone) {
@@ -33,6 +39,12 @@
                 <mat-icon>call</mat-icon>
                 {{ contact.phone }}
             </a>
+            } @else {
+
+            <button mat-raised-button (click)="openEditContactDialog('name+email+phone')">
+                <mat-icon>call</mat-icon>
+                Add phone
+            </button>
             }
 
         </mat-card-subtitle>
@@ -50,7 +62,7 @@
 
 </mat-card>
 
-<mat-card id="bottom-card">
+<mat-card id="middle-card">
 
     <section>
         <mat-card-title>
@@ -58,7 +70,15 @@
         </mat-card-title>
         <div class="double-columns">
             <div>{{ contact.street + ' ' + contact.houseNumber }}</div>
+
+            @if (contact.zipCode) {
+
             <div>{{ contact.zipCode + ' ' + contact.city }}</div>
+
+            } @else {
+
+            <div>{{ contact.city }}</div>
+            }
         </div>
 
         <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
@@ -112,6 +132,65 @@
     </section>
     }
 
+</mat-card>
+
+
+<mat-card id="bottom-card">
+
+    <mat-card-title>
+        Transactions
+
+        <div id="accordion-buttons">
+            <button mat-raised-button (click)="accordion.openAll()">Expand All</button>
+            <button mat-raised-button (click)="accordion.closeAll()">Collapse All</button>
+        </div>
+
+    </mat-card-title>
+
+    <mat-accordion class="example-headers-align" multi>
+
+        @for (transfer of transfers; track $index) {
+
+        <mat-expansion-panel>
+
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{transfer.title}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    <div>
+                        <mat-icon>euro</mat-icon>
+                        {{transfer.amount}}
+                    </div>
+
+                    <div>
+                        <mat-icon>calendar_month</mat-icon>
+                        {{ dateService.returnTimestampAsDateString(transfer.date) }}
+                    </div>
+
+                </mat-panel-description>
+                <mat-divider></mat-divider>
+            </mat-expansion-panel-header>
+
+            <div class="expanded-container">
+                {{ commonService.returnFormattedName(transfer.payer) }}
+                <mat-icon>arrow_forward</mat-icon>
+                {{ commonService.returnFormattedName(transfer.recipient) }}
+
+            </div>
+
+            <a class="button-open-transaction-details" mat-icon-button matTooltip="Transaction details"
+                [matTooltipPosition]="'left'" [routerLink]="['/transfer', transfer.id]" target="_blank">
+                <mat-icon>open_in_new</mat-icon>
+            </a>
+
+
+        </mat-expansion-panel>
+
+        <mat-divider></mat-divider>
+
+        }
+    </mat-accordion>
 </mat-card>
 
 @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {

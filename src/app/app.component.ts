@@ -16,6 +16,5 @@ import { MatListModule } from '@angular/material/list';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'simple-crm';
 
 }

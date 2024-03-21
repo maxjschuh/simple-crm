@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Contact } from '../../models/contact.class';
 import { FirestoreService } from '../../services/firestore/firestore.service';
@@ -15,12 +15,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonService } from '../../services/common/common.service';
 import { DialogDeleteContactComponent } from '../dialog-delete-contact/dialog-delete-contact.component';
 import { DialogEditContactComponent } from '../dialog-edit-contact/dialog-edit-contact.component';
+import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { Transfer } from '../../models/transfer.class';
 
 
 @Component({
   selector: 'app-contact-detail',
   standalone: true,
-  imports: [MatButtonModule, MatCardModule, MatDividerModule, MatIconModule, MatMenuModule, MatTooltipModule],
+  imports: [MatButtonModule, MatCardModule, MatDividerModule, MatIconModule, MatMenuModule, MatTooltipModule, MatAccordion, MatExpansionModule, RouterModule],
   templateUrl: './contact-detail.component.html',
   styleUrl: './contact-detail.component.scss'
 })
@@ -31,26 +33,42 @@ export class ContactDetailComponent implements OnInit {
   editsSubscriber = new Subscription;
   contact = new Contact();
   contactId = '';
+  transfers: Transfer[] = [];
+
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
 
   constructor(
     private route: ActivatedRoute,
     private firestoreService: FirestoreService,
     public dateService: DateService,
     public dialog: MatDialog,
-    private commonService: CommonService) { }
+    public commonService: CommonService) { }
 
 
   ngOnInit(): void {
 
     this.routeSubscriber = this.route.params.subscribe(params => {
+
       this.contactId = params['id'];
+      this.init();
     });
+  }
+
+
+  init(): void {
+
+    this.contactsSubscriber.unsubscribe();
 
     this.contactsSubscriber =
       this.firestoreService
         .contactsFrontendDistributor
         .subscribe(() => {
-          this.contact = this.commonService.getDocumentFromCollection('contacts', this.contactId, Contact);
+
+          this.contact =
+            this.commonService
+              .getDocumentFromCollection('contacts', this.contactId, Contact);
+
+          this.transfers = this.commonService.returnTransactionsOfContact(this.contactId);
         });
   }
 
@@ -78,7 +96,7 @@ export class ContactDetailComponent implements OnInit {
 
   }
 
-  
+
   openDeleteContactDialog(): void {
 
     this.dialog.open(DialogDeleteContactComponent, { data: this.contact });

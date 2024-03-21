@@ -6,7 +6,7 @@ export class Transfer {
     closedBy: string; //always an employee
     closedById: string; //is '' when employee is not in database
     amount: number;
-    type: 'Sale' | 'Refund' | 'Purchase' | '';
+    type: 'Sale' | 'Refund' | 'Purchase' | undefined;
     payer: string; //always a contact
     recipient: string; //always a contact
     payerId: string; //is '' when payer is not in database
@@ -15,22 +15,41 @@ export class Transfer {
 
 
     constructor(object?: any) {
-        this.date = object ? object.date : 0;
-        this.title = object ? object.title : '';
-        this.description = object ? object.description : '';
-        this.closedBy = object ? object.closedBy : '';
-        this.closedById = object ? object.closedById : '';
-        this.amount = object ? object.amount : 0;
-        this.type = object ? object.type : '';
-        this.payer = object ? object.payer : '';
-        this.recipient = object ? object.recipient : '';
-        this.payerId = object ? object.payerId : '';
-        this.recipientId = object ? object.recipientId : '';
-        this.id = object ? object.id : '';
+
+        if (object) {
+            
+            this.date = object.date;
+            this.title = object.title;
+            this.description = object.description ? object.description : '';
+            this.closedBy = object.closedBy;
+            this.closedById = object.closedById;
+            this.amount = object.amount;
+            this.type = object.type;
+            this.payer = object.payer;
+            this.recipient = object.recipient;
+            this.payerId = object.payerId;
+            this.recipientId = object.recipientId;
+            this.id = object.id;
+
+        } else {
+
+            this.date = 0;
+            this.title = '';
+            this.description = '';
+            this.closedBy = '';
+            this.closedById = '';
+            this.amount = 0;
+            this.type = undefined;
+            this.payer = '';
+            this.recipient = '';
+            this.payerId = '';
+            this.recipientId = '';
+            this.id = '';
+        }
     }
 
 
-    public toJSON() {
+    public toJSON(): object {
 
         return {
             date: this.date,

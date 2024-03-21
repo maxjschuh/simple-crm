@@ -9,7 +9,6 @@ export class Employee {
     position: string;
     supervisor: string;
     supervisorId: string; //is '' when supervisor is not in database
-    closingsIds: string[];
     id: string;
 
     constructor(object?: any) {
@@ -23,7 +22,6 @@ export class Employee {
         this.position = object ? object.position : '';
         this.supervisor = object ? object.supervisor : '';
         this.supervisorId = object ? object.supervisorId : '';
-        this.closingsIds = object ? object.closingsIds : [];
         this.id = object ? object.id : '';
     }
 
@@ -39,7 +37,6 @@ export class Employee {
             position: this.position,
             supervisor: this.supervisor,
             supervisorId: this.supervisorId,
-            closingsIds: this.closingsIds,
             id: this.id
         }
     }

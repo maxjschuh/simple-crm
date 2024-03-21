@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable, Subscribable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { Firestore, collectionData, collection, doc, addDoc, setDoc, updateDoc, deleteDoc, DocumentReference, CollectionReference } from '@angular/fire/firestore';
 import { Contact } from '../../models/contact.class';
 import { Transfer } from '../../models/transfer.class';
@@ -14,15 +14,15 @@ export class FirestoreService {
   firestore: Firestore = inject(Firestore);
 
   contacts$: Observable<any[]>;
-  contactsBackendSubscriber: any;
+  contactsBackendSubscriber = new Subscription;
   contactsFrontendDistributor = new BehaviorSubject<Contact[]>([]);
 
   transfers$: Observable<any[]>;
-  transfersBackendSubscriber: any;
+  transfersBackendSubscriber = new Subscription;
   transfersFrontendDistributor = new BehaviorSubject<Transfer[]>([]);
 
   employees$: Observable<any[]>;
-  employeesBackendSubscriber: any;
+  employeesBackendSubscriber = new Subscription;
   employeesFrontendDistributor = new BehaviorSubject<Employee[]>([]);
 
 

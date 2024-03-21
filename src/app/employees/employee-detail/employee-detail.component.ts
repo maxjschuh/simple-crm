@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,11 +15,13 @@ import { DateService } from '../../services/date/date.service';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { Employee } from '../../models/employee.class';
 import { DialogEditEmployeeComponent } from '../dialog-edit-employee/dialog-edit-employee.component';
+import { Transfer } from '../../models/transfer.class';
+import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-employee-detail',
   standalone: true,
-  imports: [MatButtonModule, MatCardModule, MatDividerModule, MatIconModule, MatMenuModule, MatTooltipModule, RouterModule],
+  imports: [MatButtonModule, MatCardModule, MatDividerModule, MatIconModule, MatMenuModule, MatTooltipModule, RouterModule, MatAccordion, MatExpansionModule],
   templateUrl: './employee-detail.component.html',
   styleUrl: './employee-detail.component.scss'
 })
@@ -31,6 +33,9 @@ export class EmployeeDetailComponent implements OnInit {
   employee = new Employee();
   employeeId = '';
   linkToSupervisor: string[] = [];
+  closings: Transfer[] = [];
+
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,6 +70,7 @@ export class EmployeeDetailComponent implements OnInit {
               .getDocumentFromCollection('employees', this.employeeId, Employee);
 
           this.linkToSupervisor = this.commonService.returnLinkToPerson('/employee', this.employee.supervisorId);
+          this.closings = this.commonService.returnClosingsOfEmployee(this.employeeId);
         });
   }
 

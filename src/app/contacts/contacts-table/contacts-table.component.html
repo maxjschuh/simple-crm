@@ -129,9 +129,12 @@
     </mat-header-cell>
     <mat-cell class="options-cell" *matCellDef="let contact">
 
+      @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
+
       <button mat-icon-button [matMenuTriggerFor]="rowMenu" (click)="setDocumentInFocus(contact.id)">
         <mat-icon>more_vert</mat-icon>
       </button>
+      }
 
     </mat-cell>
   </ng-container>
@@ -188,11 +191,16 @@
     </ng-container>
 
     <ng-container matColumnDef="options">
+
+
       <mat-cell class="options-cell" *matCellDef="let contact">
+
+        @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
 
         <button mat-icon-button [matMenuTriggerFor]="rowMenu" (click)="setDocumentInFocus(contact.id)">
           <mat-icon>more_vert</mat-icon>
         </button>
+        }
 
       </mat-cell>
     </ng-container>
