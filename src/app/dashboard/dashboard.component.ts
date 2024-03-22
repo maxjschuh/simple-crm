@@ -6,6 +6,7 @@ import { TopRevenueEmployeeComponent } from './top-revenue-employee/top-revenue-
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { RouterModule } from '@angular/router';
 import { DashboardDataService } from '../services/dashboard-data/dashboard-data.service';
+import { AppTitleService } from '../services/app-title/app-title.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,10 @@ import { DashboardDataService } from '../services/dashboard-data/dashboard-data.
 export class DashboardComponent {
 
   constructor(
-    public dataService: DashboardDataService
-  ) { }
+    public dataService: DashboardDataService,
+    private titleService: AppTitleService
+  ) {
+
+    this.titleService.titleDistributor.next('Dashboard');
+  }
 }

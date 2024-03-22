@@ -46,21 +46,21 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by firstName">
       First name
     </mat-header-cell>
-    <mat-cell *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{employee.firstName}} </mat-cell>
+    <mat-cell *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{employee.firstName}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="lastName">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by lastName">
       Last name
     </mat-header-cell>
-    <mat-cell *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{employee.lastName}} </mat-cell>
+    <mat-cell *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{employee.lastName}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="birthDate">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by birthDate">
       Birth Date
     </mat-header-cell>
-    <mat-cell *matCellDef="let employee" [routerLink]="['/employee', employee.id]">
+    <mat-cell *matCellDef="let employee" [routerLink]="['/employees', employee.id]">
 
       {{ employee.birthDate ?
       (dateService.returnTimestampAsDateString(employee.birthDate) + ' (Age: ' +
@@ -74,35 +74,35 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by email">
       E-mail
     </mat-header-cell>
-    <mat-cell *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{employee.email}} </mat-cell>
+    <mat-cell *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{employee.email}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="phone">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by phone">
       Phone
     </mat-header-cell>
-    <mat-cell *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{employee.phone}} </mat-cell>
+    <mat-cell *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{employee.phone}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="department">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by department">
       Department
     </mat-header-cell>
-    <mat-cell *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{employee.department}} </mat-cell>
+    <mat-cell *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{employee.department}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="position">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by position">
       Position
     </mat-header-cell>
-    <mat-cell *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{employee.position}} </mat-cell>
+    <mat-cell *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{employee.position}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="supervisor">
     <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by supervisor">
       Supervisor
     </mat-header-cell>
-    <mat-cell *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{employee.supervisor}} </mat-cell>
+    <mat-cell *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{employee.supervisor}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="options">
@@ -138,34 +138,34 @@
 
     <ng-container matColumnDef="firstName">
 
-      <mat-cell class="name" *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{employee.firstName
+      <mat-cell class="name" *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{employee.firstName
         + ' ' + employee.lastName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="position">
 
-      <mat-cell class="position" *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{employee.position}} </mat-cell>
+      <mat-cell class="position" *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{employee.position}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="department">
 
-      <mat-cell class="department" *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{ 'Department: ' + employee.department}}
+      <mat-cell class="department" *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{ 'Department: ' + employee.department}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="email">
 
-      <mat-cell class="email" *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{employee.email}} </mat-cell>
+      <mat-cell class="email" *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{employee.email}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="phone">
 
-      <mat-cell class="email" *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{employee.phone}} </mat-cell>
+      <mat-cell class="email" *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{employee.phone}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="birthDate">
 
-      <mat-cell class="birthDate" *matCellDef="let employee" [routerLink]="['/employee', employee.id]">
+      <mat-cell class="birthDate" *matCellDef="let employee" [routerLink]="['/employees', employee.id]">
 
         {{ employee.birthDate ?
         (dateService.returnTimestampAsDateString(employee.birthDate) + ' (Age: ' +
@@ -177,7 +177,7 @@
 
     <ng-container matColumnDef="supervisor">
 
-      <mat-cell class="supervisor" *matCellDef="let employee" [routerLink]="['/employee', employee.id]"> {{ 'Supervisor: ' + employee.supervisor}}
+      <mat-cell class="supervisor" *matCellDef="let employee" [routerLink]="['/employees', employee.id]"> {{ 'Supervisor: ' + employee.supervisor}}
       </mat-cell>
     </ng-container>
 

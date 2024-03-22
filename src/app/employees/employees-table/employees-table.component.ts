@@ -22,6 +22,7 @@ import { NgIf } from '@angular/common';
 import { DialogEditEmployeeComponent } from '../dialog-edit-employee/dialog-edit-employee.component';
 import { Subscription } from 'rxjs';
 import { dataForEditDialog } from '../../interfaces/data-for-edit-dialog.interface';
+import { AppTitleService } from '../../services/app-title/app-title.service';
 
 
 @Component({
@@ -77,7 +78,8 @@ export class EmployeesTableComponent {
     public dialog: MatDialog,
     private firestoreService: FirestoreService,
     public dateService: DateService,
-    private commonService: CommonService) {
+    private commonService: CommonService,
+    private titleService: AppTitleService) {
 
     this.employeesSubscriber =
       this.firestoreService
@@ -89,6 +91,8 @@ export class EmployeesTableComponent {
         });
 
     this.initializeColumnSelectorButtons();
+
+    this.titleService.titleDistributor.next('Employees');
   }
 
 

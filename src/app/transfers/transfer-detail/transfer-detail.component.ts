@@ -15,6 +15,7 @@ import { CommonService } from '../../services/common/common.service';
 import { Transfer } from '../../models/transfer.class';
 import { DialogEditTransferComponent } from '../dialog-edit-transfer/dialog-edit-transfer.component';
 import { DialogDeleteTransferComponent } from '../dialog-delete-transfer/dialog-delete-transfer.component';
+import { AppTitleService } from '../../services/app-title/app-title.service';
 
 @Component({
   selector: 'app-transfer-detail',
@@ -40,7 +41,8 @@ export class TransferDetailComponent {
     private firestoreService: FirestoreService,
     public dateService: DateService,
     public dialog: MatDialog,
-    public commonService: CommonService) { }
+    public commonService: CommonService,
+    private titleService: AppTitleService) { }
 
 
   ngOnInit(): void {
@@ -72,6 +74,9 @@ export class TransferDetailComponent {
           this.linkToPayer = this.commonService.returnLinkToPerson('/contact', this.transfer.payerId);
           this.linkToRecipient = this.commonService.returnLinkToPerson('/contact', this.transfer.recipientId);
           this.linkToClosedBy = this.commonService.returnLinkToPerson('/employee', this.transfer.closedById);
+
+          const title = `Transaction-Details: ${this.transfer.title}`;
+          this.titleService.titleDistributor.next(title);
         });
   }
 

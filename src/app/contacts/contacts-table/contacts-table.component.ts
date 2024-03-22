@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MobileSort } from '../../interfaces/mobile-sort.interface';
 import { NgIf } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { AppTitleService } from '../../services/app-title/app-title.service';
 
 @Component({
   selector: 'app-contacts-table',
@@ -60,7 +61,8 @@ export class ContactsTableComponent {
     public dialog: MatDialog,
     private firestoreService: FirestoreService,
     public dateService: DateService,
-    private commonService: CommonService) {
+    private commonService: CommonService,
+    private titleService: AppTitleService) {
 
     this.contactsSubscriber =
       this.firestoreService
@@ -72,6 +74,7 @@ export class ContactsTableComponent {
         });
 
     this.initializeColumnSelectorButtons();
+    this.titleService.titleDistributor.next('Contacts');
   }
 
 

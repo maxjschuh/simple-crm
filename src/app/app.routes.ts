@@ -8,12 +8,11 @@ import { EmployeesTableComponent } from './employees/employees-table/employees-t
 import { EmployeeDetailComponent } from './employees/employee-detail/employee-detail.component';
 
 export const routes: Routes = [
-    { path: "", component: ContactsTableComponent, title: ""},
     { path: "dashboard", component: DashboardComponent, title: "Simple-CRM | Dashboard"},
     { path: "contacts", component: ContactsTableComponent, title: "Simple-CRM | Contacts"}, 
-    { path: "contact/:id", component: ContactDetailComponent, title: "Simple-CRM | Contact-Details" },
+    { path: "contacts/:id", component: ContactDetailComponent, title: "Simple-CRM | Contact-Details" },
     { path: "transfers", component: TransfersTableComponent, title: "Simple-CRM | Transfers" },
-    { path: "transfer/:id", component: TransferDetailComponent, title: "Simple-CRM | Transfer-Details" },
+    { path: "transfers/:id", component: TransferDetailComponent, title: "Simple-CRM | Transfer-Details" },
     { path: "employees", component: EmployeesTableComponent, title: "Simple-CRM | Employees" },
-    { path: "employee/:id", component: EmployeeDetailComponent, title: "Simple-CRM | Employee-Details" }
+    { path: "employees/:id", component: EmployeeDetailComponent, title: "Simple-CRM | Employee-Details" }
 ];

@@ -17,6 +17,7 @@ import { DialogDeleteContactComponent } from '../dialog-delete-contact/dialog-de
 import { DialogEditContactComponent } from '../dialog-edit-contact/dialog-edit-contact.component';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { Transfer } from '../../models/transfer.class';
+import { AppTitleService } from '../../services/app-title/app-title.service';
 
 
 @Component({
@@ -42,7 +43,10 @@ export class ContactDetailComponent implements OnInit {
     private firestoreService: FirestoreService,
     public dateService: DateService,
     public dialog: MatDialog,
-    public commonService: CommonService) { }
+    public commonService: CommonService,
+    private titleService: AppTitleService) {
+
+  }
 
 
   ngOnInit(): void {
@@ -69,6 +73,9 @@ export class ContactDetailComponent implements OnInit {
               .getDocumentFromCollection('contacts', this.contactId, Contact);
 
           this.transfers = this.commonService.returnTransactionsOfContact(this.contactId);
+
+          const title = `Contact-Details: ${this.contact.firstName} ${this.contact.lastName}`;
+          this.titleService.titleDistributor.next(title);
         });
   }
 

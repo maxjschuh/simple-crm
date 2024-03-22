@@ -27,6 +27,7 @@ import { dataForEditDialog } from '../../interfaces/data-for-edit-dialog.interfa
 import { DialogEditTransferComponent } from '../dialog-edit-transfer/dialog-edit-transfer.component';
 import { DialogDeleteTransferComponent } from '../dialog-delete-transfer/dialog-delete-transfer.component';
 import { Subscription } from 'rxjs';
+import { AppTitleService } from '../../services/app-title/app-title.service';
 
 @Component({
   selector: 'app-transfers-table',
@@ -66,7 +67,8 @@ export class TransfersTableComponent {
     public dialog: MatDialog,
     private firestoreService: FirestoreService,
     public dateService: DateService,
-    private commonService: CommonService) {
+    private commonService: CommonService,
+    private titleService: AppTitleService) {
 
     this.transfersSubscriber =
       this.firestoreService
@@ -76,6 +78,8 @@ export class TransfersTableComponent {
           this.transfersList = transfersList;
           this.updateTable(transfersList);
         });
+
+    this.titleService.titleDistributor.next('Transactions');
   }
 
 
@@ -166,7 +170,7 @@ export class TransfersTableComponent {
     this.dataSource.sort = this.sort;
   }
 
-  
+
   initializeColumnSelectorButtons(): void {
 
     this.displayedColumns.forEach(column => {

@@ -17,6 +17,7 @@ import { Employee } from '../../models/employee.class';
 import { DialogEditEmployeeComponent } from '../dialog-edit-employee/dialog-edit-employee.component';
 import { Transfer } from '../../models/transfer.class';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { AppTitleService } from '../../services/app-title/app-title.service';
 
 @Component({
   selector: 'app-employee-detail',
@@ -42,7 +43,8 @@ export class EmployeeDetailComponent implements OnInit {
     private firestoreService: FirestoreService,
     public dateService: DateService,
     public dialog: MatDialog,
-    public commonService: CommonService) { }
+    public commonService: CommonService,
+    private titleService: AppTitleService) { }
 
 
   ngOnInit(): void {
@@ -71,6 +73,9 @@ export class EmployeeDetailComponent implements OnInit {
 
           this.linkToSupervisor = this.commonService.returnLinkToPerson('/employee', this.employee.supervisorId);
           this.closings = this.commonService.returnClosingsOfEmployee(this.employeeId);
+
+          const title = `Employee-Details: ${this.employee.firstName} ${this.employee.lastName}`;
+          this.titleService.titleDistributor.next(title);
         });
   }
 
