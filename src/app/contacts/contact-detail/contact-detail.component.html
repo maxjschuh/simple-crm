@@ -1,6 +1,14 @@
 <mat-card id="top-card" color="primary">
 
-    <img id="profile-img" src="./assets/img/profile_placeholder.svg" alt="placeholder for profile">
+    @if (contact.imageUrl) {
+
+        <img id="profile-img" [src]="'./assets/img/' + contact.imageUrl" alt="placeholder for profile">
+
+    } @else {
+
+        <img id="profile-img" src="./assets/img/profile_placeholder.svg" alt="placeholder for profile">
+    }
+
 
     <mat-card-header>
 

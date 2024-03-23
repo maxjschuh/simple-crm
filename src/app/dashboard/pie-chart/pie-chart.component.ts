@@ -1,9 +1,11 @@
 import { NgIf, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { DashboardDataService } from '../../services/dashboard-data/dashboard-data.service';
 import { MatCardModule } from '@angular/material/card';
+import { FirestoreService } from '../../services/firestore/firestore.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -15,11 +17,12 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class PieChartComponent implements OnInit {
 
+  transfersSubscriber = new Subscription;
   isBrowser!: boolean;
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  public pieChartType: ChartType = 'pie';
+  public pieChartType: ChartType = 'doughnut';
 
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -27,37 +30,55 @@ export class PieChartComponent implements OnInit {
       legend: {
         display: true,
         position: 'bottom',
+        labels: {
+          color: '#FFFFFF'
+        }
       },
     },
   };
 
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: ['<30', '30-49', '50-69', '>70'],
+    labels: ['Sale', 'Purchase', 'Refund'],
     datasets: [
       {
-        data: [0, 0, 0, 0],
+        data: [1, 1, 1],
         backgroundColor: [
           'rgba(123,31,162,1)',
-          'rgba(123,31,162,0.7)',
-          'rgba(123,31,162,0.4)',
-          'rgba(123,31,162,0.1)'],
-        borderColor: '#FFFFFF'
+          'rgba(123,31,162,0.5)',
+          'rgba(123,31,162,0.2)'],
+        borderColor: '#FFFFFF',
       },
     ],
   };
 
+
   constructor(
     private dataService: DashboardDataService,
-    @Inject(PLATFORM_ID) private platformId: any
+    @Inject(PLATFORM_ID) private platformId: any,
+    private firestoreService: FirestoreService
   ) {
 
+    this.transfersSubscriber.unsubscribe()
 
+    this.transfersSubscriber =
+      this.firestoreService
+        .transfersFrontendDistributor
+        .subscribe(() => {
+          this.update();
+        });
   }
 
 
   ngOnInit(): void {
+
     this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+
+  update(): void {
 
     this.pieChartData.datasets[0].data = this.dataService.returnPieChartData();
+
+    this.chart?.chart?.update();
   }
 }

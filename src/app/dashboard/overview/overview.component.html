@@ -1,23 +1,40 @@
 <div id="single-row-container" class="stats-card" routerLink="./../contacts">
+
     <mat-card-title>
         Contacts
     </mat-card-title>
-    {{commonService.returnCollectionByName('contacts').length}}
+    <div class="number">
+
+        {{commonService.returnCollectionByName('contacts').length}}
+    </div>
 </div>
 
 <div id="double-row-container">
+
     <div class="stats-card" routerLink="./../transfers">
+        
         <mat-card-title>
-            Transfers
+            Transactions
         </mat-card-title>
-        {{commonService.returnCollectionByName('transfers').length}}
+
+        <div class="number">
+
+            {{commonService.returnCollectionByName('transfers').length}}
+        </div>
+
     </div>
 
 
     <div class="stats-card" routerLink="./../employees">
+
         <mat-card-title>
             Employees
         </mat-card-title>
-        {{commonService.returnCollectionByName('employees').length}}
+        <div class="number">
+
+            {{commonService.returnCollectionByName('employees').length}}
+        </div>
+
     </div>
+
 </div>

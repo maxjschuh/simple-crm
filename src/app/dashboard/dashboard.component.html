@@ -1,15 +1,15 @@
-<mat-card id="bento1" class="bento">
-    <app-pie-chart></app-pie-chart>
+<mat-card id="bento1" class="bento" [routerLink]="['/transfers']">
+    <app-pie-chart class="inner-bento-container"></app-pie-chart>
 </mat-card>
 
-<mat-card id="bento2" class="bento">
-    <app-cashflow-chart></app-cashflow-chart>
+<mat-card id="bento2" class="bento" [routerLink]="['/transfers']">
+    <app-cashflow-chart class="inner-bento-container"></app-cashflow-chart>
 </mat-card>
 
 <div id="bento3" class="bento">
     <app-overview></app-overview>
 </div>
 
-<mat-card id="bento4" class="bento" [routerLink]="['employee/', dataService.returnTopEmployee().employeeId]">
-    <app-top-revenue-employee></app-top-revenue-employee>
+<mat-card id="bento4" class="bento" [routerLink]="['/employees', dataService.returnTopEmployee().employeeId]">
+    <app-top-revenue-employee class="inner-bento-container"></app-top-revenue-employee>
 </mat-card>

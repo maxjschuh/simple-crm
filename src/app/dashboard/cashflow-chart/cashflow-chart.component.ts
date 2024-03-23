@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { NgIf, isPlatformBrowser } from '@angular/common';
 import { DashboardDataService } from '../../services/dashboard-data/dashboard-data.service';
-import { Transfer } from '../../models/transfer.class';
 import { Subscription } from 'rxjs';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 
@@ -22,10 +21,9 @@ import { FirestoreService } from '../../services/firestore/firestore.service';
 export class CashflowChartComponent implements OnInit {
 
   transfersSubscriber = new Subscription;
-  transfers: Transfer[] = [];
+  isBrowser!: boolean;
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-
 
   public lineChartType: ChartType = 'line';
 
@@ -33,8 +31,8 @@ export class CashflowChartComponent implements OnInit {
     datasets: [
       {
         data: [65, 59, 80, 81, 56, 55, 40],
-        label: 'Cashflow',
-        backgroundColor: 'rgba(148,159,177,0.2)',
+        label: 'Monthly transaction balance',
+        backgroundColor: 'rgba(123,31,162,1)',
         borderColor: 'rgba(123,31,162,1)',
         pointBackgroundColor: 'rgba(123,31,162,1)',
         pointBorderColor: 'rgba(123,31,162,1)',
@@ -79,13 +77,15 @@ export class CashflowChartComponent implements OnInit {
       }
     },
     plugins: {
-      legend: { display: true }
+      legend: {
+        position: 'bottom',
+        display: true,
+        labels: {
+          color: '#fff'
+        }
+      }
     }
   };
-
-  isBrowser!: boolean;
-
-
 
 
   constructor(
@@ -94,34 +94,29 @@ export class CashflowChartComponent implements OnInit {
     private firestoreService: FirestoreService
   ) {
 
+    this.transfersSubscriber.unsubscribe();
+
     this.transfersSubscriber =
-    this.firestoreService
-      .transfersFrontendDistributor
-      .subscribe(transfers => {
-        this.transfers = transfers;
-
-
-        this.update();
-      });
+      this.firestoreService
+        .transfersFrontendDistributor
+        .subscribe(() => {
+          this.update();
+        });
   }
 
+
   ngOnInit(): void {
+
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
-  update() {
-    const data = this.dataService.returnDepositLastSixMonths();
-    this.lineChartData.datasets[0].data = data;
-    console.log(data)
+
+  update(): void {
+
+    this.lineChartData.datasets[0].data = this.dataService.returnDepositLastSixMonths();
 
     this.lineChartData.labels = this.dataService.returnNamesLastSixMonths();
 
     this.chart?.chart?.update();
-
-
   }
-
-
 }
-
-

@@ -1,7 +1,29 @@
-<mat-card-title>
-    Most Sales
-</mat-card-title>
+<mat-card-content>
+    <mat-card-title>
+        Most Sales
+    </mat-card-title>
 
-{{topEmployee.firstName + ' ' + topEmployee.lastName}}
+    <section>
 
-<span>{{revenue}}</span>
+
+        @if (topEmployee.imageUrl) {
+
+        <img [src]="'./assets/img/' + topEmployee.imageUrl" alt="placeholder for profile">
+
+        } @else {
+
+        <img src="./assets/img/profile_placeholder.svg" alt="placeholder for profile">
+        }
+
+
+
+        <span id="name" [innerHTML]="topEmployee.firstName + ' ' + topEmployee.lastName"></span>
+
+        @if (revenue) {
+
+        <span>{{'Last six months: ' + revenue + '€'}}</span>
+        }
+    </section>
+
+
+</mat-card-content>

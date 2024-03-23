@@ -5,26 +5,38 @@
     align-items: center;
     background-color: #424242;
     border-radius: 16px;
+    height: calc(100% - 32px);
+    width: 100%;
+    padding: 16px;
 
     &:hover {
         background-color: rgba(66, 66, 66, 0.5);
         cursor: pointer;
     }
+
+    .number {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        font-size: 64px;
+        font-weight: bold;
+    }
 }
 
 #single-row-container {
-    height: 100%;
-    width: calc(50% - 8px);
+    height: calc(50% - 40px);
+    width: calc(100% - 32px);
 }
 
 #double-row-container {
     display: flex;
-    flex-direction: column;
     gap: 16px;
-    height: 100%;
-    width: calc(50% - 8px);
+    width: 100%;
+    height: calc(50% - 8px);
 
     div {
-        height: calc(50% - 8px);
+        width: calc(50% - 40px)
     }
 }

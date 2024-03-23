@@ -10,21 +10,23 @@ export class Contact {
     zipCode: number | undefined;
     city: string;
     id: string;
+    imageUrl: string;
 
-    constructor(object?: any) {
+    constructor(contact?: any) {
 
-        if (object) {
+        if (contact) {
             
-            this.firstName = object.firstName;
-            this.lastName = object.lastName;
-            this.birthDate = object.birthDate;
-            this.email = object.email ? object.email : '';
-            this.phone = object.phone ? object.phone : undefined;
-            this.street = object.street ? object.street : '';
-            this.houseNumber = object.houseNumber ? object.houseNumber : '';
-            this.zipCode = object.zipCode ? object.zipCode : undefined;
-            this.city = object.city ? object.city : '';
-            this.id = object.id ? object.id : '';
+            this.firstName = contact.firstName;
+            this.lastName = contact.lastName;
+            this.birthDate = contact.birthDate;
+            this.email = contact.email ? contact.email : '';
+            this.phone = contact.phone ? contact.phone : undefined;
+            this.street = contact.street ? contact.street : '';
+            this.houseNumber = contact.houseNumber ? contact.houseNumber : '';
+            this.zipCode = contact.zipCode ? contact.zipCode : undefined;
+            this.city = contact.city ? contact.city : '';
+            this.id = contact.id ? contact.id : '';
+            this.imageUrl = contact.imageUrl ? contact.imageUrl : '';
 
         } else {
 
@@ -38,6 +40,7 @@ export class Contact {
             this.zipCode = undefined;
             this.city = '';
             this.id = '';
+            this.imageUrl = '';
         }
     }
 
@@ -54,7 +57,8 @@ export class Contact {
             houseNumber: this.houseNumber,
             zipCode: this.zipCode ? this.zipCode : '',
             city: this.city,
-            id: this.id
+            id: this.id,
+            imageUrl: this.imageUrl
         }
     }
 }

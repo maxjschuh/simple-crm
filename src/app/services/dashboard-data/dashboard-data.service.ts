@@ -4,7 +4,6 @@ import { Transfer } from '../../models/transfer.class';
 import { FirestoreService } from '../firestore/firestore.service';
 import { Subscription } from 'rxjs';
 import { Contact } from '../../models/contact.class';
-import { DateService } from '../date/date.service';
 
 
 @Injectable({
@@ -23,12 +22,10 @@ export class DashboardDataService {
 
   transfersByLastSixMonths: any[] = [];
 
-  topDealer = { employeeId: '', revenue: 0 };
+  topEmployee = { employeeId: '', revenue: 0 };
 
 
-  constructor(
-    private firestoreService: FirestoreService,
-    private dateService: DateService) {
+  constructor(private firestoreService: FirestoreService) {
 
     this.employeesSubscriber =
       this.firestoreService
@@ -136,6 +133,8 @@ export class DashboardDataService {
 
     let revenuesByEmployee: { employeeId: string, revenue: number }[] = [];
 
+    this.transfersByLastSixMonths = this.returnTransfersLastSixMonths();
+
     for (let i = 0; i < this.employees.length; i++) {
       const employee = this.employees[i];
 
@@ -192,25 +191,27 @@ export class DashboardDataService {
   //pie chart
   returnPieChartData(): number[] {
 
-    let ageDistribution = [0, 0, 0, 0];
+    let transfersByType: [number, number, number] = [0, 0, 0];
 
-    for (let i = 0; i < this.contacts.length; i++) {
-      const contact = this.contacts[i];
+    for (let i = 0; i < this.transfers.length; i++) {
+      const transfer = this.transfers[i];
 
-      if (contact.birthDate) {
+      switch (transfer.type) {
 
-        const age = this.dateService.returnAge(contact.birthDate);
+        case 'Sale': transfersByType[0]++;
+          break;
 
-        if (age < 30) ageDistribution[0]++;
+        case 'Purchase': transfersByType[1]++;
+          break;
 
-        else if (age < 50) ageDistribution[1]++;
+        case 'Refund': transfersByType[2]++;
+          break;
 
-        else if (age < 70) ageDistribution[2]++;
-
-        else ageDistribution[3]++;
+        default:
+          break;
       }
     }
 
-    return ageDistribution;
+    return transfersByType;
   }
 }

@@ -3,6 +3,10 @@ body {
     height: 100%;
 }
 
+* {
+    // border: 1px solid red !important;
+}
+
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -29,7 +33,7 @@ app-dashboard {
     height: calc(100vh - 88px);
     display: grid;
     grid-template-columns: repeat(4, calc((100% - 48px) / 4));
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(2, calc((100% - 16px) / 2));
     gap: 16px;
 
     // display: grid;
