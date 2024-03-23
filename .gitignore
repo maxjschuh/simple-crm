@@ -6,6 +6,7 @@ up.bat
 .angular
 todo.txt
 .VSCodeCounter
+/orga
 
 # Compiled output
 /dist

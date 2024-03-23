@@ -71,7 +71,7 @@ export class EmployeeDetailComponent implements OnInit {
             this.commonService
               .getDocumentFromCollection('employees', this.employeeId, Employee);
 
-          this.linkToSupervisor = this.commonService.returnLinkToPerson('/employee', this.employee.supervisorId);
+          this.linkToSupervisor = this.commonService.returnLinkToPerson('/employees', this.employee.supervisorId);
           this.closings = this.commonService.returnClosingsOfEmployee(this.employeeId);
 
           const title = `Employee-Details: ${this.employee.firstName} ${this.employee.lastName}`;

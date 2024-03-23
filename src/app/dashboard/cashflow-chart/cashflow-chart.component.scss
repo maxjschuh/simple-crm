@@ -1,4 +1,9 @@
-#cashflow-chart {
-    // height: 100%;
-    // width: 100%;
+mat-card-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    div {
+        width: 100%;
+    }
 }

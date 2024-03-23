@@ -154,7 +154,7 @@ export class CommonService {
 
 
   returnLinkToPerson(
-    type: '/employee' | '/contact',
+    type: '/employees' | '/contacts',
     id: string
   ): string[] {
 

@@ -71,9 +71,9 @@ export class TransferDetailComponent {
             this.commonService
               .getDocumentFromCollection('transfers', this.transferId, Transfer);
 
-          this.linkToPayer = this.commonService.returnLinkToPerson('/contact', this.transfer.payerId);
-          this.linkToRecipient = this.commonService.returnLinkToPerson('/contact', this.transfer.recipientId);
-          this.linkToClosedBy = this.commonService.returnLinkToPerson('/employee', this.transfer.closedById);
+          this.linkToPayer = this.commonService.returnLinkToPerson('/contacts', this.transfer.payerId);
+          this.linkToRecipient = this.commonService.returnLinkToPerson('/contacts', this.transfer.recipientId);
+          this.linkToClosedBy = this.commonService.returnLinkToPerson('/employees', this.transfer.closedById);
 
           const title = `Transaction-Details: ${this.transfer.title}`;
           this.titleService.titleDistributor.next(title);

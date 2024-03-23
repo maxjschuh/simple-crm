@@ -3,12 +3,13 @@ import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID, ViewChild } from
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { DashboardDataService } from '../../services/dashboard-data/dashboard-data.service';
+import { MatCardModule } from '@angular/material/card';
 
 
 @Component({
   selector: 'app-pie-chart',
   standalone: true,
-  imports: [BaseChartDirective, NgIf],
+  imports: [BaseChartDirective, NgIf, MatCardModule],
   templateUrl: './pie-chart.component.html',
   styleUrl: './pie-chart.component.scss'
 })
