@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add Transfer</h2>
+<h2 mat-dialog-title>Add Transaction</h2>
 
 <mat-dialog-content>
 
@@ -54,10 +54,6 @@
                     <mat-option [value]="recipient">{{recipient}}</mat-option>
                     }
 
-                    <!-- @for (recipient of recipientPickerFilteredOptions | async; track recipient; let index = $index ) {
-                    <mat-option [value]="transfer.recipient"
-                        (onSelectionChange)="savePersonIndex($event.isUserInput, 'recipient', index)">{{recipient}}</mat-option>
-                    } -->
                 </mat-autocomplete>
             </mat-form-field>
         </div>
