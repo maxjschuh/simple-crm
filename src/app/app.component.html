@@ -1,37 +1,52 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" [opened]="true" class="sidenav">
 
-    <div class="logo-container" routerLink="dashboard">
+  <mat-sidenav #sidenav mode="side" [opened]="true">
 
-      <img src="./assets/img/logo/logo_white.png" alt="logo purple">
-      <span>Easy-CRM</span>
+    <div id="sidenav-container">
+
+      <div id="logo-container" routerLink="dashboard">
+
+        <img src="./assets/img/logo/logo_white.png" alt="logo purple">
+        <span>Easy-CRM</span>
+
+      </div>
+
+      <div id="navbar">
+
+        <div>
+          <a mat-fab extended color="primary" routerLink="dashboard" routerLinkActive="router-link-active">
+            <mat-icon>assignment</mat-icon>
+            Dashboard
+          </a>
+
+          <a mat-fab extended color="primary" routerLink="contacts" routerLinkActive="router-link-active">
+            <mat-icon>person</mat-icon>
+            Contacts
+          </a>
+
+          <a mat-fab extended color="primary" routerLink="transfers" routerLinkActive="router-link-active">
+            <mat-icon>sync_alt</mat-icon>
+            Transactions
+          </a>
+
+          <a mat-fab extended color="primary" routerLink="employees" routerLinkActive="router-link-active">
+            <mat-icon>badge</mat-icon>
+            Employees
+          </a>
+        </div>
+
+        <div id="imprint-links">
+          <a mat-button routerLink="imprint" target="_blank">Imprint</a>
+  
+          <a mat-button routerLink="data-protection" target="_blank">Data protection</a>
+        </div>
+
+      </div>
       
     </div>
 
-    <div id="sidenav-navbar">
-
-      <a mat-fab extended color="primary" routerLink="dashboard" routerLinkActive="router-link-active">
-        <mat-icon>assignment</mat-icon>
-        Dashboard
-      </a>
-
-      <a mat-fab extended color="primary" routerLink="contacts" routerLinkActive="router-link-active">
-        <mat-icon>person</mat-icon>
-        Contacts
-      </a>
-
-      <a mat-fab extended color="primary" routerLink="transfers" routerLinkActive="router-link-active">
-        <mat-icon>sync_alt</mat-icon>
-        Transactions
-      </a>
-
-      <a mat-fab extended color="primary" routerLink="employees" routerLinkActive="router-link-active">
-        <mat-icon>badge</mat-icon>
-        Employees
-      </a>
-    </div>
-
   </mat-sidenav>
+
 
   <mat-sidenav-content>
 
@@ -50,4 +65,5 @@
     </div>
 
   </mat-sidenav-content>
+
 </mat-sidenav-container>

@@ -6,6 +6,8 @@ import { ContactsTableComponent } from './contacts/contacts-table/contacts-table
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 import { EmployeesTableComponent } from './employees/employees-table/employees-table.component';
 import { EmployeeDetailComponent } from './employees/employee-detail/employee-detail.component';
+import { ImprintComponent } from './imprint/imprint.component';
+import { DataProtectionComponent } from './data-protection/data-protection.component';
 
 export const routes: Routes = [
     { path: "dashboard", component: DashboardComponent, title: "Simple-CRM | Dashboard"},
@@ -14,5 +16,7 @@ export const routes: Routes = [
     { path: "transfers", component: TransfersTableComponent, title: "Simple-CRM | Transfers" },
     { path: "transfers/:id", component: TransferDetailComponent, title: "Simple-CRM | Transfer-Details" },
     { path: "employees", component: EmployeesTableComponent, title: "Simple-CRM | Employees" },
-    { path: "employees/:id", component: EmployeeDetailComponent, title: "Simple-CRM | Employee-Details" }
+    { path: "employees/:id", component: EmployeeDetailComponent, title: "Simple-CRM | Employee-Details" },
+    { path: "imprint", component: ImprintComponent, title: "Simple CRM | Imprint"},
+    { path: "data-protection", component: DataProtectionComponent, title: "Simple CRM | Data protection"}
 ];
