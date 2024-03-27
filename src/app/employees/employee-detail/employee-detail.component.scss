@@ -121,14 +121,30 @@ mat-card-title {
     top: 8px;
 }
 
-#button-edit {
-    position: fixed;
-    right: 24px;
-    bottom: 96px;
+
+#buttons {margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+
+    #button-edit {
+
+        @media (max-width: 800px) {
+            position: fixed;
+            right: 24px;
+            bottom: 96px;
+        }
+    }
+    
+    #button-delete {
+
+        @media (max-width: 800px) {
+
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+        }
+    }
 }
 
-#button-delete {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-}

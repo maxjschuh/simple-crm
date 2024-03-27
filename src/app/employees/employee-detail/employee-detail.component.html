@@ -2,11 +2,11 @@
 
     @if (employee.imageUrl) {
 
-        <img id="profile-img" [src]="'./assets/img/' + employee.imageUrl" alt="placeholder for profile">
+    <img id="profile-img" [src]="'./assets/img/' + employee.imageUrl" alt="placeholder for profile">
 
     } @else {
 
-        <img id="profile-img" src="./assets/img/profile_placeholder.svg" alt="placeholder for profile">
+    <img id="profile-img" src="./assets/img/profile_placeholder.svg" alt="placeholder for profile">
     }
 
     <mat-card-header>
@@ -196,9 +196,8 @@
     </mat-accordion>
 </mat-card>
 
-
-
-<button id="button-edit" mat-fab color="primary" matTooltip="Edit employee" [matTooltipPosition]="'left'"
+<div id="buttons">
+    <button id="button-edit" mat-fab color="primary" matTooltip="Edit employee" [matTooltipPosition]="'left'"
     (click)="openEditEmployeeDialog('all')">
     <mat-icon>edit</mat-icon>
 </button>
@@ -207,3 +206,4 @@
     (click)="openDeleteEmployeeDialog()">
     <mat-icon>delete</mat-icon>
 </button>
+</div>

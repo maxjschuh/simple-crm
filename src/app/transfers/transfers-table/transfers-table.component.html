@@ -138,9 +138,9 @@
 
 
 <!-- stacked list table (for mobile view) -->
-<mat-card>
+<mat-card id="table-mobile">
 
-    <mat-table id="table-mobile" [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
         <ng-container matColumnDef="title">
             <mat-cell class="title" *matCellDef="let transfer" [routerLink]="['/transfers', transfer.id]">
