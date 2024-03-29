@@ -166,12 +166,14 @@
 
 </mat-card>
 
-<button id="button-edit" mat-fab color="primary" matTooltip="Edit transfer" [matTooltipPosition]="'left'"
-    (click)="openEditTransferDialog('all')">
-    <mat-icon>edit</mat-icon>
-</button>
+<div id="buttons">
+    <button id="button-edit" mat-fab color="primary" matTooltip="Edit transfer" [matTooltipPosition]="'left'"
+        (click)="openEditTransferDialog('all')">
+        <mat-icon>edit</mat-icon>
+    </button>
 
-<button id="button-delete" mat-fab color="primary" matTooltip="Delete transfer" [matTooltipPosition]="'left'"
-    (click)="openDeleteTransferDialog()">
-    <mat-icon>delete</mat-icon>
-</button>
+    <button id="button-delete" mat-fab color="primary" matTooltip="Delete transfer" [matTooltipPosition]="'left'"
+        (click)="openDeleteTransferDialog()">
+        <mat-icon>delete</mat-icon>
+    </button>
+</div>

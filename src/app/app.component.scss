@@ -52,11 +52,13 @@ mat-sidenav-container {
                     display: flex;
                     flex-direction: column;
                     gap: 16px;
+                    margin-bottom: 16px;
                 }
 
                 #imprint-links {
                     flex-direction: row;
                     gap: 4px;
+                    margin: 0;
                 }
 
                 a {
@@ -72,12 +74,16 @@ mat-sidenav-container {
     }
 
     #toolbar {
+        position: fixed;
+        top: 0;
         height: 56px;
         padding-left: 4px;
+        z-index: 999;
     }
 
     #router-container {
         box-sizing: border-box;
         padding: 16px;
+        margin-top: 56px;
     }
 }

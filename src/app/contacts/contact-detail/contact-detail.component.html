@@ -2,11 +2,11 @@
 
     @if (contact.imageUrl) {
 
-        <img id="profile-img" [src]="'./assets/img/' + contact.imageUrl" alt="placeholder for profile">
+    <img id="profile-img" [src]="'./assets/img/' + contact.imageUrl" alt="placeholder for profile">
 
     } @else {
 
-        <img id="profile-img" src="./assets/img/profile_placeholder.svg" alt="placeholder for profile">
+    <img id="profile-img" src="./assets/img/profile_placeholder.svg" alt="placeholder for profile">
     }
 
 
@@ -58,6 +58,8 @@
         </mat-card-subtitle>
     </mat-card-header>
 
+    @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
+
     <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu1">
         <mat-icon>more_vert</mat-icon>
     </button>
@@ -67,27 +69,36 @@
             <span>Edit</span>
         </button>
     </mat-menu>
+    }
 
 </mat-card>
 
 <mat-card id="middle-card">
 
+    <mat-card-title>
+        About
+    </mat-card-title>
+
     <section>
-        <mat-card-title>
+        <mat-card-subtitle>
             Address
-        </mat-card-title>
+        </mat-card-subtitle>
         <div class="double-columns">
-            <div>{{ contact.street + ' ' + contact.houseNumber }}</div>
 
-            @if (contact.zipCode) {
+            @if ((contact.street || contact.houseNumber) && (contact.zipCode || contact.city)) {
 
-            <div>{{ contact.zipCode + ' ' + contact.city }}</div>
+            <span>{{ contact.street + ' ' + contact.houseNumber + ', ' }}</span>
 
             } @else {
 
-            <div>{{ contact.city }}</div>
+            <span>{{ contact.street + ' ' + contact.houseNumber }}</span>
             }
+
+            <span>{{ contact.zipCode + ' ' + contact.city }}</span>
+
         </div>
+
+        @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
 
         <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
             <mat-icon>more_vert</mat-icon>
@@ -98,21 +109,24 @@
                 <span>Edit</span>
             </button>
         </mat-menu>
+        }
 
     </section>
 
     <mat-divider></mat-divider>
 
     <section>
-        <mat-card-title>
+        <mat-card-subtitle>
             Date of Birth
-        </mat-card-title>
+        </mat-card-subtitle>
         <div>
             {{ contact.birthDate ?
             (dateService.returnTimestampAsDateString(contact.birthDate) + ' (Age: ' +
             dateService.returnAge(contact.birthDate)) + ')' : '' }}
 
         </div>
+
+        @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
 
         <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu3">
             <mat-icon>more_vert</mat-icon>
@@ -123,22 +137,8 @@
                 <span>Edit</span>
             </button>
         </mat-menu>
+        }
     </section>
-
-    <mat-divider></mat-divider>
-
-    @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
-
-    <section>
-        <mat-card-title>
-            Sales
-        </mat-card-title>
-        <div>
-            Last purchase
-        </div>
-
-    </section>
-    }
 
 </mat-card>
 
@@ -203,13 +203,15 @@
 
 @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
 
-<button id="button-edit" mat-fab color="primary" matTooltip="Edit contact" [matTooltipPosition]="'left'"
-    (click)="openEditContactDialog('all')">
-    <mat-icon>edit</mat-icon>
-</button>
+<div id="buttons">
+    <button id="button-edit" mat-fab color="primary" matTooltip="Edit contact" [matTooltipPosition]="'left'"
+        (click)="openEditContactDialog('all')">
+        <mat-icon>edit</mat-icon>
+    </button>
 
-<button id="button-delete" mat-fab color="primary" matTooltip="Delete contact" [matTooltipPosition]="'left'"
-    (click)="openDeleteContactDialog()">
-    <mat-icon>delete</mat-icon>
-</button>
+    <button id="button-delete" mat-fab color="primary" matTooltip="Delete contact" [matTooltipPosition]="'left'"
+        (click)="openDeleteContactDialog()">
+        <mat-icon>delete</mat-icon>
+    </button>
+</div>
 }

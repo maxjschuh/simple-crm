@@ -17,7 +17,7 @@ mat-card-content {
 
         img {
             width: 250px;
-            height: 250px;
+            max-height: 250px;
             max-width: 100%;
             object-fit: contain;
             margin-bottom: 16px;
