@@ -31,6 +31,7 @@ app-dashboard {
     grid-template-columns: repeat(4, calc((100% - 48px) / 4));
     grid-template-rows: repeat(2, calc((100% - 16px) / 2));
     gap: 16px;
+    max-width: 1600px;
 }
 
 app-imprint,

@@ -74,9 +74,6 @@ mat-table {
     box-shadow: none;
 
     mat-row {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
       border: unset;
       border-bottom-color: var(--mat-table-row-item-outline-color, rgba(0, 0, 0, 0.12));
       border-bottom-width: var(--mat-table-row-item-outline-width, 1px);
@@ -88,6 +85,10 @@ mat-table {
       grid-template-rows: repeat(4);
       column-gap: 16px;
       position: relative;
+
+      &:last-child {
+        border: none;
+      }
 
       .title {
         grid-column-start: 1;
@@ -152,7 +153,6 @@ mat-table {
     }
 
     &:last-child {
-      border: unset;
       padding-bottom: 0;
     }
 

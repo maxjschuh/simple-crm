@@ -46,7 +46,6 @@ mat-table {
 
   mat-form-field {
     width: 200px;
-
   }
 
   button {
@@ -55,31 +54,24 @@ mat-table {
 }
 
 
-
-
-
 @media (max-width: 1200px) {
 
   #table-desktop {
     display: none;
   }
 
-  #table-mobile-container {
-    background-color: var(--mat-table-background-color);
-
+  mat-card {
+    margin-bottom: 83px;
   }
-
 
   mat-table {
     display: flex;
     flex-direction: column;
     background: none;
     border: none;
+    box-shadow: none;
 
     mat-row {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
       border: unset;
       border-bottom-color: var(--mat-table-row-item-outline-color, rgba(0, 0, 0, 0.12));
       border-bottom-width: var(--mat-table-row-item-outline-width, 1px);
@@ -91,6 +83,10 @@ mat-table {
       grid-template-rows: repeat(4);
       column-gap: 16px;
       position: relative;
+
+      &:last-child {
+        border: none;
+      }
 
       .name {
         grid-column-start: 1;
@@ -154,7 +150,6 @@ mat-table {
     }
 
     &:last-child {
-      border: none !important;
       padding-bottom: 0;
     }
 
@@ -172,7 +167,6 @@ mat-table {
 @media (min-width: 1201px) {
 
   #sort-mobile {
-
     display: none;
   }
 

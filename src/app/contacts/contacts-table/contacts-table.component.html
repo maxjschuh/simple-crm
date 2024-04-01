@@ -144,13 +144,12 @@
   <mat-row *matRowDef="let row; columns: displayedColumns;">
   </mat-row>
 
-
 </mat-table>
 
 
 <!-- stacked list table (for mobile view) -->
 
-<div id="table-mobile-container">
+<mat-card>
 
   <mat-table id="table-mobile" [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
@@ -159,7 +158,6 @@
         ' + contact.lastName}}
       </mat-cell>
     </ng-container>
-
 
     <ng-container matColumnDef="birthDate">
       <mat-cell class="birthDate" *matCellDef="let contact" [routerLink]="['/contacts', contact.id]">
@@ -227,7 +225,7 @@
 
   </mat-table>
 
-</div>
+</mat-card>
 
 
 <button id="button-add" mat-fab color="primary" matTooltip="Add contact" [matTooltipPosition]="'left'"
