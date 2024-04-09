@@ -23,6 +23,10 @@ export class CommonService {
   constructor(
     private firestoreService: FirestoreService) {
 
+    this.employeesSubscriber.unsubscribe();
+    this.transfersSubscriber.unsubscribe();
+    this.contactsSubscriber.unsubscribe();
+
     this.employeesSubscriber =
       this.firestoreService
         .employeesFrontendDistributor

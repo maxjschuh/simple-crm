@@ -2,7 +2,7 @@
 
     @if (contact.imageUrl) {
 
-    <img id="profile-img" [src]="'./assets/img/' + contact.imageUrl" alt="placeholder for profile">
+    <img id="profile-img" [src]="'./assets/img/profiles/' + contact.imageUrl" alt="profile image">
 
     } @else {
 
@@ -94,7 +94,14 @@
             <span>{{ contact.street + ' ' + contact.houseNumber }}</span>
             }
 
+            @if (contact.zipCode) {
+
             <span>{{ contact.zipCode + ' ' + contact.city }}</span>
+
+            } @else {
+
+            <span>{{ contact.city }}</span>
+            }
 
         </div>
 

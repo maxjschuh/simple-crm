@@ -8,7 +8,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { DialogDeleteContactComponent } from '../../contacts/dialog-delete-contact/dialog-delete-contact.component';
 import { dataForEditDialog } from '../../interfaces/data-for-edit-dialog.interface';
 import { CommonService } from '../../services/common/common.service';
 import { DateService } from '../../services/date/date.service';
@@ -18,6 +17,7 @@ import { DialogEditEmployeeComponent } from '../dialog-edit-employee/dialog-edit
 import { Transfer } from '../../models/transfer.class';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { AppTitleService } from '../../services/app-title/app-title.service';
+import { DialogDeleteEmployeeComponent } from '../dialog-delete-employee/dialog-delete-employee.component';
 
 @Component({
   selector: 'app-employee-detail',
@@ -44,7 +44,8 @@ export class EmployeeDetailComponent implements OnInit {
     public dateService: DateService,
     public dialog: MatDialog,
     public commonService: CommonService,
-    private titleService: AppTitleService) { }
+    private titleService: AppTitleService) {
+  }
 
 
   ngOnInit(): void {
@@ -58,6 +59,7 @@ export class EmployeeDetailComponent implements OnInit {
     });
   }
 
+  
   init(): void {
 
     this.employeesSubscriber.unsubscribe();
@@ -105,6 +107,6 @@ export class EmployeeDetailComponent implements OnInit {
 
   openDeleteEmployeeDialog(): void {
 
-    this.dialog.open(DialogDeleteContactComponent, { data: this.employee });
+    this.dialog.open(DialogDeleteEmployeeComponent, { data: this.employee });
   }
 }

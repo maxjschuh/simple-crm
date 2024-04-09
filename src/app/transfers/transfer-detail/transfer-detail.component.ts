@@ -24,7 +24,7 @@ import { AppTitleService } from '../../services/app-title/app-title.service';
   templateUrl: './transfer-detail.component.html',
   styleUrl: './transfer-detail.component.scss'
 })
-export class TransferDetailComponent {
+export class TransferDetailComponent implements OnInit {
 
   private routeSubscriber = new Subscription;
   transfersSubscriber = new Subscription;
@@ -54,9 +54,8 @@ export class TransferDetailComponent {
       this.transferId = params['id'];
       this.init();
     });
-
-
   }
+
 
   init(): void {
 
@@ -98,7 +97,7 @@ export class TransferDetailComponent {
     const dialogRef = this.dialog.open(DialogEditTransferComponent, { data: data });
 
     this.editsSubscriber = dialogRef.componentInstance.savedEdits.subscribe((eventData: any) => {
-      this.transfer = new Transfer(eventData)
+      this.transfer = new Transfer(eventData);
     });
   }
 

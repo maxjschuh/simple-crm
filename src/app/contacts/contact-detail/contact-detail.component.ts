@@ -32,6 +32,7 @@ export class ContactDetailComponent implements OnInit {
   private routeSubscriber = new Subscription;
   contactsSubscriber = new Subscription;
   editsSubscriber = new Subscription;
+  transfersSubscriber = new Subscription;
   contact = new Contact();
   contactId = '';
   transfers: Transfer[] = [];
@@ -45,11 +46,12 @@ export class ContactDetailComponent implements OnInit {
     public dialog: MatDialog,
     public commonService: CommonService,
     private titleService: AppTitleService) {
-
   }
 
 
   ngOnInit(): void {
+
+    this.routeSubscriber.unsubscribe();
 
     this.routeSubscriber = this.route.params.subscribe(params => {
 
@@ -72,7 +74,12 @@ export class ContactDetailComponent implements OnInit {
             this.commonService
               .getDocumentFromCollection('contacts', this.contactId, Contact);
 
-          this.transfers = this.commonService.returnTransactionsOfContact(this.contactId);
+          this.transfersSubscriber.unsubscribe();
+
+          this.transfersSubscriber = this.firestoreService.transfersFrontendDistributor.subscribe(() => {
+
+            this.transfers = this.commonService.returnTransactionsOfContact(this.contactId);
+          });
 
           const title = `Contact-Details: ${this.contact.firstName} ${this.contact.lastName}`;
           this.titleService.titleDistributor.next(title);
@@ -84,7 +91,6 @@ export class ContactDetailComponent implements OnInit {
     this.routeSubscriber.unsubscribe();
     this.contactsSubscriber.unsubscribe();
     // this.editsSubscriber.unsubscribe();
-
   }
 
 

@@ -22,7 +22,7 @@
 
         <mat-form-field appearance="outline" [color]="'accent'">
             <mat-label>Description</mat-label>
-            <textarea matInput [disabled]="loading"></textarea>
+            <textarea [(ngModel)]="transfer.description" matInput [disabled]="loading"></textarea>
         </mat-form-field>
         }
 

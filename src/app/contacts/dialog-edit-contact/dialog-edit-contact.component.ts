@@ -77,7 +77,7 @@ export class DialogEditContactComponent {
     setTimeout(() => {
 
       this.loading = false;
-      this.emitEvent(this.contact)
+      this.emitEvent(this.contact);
       this.dialogRef.close();
     }, 2000);
   }

@@ -49,7 +49,7 @@ export class DialogEditTransferComponent {
 
   employeesSubscriber = new Subscription;
   employees: Employee[] = [];
-  
+
   transfer: Transfer;
   date: Date | undefined = undefined;
   loading = false;
@@ -82,26 +82,26 @@ export class DialogEditTransferComponent {
   ) {
 
     this.contactsSubscriber =
-    this.firestoreService
-      .contactsFrontendDistributor
-      .subscribe(contacts => {
-        this.contacts = contacts;
-      });
+      this.firestoreService
+        .contactsFrontendDistributor
+        .subscribe(contacts => {
+          this.contacts = contacts;
+        });
 
-  this.employeesSubscriber =
-    this.firestoreService
-      .employeesFrontendDistributor
-      .subscribe(employees => {
-        this.employees = employees;
-      });;
+    this.employeesSubscriber =
+      this.firestoreService
+        .employeesFrontendDistributor
+        .subscribe(employees => {
+          this.employees = employees;
+        });;
 
 
     this.transfer = data.document;
     this.fieldsToEdit = data.fieldsToEdit;
 
-    this.payerPicker = new FormControl({value: this.transfer.payer, disabled: false});
-    this.recipientPicker = new FormControl({value: this.transfer.recipient, disabled: false});
-    this.employeePicker = new FormControl({value: this.transfer.closedBy, disabled: false});
+    this.payerPicker = new FormControl({ value: this.transfer.payer, disabled: false });
+    this.recipientPicker = new FormControl({ value: this.transfer.recipient, disabled: false });
+    this.employeePicker = new FormControl({ value: this.transfer.closedBy, disabled: false });
 
     this.date = this.transfer.date ? new Date(this.transfer.date) : undefined;
   }
@@ -166,12 +166,12 @@ export class DialogEditTransferComponent {
 
     this.transfer.date = this.date ? this.date.getTime() : 0;
 
-    await this.firestoreService.updateDocument('contacts', this.transfer.id, this.transfer.toJSON());
+    await this.firestoreService.updateDocument('transfers', this.transfer.id, this.transfer.toJSON());
 
     setTimeout(() => {
 
       this.loading = false;
-      this.emitEvent(this.transfer)
+      this.emitEvent(this.transfer);
       this.dialogRef.close();
     }, 2000);
   }
@@ -197,13 +197,13 @@ export class DialogEditTransferComponent {
 
     if (this.changedTypeBefore) {
 
-      this.payerPicker = new FormControl({value: '', disabled: false});
-      this.recipientPicker = new FormControl({value: '', disabled: false});
+      this.payerPicker = new FormControl({ value: '', disabled: false });
+      this.recipientPicker = new FormControl({ value: '', disabled: false });
     }
 
     if (type === 'Sale') {
 
-      this.recipientPicker = new FormControl({value: this.demoOwner, disabled: true});
+      this.recipientPicker = new FormControl({ value: this.demoOwner, disabled: true });
 
     } else {
 
