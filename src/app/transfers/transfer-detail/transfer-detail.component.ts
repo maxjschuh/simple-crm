@@ -45,6 +45,9 @@ export class TransferDetailComponent implements OnInit {
     private titleService: AppTitleService) { }
 
 
+    /**
+     * Subscribes to the route service.
+     */
   ngOnInit(): void {
 
     this.routeSubscriber.unsubscribe();
@@ -86,7 +89,7 @@ export class TransferDetailComponent implements OnInit {
     // this.editsSubscriber.unsubscribe();
   }
 
-
+//opens the 
   openEditTransferDialog(fieldsToEdit: 'all' | 'title' | 'type+amount+payer+recipient' | 'closedBy+date' | 'description'): void {
 
     const data: dataForEditDialog = {
@@ -102,6 +105,9 @@ export class TransferDetailComponent implements OnInit {
   }
 
 
+  /**
+   * Opens the dialog component for deleting the selected transaction.
+   */
   openDeleteTransferDialog(): void {
 
     this.dialog.open(DialogDeleteTransferComponent, { data: this.transfer });

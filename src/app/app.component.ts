@@ -27,6 +27,9 @@ export class AppComponent implements AfterViewInit {
     private cd: ChangeDetectorRef) { }
 
 
+  /**
+   * Subscribes to the services that emits the current html document title.
+   */
   ngAfterViewInit() {
 
     this.titleSubscriber.unsubscribe();
