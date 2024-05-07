@@ -23,6 +23,10 @@
         font-size: 64px;
         font-weight: bold;
     }
+
+    @media (max-width: 1200px) {
+        min-height: 120px;
+    }
 }
 
 #single-row-container {

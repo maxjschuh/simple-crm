@@ -14,6 +14,12 @@ app-employees-table {
     display: flex;
     flex-direction: column;
     gap: 24px;
+
+    mat-header-cell {
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
 }
 
 app-contact-detail,
@@ -32,6 +38,13 @@ app-dashboard {
     grid-template-rows: repeat(2, calc((100% - 16px) / 2));
     gap: 16px;
     max-width: 1600px;
+
+    @media (max-width: 1200px) {
+        height: unset;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
 }
 
 app-imprint,
