@@ -1,6 +1,6 @@
 <mat-sidenav-container>
 
-  <mat-sidenav #sidenav mode="side" [opened]="true">
+  <mat-sidenav #sidenav [mode]="isMobileView ? 'over' : 'side'" [opened]="!isMobileView">
 
     <div id="sidenav-container">
 
@@ -37,22 +37,21 @@
 
         <div id="imprint-links">
           <a mat-button routerLink="imprint" target="_blank">Imprint</a>
-  
+
           <a mat-button routerLink="data-protection" target="_blank">Data protection</a>
         </div>
 
       </div>
-      
+
     </div>
 
   </mat-sidenav>
-
 
   <mat-sidenav-content>
 
     <mat-toolbar id="toolbar" color="primary">
 
-      <button mat-icon-button class="example-icon" (click)="sidenav.toggle()">
+      <button mat-icon-button #toggleSidenavButton class="example-icon" (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
 

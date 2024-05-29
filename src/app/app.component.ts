@@ -1,10 +1,11 @@
-import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { Subscription } from 'rxjs';
@@ -21,10 +22,34 @@ export class AppComponent implements AfterViewInit {
 
   title = '';
   titleSubscriber = new Subscription;
+  isMobileView: boolean = true;
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+  @ViewChild('toggleSidenavButton') toggleSidenavButton!: MatButton;
 
   constructor(
     private titleService: AppTitleService,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private router: Router,
+    private breakpointObserver: BreakpointObserver) {
+
+    this.router.events.subscribe(event => {
+
+      if (event instanceof NavigationEnd &&
+        this.sidenav.opened &&
+        this.isMobileView) {
+
+          this.sidenav.close();
+          this.toggleSidenavButton._elementRef.nativeElement.blur();
+      }
+    });
+  }
+
+
+  ngOnInit(): void {
+    this.breakpointObserver.observe(['(max-width: 800px)']).subscribe(result => {
+      this.isMobileView = result.matches;
+    });
+  }
 
 
   /**
