@@ -50,7 +50,7 @@ export class Contact {
         return {
             firstName: this.firstName,
             lastName: this.lastName,
-            birthDate: this.birthDate,
+            birthDate: this.birthDate ? this.birthDate : '',
             email: this.email,
             phone: this.phone ? this.phone : '',
             street: this.street,

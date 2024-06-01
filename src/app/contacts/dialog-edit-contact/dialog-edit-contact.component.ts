@@ -52,7 +52,7 @@ export class DialogEditContactComponent {
   ) {
     this.contact = data.document;
     this.fieldsToEdit = data.fieldsToEdit;
-    // this.birthDate = this.contact.birthDate ? new Date(this.contact.birthDate) : undefined;
+    this.birthDate = this.contact.birthDate ? new Date(this.contact.birthDate) : undefined;
   }
 
 
