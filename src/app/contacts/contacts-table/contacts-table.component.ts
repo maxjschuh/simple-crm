@@ -124,6 +124,9 @@ export class ContactsTableComponent {
   }
 
 
+  /**
+   * Opens the dialog for editing a contact. The "data" object is used to pass information to the dialog. Per default, the edit dialogues on the table subpages show all data fields.
+   */
   openEditContactDialog(): void {
 
     const data: dataForEditDialog = {

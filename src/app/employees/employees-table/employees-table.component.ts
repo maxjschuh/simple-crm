@@ -167,6 +167,9 @@ export class EmployeesTableComponent {
   }
 
 
+  /**
+   * Opens the dialog for editing an employee. The "data" object is used to pass information to the dialog. Per default, the edit dialogues on the table subpages show all data fields.
+   */
   openEditEmployeeDialog(): void {
 
     const data: dataForEditDialog = {
@@ -174,15 +177,18 @@ export class EmployeesTableComponent {
       document: this.commonService.getDocumentFromCollection('employees', this.documentInFocus, Employee)
     };
 
-    this.dialog.open(DialogEditEmployeeComponent, {data: data});
+    this.dialog.open(DialogEditEmployeeComponent, { data: data });
   }
 
-
+  
+  /**
+   * Opens the dialog for deleting an employee. A database reference to the document is retrieved using the variable "documentInFocus", which stores the id of the document to be deleted. "documentInFocus" is updated when the user clicks on the button-menu in a table row (see setDocumentInFocus()).
+   */
   openDeleteEmployeeDialog(): void {
 
     const document = this.commonService.getDocumentFromCollection('employees', this.documentInFocus, Employee);
 
-    this.dialog.open(DialogDeleteEmployeeComponent, {data: document});
+    this.dialog.open(DialogDeleteEmployeeComponent, { data: document });
   }
 
 

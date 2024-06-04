@@ -90,6 +90,10 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
 
+  /**
+   * Opens the dialog for editing an employee. The "data" object is used to pass information to the dialog. A subscription is created that listens to edits being saved in the dialog. It overwrites the transfer data in this component with the updated data from the dialog.
+   * @param {string} fieldsToEdit data fields that should be shown in the edit dialog
+   */
   openEditEmployeeDialog(fieldsToEdit: 'name+email+phone' | 'position+department' | 'birthDate+supervisor' | 'all'): void {
 
     const data: dataForEditDialog = {

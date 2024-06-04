@@ -124,6 +124,9 @@ export class TransfersTableComponent {
   }
 
 
+  /**
+   * Opens the dialog for editing a transfer. The "data" object is used to pass information to the dialog. Per default, the edit dialogues on the table subpages show all data fields.
+   */
   openEditTransferDialog(): void {
 
     const data: dataForEditDialog = {
@@ -135,6 +138,9 @@ export class TransfersTableComponent {
   }
 
 
+  /**
+   * Opens the dialog for deleting a transaction. A database reference to the document is retrieved using the variable "documentInFocus", which stores the id of the document to be deleted. "documentInFocus" is updated when the user clicks on the button-menu in a table row (see setDocumentInFocus()).
+   */
   openDeleteTransferDialog(): void {
 
     const document = this.commonService.getDocumentFromCollection('transfers', this.documentInFocus, Transfer);

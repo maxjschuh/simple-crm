@@ -45,9 +45,9 @@ export class TransferDetailComponent implements OnInit {
     private titleService: AppTitleService) { }
 
 
-    /**
-     * Subscribes to the route service.
-     */
+  /**
+   * Subscribes to the route service.
+   */
   ngOnInit(): void {
 
     this.routeSubscriber.unsubscribe();
@@ -83,13 +83,19 @@ export class TransferDetailComponent implements OnInit {
   }
 
 
+  /**
+   * Unsubscribes from all subscriptions in this component.
+   */
   ngOnDestroy(): void {
     this.routeSubscriber.unsubscribe();
     this.transfersSubscriber.unsubscribe();
     // this.editsSubscriber.unsubscribe();
   }
 
-//opens the 
+  /**
+   * Opens the dialog for editing a transaction. The "data" object is used to pass information to the dialog. A subscription is created that listens to edits being saved in the dialog. It overwrites the transfer data in this component with the updated data from the dialog.
+   * @param {string} fieldsToEdit data fields that should be shown in the edit dialog
+   */
   openEditTransferDialog(fieldsToEdit: 'all' | 'title' | 'type+amount+payer+recipient' | 'closedBy+date' | 'description'): void {
 
     const data: dataForEditDialog = {
