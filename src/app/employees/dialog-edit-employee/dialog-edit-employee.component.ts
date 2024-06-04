@@ -1,6 +1,6 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
@@ -41,7 +41,7 @@ import { CommonService } from '../../services/common/common.service';
   templateUrl: './dialog-edit-employee.component.html',
   styleUrl: './dialog-edit-employee.component.scss'
 })
-export class DialogEditEmployeeComponent {
+export class DialogEditEmployeeComponent implements OnInit {
 
   employeesSubscriber = new Subscription;
   employees: Employee[] = [];
@@ -55,6 +55,8 @@ export class DialogEditEmployeeComponent {
   loading = false;
   fieldsToEdit: string;
 
+  form!: FormGroup;
+
   @Output() savedEdits = new EventEmitter<any>();
 
   constructor(
@@ -62,7 +64,8 @@ export class DialogEditEmployeeComponent {
     public firestoreService: FirestoreService,
     public dateService: DateService,
     private commonService: CommonService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private fb: FormBuilder
   ) {
 
     this.employee = data.document;
@@ -81,6 +84,17 @@ export class DialogEditEmployeeComponent {
 
 
   ngOnInit(): void {
+
+    this.form = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      birthDate: [''],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [''],
+      position: [''],
+      department: [''],
+      supervisor: ['']
+    });
 
     this.employeePickerOptions = this.commonService.returnDataForPersonPicker(this.employees);
 
@@ -116,21 +130,31 @@ export class DialogEditEmployeeComponent {
 
   async saveEdits(): Promise<void> {
 
+    if (!this.form.valid) return;
+
     this.addSupervisorFromPicker();
-
-    this.employeePicker = new FormControl({ value: '', disabled: true });
-    this.loading = true;
-
+    this.setDialogLoading();
     this.employee.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
-
+    
     await this.firestoreService.updateDocument('employees', this.employee.id, this.employee.toJSON());
-
+    
     setTimeout(() => {
-
-      this.loading = false;
+      
       this.emitEvent(this.employee)
       this.dialogRef.close();
     }, 2000);
+  }
+
+
+  setDialogLoading(): void {
+
+    this.loading = true;
+    const fieldIds = ['firstName', 'lastName', 'birthDate', 'email', 'phone', 'position', 'department', 'supervisor'];
+
+    fieldIds.forEach(id => {
+
+      this.form.get(id)?.disable();
+    });
   }
 
 

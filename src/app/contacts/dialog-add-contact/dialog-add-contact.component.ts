@@ -1,7 +1,7 @@
 import { DateService } from '../../services/date/date.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore/firestore.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
@@ -27,23 +27,43 @@ import { Contact } from '../../models/contact.class';
     MatFormFieldModule,
     MatInputModule,
     MatProgressBarModule,
-    NgIf
+    NgIf,
+    ReactiveFormsModule
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './dialog-add-contact.component.html',
   styleUrl: './dialog-add-contact.component.scss'
 })
-export class DialogAddContactComponent {
+export class DialogAddContactComponent implements OnInit {
 
   contact = new Contact();
   birthDate: Date | undefined = undefined;
   loading = false;
 
+  form!: FormGroup;
+
   constructor(
     public dialogRef: MatDialogRef<DialogAddContactComponent>,
     private firestoreService: FirestoreService,
-    public dateService: DateService
+    public dateService: DateService,
+    private fb: FormBuilder
   ) { }
+
+
+  ngOnInit(): void {
+
+    this.form = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      birthDate: [''],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [''],
+      street: [''],
+      houseNumber: [''],
+      zipCode: [''],
+      city: [''],
+    });
+  }
 
 
   onNoClick(): void {
@@ -53,15 +73,27 @@ export class DialogAddContactComponent {
 
   async saveContact(): Promise<void> {
 
-    this.loading = true;
+    if (!this.form.valid) return;
+
+    this.setDialogLoading();
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
-    const response = await this.firestoreService.addDocument('contacts', this.contact.toJSON());
-    
-    setTimeout(() => {
-      
-      this.loading = false;
-      this.dialogRef.close();
-    }, 2000);
+    await this.firestoreService.addDocument('contacts', this.contact.toJSON());
+
+    setTimeout(() => this.dialogRef.close(), 2000);
   }
+
+
+  setDialogLoading(): void {
+
+    this.loading = true;
+    const fieldIds = ['firstName', 'lastName', 'birthDate', 'email', 'phone', 'street', 'houseNumber', 'zipCode', 'city'];
+
+    fieldIds.forEach(id => {
+
+      this.form.get(id)?.disable();
+    });
+  }
+
+
 }

@@ -1,7 +1,7 @@
 import { DateService } from '../../services/date/date.service';
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Output, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore/firestore.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -29,18 +29,21 @@ import { ContactsTableComponent } from '../contacts-table/contacts-table.compone
     MatInputModule,
     MatProgressBarModule,
     NgIf,
-    ContactsTableComponent
+    ContactsTableComponent,
+    ReactiveFormsModule
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './dialog-edit-contact.component.html',
   styleUrl: './dialog-edit-contact.component.scss'
 })
-export class DialogEditContactComponent {
+export class DialogEditContactComponent implements OnInit {
 
   contact: Contact;
   birthDate: Date | undefined = undefined;
   loading = false;
   fieldsToEdit: string;
+
+  form!: FormGroup;
 
   @Output() savedEdits = new EventEmitter<any>();
 
@@ -48,11 +51,27 @@ export class DialogEditContactComponent {
     public dialogRef: MatDialogRef<DialogEditContactComponent>,
     public firestoreService: FirestoreService,
     public dateService: DateService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private fb: FormBuilder
   ) {
     this.contact = data.document;
     this.fieldsToEdit = data.fieldsToEdit;
     this.birthDate = this.contact.birthDate ? new Date(this.contact.birthDate) : undefined;
+  }
+
+  ngOnInit(): void {
+
+    this.form = this.fb.group({
+      firstName: [{value: '', disabled: true}, Validators.required],
+      lastName: ['', Validators.required],
+      birthDate: [''],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [''],
+      street: [''],
+      houseNumber: [''],
+      zipCode: [''],
+      city: [''],
+    });
   }
 
 
@@ -68,7 +87,9 @@ export class DialogEditContactComponent {
 
   async saveEdits(): Promise<void> {
 
-    this.loading = true;
+    if (!this.form.valid) return;
+
+    this.setDialogLoading();
 
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
@@ -76,9 +97,20 @@ export class DialogEditContactComponent {
 
     setTimeout(() => {
 
-      this.loading = false;
       this.emitEvent(this.contact);
       this.dialogRef.close();
     }, 2000);
+  }
+
+  
+  setDialogLoading(): void {
+
+    this.loading = true;
+    const fieldIds = ['firstName', 'lastName', 'birthDate', 'email', 'phone', 'street', 'houseNumber', 'zipCode', 'city'];
+
+    fieldIds.forEach(id => {
+
+      this.form.get(id)?.disable();
+    });
   }
 }

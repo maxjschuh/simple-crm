@@ -1,5 +1,5 @@
 import { DateService } from '../../services/date/date.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -10,7 +10,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Employee } from '../../models/employee.class';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { Observable, Subscription, map, startWith } from 'rxjs';
@@ -40,7 +40,7 @@ import { CommonService } from '../../services/common/common.service';
   templateUrl: './dialog-add-employee.component.html',
   styleUrl: './dialog-add-employee.component.scss'
 })
-export class DialogAddEmployeeComponent {
+export class DialogAddEmployeeComponent implements OnInit {
 
   employeesSubscriber = new Subscription;
   employees: Employee[] = [];
@@ -53,11 +53,14 @@ export class DialogAddEmployeeComponent {
   employeePickerOptions: string[] = [];
   employeePickerFilteredOptions!: Observable<string[]>;
 
+  form!: FormGroup;
+
   constructor(
     public dialogRef: MatDialogRef<DialogAddEmployeeComponent>,
     private firestoreService: FirestoreService,
     public dateService: DateService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private fb: FormBuilder
   ) {
 
     this.employeesSubscriber =
@@ -70,6 +73,17 @@ export class DialogAddEmployeeComponent {
 
 
   ngOnInit(): void {
+
+    this.form = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      birthDate: [''],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [''],
+      position: [''],
+      department: [''],
+      supervisor: ['']
+    });
 
     this.employeePickerOptions = this.commonService.returnDataForPersonPicker(this.employees);
 
@@ -103,19 +117,27 @@ export class DialogAddEmployeeComponent {
 
   async saveEmployee(): Promise<void> {
 
-    this.addSupervisorFromPicker();
+    if (!this.form.valid) return;
 
-    this.employeePicker = new FormControl({ value: '', disabled: true });
-    this.loading = true;
+    this.addSupervisorFromPicker();
+    this.setDialogLoading();
     this.employee.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
-    const response = await this.firestoreService.addDocument('employees', this.employee.toJSON());
+    await this.firestoreService.addDocument('employees', this.employee.toJSON());
 
-    setTimeout(() => {
+    setTimeout(() => this.dialogRef.close(), 2000);
+  }
 
-      this.loading = false;
-      this.dialogRef.close();
-    }, 2000);
+
+  setDialogLoading(): void {
+
+    this.loading = true;
+    const fieldIds = ['firstName', 'lastName', 'birthDate', 'email', 'phone', 'position', 'department', 'supervisor'];
+
+    fieldIds.forEach(id => {
+
+      this.form.get(id)?.disable();
+    });
   }
 
 
