@@ -86,10 +86,10 @@ export class DialogEditEmployeeComponent implements OnInit {
   ngOnInit(): void {
 
     this.form = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: [this.employee.firstName, Validators.required],
+      lastName: [this.employee.lastName, Validators.required],
       birthDate: [''],
-      email: ['', [Validators.required, Validators.email]],
+      email: [this.employee.email, [Validators.required, Validators.email]],
       phone: [''],
       position: [''],
       department: [''],

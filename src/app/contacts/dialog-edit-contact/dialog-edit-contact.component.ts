@@ -62,10 +62,10 @@ export class DialogEditContactComponent implements OnInit {
   ngOnInit(): void {
 
     this.form = this.fb.group({
-      firstName: [{value: '', disabled: true}, Validators.required],
-      lastName: ['', Validators.required],
+      firstName: [this.contact.firstName, Validators.required],
+      lastName: [this.contact.lastName, Validators.required],
       birthDate: [''],
-      email: ['', [Validators.required, Validators.email]],
+      email: [this.contact.email, [Validators.required, Validators.email]],
       phone: [''],
       street: [''],
       houseNumber: [''],
