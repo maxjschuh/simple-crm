@@ -82,7 +82,7 @@
             Amount
         </mat-header-cell>
         <mat-cell *matCellDef="let transfer">
-            {{transfer.amount}}
+            {{transfer.amount + '€'}}
         </mat-cell>
     </ng-container>
 
@@ -162,7 +162,7 @@
 
         <ng-container matColumnDef="amount">
             <mat-cell class="amount" *matCellDef="let transfer">
-                {{transfer.amount}}
+                {{transfer.amount + '€'}}
             </mat-cell>
         </ng-container>
 
