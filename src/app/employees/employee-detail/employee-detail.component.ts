@@ -30,7 +30,6 @@ export class EmployeeDetailComponent implements OnInit {
 
   private routeSubscriber = new Subscription;
   employeesSubscriber = new Subscription;
-  editsSubscriber = new Subscription;
   employee = new Employee();
   employeeId = '';
   linkToSupervisor: string[] = [];
@@ -86,12 +85,11 @@ export class EmployeeDetailComponent implements OnInit {
 
     this.routeSubscriber.unsubscribe();
     this.employeesSubscriber.unsubscribe();
-    // this.editsSubscriber.unsubscribe();
   }
 
 
   /**
-   * Opens the dialog for editing an employee. The "data" object is used to pass information to the dialog. A subscription is created that listens to edits being saved in the dialog. It overwrites the transfer data in this component with the updated data from the dialog.
+   * Opens the dialog for editing an employee. The "data" object is used to pass information to the dialog.
    * @param {string} fieldsToEdit data fields that should be shown in the edit dialog
    */
   openEditEmployeeDialog(fieldsToEdit: 'name+email+phone' | 'position+department' | 'birthDate+supervisor' | 'all'): void {
@@ -101,11 +99,7 @@ export class EmployeeDetailComponent implements OnInit {
       document: new Employee(this.employee)
     };
 
-    const dialogRef = this.dialog.open(DialogEditEmployeeComponent, { data: data });
-
-    this.editsSubscriber = dialogRef.componentInstance.savedEdits.subscribe((eventData: any) => {
-      this.employee = new Employee(eventData)
-    });
+    this.dialog.open(DialogEditEmployeeComponent, { data: data });
   }
 
 

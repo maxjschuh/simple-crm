@@ -28,7 +28,6 @@ export class TransferDetailComponent implements OnInit {
 
   private routeSubscriber = new Subscription;
   transfersSubscriber = new Subscription;
-  editsSubscriber = new Subscription;
   transfer = new Transfer();
   transferId = '';
 
@@ -89,11 +88,11 @@ export class TransferDetailComponent implements OnInit {
   ngOnDestroy(): void {
     this.routeSubscriber.unsubscribe();
     this.transfersSubscriber.unsubscribe();
-    // this.editsSubscriber.unsubscribe();
   }
 
+
   /**
-   * Opens the dialog for editing a transaction. The "data" object is used to pass information to the dialog. A subscription is created that listens to edits being saved in the dialog. It overwrites the transfer data in this component with the updated data from the dialog.
+   * Opens the dialog for editing a transaction. The "data" object is used to pass information to the dialog.
    * @param {string} fieldsToEdit data fields that should be shown in the edit dialog
    */
   openEditTransferDialog(fieldsToEdit: 'all' | 'title' | 'type+amount+payer+recipient' | 'closedBy+date' | 'description'): void {
@@ -103,11 +102,7 @@ export class TransferDetailComponent implements OnInit {
       document: new Transfer(this.transfer)
     };
 
-    const dialogRef = this.dialog.open(DialogEditTransferComponent, { data: data });
-
-    this.editsSubscriber = dialogRef.componentInstance.savedEdits.subscribe((eventData: any) => {
-      this.transfer = new Transfer(eventData);
-    });
+    this.dialog.open(DialogEditTransferComponent, { data: data });
   }
 
 

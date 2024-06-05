@@ -1,5 +1,5 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -56,8 +56,6 @@ export class DialogEditEmployeeComponent implements OnInit {
   fieldsToEdit: string;
 
   form!: FormGroup;
-
-  @Output() savedEdits = new EventEmitter<any>();
 
   constructor(
     public dialogRef: MatDialogRef<DialogEditEmployeeComponent>,
@@ -118,11 +116,6 @@ export class DialogEditEmployeeComponent implements OnInit {
   }
 
 
-  emitEvent(data: any): void {
-    this.savedEdits.emit(data);
-  }
-
-
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -138,11 +131,7 @@ export class DialogEditEmployeeComponent implements OnInit {
     
     await this.firestoreService.updateDocument('employees', this.employee.id, this.employee.toJSON());
     
-    setTimeout(() => {
-      
-      this.emitEvent(this.employee)
-      this.dialogRef.close();
-    }, 2000);
+    setTimeout(() => this.dialogRef.close(), 2000);
   }
 
 

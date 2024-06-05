@@ -31,7 +31,6 @@ export class ContactDetailComponent implements OnInit {
 
   private routeSubscriber = new Subscription;
   contactsSubscriber = new Subscription;
-  editsSubscriber = new Subscription;
   transfersSubscriber = new Subscription;
   contact = new Contact();
   contactId = '';
@@ -90,12 +89,11 @@ export class ContactDetailComponent implements OnInit {
   ngOnDestroy(): void {
     this.routeSubscriber.unsubscribe();
     this.contactsSubscriber.unsubscribe();
-    // this.editsSubscriber.unsubscribe();
   }
 
 
   /**
-   * Opens the dialog for editing a contact. The "data" object is used to pass information to the dialog. A subscription is created that listens to edits being saved in the dialog. It overwrites the transfer data in this component with the updated data from the dialog.
+   * Opens the dialog for editing a contact. The "data" object is used to pass information to the dialog.
    * @param {string} fieldsToEdit data fields that should be shown in the edit dialog
    */
   openEditContactDialog(fieldsToEdit: 'name+email+phone' | 'address' | 'birthDate' | 'all'): void {
@@ -105,12 +103,7 @@ export class ContactDetailComponent implements OnInit {
       document: new Contact(this.contact)
     };
 
-    const dialogRef = this.dialog.open(DialogEditContactComponent, { data: data });
-
-    this.editsSubscriber = dialogRef.componentInstance.savedEdits.subscribe((eventData: any) => {
-      this.contact = new Contact(eventData);
-    });
-
+    this.dialog.open(DialogEditContactComponent, { data: data });
   }
 
 

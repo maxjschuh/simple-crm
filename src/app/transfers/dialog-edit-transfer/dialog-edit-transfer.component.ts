@@ -1,5 +1,5 @@
 import { NgIf, AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -71,9 +71,6 @@ export class DialogEditTransferComponent implements OnInit {
   readonly demoOwner = 'Doe Demo-Owner, John';
 
   form!: FormGroup;
-
-  @Output() savedEdits = new EventEmitter<any>();
-
 
   constructor(
     public dialogRef: MatDialogRef<DialogEditTransferComponent>,
@@ -163,11 +160,6 @@ export class DialogEditTransferComponent implements OnInit {
   }
 
 
-  emitEvent(data: any): void {
-    this.savedEdits.emit(data);
-  }
-
-
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -187,11 +179,7 @@ export class DialogEditTransferComponent implements OnInit {
 
     await this.firestoreService.updateDocument('transfers', this.transfer.id, this.transfer.toJSON());
 
-    setTimeout(() => {
-
-      this.emitEvent(this.transfer);
-      this.dialogRef.close();
-    }, 2000);
+    setTimeout(() => this.dialogRef.close(), 2000);
   }
 
 

@@ -1,5 +1,5 @@
 import { DateService } from '../../services/date/date.service';
-import { Component, EventEmitter, Inject, Output, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,8 +45,6 @@ export class DialogEditContactComponent implements OnInit {
 
   form!: FormGroup;
 
-  @Output() savedEdits = new EventEmitter<any>();
-
   constructor(
     public dialogRef: MatDialogRef<DialogEditContactComponent>,
     public firestoreService: FirestoreService,
@@ -75,11 +73,6 @@ export class DialogEditContactComponent implements OnInit {
   }
 
 
-  emitEvent(data: any): void {
-    this.savedEdits.emit(data);
-  }
-
-
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -95,11 +88,7 @@ export class DialogEditContactComponent implements OnInit {
 
     await this.firestoreService.updateDocument('contacts', this.contact.id, this.contact.toJSON());
 
-    setTimeout(() => {
-
-      this.emitEvent(this.contact);
-      this.dialogRef.close();
-    }, 2000);
+    setTimeout(() => this.dialogRef.close(), 2000);
   }
 
   
