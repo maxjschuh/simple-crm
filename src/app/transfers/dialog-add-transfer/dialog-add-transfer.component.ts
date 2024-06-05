@@ -1,7 +1,7 @@
 import { DateService } from '../../services/date/date.service';
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore/firestore.service';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
@@ -19,6 +19,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Contact } from '../../models/contact.class';
 import { Employee } from '../../models/employee.class';
 import { CommonService } from '../../services/common/common.service';
+
 
 @Component({
   selector: 'app-dialog-add-transfer',
@@ -56,17 +57,17 @@ export class DialogAddTransferComponent implements OnInit {
   date: Date | undefined = undefined;
   loading = false;
 
-  payerPicker = new FormControl({ value: '', disabled: false });
+  payerPicker: AbstractControl | null = null;
   payerPickerOptions: string[] = [];
-  payerPickerFilteredOptions!: Observable<string[]>;
+  payerPickerFilteredOptions = new Observable<string[]>;
 
-  recipientPicker = new FormControl({ value: '', disabled: false });
+  recipientPicker: AbstractControl | null = null;
   recipientPickerOptions: string[] = [];
-  recipientPickerFilteredOptions!: Observable<string[]>;
+  recipientPickerFilteredOptions = new Observable<string[]>;
 
-  employeePicker = new FormControl({ value: '', disabled: false });
+  employeePicker: AbstractControl | null = null;
   employeePickerOptions: string[] = [];
-  employeePickerFilteredOptions!: Observable<string[]>;
+  employeePickerFilteredOptions = new Observable<string[]>;
 
   selectedPersonIndex = { //not yet in use
     payerPicker: 0,
@@ -77,11 +78,14 @@ export class DialogAddTransferComponent implements OnInit {
   changedTypeBefore = false;
   readonly demoOwner = 'Doe Demo-Owner, John';
 
+  form!: FormGroup;
+
   constructor(
     public dialogRef: MatDialogRef<DialogAddTransferComponent>,
     private firestoreService: FirestoreService,
     public dateService: DateService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private fb: FormBuilder
   ) {
 
     this.contactsSubscriber =
@@ -99,26 +103,48 @@ export class DialogAddTransferComponent implements OnInit {
         });;
   }
 
+
   ngOnInit(): void {
+
+    this.form = this.fb.group({
+      title: ['', Validators.required],
+      description: [''],
+      type: ['', Validators.required],
+      amount: ['', [Validators.required, this.commonService.greaterThanZeroValidator()]],
+      payer: ['', Validators.required],
+      recipient: ['', Validators.required],
+      date: ['', Validators.required],
+      closedBy: ['', Validators.required],
+    });
 
     this.payerPickerOptions = this.commonService.returnDataForPersonPicker(this.contacts);
     this.recipientPickerOptions = this.commonService.returnDataForPersonPicker(this.contacts);
     this.employeePickerOptions = this.commonService.returnDataForPersonPicker(this.employees);
 
-    this.payerPickerFilteredOptions = this.payerPicker.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '', this.payerPickerOptions)),
-    );
+    this.payerPicker = this.form.get('payer');
+    this.recipientPicker = this.form.get('recipient');
+    this.employeePicker = this.form.get('closedBy');
 
-    this.recipientPickerFilteredOptions = this.recipientPicker.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '', this.recipientPickerOptions)),
-    );
 
-    this.employeePickerFilteredOptions = this.employeePicker.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '', this.employeePickerOptions)),
-    );
+    if (this.payerPicker && this.recipientPicker && this.employeePicker) {
+
+      this.payerPickerFilteredOptions = this.payerPicker.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || '', this.payerPickerOptions))
+      );
+
+      this.recipientPickerFilteredOptions = this.recipientPicker.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || '', this.recipientPickerOptions)),
+      );
+
+      this.employeePickerFilteredOptions = this.employeePicker.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || '', this.employeePickerOptions)),
+      );
+
+    } else throw new Error('Component did not initialize correctly');
+
   }
 
 
@@ -142,24 +168,31 @@ export class DialogAddTransferComponent implements OnInit {
 
   async saveTransfer(): Promise<void> {
 
-    this.addPersonFromPicker('payer', 'payerId', this.recipientPicker.value, this.contacts);
-    this.addPersonFromPicker('recipient', 'recipientId', this.payerPicker.value, this.contacts);
-    this.addPersonFromPicker('closedBy', 'closedById', this.employeePicker.value, this.employees);
+    if (!this.form.valid) return;
 
-    this.payerPicker = new FormControl({ value: this.payerPicker.value, disabled: true });
-    this.recipientPicker = new FormControl({ value: this.recipientPicker.value, disabled: true });
-    this.employeePicker = new FormControl({ value: this.employeePicker.value, disabled: true });
+    this.setDialogLoading();
 
-    this.loading = true;
+    this.addPersonFromPicker('payer', 'payerId', this.payerPicker?.value, this.contacts);
+    this.addPersonFromPicker('recipient', 'recipientId', this.recipientPicker?.value, this.contacts);
+    this.addPersonFromPicker('closedBy', 'closedById', this.employeePicker?.value, this.employees);
+
     this.transfer.date = this.date ? this.date.getTime() : 0;
 
-    const response = await this.firestoreService.addDocument('transfers', this.transfer.toJSON());
+    await this.firestoreService.addDocument('transfers', this.transfer.toJSON());
 
-    setTimeout(() => {
+    setTimeout(() => this.dialogRef.close(), 2000);
+  }
 
-      this.loading = false;
-      this.dialogRef.close();
-    }, 2000);
+
+  setDialogLoading(): void {
+
+    this.loading = true;
+    const fieldIds = ['title', 'description', 'type', 'amount', 'payer', 'recipient', 'date', 'closedBy'];
+
+    fieldIds.forEach(id => {
+
+      this.form.get(id)?.disable();
+    });
   }
 
 
@@ -207,17 +240,22 @@ export class DialogAddTransferComponent implements OnInit {
 
     if (this.changedTypeBefore) {
 
-      this.payerPicker = new FormControl({value: '', disabled: false});
-      this.recipientPicker = new FormControl({value: '', disabled: false});
+      this.payerPicker?.setValue('');
+      this.payerPicker?.enable();
+
+      this.recipientPicker?.setValue('');
+      this.recipientPicker?.enable();
     }
 
     if (type === 'Sale') {
 
-      this.recipientPicker = new FormControl({value: this.demoOwner, disabled: true});
+      this.recipientPicker?.setValue(this.demoOwner);
+      this.recipientPicker?.disable();
 
     } else {
 
-      this.payerPicker = new FormControl({ value: this.demoOwner, disabled: true });
+      this.payerPicker?.setValue(this.demoOwner);
+      this.payerPicker?.disable();
     }
 
     this.changedTypeBefore = true;

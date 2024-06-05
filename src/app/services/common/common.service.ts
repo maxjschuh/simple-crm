@@ -4,6 +4,7 @@ import { Transfer } from '../../models/transfer.class';
 import { Employee } from '../../models/employee.class';
 import { Subscription } from 'rxjs';
 import { FirestoreService } from '../firestore/firestore.service';
+import { ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
 
 @Injectable({
@@ -93,6 +94,7 @@ export class CommonService {
     }
   }
 
+  
   returnIdByName(
     name: string,
     collection: Employee[] | Contact[]
@@ -198,5 +200,18 @@ export class CommonService {
     }
 
     return closings;
+  }
+
+
+  greaterThanZeroValidator(): ValidatorFn {
+
+    return (control: AbstractControl): ValidationErrors | null => {
+
+      const value = control.value;
+
+      if (value !== null && value <= 0) return { 'greaterThanZero': true };
+
+      return null;
+    }
   }
 }
