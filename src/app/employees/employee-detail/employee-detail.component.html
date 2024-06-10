@@ -17,13 +17,17 @@
 
             <a mat-raised-button href="mailto:{{ employee.email }}">
                 <mat-icon>mail</mat-icon>
-                {{ employee.email }}
+                <span>
+                    {{ employee.email }}
+                </span>
             </a>
             } @else {
 
             <button mat-raised-button (click)="openEditEmployeeDialog('name+email+phone')">
                 <mat-icon>mail</mat-icon>
-                Add e-mail
+                <span>
+                    Add e-mail
+                </span>
             </button>
             }
 
@@ -31,13 +35,17 @@
 
             <a mat-raised-button href="tel:{{ employee.phone }}">
                 <mat-icon>call</mat-icon>
-                {{ employee.phone }}
+                <span>
+                    {{ employee.phone }}
+                </span>
             </a>
             } @else {
 
             <button mat-raised-button (click)="openEditEmployeeDialog('name+email+phone')">
                 <mat-icon>call</mat-icon>
-                Add phone
+                <span>
+                    Add phone
+                </span>
             </button>
             }
 
