@@ -3,8 +3,8 @@ export class Employee {
     // *field is required in all forms, i.e. must always contain a truthy value
     firstName: string; // *
     lastName: string; // *
-    birthDate: number | undefined; // *
-    email: string;
+    birthDate: number | undefined;
+    email: string; // *
     phone: number | undefined;
     department: string;
     position: string;

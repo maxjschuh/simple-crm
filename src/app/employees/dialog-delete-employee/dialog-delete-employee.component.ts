@@ -29,11 +29,17 @@ export class DialogDeleteEmployeeComponent {
   ) { }
 
 
+  /**
+   * Closes this dialog. Is called when the user clicks outside of the dialog or the "cancel"-button.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
 
+  /**
+   * Deletes the employee from the database and closes the dialog.
+   */
   async deleteEmployee(): Promise<void> {
 
     this.loading = true;

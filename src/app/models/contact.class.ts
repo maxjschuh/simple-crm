@@ -1,9 +1,10 @@
 export class Contact {
 
-    firstName: string;
-    lastName: string;
+    // *field is required in all forms, i.e. must always contain a truthy value
+    firstName: string; //*
+    lastName: string; //*
     birthDate: number | undefined;
-    email: string;
+    email: string; //*
     phone: number | undefined;
     street: string;
     houseNumber: string;
@@ -15,7 +16,7 @@ export class Contact {
     constructor(contact?: any) {
 
         if (contact) {
-            
+
             this.firstName = contact.firstName;
             this.lastName = contact.lastName;
             this.birthDate = contact.birthDate;

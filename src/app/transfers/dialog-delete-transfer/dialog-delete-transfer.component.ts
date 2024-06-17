@@ -31,11 +31,17 @@ export class DialogDeleteTransferComponent {
   ) { }
 
 
+  /**
+   * Closes this dialog. Is called when the user clicks outside of the dialog or the "cancel"-button.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   
+  /**
+   * Deletes the transfer (called "transaction in the UI") from the database and closes the dialog.
+   */
   async deleteTransfer(): Promise<void> {
 
     this.loading = true;

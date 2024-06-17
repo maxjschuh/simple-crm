@@ -52,6 +52,9 @@ export class FirestoreService {
   }
 
 
+  /**
+   * Unsubscribes from all subscriptions in this component.
+   */
   ngOnDestroy(): void {
 
     this.contactsBackendSubscriber.unsubscribe();
@@ -60,6 +63,11 @@ export class FirestoreService {
   }
 
 
+  /**
+   * Returns a observable to the firestore collection that is passed as parameter.
+   * @param collectionId name of the collection: "contacts", "employees" or "transfers"
+   * @returns observable to a collection 
+   */
   getBackendSubscriber(collectionId: string) {
 
     const collection = this.getCollectionRef(collectionId);
@@ -67,27 +75,46 @@ export class FirestoreService {
   }
 
 
+  /**
+   * Returns a collection reference to the collection that is passed as parameter
+   * @param collectionId name of the collection: "contacts", "employees" or "transfers"
+   * @returns CollectionReference
+   */
   getCollectionRef(collectionId: string): CollectionReference {
 
     return collection(this.firestore, collectionId);
   }
 
 
+  /**
+   * Returns a reference to a single document that is 
+   * @param collectionId name of the collection: "contacts", "employees" or "transfers"
+   * @param documentId id of the document of interest
+   * @returns DocumentReference
+   */
   getSingleDocumentRef(collectionId: string, documentId: string): DocumentReference {
 
     return doc(this.getCollectionRef(collectionId), documentId);
   }
 
 
+  /**
+   * Adds a single document to the firestore.
+   * @param collectionId name of the collection in which the document should be added: "contacts", "employees" or "transfers"
+   * @param item object containing the data of the document to be added
+   */
   async addDocument(collectionId: string, item: object): Promise<void> {
 
-    await addDoc(this.getCollectionRef(collectionId), item)
-      .catch(() => {
-
-      })
+    await addDoc(this.getCollectionRef(collectionId), item);
   }
 
 
+  /**
+   * Overwrites a existing document with the data that is passed as parameter.
+   * @param collectionId name of the collection in which the document to be updated is located: "contacts", "employees" or "transfers"
+   * @param documentId id of the document to be updated
+   * @param updatedDocument object containing updated document data
+   */
   async updateDocument(collectionId: string, documentId: string, updatedDocument: object): Promise<void> {
 
     const doc = this.getSingleDocumentRef(collectionId, documentId);
@@ -95,14 +122,12 @@ export class FirestoreService {
     await setDoc(doc, updatedDocument);
   }
 
-  async updateSingleField(collectionId: string, documentId: string, fieldToUpdate: string, valueToSet: any): Promise<void> {//currently not in use
 
-    const doc = this.getSingleDocumentRef(collectionId, documentId);
-
-    await updateDoc(doc, { fieldToUpdate: valueToSet });
-  }
-
-
+  /**
+   * Deletes a single document from the firestore
+   * @param collectionId name of the collection in which the document to be deleted is located: "contacts", "employees" or "transfers"
+   * @param documentId id of the document to be deleted
+   */
   async deleteDocument(collectionId: string, documentId: string): Promise<void> {
 
     const doc = this.getSingleDocumentRef(collectionId, documentId);

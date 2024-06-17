@@ -69,12 +69,6 @@ export class DialogAddTransferComponent implements OnInit {
   employeePickerOptions: string[] = [];
   employeePickerFilteredOptions = new Observable<string[]>;
 
-  selectedPersonIndex = { //not yet in use
-    payerPicker: 0,
-    recipientPicker: 0,
-    employeePicker: 0
-  }
-
   changedTypeBefore = false;
   readonly demoOwner = 'Doe Demo-Owner, John';
 
@@ -104,6 +98,9 @@ export class DialogAddTransferComponent implements OnInit {
   }
 
 
+  /**
+   * Creates a Angular Material Form, which controls the input fields in this dialog component. Initializes the person pickers for the input fields "payer", "recipient" and "closedBy".
+   */
   ngOnInit(): void {
 
     this.form = this.fb.group({
@@ -148,12 +145,21 @@ export class DialogAddTransferComponent implements OnInit {
   }
 
 
+  /**
+   * Unsubscribes from all subscriptions in this component.
+   */
   ngOnDestroy(): void {
     this.employeesSubscriber.unsubscribe();
     this.contactsSubscriber.unsubscribe();
   }
 
 
+  /**
+   * Filters the available persons in the person picker by the user input.
+   * @param value string that the user typed into the input field
+   * @param pickerOptions array of strings that should be returned filtered
+   * @returns array of names
+   */
   private _filter(value: string, pickerOptions: string[]): string[] {
     const filterValue = value.toLowerCase();
 
@@ -161,11 +167,18 @@ export class DialogAddTransferComponent implements OnInit {
   }
 
 
+  /**
+   * Closes this dialog. Is called when the user clicks outside of the dialog or the "cancel"-button.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
 
+  /**
+   * Saves a new transfer (called "transaction" in the UI) with the inputted data to the database and closes the dialog.
+   * @returns if the form is not filled in with valid data
+   */
   async saveTransfer(): Promise<void> {
 
     if (!this.form.valid) return;
@@ -184,6 +197,9 @@ export class DialogAddTransferComponent implements OnInit {
   }
 
 
+  /**
+   * Shows a loading / progress bar and disables all input fields and buttons.
+   */
   setDialogLoading(): void {
 
     this.loading = true;
@@ -196,6 +212,14 @@ export class DialogAddTransferComponent implements OnInit {
   }
 
 
+  /**
+   * Adds a person and the corresponding document id to a specific key in the transfer object.
+   * @param nameField key in the transfer object where the name of the person should be saved
+   * @param idField key in the transfer object where the corresponding document id should be saved
+   * @param name of the person
+   * @param collection where the person should found in (Employees or Contacts)
+   * @returns if there is no supervisor selected in the specific picker, i.e. the input field is empty
+   */
   addPersonFromPicker(
     nameField: 'recipient' | 'payer' | 'closedBy',
     idField: 'recipientId' | 'payerId' | 'closedById',
@@ -212,30 +236,10 @@ export class DialogAddTransferComponent implements OnInit {
   }
 
 
-  savePersonIndex(
-    isUserInput: boolean,
-    pickerId: 'payer' | 'recipient' | 'employee',
-    personIndex: number): void {
-
-    if (!isUserInput) return;
-
-    switch (pickerId) {
-
-      case 'payer': this.selectedPersonIndex.payerPicker = personIndex;
-        break;
-
-      case 'recipient': this.selectedPersonIndex.recipientPicker = personIndex;
-        break;
-
-      case 'employee': this.selectedPersonIndex.employeePicker = personIndex;
-        break
-
-      default:
-        break;
-    }
-  }
-
-
+  /**
+   * When the user chooses "sale" as transaction action, this function fills in the CRM Owner in the "recipient" input field, otherwise in the "payer" input field.
+   * @param type of transfer (called "transaction" in the UI): "Sale", "Purchase" or "Refund"
+   */
   setPayerRecipient(type: string): void {
 
     if (this.changedTypeBefore) {

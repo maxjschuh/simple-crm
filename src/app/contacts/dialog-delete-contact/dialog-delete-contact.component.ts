@@ -31,11 +31,17 @@ export class DialogDeleteContactComponent {
   ) { }
 
 
+  /**
+   * Closes this dialog. Is called when the user clicks outside of the dialog or the "cancel"-button.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
 
+  /**
+   * Deletes the contact from the database and closes the dialog.
+   */
   async deleteContact(): Promise<void> {
 
     this.loading = true;

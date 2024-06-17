@@ -105,12 +105,18 @@ export class CashflowChartComponent implements OnInit {
   }
 
 
+  /**
+   * Makes initial configurations for this component.
+   */
   ngOnInit(): void {
 
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
 
+  /**
+   * Is called when the database sends updated data. Updates the cashflow line chart.
+   */
   update(): void {
 
     this.lineChartData.datasets[0].data = this.dataService.returnDepositLastSixMonths();

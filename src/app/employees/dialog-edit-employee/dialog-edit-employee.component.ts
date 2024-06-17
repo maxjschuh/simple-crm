@@ -81,6 +81,9 @@ export class DialogEditEmployeeComponent implements OnInit {
   }
 
 
+  /**
+   * Creates a Angular Material Form, which controls the input fields in this dialog component. Initializes the employee picker (used in the "supervisor" input field).
+   */
   ngOnInit(): void {
 
     this.form = this.fb.group({
@@ -103,11 +106,19 @@ export class DialogEditEmployeeComponent implements OnInit {
   }
 
 
+  /**
+   * Unsubscribes from all subscriptions in this component.
+   */
   ngOnDestroy(): void {
     this.employeesSubscriber.unsubscribe();
   }
 
 
+  /**
+   * Filters the available persons in the employee picker by the user input.
+   * @param value string that the user typed into the input field
+   * @returns array of employee names
+   */
   private _filter(value: string): string[] {
 
     const filterValue = value.toLowerCase();
@@ -116,11 +127,18 @@ export class DialogEditEmployeeComponent implements OnInit {
   }
 
 
+  /**
+   * Closes this dialog. Is called when the user clicks outside of the dialog or the "cancel"-button.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
 
+  /**
+   * Saves the edited employee with the inputted data to the database and closes the dialog.
+   * @returns if the form is not filled in with valid data
+   */
   async saveEdits(): Promise<void> {
 
     if (!this.form.valid) return;
@@ -135,6 +153,9 @@ export class DialogEditEmployeeComponent implements OnInit {
   }
 
 
+  /**
+   * Shows a loading / progress bar and disables all input fields and buttons.
+   */
   setDialogLoading(): void {
 
     this.loading = true;
@@ -147,6 +168,10 @@ export class DialogEditEmployeeComponent implements OnInit {
   }
 
 
+  /**
+   * Adds the supervisor and the corresponding document id to the employee object.
+   * @returns if there is no supervisor selected in the employee picker, i.e. the supervisor field is empty
+   */
   addSupervisorFromPicker(): void {
 
     this.employee.supervisor = '';

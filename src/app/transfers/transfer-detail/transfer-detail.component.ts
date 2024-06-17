@@ -41,11 +41,12 @@ export class TransferDetailComponent implements OnInit {
     public dateService: DateService,
     public dialog: MatDialog,
     public commonService: CommonService,
-    private titleService: AppTitleService) { }
+    private titleService: AppTitleService
+  ) { }
 
 
   /**
-   * Subscribes to the route service.
+   * Extracts the id of the contact to display from the current url params and calls the init() function.
    */
   ngOnInit(): void {
 
@@ -59,6 +60,9 @@ export class TransferDetailComponent implements OnInit {
   }
 
 
+  /**
+   * Creates subscriptions to the datasets and sets the title in the header menu as "Transaction-Details". When a subscription receives an update, the data in the component is updated.
+   */
   init(): void {
 
     this.transfersSubscriber.unsubscribe();
@@ -76,8 +80,7 @@ export class TransferDetailComponent implements OnInit {
           this.linkToRecipient = this.commonService.returnLinkToPerson('/contacts', this.transfer.recipientId);
           this.linkToClosedBy = this.commonService.returnLinkToPerson('/employees', this.transfer.closedById);
 
-          const title = `Transaction-Details: ${this.transfer.title}`;
-          this.titleService.titleDistributor.next(title);
+          this.titleService.titleDistributor.next('Transaction-Details');
         });
   }
 

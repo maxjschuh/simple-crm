@@ -83,11 +83,18 @@ export class TransfersTableComponent {
   }
 
 
+  /**
+   * Unsubscribes from all subscriptions in this component.
+   */
   ngOnDestroy(): void {
     this.transfersSubscriber.unsubscribe();
   }
 
 
+  /**
+   * Displays the data in the table that is passed as parameter.
+   * @param transfersList array of objects of interface "Transfer" (called "Transaction" in UI)
+   */
   updateTable(transfersList: Transfer[]): void {
 
     this.dataSource = new MatTableDataSource(transfersList);
@@ -95,6 +102,10 @@ export class TransfersTableComponent {
   }
 
 
+  /**
+   * Shows or hides columns in the table, according to the bread crumb buttons that the user can select above the table.
+   * @param columnsToToggle array of column names that should be shown
+   */
   toggleColumns(columnsToToggle: string[]): void {
 
     this.displayedColumns.pop(); //removing the 'options'...
@@ -112,12 +123,19 @@ export class TransfersTableComponent {
   }
 
 
+  /**
+   * Is called when the user clicks on the three-dot-menu that is shown in every column row. Sets the document in focus, so that the edit- or delete-dialogs that can be selected afterwards, show the correct document.
+   * @param documentId string containing the document id (used in firestore)
+   */
   setDocumentInFocus(documentId: string): void {
 
     this.documentInFocus = documentId;
   }
 
 
+  /**
+   * Opens the dialog component for adding a transfer (called "transaction" in the UI).
+   */
   openAddTransferDialog(): void {
 
     this.dialog.open(DialogAddTransferComponent, {})
@@ -125,7 +143,7 @@ export class TransfersTableComponent {
 
 
   /**
-   * Opens the dialog for editing a transfer. The "data" object is used to pass information to the dialog. Per default, the edit dialogues on the table subpages show all data fields.
+   * Opens the dialog for editing a transfer (called "transaction" in the UI). The "data" object is used to pass information to the dialog. Per default, the edit dialogues on the table subpages show all data fields.
    */
   openEditTransferDialog(): void {
 
@@ -139,7 +157,7 @@ export class TransfersTableComponent {
 
 
   /**
-   * Opens the dialog for deleting a transaction. A database reference to the document is retrieved using the variable "documentInFocus", which stores the id of the document to be deleted. "documentInFocus" is updated when the user clicks on the button-menu in a table row (see setDocumentInFocus()).
+   * Opens the dialog for deleting a transfer (called "transaction" in the UI). A database reference to the document is retrieved using the variable "documentInFocus", which stores the id of the document to be deleted. "documentInFocus" is updated when the user clicks on the button-menu in a table row (see setDocumentInFocus()).
    */
   openDeleteTransferDialog(): void {
 
@@ -149,6 +167,9 @@ export class TransfersTableComponent {
   }
 
 
+  /**
+   * Changes the sort direction of the table from ascending to descending and vice versa.
+   */
   changeSortDirectionMobile(): void {
 
     if (this.mobileSort.direction === 'asc') {
@@ -166,6 +187,10 @@ export class TransfersTableComponent {
   }
 
 
+  /**
+   * Sorts the table by the column that is passed as parameter.
+   * @param sortByColumn column name to sort by
+   */
   sortTableMobile(sortByColumn: string | undefined): void {
 
     this.mobileSort.directionPicker = true;
@@ -174,36 +199,5 @@ export class TransfersTableComponent {
 
     this.sort.sort(({ id: this.mobileSort.column, start: this.mobileSort.direction }) as MatSortable);
     this.dataSource.sort = this.sort;
-  }
-
-
-  initializeColumnSelectorButtons(): void {
-
-    this.displayedColumns.forEach(column => {
-
-      switch (column) {
-
-        case 'date': this.columnSelectorButtons.date = true;
-          break;
-
-        case 'closedBy': this.columnSelectorButtons.closedBy = true;
-          break;
-
-        case 'amount': this.columnSelectorButtons.amount = true;
-          break;
-
-        case 'type': this.columnSelectorButtons.type = true;
-          break;
-
-        case 'payer': this.columnSelectorButtons.payer = true;
-          break;
-
-        case 'recipient': this.columnSelectorButtons.recipient = true;
-          break;
-
-        default:
-          break;
-      }
-    });
   }
 }

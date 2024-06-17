@@ -73,16 +73,21 @@ export class ContactsTableComponent {
           this.updateTable(contactsList);
         });
 
-    this.initializeColumnSelectorButtons();
     this.titleService.titleDistributor.next('Contacts');
   }
 
 
+  /**
+   * Unsubscribes from all subscriptions in this component.
+   */
   ngOnDestroy(): void {
     this.contactsSubscriber.unsubscribe();
   }
 
 
+  /**
+   * Changes the sort direction of the table from ascending to descending and vice versa.
+   */
   changeSortDirectionMobile(): void {
 
     if (this.mobileSort.direction === 'asc') {
@@ -100,6 +105,10 @@ export class ContactsTableComponent {
   }
 
 
+  /**
+   * Sorts the table by the column that is passed as parameter.
+   * @param sortByColumn column name to sort by
+   */
   sortTableMobile(sortByColumn: string | undefined): void {
 
     this.mobileSort.directionPicker = true;
@@ -111,6 +120,10 @@ export class ContactsTableComponent {
   }
 
 
+  /**
+   * Displays the data in the table that is passed as parameter.
+   * @param data array of objects of interface "Contact"
+   */
   updateTable(data: Contact[]): void {
 
     this.dataSource = new MatTableDataSource(data);
@@ -118,6 +131,9 @@ export class ContactsTableComponent {
   }
 
 
+  /**
+   * Opens the dialog component for adding a contact.
+   */
   openAddContactDialog(): void {
 
     this.dialog.open(DialogAddContactComponent, {});
@@ -138,15 +154,21 @@ export class ContactsTableComponent {
   }
 
 
+  /**
+   * Opens the dialog component for deleting a contact. A database reference to the document is retrieved using the variable "documentInFocus", which stores the id of the document to be deleted. "documentInFocus" is updated when the user clicks on the button-menu in a table row (see setDocumentInFocus()).
+   */
   openDeleteContactDialog(): void {
 
     const document = this.commonService.getDocumentFromCollection('contacts', this.documentInFocus, Contact);
 
     this.dialog.open(DialogDeleteContactComponent, { data: document });
-
   }
 
 
+  /**
+   * Shows or hides columns in the table, according to the bread crumb buttons that the user can select above the table.
+   * @param columnsToToggle array of column names that should be shown
+   */
   toggleColumns(columnsToToggle: string[]): void {
 
     this.displayedColumns.pop(); //removing the 'options'...
@@ -163,32 +185,11 @@ export class ContactsTableComponent {
     this.displayedColumns.push('options'); //... and adding them again at the end of the array so that they are always the most right column
   }
 
-
-  initializeColumnSelectorButtons(): void {
-
-    this.displayedColumns.forEach(column => {
-
-      switch (column) {
-
-        case 'birthDate': this.columnSelectorButtons.birthDate = true;
-          break;
-
-        case 'email': this.columnSelectorButtons.email = true;
-          break;
-
-        case 'street': this.columnSelectorButtons.address = true;
-          break;
-
-        case 'phone': this.columnSelectorButtons.phone = true;
-          break;
-
-        default:
-          break;
-      }
-    });
-  }
-
   
+  /**
+   * Is called when the user clicks on the three-dot-menu that is shown in every column row. Sets the document in focus, so that the edit- or delete-dialogs that can be selected afterwards, show the correct document.
+   * @param documentId string containing the document id (used in firestore)
+   */
   setDocumentInFocus(documentId: string): void {
 
     this.documentInFocus = documentId;

@@ -38,13 +38,16 @@ export class AppComponent implements AfterViewInit {
         this.sidenav.opened &&
         this.isMobileView) {
 
-          this.sidenav.close();
-          this.toggleSidenavButton._elementRef.nativeElement.blur();
+        this.sidenav.close();
+        this.toggleSidenavButton._elementRef.nativeElement.blur();
       }
     });
   }
 
 
+  /**
+   * Implements a method that sets the boolean variable "isMobileView" to true if the viewport width is less than 800 pixels.
+   */
   ngOnInit(): void {
     this.breakpointObserver.observe(['(max-width: 800px)']).subscribe(result => {
       this.isMobileView = result.matches;

@@ -47,6 +47,9 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
 
+  /**
+   * Extracts the id of the employee to display from the current url params and calls the init() function.
+   */
   ngOnInit(): void {
 
     this.routeSubscriber.unsubscribe();
@@ -58,7 +61,10 @@ export class EmployeeDetailComponent implements OnInit {
     });
   }
 
-  
+
+  /**
+   * Creates subscriptions to the datasets and sets the title in the header menu as "Employee-Details". When a subscription receives an update, the data in the component is updated.
+   */
   init(): void {
 
     this.employeesSubscriber.unsubscribe();
@@ -75,12 +81,14 @@ export class EmployeeDetailComponent implements OnInit {
           this.linkToSupervisor = this.commonService.returnLinkToPerson('/employees', this.employee.supervisorId);
           this.closings = this.commonService.returnClosingsOfEmployee(this.employeeId);
 
-          const title = `Employee-Details: ${this.employee.firstName} ${this.employee.lastName}`;
-          this.titleService.titleDistributor.next(title);
+          this.titleService.titleDistributor.next('Employee-Details');
         });
   }
 
 
+  /**
+   * Unsubscribes from all subscriptions in this component.
+   */
   ngOnDestroy(): void {
 
     this.routeSubscriber.unsubscribe();
@@ -103,6 +111,9 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
 
+  /**
+   * Opens the dialog for deleting an employee.
+   */
   openDeleteEmployeeDialog(): void {
 
     this.dialog.open(DialogDeleteEmployeeComponent, { data: this.employee });

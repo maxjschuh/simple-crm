@@ -90,17 +90,22 @@ export class EmployeesTableComponent {
           this.updateTable(employeesList);
         });
 
-    this.initializeColumnSelectorButtons();
-
     this.titleService.titleDistributor.next('Employees');
   }
 
 
+  /**
+   * Unsubscribes from all subscriptions in this component.
+   */
   ngOnDestroy(): void {
     this.employeesSubscriber.unsubscribe();
   }
 
 
+  /**
+   * Displays the data in the table that is passed as parameter.
+   * @param data array of objects of interface "Employee"
+   */
   updateTable(data: Employee[]): void {
 
     this.dataSource = new MatTableDataSource(data);
@@ -108,37 +113,10 @@ export class EmployeesTableComponent {
   }
 
 
-  initializeColumnSelectorButtons(): void {
-
-    this.displayedColumns.forEach(column => {
-
-      switch (column) {
-
-        case 'birthDate': this.columnSelectorButtons.birthDate = true;
-          break;
-
-        case 'email': this.columnSelectorButtons.email = true;
-          break;
-
-        case 'phone': this.columnSelectorButtons.phone = true;
-          break;
-
-        case 'department': this.columnSelectorButtons.department = true;
-          break;
-
-        case 'position': this.columnSelectorButtons.position = true;
-          break;
-
-        case 'supervisor': this.columnSelectorButtons.supervisor = true;
-          break;
-
-        default:
-          break;
-      }
-    });
-  }
-
-
+  /**
+   * Shows or hides columns in the table, according to the bread crumb buttons that the user can select above the table.
+   * @param columnsToToggle array of column names that should be shown
+   */
   toggleColumns(columnsToToggle: string[]): void {
 
     this.displayedColumns.pop(); //removing the 'options'...
@@ -156,12 +134,19 @@ export class EmployeesTableComponent {
   }
 
 
+  /**
+   * Is called when the user clicks on the three-dot-menu that is shown in every column row. Sets the document in focus, so that the edit- or delete-dialogs that can be selected afterwards, show the correct document.
+   * @param documentId string containing the document id (used in firestore)
+   */
   setDocumentInFocus(documentId: string): void {
 
     this.documentInFocus = documentId;
   }
 
 
+  /**
+   * Opens the dialog component for adding an employee.
+   */
   openAddEmployeeDialog(): void {
     this.dialog.open(DialogAddEmployeeComponent, {});
   }
@@ -192,6 +177,9 @@ export class EmployeesTableComponent {
   }
 
 
+  /**
+   * Changes the sort direction of the table from ascending to descending and vice versa.
+   */
   changeSortDirectionMobile(): void {
 
     if (this.mobileSort.direction === 'asc') {
@@ -209,6 +197,10 @@ export class EmployeesTableComponent {
   }
 
 
+  /**
+   * Sorts the table by the column that is passed as parameter.
+   * @param sortByColumn column name to sort by
+   */
   sortTableMobile(sortByColumn: string | undefined): void {
 
     this.mobileSort.directionPicker = true;

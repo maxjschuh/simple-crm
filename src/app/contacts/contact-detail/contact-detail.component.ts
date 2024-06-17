@@ -48,6 +48,9 @@ export class ContactDetailComponent implements OnInit {
   }
 
 
+  /**
+   * Extracts the id of the contact to display from the current url params and calls the init() function.
+   */
   ngOnInit(): void {
 
     this.routeSubscriber.unsubscribe();
@@ -60,6 +63,9 @@ export class ContactDetailComponent implements OnInit {
   }
 
 
+  /**
+   * Creates subscriptions to the datasets and sets the title in the header menu as "Contact-Details". When a subscription receives an update, the data in the component is updated.
+   */
   init(): void {
 
     this.contactsSubscriber.unsubscribe();
@@ -80,15 +86,18 @@ export class ContactDetailComponent implements OnInit {
             this.transfers = this.commonService.returnTransactionsOfContact(this.contactId);
           });
 
-          const title = `Contact-Details: ${this.contact.firstName} ${this.contact.lastName}`;
-          this.titleService.titleDistributor.next(title);
+          this.titleService.titleDistributor.next('Contact-Details');
         });
   }
 
 
+  /**
+   * Unsubscribes from all subscriptions in this component.
+   */
   ngOnDestroy(): void {
     this.routeSubscriber.unsubscribe();
     this.contactsSubscriber.unsubscribe();
+    this.transfersSubscriber.unsubscribe();
   }
 
 
@@ -107,6 +116,9 @@ export class ContactDetailComponent implements OnInit {
   }
 
 
+  /**
+   * Opens the dialog for deleting a contact.
+   */
   openDeleteContactDialog(): void {
 
     this.dialog.open(DialogDeleteContactComponent, { data: this.contact });

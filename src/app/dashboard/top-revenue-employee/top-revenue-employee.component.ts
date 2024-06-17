@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonService } from '../../services/common/common.service';
 import { Employee } from '../../models/employee.class';
 import { DashboardDataService } from '../../services/dashboard-data/dashboard-data.service';
@@ -26,17 +26,12 @@ export class TopRevenueEmployeeComponent implements AfterViewInit {
     private dataService: DashboardDataService,
     private firestoreService: FirestoreService,
     private cd: ChangeDetectorRef
-  ) {
+  ) { }
 
 
-  }
-
-  ngOnInit(): void {
-
-
-  }
-
-
+  /**
+   * Makes initial configurations for this component.
+   */
   ngAfterViewInit(): void {
 
     this.transfersSubscriber.unsubscribe();
@@ -56,6 +51,9 @@ export class TopRevenueEmployeeComponent implements AfterViewInit {
   }
 
 
+  /**
+   * Is called when the database sends updated data. Updates the top employee box.
+   */
   update(): void {
 
     const topEmployee: { employeeId: string, revenue: number } =

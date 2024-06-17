@@ -5,7 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class DateService {
 
-
+/**
+ * Returns a timestamp in a german date string format.
+ * @param timestamp 
+ * @returns date as string in format DD/MM/YYYY
+ */
   returnTimestampAsDateString(timestamp: number): string {
 
     const date = new Date(timestamp);
@@ -13,6 +17,11 @@ export class DateService {
   }
 
 
+/**
+ * Returns the time (rounded down to full years) that has passed since the timestamp parameter.
+ * @param timestamp birthdate of the person whose age should be computed
+ * @returns age, i.e. time rounded down to full years
+ */
   returnAge(timestamp: number): number {
 
     const today = new Date();
@@ -31,6 +40,10 @@ export class DateService {
   }
 
 
+/**
+ * Returns today's Date.
+ * @returns today's Date
+ */
   getToday(): Date {
     return new Date();
   }

@@ -50,6 +50,9 @@ export class DialogAddContactComponent implements OnInit {
   ) { }
 
 
+  /**
+   * Creates a Angular Material Form, which controls the input fields in this dialog component. 
+   */
   ngOnInit(): void {
 
     this.form = this.fb.group({
@@ -66,11 +69,18 @@ export class DialogAddContactComponent implements OnInit {
   }
 
 
+  /**
+   * Closes this dialog. Is called when the user clicks outside of the dialog or the "cancel"-button.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
 
+  /**
+   * Saves a new contact with the inputted data to the database and closes the dialog.
+   * @returns if the form is not filled in with valid data
+   */
   async saveContact(): Promise<void> {
 
     if (!this.form.valid) return;
@@ -84,6 +94,9 @@ export class DialogAddContactComponent implements OnInit {
   }
 
 
+  /**
+   * Shows a loading / progress bar and disables all input fields and buttons.
+   */
   setDialogLoading(): void {
 
     this.loading = true;
@@ -94,6 +107,4 @@ export class DialogAddContactComponent implements OnInit {
       this.form.get(id)?.disable();
     });
   }
-
-
 }

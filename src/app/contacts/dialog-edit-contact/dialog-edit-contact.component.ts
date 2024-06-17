@@ -57,6 +57,10 @@ export class DialogEditContactComponent implements OnInit {
     this.birthDate = this.contact.birthDate ? new Date(this.contact.birthDate) : undefined;
   }
 
+
+  /**
+   * Creates a Angular Material Form, which controls the input fields in this dialog component.
+   */
   ngOnInit(): void {
 
     this.form = this.fb.group({
@@ -73,17 +77,23 @@ export class DialogEditContactComponent implements OnInit {
   }
 
 
+  /**
+   *  Closes this dialog. Is called when the user clicks outside of the dialog or the "cancel"-button.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
 
+  /**
+   * Saves the edited contact with the inputted data to the database and closes the dialog.
+   * @returns if the form is not filled in with valid data
+   */
   async saveEdits(): Promise<void> {
 
     if (!this.form.valid) return;
 
     this.setDialogLoading();
-
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
 
     await this.firestoreService.updateDocument('contacts', this.contact.id, this.contact.toJSON());
@@ -92,6 +102,9 @@ export class DialogEditContactComponent implements OnInit {
   }
 
   
+  /**
+   * Shows a loading / progress bar and disables all input fields and buttons.
+   */
   setDialogLoading(): void {
 
     this.loading = true;
