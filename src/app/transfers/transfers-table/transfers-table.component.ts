@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -36,7 +36,7 @@ import { AppTitleService } from '../../services/app-title/app-title.service';
   templateUrl: './transfers-table.component.html',
   styleUrl: './transfers-table.component.scss'
 })
-export class TransfersTableComponent {
+export class TransfersTableComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['title', 'date', 'closedBy', 'options'];
   dataSource: any;
@@ -60,8 +60,7 @@ export class TransfersTableComponent {
     directionPickerIcon: 'arrow_downward'
   };
 
-  @ViewChild(MatSort)
-  sort!: MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     public dialog: MatDialog,
@@ -83,6 +82,15 @@ export class TransfersTableComponent {
   }
 
 
+  /**
+   * Initializes the data source object (used in the sorted table).
+   */
+  ngAfterViewInit(): void {
+
+    this.updateTable(this.transfersList);
+  }
+
+  
   /**
    * Unsubscribes from all subscriptions in this component.
    */

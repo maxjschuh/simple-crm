@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -31,7 +31,7 @@ import { AppTitleService } from '../../services/app-title/app-title.service';
   templateUrl: './contacts-table.component.html',
   styleUrl: './contacts-table.component.scss'
 })
-export class ContactsTableComponent {
+export class ContactsTableComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'options'];
   dataSource: any;
@@ -53,8 +53,7 @@ export class ContactsTableComponent {
     directionPickerIcon: 'arrow_downward'
   }
 
-  @ViewChild(MatSort)
-  sort!: MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
 
 
   constructor(
@@ -74,6 +73,15 @@ export class ContactsTableComponent {
         });
 
     this.titleService.titleDistributor.next('Contacts');
+  }
+
+  
+  /**
+   * Initializes the data source object (used in the sorted table).
+   */
+  ngAfterViewInit(): void {
+
+    this.updateTable(this.contactsList);
   }
 
 
@@ -185,7 +193,7 @@ export class ContactsTableComponent {
     this.displayedColumns.push('options'); //... and adding them again at the end of the array so that they are always the most right column
   }
 
-  
+
   /**
    * Is called when the user clicks on the three-dot-menu that is shown in every column row. Sets the document in focus, so that the edit- or delete-dialogs that can be selected afterwards, show the correct document.
    * @param documentId string containing the document id (used in firestore)
