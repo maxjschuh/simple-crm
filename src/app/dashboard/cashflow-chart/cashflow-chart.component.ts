@@ -31,7 +31,7 @@ export class CashflowChartComponent implements OnInit {
     datasets: [
       {
         data: [65, 59, 80, 81, 56, 55, 40],
-        label: 'Monthly transaction balance',
+        label: 'Monthly sales sum',
         backgroundColor: 'rgba(123,31,162,1)',
         borderColor: 'rgba(123,31,162,1)',
         pointBackgroundColor: 'rgba(123,31,162,1)',
@@ -119,7 +119,7 @@ export class CashflowChartComponent implements OnInit {
    */
   update(): void {
 
-    this.lineChartData.datasets[0].data = this.dataService.returnDepositLastSixMonths();
+    this.lineChartData.datasets[0].data = this.dataService.returnSalesLastSixMonths();
 
     this.lineChartData.labels = this.dataService.returnNamesLastSixMonths();
 
