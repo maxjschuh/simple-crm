@@ -3,7 +3,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -17,6 +16,24 @@ import { Contact } from '../../models/contact.class';
 import { Employee } from '../../models/employee.class';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { CommonService } from '../../services/common/common.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import moment, { Moment } from 'moment';
+
+
+const CUSTOM_DATE_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
+
 
 @Component({
   selector: 'app-dialog-edit-transfer',
@@ -38,7 +55,11 @@ import { CommonService } from '../../services/common/common.service';
     ReactiveFormsModule,
     AsyncPipe
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT }
+  ],
   templateUrl: './dialog-edit-transfer.component.html',
   styleUrl: './dialog-edit-transfer.component.scss'
 })
@@ -51,7 +72,7 @@ export class DialogEditTransferComponent implements OnInit {
   employees: Employee[] = [];
 
   transfer: Transfer;
-  date: Date | undefined = undefined;
+  date: Moment;
   loading = false;
   fieldsToEdit: string;
 
@@ -100,7 +121,7 @@ export class DialogEditTransferComponent implements OnInit {
     this.transfer.amount = this.commonService.invertValueIfOutgoingPayment(this.transfer);
     this.fieldsToEdit = data.fieldsToEdit;
 
-    this.date = this.transfer.date ? new Date(this.transfer.date) : undefined;
+    this.date = moment(this.transfer.date);
   }
 
 
@@ -194,7 +215,7 @@ export class DialogEditTransferComponent implements OnInit {
     this.addPersonFromPicker('payer', 'payerId', this.payerPicker?.value, this.contacts);
     this.addPersonFromPicker('recipient', 'recipientId', this.recipientPicker?.value, this.contacts);
     this.addPersonFromPicker('closedBy', 'closedById', this.employeePicker?.value, this.employees);
-    this.transfer.date = this.date ? this.date.getTime() : 0;
+    this.transfer.date = this.date.valueOf();
     this.transfer.amount = this.commonService.invertValueIfOutgoingPayment(this.transfer);
 
     await this.firestoreService.updateDocument('transfers', this.transfer.id, this.transfer.toJSON());

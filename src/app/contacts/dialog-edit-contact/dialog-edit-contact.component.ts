@@ -3,7 +3,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -12,6 +11,23 @@ import { NgIf } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Contact } from '../../models/contact.class';
 import { ContactsTableComponent } from '../contacts-table/contacts-table.component';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import moment, { Moment } from 'moment';
+
+
+const CUSTOM_DATE_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
 
 
 @Component({
@@ -32,14 +48,17 @@ import { ContactsTableComponent } from '../contacts-table/contacts-table.compone
     ContactsTableComponent,
     ReactiveFormsModule
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT }],
   templateUrl: './dialog-edit-contact.component.html',
   styleUrl: './dialog-edit-contact.component.scss'
 })
 export class DialogEditContactComponent implements OnInit {
 
   contact: Contact;
-  birthDate: Date | undefined = undefined;
+  birthDate: Moment | undefined = undefined;
   loading = false;
   fieldsToEdit: string;
 
@@ -54,7 +73,7 @@ export class DialogEditContactComponent implements OnInit {
   ) {
     this.contact = data.document;
     this.fieldsToEdit = data.fieldsToEdit;
-    this.birthDate = this.contact.birthDate ? new Date(this.contact.birthDate) : undefined;
+    this.birthDate = this.contact.birthDate ? moment(this.contact.birthDate) : undefined;
   }
 
 
@@ -94,14 +113,14 @@ export class DialogEditContactComponent implements OnInit {
     if (!this.form.valid) return;
 
     this.setDialogLoading();
-    this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
+    this.contact.birthDate = this.birthDate ? this.birthDate.valueOf() : undefined;
 
     await this.firestoreService.updateDocument('contacts', this.contact.id, this.contact.toJSON());
 
     setTimeout(() => this.dialogRef.close(), 1000);
   }
 
-  
+
   /**
    * Shows a loading / progress bar and disables all input fields and buttons.
    */

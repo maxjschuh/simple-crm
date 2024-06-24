@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,6 +10,23 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgIf } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Contact } from '../../models/contact.class';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { Moment } from 'moment';
+
+
+const CUSTOM_DATE_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
 
 
 @Component({
@@ -30,14 +46,17 @@ import { Contact } from '../../models/contact.class';
     NgIf,
     ReactiveFormsModule
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT }],
   templateUrl: './dialog-add-contact.component.html',
   styleUrl: './dialog-add-contact.component.scss'
 })
 export class DialogAddContactComponent implements OnInit {
 
   contact = new Contact();
-  birthDate: Date | undefined = undefined;
+  birthDate: Moment | undefined = undefined;
   loading = false;
 
   form!: FormGroup;
@@ -86,7 +105,7 @@ export class DialogAddContactComponent implements OnInit {
     if (!this.form.valid) return;
 
     this.setDialogLoading();
-    this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
+    this.contact.birthDate = this.birthDate ? this.birthDate.valueOf() : undefined;
 
     await this.firestoreService.addDocument('contacts', this.contact.toJSON());
 

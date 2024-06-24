@@ -2,7 +2,6 @@ import { DateService } from '../../services/date/date.service';
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,6 +14,23 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { Observable, Subscription, map, startWith } from 'rxjs';
 import { CommonService } from '../../services/common/common.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { Moment } from 'moment';
+
+
+const CUSTOM_DATE_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
 
 
 @Component({
@@ -36,7 +52,11 @@ import { CommonService } from '../../services/common/common.service';
     ReactiveFormsModule,
     AsyncPipe
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT }
+  ],
   templateUrl: './dialog-add-employee.component.html',
   styleUrl: './dialog-add-employee.component.scss'
 })
@@ -46,7 +66,7 @@ export class DialogAddEmployeeComponent implements OnInit {
   employees: Employee[] = [];
 
   employee = new Employee();
-  birthDate: Date | undefined = undefined;
+  birthDate: Moment | undefined = undefined;
   loading = false;
 
   employeePicker = new FormControl({ value: '', disabled: false });
@@ -136,7 +156,7 @@ export class DialogAddEmployeeComponent implements OnInit {
 
     this.addSupervisorFromPicker();
     this.setDialogLoading();
-    this.employee.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
+    this.employee.birthDate = this.birthDate ? this.birthDate.valueOf() : undefined;
 
     await this.firestoreService.addDocument('employees', this.employee.toJSON());
 

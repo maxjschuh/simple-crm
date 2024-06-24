@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -19,6 +18,23 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Contact } from '../../models/contact.class';
 import { Employee } from '../../models/employee.class';
 import { CommonService } from '../../services/common/common.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { Moment } from 'moment';
+
+
+const CUSTOM_DATE_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
 
 
 @Component({
@@ -41,7 +57,11 @@ import { CommonService } from '../../services/common/common.service';
     ReactiveFormsModule,
     AsyncPipe
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT }
+  ],
   templateUrl: './dialog-add-transfer.component.html',
   styleUrl: './dialog-add-transfer.component.scss'
 })
@@ -54,7 +74,7 @@ export class DialogAddTransferComponent implements OnInit {
   employees: Employee[] = [];
 
   transfer = new Transfer();
-  date: Date | undefined = undefined;
+  date: Moment | undefined = undefined;
   loading = false;
 
   payerPicker: AbstractControl | null = null;
@@ -188,7 +208,7 @@ export class DialogAddTransferComponent implements OnInit {
     this.addPersonFromPicker('payer', 'payerId', this.payerPicker?.value, this.contacts);
     this.addPersonFromPicker('recipient', 'recipientId', this.recipientPicker?.value, this.contacts);
     this.addPersonFromPicker('closedBy', 'closedById', this.employeePicker?.value, this.employees);
-    this.transfer.date = this.date ? this.date.getTime() : 0;
+    this.transfer.date = this.date!.valueOf();
     this.transfer.amount = this.commonService.invertValueIfOutgoingPayment(this.transfer);
 
     await this.firestoreService.addDocument('transfers', this.transfer.toJSON());

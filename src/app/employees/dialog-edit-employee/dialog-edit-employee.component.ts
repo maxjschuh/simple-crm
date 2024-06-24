@@ -2,7 +2,6 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,6 +15,24 @@ import { MatSelectModule } from '@angular/material/select';
 import { Subscription, Observable, startWith, map } from 'rxjs';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { CommonService } from '../../services/common/common.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import moment, { Moment } from 'moment';
+
+
+const CUSTOM_DATE_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
+
 
 @Component({
   selector: 'app-dialog-edit-employee',
@@ -37,7 +54,11 @@ import { CommonService } from '../../services/common/common.service';
     ReactiveFormsModule,
     AsyncPipe
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT }
+  ],
   templateUrl: './dialog-edit-employee.component.html',
   styleUrl: './dialog-edit-employee.component.scss'
 })
@@ -51,7 +72,7 @@ export class DialogEditEmployeeComponent implements OnInit {
   employeePickerFilteredOptions!: Observable<string[]>;
 
   employee: Employee;
-  birthDate: Date | undefined = undefined;
+  birthDate: Moment | undefined = undefined;
   loading = false;
   fieldsToEdit: string;
 
@@ -70,7 +91,7 @@ export class DialogEditEmployeeComponent implements OnInit {
     this.employeePicker = new FormControl({ value: this.employee.supervisor, disabled: false });
 
     this.fieldsToEdit = data.fieldsToEdit;
-    this.birthDate = this.employee.birthDate ? new Date(this.employee.birthDate) : undefined;
+    this.birthDate = this.employee.birthDate ? moment(this.employee.birthDate) : undefined;
 
     this.employeesSubscriber =
       this.firestoreService
@@ -145,10 +166,10 @@ export class DialogEditEmployeeComponent implements OnInit {
 
     this.addSupervisorFromPicker();
     this.setDialogLoading();
-    this.employee.birthDate = this.birthDate ? this.birthDate.getTime() : undefined;
-    
+    this.employee.birthDate = this.birthDate ? this.birthDate.valueOf() : undefined;
+
     await this.firestoreService.updateDocument('employees', this.employee.id, this.employee.toJSON());
-    
+
     setTimeout(() => this.dialogRef.close(), 1000);
   }
 
