@@ -32,6 +32,9 @@
                     formControlName="birthDate">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="form.get('birthDate')?.hasError('dateNotInFuture')">
+                    Date may not be in the future
+                </mat-error>
             </mat-form-field>
 
             <div class="inputs-row">

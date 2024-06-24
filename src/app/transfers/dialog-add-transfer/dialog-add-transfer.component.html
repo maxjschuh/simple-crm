@@ -37,7 +37,8 @@
 
                 <mat-form-field appearance="outline" [color]="'accent'">
                     <mat-label>Amount</mat-label>
-                    <input matInput [(ngModel)]="transfer.amount" type="number" required formControlName="amount" min="0">
+                    <input matInput [(ngModel)]="transfer.amount" type="number" required formControlName="amount"
+                        min="0">
                     <mat-error *ngIf="form.get('amount')?.hasError('required')">
                         Amount is required
                     </mat-error>
@@ -50,8 +51,7 @@
             <div class="inputs-row">
                 <mat-form-field appearance="outline" [color]="'accent'">
                     <mat-label>Payer</mat-label>
-                    <input type="text" matInput [matAutocomplete]="auto1" required
-                        formControlName="payer">
+                    <input type="text" matInput [matAutocomplete]="auto1" required formControlName="payer">
 
                     <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
 
@@ -66,8 +66,7 @@
 
                 <mat-form-field appearance="outline" [color]="'accent'">
                     <mat-label>Recipient</mat-label>
-                    <input type="text" matInput [matAutocomplete]="auto2" required
-                        formControlName="recipient">
+                    <input type="text" matInput [matAutocomplete]="auto2" required formControlName="recipient">
 
                     <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
 
@@ -92,6 +91,9 @@
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="form.get('date')?.hasError('required')">
                         Date is required
+                    </mat-error>
+                    <mat-error *ngIf="form.get('date')?.hasError('dateNotInFuture')">
+                        Date may not be in the future
                     </mat-error>
                 </mat-form-field>
 

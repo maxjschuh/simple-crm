@@ -100,7 +100,7 @@ export class DialogAddEmployeeComponent implements OnInit {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      birthDate: [''],
+      birthDate: ['', this.commonService.dateNotInFutureValidator()],
       email: ['', [Validators.required, Validators.email]],
       phone: [''],
       position: [''],

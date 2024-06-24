@@ -110,7 +110,7 @@ export class DialogEditEmployeeComponent implements OnInit {
     this.form = this.fb.group({
       firstName: [this.employee.firstName, Validators.required],
       lastName: [this.employee.lastName, Validators.required],
-      birthDate: [''],
+      birthDate: ['', this.commonService.dateNotInFutureValidator()],
       email: [this.employee.email, [Validators.required, Validators.email]],
       phone: [''],
       position: [''],

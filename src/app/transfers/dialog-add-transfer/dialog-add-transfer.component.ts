@@ -130,7 +130,7 @@ export class DialogAddTransferComponent implements OnInit {
       amount: ['', [Validators.required, this.commonService.greaterThanZeroValidator()]],
       payer: ['', Validators.required],
       recipient: ['', Validators.required],
-      date: ['', Validators.required],
+      date: ['', [Validators.required, this.commonService.dateNotInFutureValidator()]],
       closedBy: ['', Validators.required],
     });
 

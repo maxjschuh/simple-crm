@@ -137,7 +137,7 @@ export class DialogEditTransferComponent implements OnInit {
       amount: [this.transfer.amount, [Validators.required, this.commonService.greaterThanZeroValidator()]],
       payer: [this.transfer.payer, Validators.required],
       recipient: [this.transfer.recipient, Validators.required],
-      date: [this.transfer.date, Validators.required],
+      date: [this.transfer.date, [Validators.required, this.commonService.dateNotInFutureValidator()]],
       closedBy: [this.transfer.closedBy, Validators.required],
     });
 

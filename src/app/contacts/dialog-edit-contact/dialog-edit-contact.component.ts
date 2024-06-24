@@ -15,6 +15,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import moment, { Moment } from 'moment';
+import { CommonService } from '../../services/common/common.service';
 
 
 const CUSTOM_DATE_FORMAT = {
@@ -69,7 +70,8 @@ export class DialogEditContactComponent implements OnInit {
     public firestoreService: FirestoreService,
     public dateService: DateService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private commonService: CommonService
   ) {
     this.contact = data.document;
     this.fieldsToEdit = data.fieldsToEdit;
@@ -85,7 +87,7 @@ export class DialogEditContactComponent implements OnInit {
     this.form = this.fb.group({
       firstName: [this.contact.firstName, Validators.required],
       lastName: [this.contact.lastName, Validators.required],
-      birthDate: [''],
+      birthDate: ['', this.commonService.dateNotInFutureValidator()],
       email: [this.contact.email, [Validators.required, Validators.email]],
       phone: [''],
       street: [''],

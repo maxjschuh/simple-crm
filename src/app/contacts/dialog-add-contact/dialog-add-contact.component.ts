@@ -14,6 +14,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Moment } from 'moment';
+import { CommonService } from '../../services/common/common.service';
 
 
 const CUSTOM_DATE_FORMAT = {
@@ -65,7 +66,8 @@ export class DialogAddContactComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogAddContactComponent>,
     private firestoreService: FirestoreService,
     public dateService: DateService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private commonService: CommonService
   ) { }
 
 
@@ -77,7 +79,7 @@ export class DialogAddContactComponent implements OnInit {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      birthDate: [''],
+      birthDate: ['', this.commonService.dateNotInFutureValidator()],
       email: ['', [Validators.required, Validators.email]],
       phone: [''],
       street: [''],

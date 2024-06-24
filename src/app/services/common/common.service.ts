@@ -283,4 +283,21 @@ export class CommonService {
 
     else return transfer.amount * -1;
   }
+
+
+  /**
+   * Validates that date does not lie in the future (is today or in the past).
+   * @returns validator function
+   */
+  dateNotInFutureValidator(): ValidatorFn  {
+
+    return (control: AbstractControl): ValidationErrors | null => {
+      const today = new Date();
+      const date = new Date(control.value);
+  
+      if (date > today) return { dateNotInFuture: true };
+      
+      else return null;
+    };
+  }
 }
