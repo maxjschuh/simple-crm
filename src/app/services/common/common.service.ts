@@ -52,7 +52,7 @@ export class CommonService {
 
 
   /**
-   * Unsubscribes from all subscriptions in this component.
+   * Unsubscribes from all subscriptions in this service.
    */
   ngOnDestroy(): void {
     this.employeesSubscriber.unsubscribe();

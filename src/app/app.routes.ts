@@ -13,7 +13,7 @@ export const routes: Routes = [
     { path: "dashboard", component: DashboardComponent, title: "Simple-CRM | Dashboard"},
     { path: "contacts", component: ContactsTableComponent, title: "Simple-CRM | Contacts"}, 
     { path: "contacts/:id", component: ContactDetailComponent, title: "Simple-CRM | Contact-Details" },
-    { path: "transfers", component: TransfersTableComponent, title: "Simple-CRM | Transfers" },
+    { path: "transfers", component: TransfersTableComponent, title: "Simple-CRM | Transactions" },
     { path: "transfers/:id", component: TransferDetailComponent, title: "Simple-CRM | Transaction-Details" },
     { path: "employees", component: EmployeesTableComponent, title: "Simple-CRM | Employees" },
     { path: "employees/:id", component: EmployeeDetailComponent, title: "Simple-CRM | Employee-Details" },

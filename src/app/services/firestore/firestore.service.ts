@@ -53,7 +53,7 @@ export class FirestoreService {
 
 
   /**
-   * Unsubscribes from all subscriptions in this component.
+   * Unsubscribes from all subscriptions in this service.
    */
   ngOnDestroy(): void {
 
