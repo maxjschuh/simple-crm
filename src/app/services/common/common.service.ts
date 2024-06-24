@@ -109,7 +109,7 @@ export class CommonService {
     }
   }
 
-  
+
   /**
    * Returns the document id of the person with the name that is passed as parameter.
    * @param name of the person whose id should be returned
@@ -269,5 +269,18 @@ export class CommonService {
 
       return null;
     }
+  }
+
+
+  /**
+   * It is easier for users to specifiy and edit the amount in both ingoing and outgoing payments in positive values. Therefore this function can be called for turning positive amount values for outgoing payments ("purchase" and "refund") into negative values and vice versa.
+   * @param transfer 
+   * @returns original amount value of transfer, if type is "sale", otherwise inverted value
+   */
+  invertValueIfOutgoingPayment(transfer: Transfer): number {
+
+    if (transfer.type === "Sale") return transfer.amount;
+
+    else return transfer.amount * -1;
   }
 }

@@ -90,7 +90,7 @@ export class DialogAddContactComponent implements OnInit {
 
     await this.firestoreService.addDocument('contacts', this.contact.toJSON());
 
-    setTimeout(() => this.dialogRef.close(), 2000);
+    setTimeout(() => this.dialogRef.close(), 1000);
   }
 
 

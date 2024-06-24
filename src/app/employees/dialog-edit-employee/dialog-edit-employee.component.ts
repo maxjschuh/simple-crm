@@ -149,7 +149,7 @@ export class DialogEditEmployeeComponent implements OnInit {
     
     await this.firestoreService.updateDocument('employees', this.employee.id, this.employee.toJSON());
     
-    setTimeout(() => this.dialogRef.close(), 2000);
+    setTimeout(() => this.dialogRef.close(), 1000);
   }
 
 

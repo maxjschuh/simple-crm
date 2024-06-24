@@ -97,6 +97,7 @@ export class DialogEditTransferComponent implements OnInit {
 
 
     this.transfer = data.document;
+    this.transfer.amount = this.commonService.invertValueIfOutgoingPayment(this.transfer);
     this.fieldsToEdit = data.fieldsToEdit;
 
     this.date = this.transfer.date ? new Date(this.transfer.date) : undefined;
@@ -193,12 +194,12 @@ export class DialogEditTransferComponent implements OnInit {
     this.addPersonFromPicker('payer', 'payerId', this.payerPicker?.value, this.contacts);
     this.addPersonFromPicker('recipient', 'recipientId', this.recipientPicker?.value, this.contacts);
     this.addPersonFromPicker('closedBy', 'closedById', this.employeePicker?.value, this.employees);
-
     this.transfer.date = this.date ? this.date.getTime() : 0;
+    this.transfer.amount = this.commonService.invertValueIfOutgoingPayment(this.transfer);
 
     await this.firestoreService.updateDocument('transfers', this.transfer.id, this.transfer.toJSON());
 
-    setTimeout(() => this.dialogRef.close(), 2000);
+    setTimeout(() => this.dialogRef.close(), 1000);
   }
 
 

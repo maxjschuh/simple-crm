@@ -140,7 +140,7 @@ export class DialogAddEmployeeComponent implements OnInit {
 
     await this.firestoreService.addDocument('employees', this.employee.toJSON());
 
-    setTimeout(() => this.dialogRef.close(), 2000);
+    setTimeout(() => this.dialogRef.close(), 1000);
   }
 
 

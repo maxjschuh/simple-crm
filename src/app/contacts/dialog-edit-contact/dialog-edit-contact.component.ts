@@ -98,7 +98,7 @@ export class DialogEditContactComponent implements OnInit {
 
     await this.firestoreService.updateDocument('contacts', this.contact.id, this.contact.toJSON());
 
-    setTimeout(() => this.dialogRef.close(), 2000);
+    setTimeout(() => this.dialogRef.close(), 1000);
   }
 
   
