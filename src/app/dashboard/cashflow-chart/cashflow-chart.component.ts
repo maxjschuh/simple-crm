@@ -31,7 +31,7 @@ export class CashflowChartComponent implements OnInit {
     datasets: [
       {
         data: [65, 59, 80, 81, 56, 55, 40],
-        label: 'Monthly sales sum',
+        label: '',
         backgroundColor: 'rgba(123,31,162,1)',
         borderColor: 'rgba(123,31,162,1)',
         pointBackgroundColor: 'rgba(123,31,162,1)',
@@ -79,7 +79,7 @@ export class CashflowChartComponent implements OnInit {
     plugins: {
       legend: {
         position: 'bottom',
-        display: true,
+        display: false,
         labels: {
           color: '#fff'
         }

@@ -10,13 +10,13 @@ import { ImprintComponent } from './imprint/imprint.component';
 import { DataProtectionComponent } from './data-protection/data-protection.component';
 
 export const routes: Routes = [
-    { path: "dashboard", component: DashboardComponent, title: "Simple-CRM | Dashboard"},
-    { path: "contacts", component: ContactsTableComponent, title: "Simple-CRM | Contacts"}, 
-    { path: "contacts/:id", component: ContactDetailComponent, title: "Simple-CRM | Contact-Details" },
-    { path: "transfers", component: TransfersTableComponent, title: "Simple-CRM | Transactions" },
-    { path: "transfers/:id", component: TransferDetailComponent, title: "Simple-CRM | Transaction-Details" },
-    { path: "employees", component: EmployeesTableComponent, title: "Simple-CRM | Employees" },
-    { path: "employees/:id", component: EmployeeDetailComponent, title: "Simple-CRM | Employee-Details" },
-    { path: "imprint", component: ImprintComponent, title: "Simple CRM | Imprint"},
-    { path: "data-protection", component: DataProtectionComponent, title: "Simple CRM | Data protection"}
+    { path: "dashboard", component: DashboardComponent, title: "Easy-CRM | Dashboard"},
+    { path: "contacts", component: ContactsTableComponent, title: "Easy-CRM | Contacts"}, 
+    { path: "contacts/:id", component: ContactDetailComponent, title: "Easy-CRM | Contact-Details" },
+    { path: "transfers", component: TransfersTableComponent, title: "Easy-CRM | Transactions" },
+    { path: "transfers/:id", component: TransferDetailComponent, title: "Easy-CRM | Transaction-Details" },
+    { path: "employees", component: EmployeesTableComponent, title: "Easy-CRM | Employees" },
+    { path: "employees/:id", component: EmployeeDetailComponent, title: "Easy-CRM | Employee-Details" },
+    { path: "imprint", component: ImprintComponent, title: "Easy-CRM | Imprint"},
+    { path: "data-protection", component: DataProtectionComponent, title: "Easy-CRM | Data protection"}
 ];
