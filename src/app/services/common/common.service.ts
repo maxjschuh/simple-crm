@@ -89,6 +89,29 @@ export class CommonService {
 
 
   /**
+   * Finds a document in the collection that is passed as parameter by its id. The found object is returned.
+   * @param collection array containing objects of type Employee, Transfer or Contact
+   * @param documentId 
+   * @param constructor corresponding to the collection
+   * @returns document (contact, employee or transfer)
+   */
+  getDocumentFromCustomCollection(
+    collection: Employee[] | Transfer[] | Contact[],
+    documentId: string,
+    constructor: Type<Contact | Transfer | Employee>
+  ): any {
+
+    for (let i = 0; i < collection.length; i++) {
+      const document = collection[i];
+
+      if (document.id === documentId) return new constructor(document);
+    }
+
+    return new constructor();
+  }
+
+
+  /**
    * Returns the corresponding collection to the term that is passed as parameter.
    * @param collection 
    * @returns array of contacts, employees or transfers (called "transaction" in the UI)
@@ -289,14 +312,14 @@ export class CommonService {
    * Validates that date does not lie in the future (is today or in the past).
    * @returns validator function
    */
-  dateNotInFutureValidator(): ValidatorFn  {
+  dateNotInFutureValidator(): ValidatorFn {
 
     return (control: AbstractControl): ValidationErrors | null => {
       const today = new Date();
       const date = new Date(control.value);
-  
+
       if (date > today) return { dateNotInFuture: true };
-      
+
       else return null;
     };
   }

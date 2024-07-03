@@ -7,6 +7,7 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { RouterModule } from '@angular/router';
 import { DashboardDataService } from '../services/dashboard-data/dashboard-data.service';
 import { AppTitleService } from '../services/app-title/app-title.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,11 +18,34 @@ import { AppTitleService } from '../services/app-title/app-title.service';
 })
 export class DashboardComponent {
 
+  topEmployeeSubscriber = new Subscription;
+  topEmployeeLink = ['/employees', ''];
+
+
   constructor(
     public dataService: DashboardDataService,
     private titleService: AppTitleService
   ) {
 
     this.titleService.titleDistributor.next('Dashboard');
+
+    this.topEmployeeSubscriber.unsubscribe();
+
+    this.topEmployeeSubscriber =
+      this.dataService
+        .topEmployeeFrontendDistributor
+        .subscribe(employee => {
+
+          this.topEmployeeLink = ['/employees', employee.id];
+        });
+  }
+
+
+  /**
+   * Unsubscribes from all subscriptions in this component.
+   */
+  ngOnDestroy(): void {
+
+    this.topEmployeeSubscriber.unsubscribe();
   }
 }

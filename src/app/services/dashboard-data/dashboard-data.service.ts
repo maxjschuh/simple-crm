@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Employee } from '../../models/employee.class';
 import { Transfer } from '../../models/transfer.class';
 import { FirestoreService } from '../firestore/firestore.service';
-import { Subscription } from 'rxjs';
-import { Contact } from '../../models/contact.class';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { CommonService } from '../common/common.service';
 
 
 @Injectable({
@@ -17,21 +17,21 @@ export class DashboardDataService {
   transfersSubscriber = new Subscription;
   transfers: Transfer[] = [];
 
-  contactsSubscriber = new Subscription; //not yet in use
-  contacts: Contact[] = [];
-
   transfersByLastSixMonths: any[] = [];
 
-  topEmployee = { employeeId: '', revenue: 0 };
+  topEmployeeFrontendDistributor = new BehaviorSubject<{ id: string, revenue: number, data: Employee }>({ id: '', revenue: 0, data: new Employee() });
 
 
-  constructor(private firestoreService: FirestoreService) {
+  constructor(private firestoreService: FirestoreService,
+    private commonService: CommonService
+  ) {
 
     this.employeesSubscriber =
       this.firestoreService
         .employeesFrontendDistributor
         .subscribe(employees => {
           this.employees = employees;
+          this.emitTopEmployee();
         });
 
     this.transfersSubscriber =
@@ -39,16 +39,10 @@ export class DashboardDataService {
         .transfersFrontendDistributor
         .subscribe(transfers => {
           this.transfers = transfers;
+          this.transfersByLastSixMonths = this.returnTransfersLastSixMonths();
+          this.emitTopEmployee();
         });
 
-    this.contactsSubscriber =
-      this.firestoreService
-        .contactsFrontendDistributor
-        .subscribe(contacts => {
-          this.contacts = contacts;
-        });
-
-    this.transfersByLastSixMonths = this.returnTransfersLastSixMonths();
   }
 
 
@@ -58,7 +52,6 @@ export class DashboardDataService {
   ngOnDestroy(): void {
     this.employeesSubscriber.unsubscribe();
     this.transfersSubscriber.unsubscribe();
-    this.contactsSubscriber.unsubscribe();
   }
 
 
@@ -152,7 +145,7 @@ export class DashboardDataService {
    * Manages several functions for finding the employee that closed the highest value in sale transactions. First function in call stack for finding the top closing employee.
    * @returns object with document id for an employee and his / her total sales revenue
    */
-  returnTopEmployee(): { employeeId: string, revenue: number } {
+  emitTopEmployee(): void {
 
     let revenuesByEmployee: { employeeId: string, revenue: number }[] = [];
 
@@ -166,7 +159,14 @@ export class DashboardDataService {
       );
     }
 
-    return this.returnEmployeeWithHighestRevenue(revenuesByEmployee);
+    const topEmployee = this.returnEmployeeWithHighestRevenue(revenuesByEmployee);
+
+    if (topEmployee.id) {
+
+      topEmployee.data = this.commonService.getDocumentFromCustomCollection(this.employees, topEmployee.id, Employee);
+    }
+
+    this.topEmployeeFrontendDistributor.next(topEmployee);
   }
 
 
@@ -205,16 +205,17 @@ export class DashboardDataService {
    * @returns object with document id for an employee and his / her total sales revenue
    */
   returnEmployeeWithHighestRevenue(
-    revenuesByEmployee: { employeeId: string, revenue: number }[]): { employeeId: string, revenue: number } {
+    revenuesByEmployee: { employeeId: string, revenue: number }[]): { id: string, revenue: number, data: Employee } {
 
-    let topDealer = { employeeId: '', revenue: 0 };
+    let topDealer = { id: '', revenue: 0, data: new Employee() };
 
     for (let i = 0; i < revenuesByEmployee.length; i++) {
       const revenueEmployee = revenuesByEmployee[i];
 
       if (revenueEmployee.revenue > topDealer.revenue) {
 
-        topDealer = { employeeId: revenueEmployee.employeeId, revenue: revenueEmployee.revenue };
+        topDealer.id = revenueEmployee.employeeId;
+        topDealer.revenue = revenueEmployee.revenue;
       }
     }
 
@@ -227,7 +228,7 @@ export class DashboardDataService {
   //"Transaction types" pie chart (portion of each transaction type "sale", "refund" and "purchase")
   //-------------------------------------
 
-  
+
   /**
    * Computes how many transactions of each transaction type are in the database and returns the result as array
    * @returns array with 3 number items that informs about the amount of sales (at index 0), the amount of purchases (at index 1) and amount of refunds (at index 2)

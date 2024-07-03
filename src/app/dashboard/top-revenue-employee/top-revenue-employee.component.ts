@@ -1,10 +1,8 @@
-import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
-import { CommonService } from '../../services/common/common.service';
+import { Component } from '@angular/core';
 import { Employee } from '../../models/employee.class';
 import { DashboardDataService } from '../../services/dashboard-data/dashboard-data.service';
 import { MatCardModule } from '@angular/material/card';
 import { Subscription } from 'rxjs';
-import { FirestoreService } from '../../services/firestore/firestore.service';
 
 @Component({
   selector: 'app-top-revenue-employee',
@@ -13,59 +11,33 @@ import { FirestoreService } from '../../services/firestore/firestore.service';
   templateUrl: './top-revenue-employee.component.html',
   styleUrl: './top-revenue-employee.component.scss'
 })
-export class TopRevenueEmployeeComponent implements AfterViewInit {
+export class TopRevenueEmployeeComponent {
 
-  transfersSubscriber = new Subscription;
+  topEmployeeSubscriber = new Subscription;
   topEmployee = new Employee();
   revenue = 0;
 
-  employeeSubscriber = new Subscription;
-
   constructor(
-    private commonService: CommonService,
-    private dataService: DashboardDataService,
-    private firestoreService: FirestoreService,
-    private cd: ChangeDetectorRef
-  ) { }
+    private dataService: DashboardDataService) {
 
+    this.topEmployeeSubscriber.unsubscribe();
 
-  /**
-   * Makes initial configurations for this component.
-   */
-  ngAfterViewInit(): void {
+    this.topEmployeeSubscriber =
+      this.dataService
+        .topEmployeeFrontendDistributor
+        .subscribe(employee => {
 
-    this.transfersSubscriber.unsubscribe();
-
-    this.transfersSubscriber =
-      this.firestoreService
-        .transfersFrontendDistributor
-        .subscribe(() => {
-          this.update();
-          this.cd.detectChanges();
+          this.topEmployee = employee.data;
+          this.revenue = employee.revenue;
         });
-
-    setTimeout(() => {
-      this.update()
-      this.cd.detectChanges();
-    }, 200);
   }
 
 
   /**
-   * Is called when the database sends updated data. Updates the top employee box.
+   * Unsubscribes from all subscriptions in this component.
    */
-  update(): void {
+  ngOnDestroy(): void {
 
-    const topEmployee: { employeeId: string, revenue: number } =
-      this.dataService
-        .returnTopEmployee();
-
-    this.revenue = topEmployee.revenue;
-
-    this.topEmployee =
-      this.commonService.getDocumentFromCollection(
-        'employees',
-        topEmployee.employeeId,
-        Employee);
+    this.topEmployeeSubscriber.unsubscribe();
   }
 }
