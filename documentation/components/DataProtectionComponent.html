@@ -1,0 +1,544 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>simple-crm documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">simple-crm documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DataProtectionComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/data-protection/data-protection.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-data-protection</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./data-protection.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./data-protection.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+
+@Component({
+  selector: &#x27;app-data-protection&#x27;,
+  standalone: true,
+  imports: [],
+  templateUrl: &#x27;./data-protection.component.html&#x27;,
+  styleUrl: &#x27;./data-protection.component.scss&#x27;
+})
+export class DataProtectionComponent {
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h2&gt;Privacy policy&lt;/h2&gt;
+&lt;p&gt;The controller within the meaning of data protection laws, in particular the EU General Data Protection
+    Regulation
+    (GDPR), is:&lt;/p&gt;
+&lt;p&gt;
+&lt;p&gt;Maximilian Schuh&lt;br&gt;Heideweg 9&lt;br&gt;85598 Baldham&lt;br&gt;&lt;br&gt;Contact:&lt;br&gt;E-mail: &lt;a
+        href&#x3D;&#x27;mailto:max@mjschuh.com&#x27;&gt;max&amp;#64;mjschuh.com&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Your rights as a data subject&lt;/h3&gt;
+&lt;p&gt;You can exercise the following rights at any time using the contact details provided for our data protection
+    officer:
+&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;Information about your data stored by us and its processing (Art. 15 GDPR),&lt;/li&gt;
+    &lt;li&gt;Correction of incorrect personal data (Art. 16 GDPR),&lt;/li&gt;
+    &lt;li&gt;Deletion of your data stored by us (Art. 17 GDPR),&lt;/li&gt;
+    &lt;li&gt;restriction of data processing if we are not yet allowed to delete your data due to legal obligations (Art.
+        18
+        GDPR),&lt;/li&gt;
+    &lt;li&gt;objection to the processing of your data by us (Art. 21 GDPR) and&lt;/li&gt;
+    &lt;li&gt;data portability if you have consented to the data processing or have concluded a contract with us (Art. 20
+        GDPR).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you have given us your consent, you can revoke it at any time with effect for the future.&lt;/p&gt;
+&lt;p&gt;You can contact a supervisory authority at any time with a complaint, e.g. the competent supervisory authority of
+    the
+    federal state of your residence or the authority responsible for us as the responsible body. &lt;/p&gt;
+&lt;p&gt;A list of supervisory authorities (for the non-public sector) with addresses can be found &lt;a
+        href&#x3D;&#x27;https://www.bfdi.bund.de/DE/Service/Anschriften/Laender/Laender-node.html&#x27; target&#x3D;&#x27;_blank&#x27;
+        rel&#x3D;&#x27;noopener noreferrer&#x27;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h3&gt;Collection of general information when visiting our website&lt;/h3&gt;
+&lt;h4&gt;Type and purpose of processing:&lt;/h4&gt;
+&lt;p&gt;When you access our website, i.e. if you do not register or otherwise transmit information, information of a
+    general
+    nature is automatically collected. This information (server log files) includes, for example, the type of web
+    browser, the operating system used, the domain name of your internet service provider, your IP address and
+    similar.
+&lt;/p&gt;
+&lt;p&gt;They are processed in particular for the following purposes:&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;to ensure a smooth connection to the website,&lt;/li&gt;
+    &lt;li&gt;to ensure smooth use of our website,&lt;/li&gt;
+    &lt;li&gt;to evaluate system security and stability and&lt;/li&gt;
+    &lt;li&gt;to optimize our website.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We do not use your data to draw conclusions about your person. Information of this kind may be statistically
+    evaluated by us in anonymized form in order to optimize our website and the technology behind it. &lt;/p&gt;
+&lt;h4&gt;Legal basis and legitimate interest:&lt;/h4&gt;
+&lt;p&gt;The processing is carried out in accordance with Art. 6 para. 1 lit. f GDPR on the basis of our legitimate
+    interest
+    in improving the stability and functionality of our website.&lt;/p&gt;
+&lt;h4&gt;Recipients:&lt;/h4&gt;
+&lt;p&gt;Recipients of the data may be technical service providers who act as processors for the operation and maintenance
+    of
+    our website.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h4&gt;Storage period:&lt;/h4&gt;
+&lt;p&gt;The data is deleted as soon as it is no longer required for the purpose for which it was collected. This is
+    generally
+    the case for the data used to provide the website when the respective session has ended. &lt;/p&gt;
+&lt;p&gt;If the data is stored in log files, this is the case after 14 days at the latest. Storage beyond this period is
+    possible. In this case, the IP addresses of the users are anonymized so that it is no longer possible to assign
+    the
+    calling client.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h4&gt;Provision required or necessary:&lt;/h4&gt;
+&lt;p&gt;The provision of the aforementioned personal data is neither legally nor contractually required. However, without
+    the
+    IP address, the service and functionality of our website cannot be guaranteed. In addition, individual services
+    may
+    not be available or may be restricted. For this reason, an objection is excluded. &lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h3&gt;Cookies&lt;/h3&gt;
+&lt;p&gt;Like many other websites, we also use so-called &#x27;cookies&#x27;. Cookies are small text files that are stored on your
+    end
+    device (laptop, tablet, smartphone, etc.) when you visit our website. &lt;/p&gt;
+&lt;p&gt;You can delete individual cookies or the entire cookie inventory. You will also receive information and
+    instructions
+    on how to delete these cookies or block their storage in advance. Depending on your browser provider, you will
+    find
+    the necessary information under the following links:&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;&lt;a href&#x3D;&#x27;https://support.mozilla.org/de/kb/cookies-loeschen-daten-von-websites-entfernen&#x27; target&#x3D;&#x27;_blank&#x27;
+            rel&#x3D;&#x27;nofollow noopener&#x27;&gt;Mozilla Firefox&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href&#x3D;&#x27;https://support. microsoft.com/en/help/17442/windows-internet-explorer-delete-manage-cookies&#x27;
+            target&#x3D;&#x27;_blank&#x27; rel&#x3D;&#x27;nofollow noopener&#x27;&gt;Internet Explorer&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href&#x3D;&#x27;https://support.google.com/accounts/answer/61416?hl&#x3D;de&#x27; target&#x3D;&#x27;_blank&#x27; rel&#x3D;&#x27;nofollow noopener&#x27;&gt;Google
+            Chrome&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href&#x3D;&#x27;http://www. opera.com/en/help&#x27; target&#x3D;&#x27;_blank&#x27; rel&#x3D;&#x27;nofollow noopener&#x27;&gt;Opera&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href&#x3D;&#x27;https://support.apple.com/kb/PH17191? locale&#x3D;en_DE&amp;viewlocale&#x3D;en_DE&#x27; target&#x3D;&#x27;_blank&#x27;
+            rel&#x3D;&#x27;nofollow noopener&#x27;&gt;Safari&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Storage period and cookies used:&lt;/h4&gt;
+&lt;p&gt;If you allow us to use cookies through your browser settings or consent, the following cookies may be used on our
+    websites: &lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h3&gt;Technically necessary cookies&lt;/h3&gt;
+&lt;h4&gt;Type and purpose of processing:&lt;/h4&gt;
+&lt;p&gt;We use cookies to make our website more user-friendly. Some elements of our website require that the accessing
+    browser can be identified even after a page change.&lt;/p&gt;
+&lt;p&gt;The purpose of using technically necessary cookies is to simplify the use of websites for users. Some functions
+    of
+    our website cannot be offered without the use of cookies. For these, it is necessary for the browser to be
+    recognized even after a page change.&lt;/p&gt;
+&lt;p&gt;We require cookies for the following applications:&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h4&gt;Legal basis and legitimate interest: &lt;/h4&gt;
+&lt;p&gt;The processing is carried out in accordance with Art. 6 para. 1 lit. f GDPR on the basis of our legitimate
+    interest
+    in a user-friendly design of our website. &lt;/p&gt;
+&lt;h4&gt;Recipients:&lt;/h4&gt;
+&lt;p&gt;Recipients of the data may be technical service providers who act as processors for the operation and maintenance
+    of
+    our website.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h4&gt;Provision required or necessary:&lt;/h4&gt;
+&lt;p&gt;The provision of the aforementioned personal data is neither required by law nor by contract. However, without
+    this
+    data, the service and functionality of our website cannot be guaranteed. In addition, individual services and
+    services may not be available or may be restricted.&lt;/p&gt;
+&lt;h4&gt;Objection&lt;/h4&gt;
+&lt;p&gt;Read the information on your right to object under Art. 21 GDPR below.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h3&gt;Technically unnecessary cookies&lt;/h3&gt;
+&lt;p&gt;We also use cookies to better tailor the offer on our website to the interests of our visitors or to generally
+    improve it on the basis of statistical evaluations.&lt;/p&gt;
+&lt;p&gt;Please refer to the information below on the display, tracking, remarketing and web analysis technologies used to
+    find out which providers set cookies. &lt;/p&gt;
+&lt;h4&gt;Legal basis:&lt;/h4&gt;
+&lt;p&gt;The legal basis for this processing is your consent in each case, Art. 6 para. 1 lit. a GDPR.&lt;/p&gt;
+&lt;h4&gt;Recipients:&lt;/h4&gt;
+&lt;p&gt;The recipients of the data may be technical service providers who act as processors for the operation and
+    maintenance
+    of our website. &lt;/p&gt;
+&lt;p&gt;For further recipients, please refer to the information below on the display, tracking, remarketing and web
+    analysis
+    technologies used.&lt;/p&gt;
+&lt;h4&gt;Third country transfer:&lt;/h4&gt;
+&lt;p&gt;For information on this, please refer to the lists of the individual display, tracking, remarketing and web
+    analysis
+    providers.&lt;/p&gt;
+&lt;h4&gt;Provision mandatory or required:&lt;/h4&gt;
+&lt;p&gt;Of course, you can also view our website without cookies. Web browsers are regularly set to accept cookies. In
+    general, you can deactivate the use of cookies at any time via your browser settings (see Revocation of
+    consent).
+&lt;/p&gt;
+&lt;p&gt;Please note that individual functions of our website may not work if you have deactivated the use of cookies.&lt;/p&gt;
+&lt;h4&gt;Revocation of consent:&lt;/h4&gt;
+&lt;p&gt;You can revoke your consent at any time via our cookie consent tool. &lt;/p&gt;
+&lt;h4&gt;Profiling:&lt;/h4&gt;
+&lt;p&gt;The extent to which we analyze the behavior of website visitors with pseudonymized user profiles can be found in
+    the
+    information below on the display, tracking, remarketing and web analysis technologies used.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h3&gt;Contact form&lt;/h3&gt;
+&lt;h4&gt;Type and purpose of processing:&lt;/h4&gt;
+&lt;p&gt;The data you enter will be stored for the purpose of individual communication with you. This requires you to
+    provide
+    a valid e-mail address and your name. This is used to assign the request and subsequently answer it. The
+    provision
+    of further data is optional.&lt;/p&gt;
+&lt;h4&gt;Legal basis:&lt;/h4&gt;
+&lt;p&gt;The data entered in the contact form is processed on the basis of a legitimate interest (Art. 6 para. 1 lit. f
+    GDPR).
+&lt;/p&gt;
+&lt;p&gt;By providing the contact form, we would like to make it easy for you to contact us. The information you provide
+    will
+    be stored for the purpose of processing the request and for possible follow-up questions.&lt;/p&gt;
+&lt;p&gt;If you contact us to request a quote, the data entered in the contact form will be processed to carry out
+    pre-contractual measures (Art. 6 para. 1 lit. b GDPR). &lt;/p&gt;
+&lt;h4&gt;Recipients:&lt;/h4&gt;
+&lt;p&gt;Recipients of the data may be processors.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h4&gt;Storage period:&lt;/h4&gt;
+&lt;p&gt;Data will be deleted no later than 6 months after processing the request.&lt;/p&gt;
+&lt;p&gt;If a contractual relationship is established, we are subject to the statutory retention periods under the German
+    Commercial Code (HGB) and delete your data after these periods have expired. &lt;/p&gt;
+&lt;h4&gt;Provision mandatory or required:&lt;/h4&gt;
+&lt;p&gt;The provision of your personal data is voluntary. However, we can only process your request if you provide us
+    with
+    your name, email address and the reason for the request.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h3&gt;SSL encryption&lt;/h3&gt;
+&lt;p&gt;In order to protect the security of your data during transmission, we use state-of-the-art encryption methods
+    (e.g.
+    SSL) via HTTPS.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3&gt;Information about your right to object pursuant to Art. 21 GDPR&lt;/h3&gt;
+&lt;h4&gt;Individual right to object&lt;/h4&gt;
+&lt;p&gt;You have the right to object, on grounds relating to your particular situation, at any time to processing of
+    personal
+    data concerning you which is based on Art. 6 para. 1 lit. f GDPR (data processing on the basis of a balancing of
+    interests); this also applies to profiling based on this provision within the meaning of Art. 4 No. 4 GDPR. &lt;/p&gt;
+&lt;p&gt;If you object, we will no longer process your personal data unless we can demonstrate compelling legitimate
+    grounds
+    for the processing which override your interests, rights and freedoms or for the establishment, exercise or
+    defense
+    of legal claims.&lt;/p&gt;
+&lt;h4&gt;Recipient of the objection&lt;/h4&gt;
+&lt;p&gt;Maximilian Schuh&lt;br&gt;Heideweg 9&lt;br&gt;85598 Baldham&lt;br&gt;E-mail: &lt;a href&#x3D;&#x27;mailto:max@mjschuh.com&#x27;&gt;max&amp;#64;mjschuh.com&lt;/a&gt;
+&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3&gt;Changes to our privacy policy&lt;/h3&gt;
+&lt;p&gt;We reserve the right to amend this privacy policy so that it always complies with current legal requirements or
+    to
+    implement changes to our services in the privacy policy, e.g. when introducing new services. The new privacy
+    policy
+    will then apply to your next visit.&lt;/p&gt;
+&lt;h3&gt;Questions to the data protection officer&lt;/h3&gt;
+&lt;p&gt;If you have any questions about data protection, please send us an email or contact the person responsible for
+    data
+    protection in our organization directly. &lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;The privacy policy was created with the help of activeMind AG, the experts for &lt;a
+            href&#x3D;&#x27;https://www.activemind.de/datenschutz/datenschutzbeauftragter/&#x27; target&#x3D;&#x27;_blank&#x27;
+            rel&#x3D;&#x27;noopener&#x27;&gt;external data protection officers&lt;/a&gt; (version #2020-09-30).&lt;/em&gt;&lt;/p&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h2>Privacy policy</h2><p>The controller within the meaning of data protection laws, in particular the EU General Data Protection    Regulation    (GDPR), is:</p><p><p>Maximilian Schuh<br>Heideweg 9<br>85598 Baldham<br><br>Contact:<br>E-mail: <a        href=\'mailto:max@mjschuh.com\'>max&#64;mjschuh.com</a></p><h3>Your rights as a data subject</h3><p>You can exercise the following rights at any time using the contact details provided for our data protection    officer:</p><ul>    <li>Information about your data stored by us and its processing (Art. 15 GDPR),</li>    <li>Correction of incorrect personal data (Art. 16 GDPR),</li>    <li>Deletion of your data stored by us (Art. 17 GDPR),</li>    <li>restriction of data processing if we are not yet allowed to delete your data due to legal obligations (Art.        18        GDPR),</li>    <li>objection to the processing of your data by us (Art. 21 GDPR) and</li>    <li>data portability if you have consented to the data processing or have concluded a contract with us (Art. 20        GDPR).</li></ul><p>If you have given us your consent, you can revoke it at any time with effect for the future.</p><p>You can contact a supervisory authority at any time with a complaint, e.g. the competent supervisory authority of    the    federal state of your residence or the authority responsible for us as the responsible body. </p><p>A list of supervisory authorities (for the non-public sector) with addresses can be found <a        href=\'https://www.bfdi.bund.de/DE/Service/Anschriften/Laender/Laender-node.html\' target=\'_blank\'        rel=\'noopener noreferrer\'>here</a>.</p><p></p><h3>Collection of general information when visiting our website</h3><h4>Type and purpose of processing:</h4><p>When you access our website, i.e. if you do not register or otherwise transmit information, information of a    general    nature is automatically collected. This information (server log files) includes, for example, the type of web    browser, the operating system used, the domain name of your internet service provider, your IP address and    similar.</p><p>They are processed in particular for the following purposes:</p><ul>    <li>to ensure a smooth connection to the website,</li>    <li>to ensure smooth use of our website,</li>    <li>to evaluate system security and stability and</li>    <li>to optimize our website.</li></ul><p>We do not use your data to draw conclusions about your person. Information of this kind may be statistically    evaluated by us in anonymized form in order to optimize our website and the technology behind it. </p><h4>Legal basis and legitimate interest:</h4><p>The processing is carried out in accordance with Art. 6 para. 1 lit. f GDPR on the basis of our legitimate    interest    in improving the stability and functionality of our website.</p><h4>Recipients:</h4><p>Recipients of the data may be technical service providers who act as processors for the operation and maintenance    of    our website.</p><p></p><h4>Storage period:</h4><p>The data is deleted as soon as it is no longer required for the purpose for which it was collected. This is    generally    the case for the data used to provide the website when the respective session has ended. </p><p>If the data is stored in log files, this is the case after 14 days at the latest. Storage beyond this period is    possible. In this case, the IP addresses of the users are anonymized so that it is no longer possible to assign    the    calling client.</p><p></p><h4>Provision required or necessary:</h4><p>The provision of the aforementioned personal data is neither legally nor contractually required. However, without    the    IP address, the service and functionality of our website cannot be guaranteed. In addition, individual services    may    not be available or may be restricted. For this reason, an objection is excluded. </p><p></p><h3>Cookies</h3><p>Like many other websites, we also use so-called \'cookies\'. Cookies are small text files that are stored on your    end    device (laptop, tablet, smartphone, etc.) when you visit our website. </p><p>You can delete individual cookies or the entire cookie inventory. You will also receive information and    instructions    on how to delete these cookies or block their storage in advance. Depending on your browser provider, you will    find    the necessary information under the following links:</p><ul>    <li><a href=\'https://support.mozilla.org/de/kb/cookies-loeschen-daten-von-websites-entfernen\' target=\'_blank\'            rel=\'nofollow noopener\'>Mozilla Firefox</a></li>    <li><a href=\'https://support. microsoft.com/en/help/17442/windows-internet-explorer-delete-manage-cookies\'            target=\'_blank\' rel=\'nofollow noopener\'>Internet Explorer</a></li>    <li><a href=\'https://support.google.com/accounts/answer/61416?hl=de\' target=\'_blank\' rel=\'nofollow noopener\'>Google            Chrome</a></li>    <li><a href=\'http://www. opera.com/en/help\' target=\'_blank\' rel=\'nofollow noopener\'>Opera</a></li>    <li><a href=\'https://support.apple.com/kb/PH17191? locale=en_DE&viewlocale=en_DE\' target=\'_blank\'            rel=\'nofollow noopener\'>Safari</a></li></ul><h4>Storage period and cookies used:</h4><p>If you allow us to use cookies through your browser settings or consent, the following cookies may be used on our    websites: </p><p></p><h3>Technically necessary cookies</h3><h4>Type and purpose of processing:</h4><p>We use cookies to make our website more user-friendly. Some elements of our website require that the accessing    browser can be identified even after a page change.</p><p>The purpose of using technically necessary cookies is to simplify the use of websites for users. Some functions    of    our website cannot be offered without the use of cookies. For these, it is necessary for the browser to be    recognized even after a page change.</p><p>We require cookies for the following applications:</p><p></p><h4>Legal basis and legitimate interest: </h4><p>The processing is carried out in accordance with Art. 6 para. 1 lit. f GDPR on the basis of our legitimate    interest    in a user-friendly design of our website. </p><h4>Recipients:</h4><p>Recipients of the data may be technical service providers who act as processors for the operation and maintenance    of    our website.</p><p></p><h4>Provision required or necessary:</h4><p>The provision of the aforementioned personal data is neither required by law nor by contract. However, without    this    data, the service and functionality of our website cannot be guaranteed. In addition, individual services and    services may not be available or may be restricted.</p><h4>Objection</h4><p>Read the information on your right to object under Art. 21 GDPR below.</p><p></p><h3>Technically unnecessary cookies</h3><p>We also use cookies to better tailor the offer on our website to the interests of our visitors or to generally    improve it on the basis of statistical evaluations.</p><p>Please refer to the information below on the display, tracking, remarketing and web analysis technologies used to    find out which providers set cookies. </p><h4>Legal basis:</h4><p>The legal basis for this processing is your consent in each case, Art. 6 para. 1 lit. a GDPR.</p><h4>Recipients:</h4><p>The recipients of the data may be technical service providers who act as processors for the operation and    maintenance    of our website. </p><p>For further recipients, please refer to the information below on the display, tracking, remarketing and web    analysis    technologies used.</p><h4>Third country transfer:</h4><p>For information on this, please refer to the lists of the individual display, tracking, remarketing and web    analysis    providers.</p><h4>Provision mandatory or required:</h4><p>Of course, you can also view our website without cookies. Web browsers are regularly set to accept cookies. In    general, you can deactivate the use of cookies at any time via your browser settings (see Revocation of    consent).</p><p>Please note that individual functions of our website may not work if you have deactivated the use of cookies.</p><h4>Revocation of consent:</h4><p>You can revoke your consent at any time via our cookie consent tool. </p><h4>Profiling:</h4><p>The extent to which we analyze the behavior of website visitors with pseudonymized user profiles can be found in    the    information below on the display, tracking, remarketing and web analysis technologies used.</p><p></p><h3>Contact form</h3><h4>Type and purpose of processing:</h4><p>The data you enter will be stored for the purpose of individual communication with you. This requires you to    provide    a valid e-mail address and your name. This is used to assign the request and subsequently answer it. The    provision    of further data is optional.</p><h4>Legal basis:</h4><p>The data entered in the contact form is processed on the basis of a legitimate interest (Art. 6 para. 1 lit. f    GDPR).</p><p>By providing the contact form, we would like to make it easy for you to contact us. The information you provide    will    be stored for the purpose of processing the request and for possible follow-up questions.</p><p>If you contact us to request a quote, the data entered in the contact form will be processed to carry out    pre-contractual measures (Art. 6 para. 1 lit. b GDPR). </p><h4>Recipients:</h4><p>Recipients of the data may be processors.</p><p></p><h4>Storage period:</h4><p>Data will be deleted no later than 6 months after processing the request.</p><p>If a contractual relationship is established, we are subject to the statutory retention periods under the German    Commercial Code (HGB) and delete your data after these periods have expired. </p><h4>Provision mandatory or required:</h4><p>The provision of your personal data is voluntary. However, we can only process your request if you provide us    with    your name, email address and the reason for the request.</p><p></p><h3>SSL encryption</h3><p>In order to protect the security of your data during transmission, we use state-of-the-art encryption methods    (e.g.    SSL) via HTTPS.</p><p></p><hr><h3>Information about your right to object pursuant to Art. 21 GDPR</h3><h4>Individual right to object</h4><p>You have the right to object, on grounds relating to your particular situation, at any time to processing of    personal    data concerning you which is based on Art. 6 para. 1 lit. f GDPR (data processing on the basis of a balancing of    interests); this also applies to profiling based on this provision within the meaning of Art. 4 No. 4 GDPR. </p><p>If you object, we will no longer process your personal data unless we can demonstrate compelling legitimate    grounds    for the processing which override your interests, rights and freedoms or for the establishment, exercise or    defense    of legal claims.</p><h4>Recipient of the objection</h4><p>Maximilian Schuh<br>Heideweg 9<br>85598 Baldham<br>E-mail: <a href=\'mailto:max@mjschuh.com\'>max&#64;mjschuh.com</a></p><hr><h3>Changes to our privacy policy</h3><p>We reserve the right to amend this privacy policy so that it always complies with current legal requirements or    to    implement changes to our services in the privacy policy, e.g. when introducing new services. The new privacy    policy    will then apply to your next visit.</p><h3>Questions to the data protection officer</h3><p>If you have any questions about data protection, please send us an email or contact the person responsible for    data    protection in our organization directly. </p><p></p><p><em>The privacy policy was created with the help of activeMind AG, the experts for <a            href=\'https://www.activemind.de/datenschutz/datenschutzbeauftragter/\' target=\'_blank\'            rel=\'noopener\'>external data protection officers</a> (version #2020-09-30).</em></p></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CashflowChartComponent', 'selector': 'app-cashflow-chart'},{'name': 'ContactDetailComponent', 'selector': 'app-contact-detail'},{'name': 'ContactsTableComponent', 'selector': 'app-contacts-table'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataProtectionComponent', 'selector': 'app-data-protection'},{'name': 'DialogAddContactComponent', 'selector': 'app-dialog-add-contact'},{'name': 'DialogAddEmployeeComponent', 'selector': 'app-dialog-add-employee'},{'name': 'DialogAddTransferComponent', 'selector': 'app-dialog-add-transfer'},{'name': 'DialogDeleteContactComponent', 'selector': 'app-dialog-delete-contact'},{'name': 'DialogDeleteEmployeeComponent', 'selector': 'app-dialog-delete-employee'},{'name': 'DialogDeleteTransferComponent', 'selector': 'app-dialog-delete-transfer'},{'name': 'DialogEditContactComponent', 'selector': 'app-dialog-edit-contact'},{'name': 'DialogEditEmployeeComponent', 'selector': 'app-dialog-edit-employee'},{'name': 'DialogEditTransferComponent', 'selector': 'app-dialog-edit-transfer'},{'name': 'EmployeeDetailComponent', 'selector': 'app-employee-detail'},{'name': 'EmployeesTableComponent', 'selector': 'app-employees-table'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'OverviewComponent', 'selector': 'app-overview'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'TopRevenueEmployeeComponent', 'selector': 'app-top-revenue-employee'},{'name': 'TransferDetailComponent', 'selector': 'app-transfer-detail'},{'name': 'TransfersTableComponent', 'selector': 'app-transfers-table'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'DataProtectionComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DataProtectionComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

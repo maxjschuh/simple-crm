@@ -1,0 +1,1212 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>simple-crm documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">simple-crm documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DialogEditContactComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>provideNativeDateAdapter()</code>
+                            <code>{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] }</code>
+                            <code>{ provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT }</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-dialog-edit-contact</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>FormsModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatDatepickerModule</code>
+                            <code>MatDialogActions</code>
+                            <code>MatDialogClose</code>
+                            <code>MatDialogContent</code>
+                            <code>MatDialogTitle</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatProgressBarModule</code>
+                            <code>NgIf</code>
+                                <code><a href="../components/ContactsTableComponent.html" target="_self" >ContactsTableComponent</a></code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./dialog-edit-contact.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./dialog-edit-contact.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#birthDate" >birthDate</a>
+                            </li>
+                            <li>
+                                <a href="#contact" >contact</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                <a href="#data" >data</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dateService" >dateService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialogRef" >dialogRef</a>
+                            </li>
+                            <li>
+                                <a href="#fieldsToEdit" >fieldsToEdit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#firestoreService" >firestoreService</a>
+                            </li>
+                            <li>
+                                <a href="#form" >form</a>
+                            </li>
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onNoClick" >onNoClick</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveEdits" >saveEdits</a>
+                            </li>
+                            <li>
+                                <a href="#setDialogLoading" >setDialogLoading</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dialogRef: <a href="../classes/Contact.html" target="_self">MatDialogRef&lt;DialogEditContactComponent&gt;</a>, firestoreService: <a href="../injectables/FirestoreService.html" target="_self">FirestoreService</a>, dateService: <a href="../injectables/DateService.html" target="_self">DateService</a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, fb: FormBuilder, commonService: <a href="../injectables/CommonService.html" target="_self">CommonService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:66</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dialogRef</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/Contact.html" target="_self" >MatDialogRef&lt;DialogEditContactComponent&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>firestoreService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FirestoreService.html" target="_self" >FirestoreService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dateService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DateService.html" target="_self" >DateService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>data</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>commonService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CommonService.html" target="_self" >CommonService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="85"
+                                    class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Creates a Angular Material Form, which controls the input fields in this dialog component.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onNoClick"></a>
+                    <span class="name">
+                        <span ><b>onNoClick</b></span>
+                        <a href="#onNoClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onNoClick()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="104"
+                                    class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:104</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p> Closes this dialog. Is called when the user clicks outside of the dialog or the &quot;cancel&quot;-button.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveEdits"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>saveEdits</b></span>
+                        <a href="#saveEdits"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveEdits()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="113"
+                                    class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:113</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Saves the edited contact with the inputted data to the database and closes the dialog.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>if the form is not filled in with valid data</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setDialogLoading"></a>
+                    <span class="name">
+                        <span ><b>setDialogLoading</b></span>
+                        <a href="#setDialogLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setDialogLoading()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="129"
+                                    class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:129</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Shows a loading / progress bar and disables all input fields and buttons.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="birthDate"></a>
+                    <span class="name">
+                        <span ><b>birthDate</b></span>
+                        <a href="#birthDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Moment | undefined</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>undefined</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contact"></a>
+                    <span class="name">
+                        <span ><b>contact</b></span>
+                        <a href="#contact"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Contact.html" target="_self" >Contact</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="data"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                        <span ><b>data</b></span>
+                        <a href="#data"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Inject(MAT_DIALOG_DATA)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dateService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dateService</b></span>
+                        <a href="#dateService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/DateService.html" target="_self" >DateService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialogRef"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialogRef</b></span>
+                        <a href="#dialogRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Contact.html" target="_self" >MatDialogRef&lt;DialogEditContactComponent&gt;</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fieldsToEdit"></a>
+                    <span class="name">
+                        <span ><b>fieldsToEdit</b></span>
+                        <a href="#fieldsToEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="firestoreService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>firestoreService</b></span>
+                        <a href="#firestoreService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/FirestoreService.html" target="_self" >FirestoreService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="form"></a>
+                    <span class="name">
+                        <span ><b>form</b></span>
+                        <a href="#form"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/contacts/dialog-edit-contact/dialog-edit-contact.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DateService } from &#x27;../../services/date/date.service&#x27;;
+import { Component, Inject, OnInit } from &#x27;@angular/core&#x27;;
+import { FirestoreService } from &#x27;../../services/firestore/firestore.service&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from &#x27;@angular/material/dialog&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatProgressBarModule } from &#x27;@angular/material/progress-bar&#x27;;
+import { NgIf } from &#x27;@angular/common&#x27;;
+import { provideNativeDateAdapter } from &#x27;@angular/material/core&#x27;;
+import { Contact } from &#x27;../../models/contact.class&#x27;;
+import { ContactsTableComponent } from &#x27;../contacts-table/contacts-table.component&#x27;;
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from &#x27;@angular/material/core&#x27;;
+import { MatDatepickerModule } from &#x27;@angular/material/datepicker&#x27;;
+import { MomentDateAdapter } from &#x27;@angular/material-moment-adapter&#x27;;
+import moment, { Moment } from &#x27;moment&#x27;;
+import { CommonService } from &#x27;../../services/common/common.service&#x27;;
+
+
+const CUSTOM_DATE_FORMAT &#x3D; {
+  parse: {
+    dateInput: &#x27;DD/MM/YYYY&#x27;,
+  },
+  display: {
+    dateInput: &#x27;DD/MM/YYYY&#x27;,
+    monthYearLabel: &#x27;MMMM YYYY&#x27;,
+    dateA11yLabel: &#x27;LL&#x27;,
+    monthYearA11yLabel: &#x27;MMMM YYYY&#x27;
+  }
+};
+
+
+@Component({
+  selector: &#x27;app-dialog-edit-contact&#x27;,
+  standalone: true,
+  imports: [
+    FormsModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
+    MatDialogTitle,
+    MatFormFieldModule,
+    MatInputModule,
+    MatProgressBarModule,
+    NgIf,
+    ContactsTableComponent,
+    ReactiveFormsModule
+  ],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT }],
+  templateUrl: &#x27;./dialog-edit-contact.component.html&#x27;,
+  styleUrl: &#x27;./dialog-edit-contact.component.scss&#x27;
+})
+export class DialogEditContactComponent implements OnInit {
+
+  contact: Contact;
+  birthDate: Moment | undefined &#x3D; undefined;
+  loading &#x3D; false;
+  fieldsToEdit: string;
+
+  form!: FormGroup;
+
+  constructor(
+    public dialogRef: MatDialogRef&lt;DialogEditContactComponent&gt;,
+    public firestoreService: FirestoreService,
+    public dateService: DateService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private fb: FormBuilder,
+    private commonService: CommonService
+  ) {
+    this.contact &#x3D; data.document;
+    this.fieldsToEdit &#x3D; data.fieldsToEdit;
+    this.birthDate &#x3D; this.contact.birthDate ? moment(this.contact.birthDate) : undefined;
+  }
+
+
+  /**
+   * Creates a Angular Material Form, which controls the input fields in this dialog component.
+   */
+  ngOnInit(): void {
+
+    this.form &#x3D; this.fb.group({
+      firstName: [this.contact.firstName, Validators.required],
+      lastName: [this.contact.lastName, Validators.required],
+      birthDate: [&#x27;&#x27;, this.commonService.dateNotInFutureValidator()],
+      email: [this.contact.email, [Validators.required, Validators.email]],
+      phone: [&#x27;&#x27;],
+      street: [&#x27;&#x27;],
+      houseNumber: [&#x27;&#x27;],
+      zipCode: [&#x27;&#x27;],
+      city: [&#x27;&#x27;],
+    });
+  }
+
+
+  /**
+   *  Closes this dialog. Is called when the user clicks outside of the dialog or the &quot;cancel&quot;-button.
+   */
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
+  /**
+   * Saves the edited contact with the inputted data to the database and closes the dialog.
+   * @returns if the form is not filled in with valid data
+   */
+  async saveEdits(): Promise&lt;void&gt; {
+
+    if (!this.form.valid) return;
+
+    this.setDialogLoading();
+    this.contact.birthDate &#x3D; this.birthDate ? this.birthDate.valueOf() : undefined;
+
+    await this.firestoreService.updateDocument(&#x27;contacts&#x27;, this.contact.id, this.contact.toJSON());
+
+    setTimeout(() &#x3D;&gt; this.dialogRef.close(), 1000);
+  }
+
+
+  /**
+   * Shows a loading / progress bar and disables all input fields and buttons.
+   */
+  setDialogLoading(): void {
+
+    this.loading &#x3D; true;
+    const fieldIds &#x3D; [&#x27;firstName&#x27;, &#x27;lastName&#x27;, &#x27;birthDate&#x27;, &#x27;email&#x27;, &#x27;phone&#x27;, &#x27;street&#x27;, &#x27;houseNumber&#x27;, &#x27;zipCode&#x27;, &#x27;city&#x27;];
+
+    fieldIds.forEach(id &#x3D;&gt; {
+
+      this.form.get(id)?.disable();
+    });
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h2 mat-dialog-title&gt;Edit Contact&lt;/h2&gt;
+
+&lt;form [formGroup]&#x3D;&quot;form&quot; (ngSubmit)&#x3D;&quot;saveEdits()&quot;&gt;
+
+    &lt;mat-dialog-content&gt;
+
+        &lt;div id&#x3D;&quot;inputs&quot;&gt;
+
+            @if (
+            fieldsToEdit &#x3D;&#x3D;&#x3D; &#x27;name+email+phone&#x27; ||
+            fieldsToEdit &#x3D;&#x3D;&#x3D; &#x27;all&#x27;
+            ) {
+            &lt;div class&#x3D;&quot;inputs-row&quot;&gt;
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;First name&lt;/mat-label&gt;
+                    &lt;input matInput [(ngModel)]&#x3D;&quot;contact.firstName&quot; type&#x3D;&quot;text&quot; cdkFocusInitial required
+                        formControlName&#x3D;&quot;firstName&quot;&gt;
+                    &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;firstName&#x27;)?.hasError(&#x27;required&#x27;)&quot;&gt;
+                        First name is required
+                    &lt;/mat-error&gt;
+                &lt;/mat-form-field&gt;
+
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;Last name&lt;/mat-label&gt;
+                    &lt;input matInput [(ngModel)]&#x3D;&quot;contact.lastName&quot; type&#x3D;&quot;text&quot; required formControlName&#x3D;&quot;lastName&quot;&gt;
+                    &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;lastName&#x27;)?.hasError(&#x27;required&#x27;)&quot;&gt;
+                        Last name is required
+                    &lt;/mat-error&gt;
+                &lt;/mat-form-field&gt;
+            &lt;/div&gt;
+            }
+
+            @if (
+            fieldsToEdit &#x3D;&#x3D;&#x3D; &#x27;birthDate&#x27; ||
+            fieldsToEdit &#x3D;&#x3D;&#x3D; &#x27;all&#x27;
+            ) {
+            &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                &lt;mat-label&gt;Birth Date&lt;/mat-label&gt;
+                &lt;input matInput [matDatepicker]&#x3D;&quot;picker&quot; [(ngModel)]&#x3D;&quot;birthDate&quot; [max]&#x3D;&quot;dateService.getToday()&quot;
+                    formControlName&#x3D;&quot;birthDate&quot;&gt;
+                &lt;mat-datepicker-toggle matIconSuffix [for]&#x3D;&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+                &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt;
+                &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;birthDate&#x27;)?.hasError(&#x27;dateNotInFuture&#x27;)&quot;&gt;
+                    Date may not be in the future
+                &lt;/mat-error&gt;
+            &lt;/mat-form-field&gt;
+            }
+
+            @if (
+            fieldsToEdit &#x3D;&#x3D;&#x3D; &#x27;name+email+phone&#x27; ||
+            fieldsToEdit &#x3D;&#x3D;&#x3D; &#x27;all&#x27;
+            ) {
+            &lt;div class&#x3D;&quot;inputs-row&quot;&gt;
+
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;E-mail&lt;/mat-label&gt;
+                    &lt;input matInput [(ngModel)]&#x3D;&quot;contact.email&quot; type&#x3D;&quot;email&quot; formControlName&#x3D;&quot;email&quot;&gt;
+                    &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;email&#x27;)?.hasError(&#x27;required&#x27;)&quot;&gt;
+                        E-mail is required
+                    &lt;/mat-error&gt;
+                    &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;email&#x27;)?.hasError(&#x27;email&#x27;)&quot;&gt;
+                        Please enter a valid e-mail
+                    &lt;/mat-error&gt;
+                &lt;/mat-form-field&gt;
+
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;Phone&lt;/mat-label&gt;
+                    &lt;input matInput [(ngModel)]&#x3D;&quot;contact.phone&quot; type&#x3D;&quot;tel&quot; formControlName&#x3D;&quot;phone&quot;&gt;
+                &lt;/mat-form-field&gt;
+
+            &lt;/div&gt;
+            }
+
+            @if (
+            fieldsToEdit &#x3D;&#x3D;&#x3D; &#x27;address&#x27; ||
+            fieldsToEdit &#x3D;&#x3D;&#x3D; &#x27;all&#x27;
+            ) {
+            &lt;div class&#x3D;&quot;inputs-row&quot;&gt;
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;Street&lt;/mat-label&gt;
+                    &lt;input matInput [(ngModel)]&#x3D;&quot;contact.street&quot; type&#x3D;&quot;text&quot; formControlName&#x3D;&quot;street&quot;&gt;
+                &lt;/mat-form-field&gt;
+
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;House number&lt;/mat-label&gt;
+                    &lt;input matInput [(ngModel)]&#x3D;&quot;contact.houseNumber&quot; type&#x3D;&quot;text&quot; formControlName&#x3D;&quot;houseNumber&quot;&gt;
+                &lt;/mat-form-field&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;inputs-row&quot;&gt;
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;Zip Code&lt;/mat-label&gt;
+                    &lt;input matInput [(ngModel)]&#x3D;&quot;contact.zipCode&quot; type&#x3D;&quot;text&quot; formControlName&#x3D;&quot;zipCode&quot;&gt;
+                &lt;/mat-form-field&gt;
+
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;City&lt;/mat-label&gt;
+                    &lt;input matInput [(ngModel)]&#x3D;&quot;contact.city&quot; type&#x3D;&quot;text&quot; formControlName&#x3D;&quot;city&quot;&gt;
+                &lt;/mat-form-field&gt;
+            &lt;/div&gt;
+            }
+
+        &lt;/div&gt;
+
+        &lt;mat-progress-bar *ngIf&#x3D;&quot;loading&quot; id&#x3D;&quot;progess-bar&quot; mode&#x3D;&quot;indeterminate&quot;&gt;&lt;/mat-progress-bar&gt;
+
+    &lt;/mat-dialog-content&gt;
+
+    &lt;mat-dialog-actions&gt;
+        &lt;button mat-button type&#x3D;&quot;button&quot; (click)&#x3D;&quot;onNoClick()&quot; [disabled]&#x3D;&quot;loading&quot;&gt;Cancel&lt;/button&gt;
+        &lt;button mat-button type&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;loading&quot;&gt;Save&lt;/button&gt;
+    &lt;/mat-dialog-actions&gt;
+
+&lt;/form&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h2 mat-dialog-title>Edit Contact</h2><form [formGroup]="form" (ngSubmit)="saveEdits()">    <mat-dialog-content>        <div id="inputs">            @if (            fieldsToEdit === \'name+email+phone\' ||            fieldsToEdit === \'all\'            ) {            <div class="inputs-row">                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>First name</mat-label>                    <input matInput [(ngModel)]="contact.firstName" type="text" cdkFocusInitial required                        formControlName="firstName">                    <mat-error *ngIf="form.get(\'firstName\')?.hasError(\'required\')">                        First name is required                    </mat-error>                </mat-form-field>                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>Last name</mat-label>                    <input matInput [(ngModel)]="contact.lastName" type="text" required formControlName="lastName">                    <mat-error *ngIf="form.get(\'lastName\')?.hasError(\'required\')">                        Last name is required                    </mat-error>                </mat-form-field>            </div>            }            @if (            fieldsToEdit === \'birthDate\' ||            fieldsToEdit === \'all\'            ) {            <mat-form-field appearance="outline" [color]="\'accent\'">                <mat-label>Birth Date</mat-label>                <input matInput [matDatepicker]="picker" [(ngModel)]="birthDate" [max]="dateService.getToday()"                    formControlName="birthDate">                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>                <mat-datepicker #picker></mat-datepicker>                <mat-error *ngIf="form.get(\'birthDate\')?.hasError(\'dateNotInFuture\')">                    Date may not be in the future                </mat-error>            </mat-form-field>            }            @if (            fieldsToEdit === \'name+email+phone\' ||            fieldsToEdit === \'all\'            ) {            <div class="inputs-row">                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>E-mail</mat-label>                    <input matInput [(ngModel)]="contact.email" type="email" formControlName="email">                    <mat-error *ngIf="form.get(\'email\')?.hasError(\'required\')">                        E-mail is required                    </mat-error>                    <mat-error *ngIf="form.get(\'email\')?.hasError(\'email\')">                        Please enter a valid e-mail                    </mat-error>                </mat-form-field>                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>Phone</mat-label>                    <input matInput [(ngModel)]="contact.phone" type="tel" formControlName="phone">                </mat-form-field>            </div>            }            @if (            fieldsToEdit === \'address\' ||            fieldsToEdit === \'all\'            ) {            <div class="inputs-row">                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>Street</mat-label>                    <input matInput [(ngModel)]="contact.street" type="text" formControlName="street">                </mat-form-field>                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>House number</mat-label>                    <input matInput [(ngModel)]="contact.houseNumber" type="text" formControlName="houseNumber">                </mat-form-field>            </div>            <div class="inputs-row">                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>Zip Code</mat-label>                    <input matInput [(ngModel)]="contact.zipCode" type="text" formControlName="zipCode">                </mat-form-field>                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>City</mat-label>                    <input matInput [(ngModel)]="contact.city" type="text" formControlName="city">                </mat-form-field>            </div>            }        </div>        <mat-progress-bar *ngIf="loading" id="progess-bar" mode="indeterminate"></mat-progress-bar>    </mat-dialog-content>    <mat-dialog-actions>        <button mat-button type="button" (click)="onNoClick()" [disabled]="loading">Cancel</button>        <button mat-button type="submit" [disabled]="loading">Save</button>    </mat-dialog-actions></form></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CashflowChartComponent', 'selector': 'app-cashflow-chart'},{'name': 'ContactDetailComponent', 'selector': 'app-contact-detail'},{'name': 'ContactsTableComponent', 'selector': 'app-contacts-table'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataProtectionComponent', 'selector': 'app-data-protection'},{'name': 'DialogAddContactComponent', 'selector': 'app-dialog-add-contact'},{'name': 'DialogAddEmployeeComponent', 'selector': 'app-dialog-add-employee'},{'name': 'DialogAddTransferComponent', 'selector': 'app-dialog-add-transfer'},{'name': 'DialogDeleteContactComponent', 'selector': 'app-dialog-delete-contact'},{'name': 'DialogDeleteEmployeeComponent', 'selector': 'app-dialog-delete-employee'},{'name': 'DialogDeleteTransferComponent', 'selector': 'app-dialog-delete-transfer'},{'name': 'DialogEditContactComponent', 'selector': 'app-dialog-edit-contact'},{'name': 'DialogEditEmployeeComponent', 'selector': 'app-dialog-edit-employee'},{'name': 'DialogEditTransferComponent', 'selector': 'app-dialog-edit-transfer'},{'name': 'EmployeeDetailComponent', 'selector': 'app-employee-detail'},{'name': 'EmployeesTableComponent', 'selector': 'app-employees-table'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'OverviewComponent', 'selector': 'app-overview'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'TopRevenueEmployeeComponent', 'selector': 'app-top-revenue-employee'},{'name': 'TransferDetailComponent', 'selector': 'app-transfer-detail'},{'name': 'TransfersTableComponent', 'selector': 'app-transfers-table'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'DialogEditContactComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DialogEditContactComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

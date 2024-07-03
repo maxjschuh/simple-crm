@@ -1,0 +1,1392 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>simple-crm documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">simple-crm documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  EmployeeDetailComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/employees/employee-detail/employee-detail.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-employee-detail</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatButtonModule</code>
+                            <code>MatCardModule</code>
+                            <code>MatDividerModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatMenuModule</code>
+                            <code>MatTooltipModule</code>
+                            <code>RouterModule</code>
+                            <code>MatAccordion</code>
+                            <code>MatExpansionModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./employee-detail.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./employee-detail.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#accordion" >accordion</a>
+                            </li>
+                            <li>
+                                <a href="#closings" >closings</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#commonService" >commonService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dateService" >dateService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                <a href="#employee" >employee</a>
+                            </li>
+                            <li>
+                                <a href="#employeeId" >employeeId</a>
+                            </li>
+                            <li>
+                                <a href="#employeesSubscriber" >employeesSubscriber</a>
+                            </li>
+                            <li>
+                                <a href="#linkToSupervisor" >linkToSupervisor</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#routeSubscriber" >routeSubscriber</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#init" >init</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openDeleteEmployeeDialog" >openDeleteEmployeeDialog</a>
+                            </li>
+                            <li>
+                                <a href="#openEditEmployeeDialog" >openEditEmployeeDialog</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(route: ActivatedRoute, firestoreService: <a href="../injectables/FirestoreService.html" target="_self">FirestoreService</a>, dateService: <a href="../injectables/DateService.html" target="_self">DateService</a>, dialog: MatDialog, commonService: <a href="../injectables/CommonService.html" target="_self">CommonService</a>, titleService: <a href="../injectables/AppTitleService.html" target="_self">AppTitleService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                    <code>ActivatedRoute</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>firestoreService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FirestoreService.html" target="_self" >FirestoreService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dateService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DateService.html" target="_self" >DateService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>commonService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CommonService.html" target="_self" >CommonService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>titleService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AppTitleService.html" target="_self" >AppTitleService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="init"></a>
+                    <span class="name">
+                        <span ><b>init</b></span>
+                        <a href="#init"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>init()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Creates subscriptions to the datasets and sets the title in the header menu as &quot;Employee-Details&quot;. When a subscription receives an update, the data in the component is updated.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Unsubscribes from all subscriptions in this component.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="53"
+                                    class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Extracts the id of the employee to display from the current url params and calls the init() function.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDeleteEmployeeDialog"></a>
+                    <span class="name">
+                        <span ><b>openDeleteEmployeeDialog</b></span>
+                        <a href="#openDeleteEmployeeDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDeleteEmployeeDialog()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="117"
+                                    class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:117</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Opens the dialog for deleting an employee.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openEditEmployeeDialog"></a>
+                    <span class="name">
+                        <span ><b>openEditEmployeeDialog</b></span>
+                        <a href="#openEditEmployeeDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openEditEmployeeDialog(fieldsToEdit: "name+email+phone" | "position+department" | "birthDate+supervisor" | "all")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="103"
+                                    class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:103</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Opens the dialog for editing an employee. The &quot;data&quot; object is used to pass information to the dialog.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fieldsToEdit</td>
+                                            <td>
+                                                        <code>&quot;name+email+phone&quot; | &quot;position+department&quot; | &quot;birthDate+supervisor&quot; | &quot;all&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>data fields that should be shown in the edit dialog</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="accordion"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>accordion</b></span>
+                        <a href="#accordion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatAccordion</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(MatAccordion)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closings"></a>
+                    <span class="name">
+                        <span ><b>closings</b></span>
+                        <a href="#closings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Transfer.html" target="_self" >Transfer[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="commonService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>commonService</b></span>
+                        <a href="#commonService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/CommonService.html" target="_self" >CommonService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dateService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dateService</b></span>
+                        <a href="#dateService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/DateService.html" target="_self" >DateService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialog</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="employee"></a>
+                    <span class="name">
+                        <span ><b>employee</b></span>
+                        <a href="#employee"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Employee()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="employeeId"></a>
+                    <span class="name">
+                        <span ><b>employeeId</b></span>
+                        <a href="#employeeId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="employeesSubscriber"></a>
+                    <span class="name">
+                        <span ><b>employeesSubscriber</b></span>
+                        <a href="#employeesSubscriber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subscription</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="linkToSupervisor"></a>
+                    <span class="name">
+                        <span ><b>linkToSupervisor</b></span>
+                        <a href="#linkToSupervisor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="routeSubscriber"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>routeSubscriber</b></span>
+                        <a href="#routeSubscriber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subscription</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/employees/employee-detail/employee-detail.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatCardModule } from &#x27;@angular/material/card&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+import { MatDividerModule } from &#x27;@angular/material/divider&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatMenuModule } from &#x27;@angular/material/menu&#x27;;
+import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
+import { ActivatedRoute, RouterModule } from &#x27;@angular/router&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import { dataForEditDialog } from &#x27;../../interfaces/data-for-edit-dialog.interface&#x27;;
+import { CommonService } from &#x27;../../services/common/common.service&#x27;;
+import { DateService } from &#x27;../../services/date/date.service&#x27;;
+import { FirestoreService } from &#x27;../../services/firestore/firestore.service&#x27;;
+import { Employee } from &#x27;../../models/employee.class&#x27;;
+import { DialogEditEmployeeComponent } from &#x27;../dialog-edit-employee/dialog-edit-employee.component&#x27;;
+import { Transfer } from &#x27;../../models/transfer.class&#x27;;
+import { MatAccordion, MatExpansionModule } from &#x27;@angular/material/expansion&#x27;;
+import { AppTitleService } from &#x27;../../services/app-title/app-title.service&#x27;;
+import { DialogDeleteEmployeeComponent } from &#x27;../dialog-delete-employee/dialog-delete-employee.component&#x27;;
+
+@Component({
+  selector: &#x27;app-employee-detail&#x27;,
+  standalone: true,
+  imports: [MatButtonModule, MatCardModule, MatDividerModule, MatIconModule, MatMenuModule, MatTooltipModule, RouterModule, MatAccordion, MatExpansionModule],
+  templateUrl: &#x27;./employee-detail.component.html&#x27;,
+  styleUrl: &#x27;./employee-detail.component.scss&#x27;
+})
+export class EmployeeDetailComponent implements OnInit {
+
+  private routeSubscriber &#x3D; new Subscription;
+  employeesSubscriber &#x3D; new Subscription;
+  employee &#x3D; new Employee();
+  employeeId &#x3D; &#x27;&#x27;;
+  linkToSupervisor: string[] &#x3D; [];
+  closings: Transfer[] &#x3D; [];
+
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
+
+  constructor(
+    private route: ActivatedRoute,
+    private firestoreService: FirestoreService,
+    public dateService: DateService,
+    public dialog: MatDialog,
+    public commonService: CommonService,
+    private titleService: AppTitleService) {
+  }
+
+
+  /**
+   * Extracts the id of the employee to display from the current url params and calls the init() function.
+   */
+  ngOnInit(): void {
+
+    this.routeSubscriber.unsubscribe();
+
+    this.routeSubscriber &#x3D; this.route.params.subscribe(params &#x3D;&gt; {
+
+      this.employeeId &#x3D; params[&#x27;id&#x27;];
+      this.init();
+    });
+  }
+
+
+  /**
+   * Creates subscriptions to the datasets and sets the title in the header menu as &quot;Employee-Details&quot;. When a subscription receives an update, the data in the component is updated.
+   */
+  init(): void {
+
+    this.employeesSubscriber.unsubscribe();
+
+    this.employeesSubscriber &#x3D;
+      this.firestoreService
+        .employeesFrontendDistributor
+        .subscribe(() &#x3D;&gt; {
+
+          this.employee &#x3D;
+            this.commonService
+              .getDocumentFromCollection(&#x27;employees&#x27;, this.employeeId, Employee);
+
+          this.linkToSupervisor &#x3D; this.commonService.returnLinkToPerson(&#x27;/employees&#x27;, this.employee.supervisorId);
+          this.closings &#x3D; this.commonService.returnClosingsOfEmployee(this.employeeId);
+
+          this.titleService.titleDistributor.next(&#x27;Employee-Details&#x27;);
+        });
+  }
+
+
+  /**
+   * Unsubscribes from all subscriptions in this component.
+   */
+  ngOnDestroy(): void {
+
+    this.routeSubscriber.unsubscribe();
+    this.employeesSubscriber.unsubscribe();
+  }
+
+
+  /**
+   * Opens the dialog for editing an employee. The &quot;data&quot; object is used to pass information to the dialog.
+   * @param {string} fieldsToEdit data fields that should be shown in the edit dialog
+   */
+  openEditEmployeeDialog(fieldsToEdit: &#x27;name+email+phone&#x27; | &#x27;position+department&#x27; | &#x27;birthDate+supervisor&#x27; | &#x27;all&#x27;): void {
+
+    const data: dataForEditDialog &#x3D; {
+      fieldsToEdit: fieldsToEdit,
+      document: new Employee(this.employee)
+    };
+
+    this.dialog.open(DialogEditEmployeeComponent, { data: data });
+  }
+
+
+  /**
+   * Opens the dialog for deleting an employee.
+   */
+  openDeleteEmployeeDialog(): void {
+
+    this.dialog.open(DialogDeleteEmployeeComponent, { data: this.employee });
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;mat-card id&#x3D;&quot;top-card&quot; color&#x3D;&quot;primary&quot;&gt;
+
+    @if (employee.imageUrl) {
+
+    &lt;img id&#x3D;&quot;profile-img&quot; [src]&#x3D;&quot;&#x27;./assets/img/profiles/&#x27; + employee.imageUrl&quot; alt&#x3D;&quot;profile image&quot;&gt;
+
+    } @else {
+
+    &lt;img id&#x3D;&quot;profile-img&quot; src&#x3D;&quot;../assets/img/profile_placeholder.svg&quot; alt&#x3D;&quot;placeholder for profile&quot;&gt;
+    }
+
+    &lt;mat-card-header&gt;
+        &lt;mat-card-title&gt;{{ employee.firstName + &#x27; &#x27; + employee.lastName }}&lt;/mat-card-title&gt;
+        &lt;mat-card-subtitle&gt;
+
+            @if (employee.email) {
+
+            &lt;a mat-raised-button href&#x3D;&quot;mailto:{{ employee.email }}&quot;&gt;
+                &lt;mat-icon&gt;mail&lt;/mat-icon&gt;
+                &lt;span&gt;
+                    {{ employee.email }}
+                &lt;/span&gt;
+            &lt;/a&gt;
+            } @else {
+
+            &lt;button mat-raised-button (click)&#x3D;&quot;openEditEmployeeDialog(&#x27;name+email+phone&#x27;)&quot;&gt;
+                &lt;mat-icon&gt;mail&lt;/mat-icon&gt;
+                &lt;span&gt;
+                    Add e-mail
+                &lt;/span&gt;
+            &lt;/button&gt;
+            }
+
+            @if (employee.phone) {
+
+            &lt;a mat-raised-button href&#x3D;&quot;tel:{{ employee.phone }}&quot;&gt;
+                &lt;mat-icon&gt;call&lt;/mat-icon&gt;
+                &lt;span&gt;
+                    {{ employee.phone }}
+                &lt;/span&gt;
+            &lt;/a&gt;
+            } @else {
+
+            &lt;button mat-raised-button (click)&#x3D;&quot;openEditEmployeeDialog(&#x27;name+email+phone&#x27;)&quot;&gt;
+                &lt;mat-icon&gt;call&lt;/mat-icon&gt;
+                &lt;span&gt;
+                    Add phone
+                &lt;/span&gt;
+            &lt;/button&gt;
+            }
+
+        &lt;/mat-card-subtitle&gt;
+    &lt;/mat-card-header&gt;
+
+    &lt;button class&#x3D;&quot;card-options&quot; mat-icon-button [matMenuTriggerFor]&#x3D;&quot;menu1&quot;&gt;
+        &lt;mat-icon&gt;more_vert&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;mat-menu #menu1&#x3D;&quot;matMenu&quot;&gt;
+        &lt;button mat-menu-item (click)&#x3D;&quot;openEditEmployeeDialog(&#x27;name+email+phone&#x27;)&quot;&gt;
+            &lt;mat-icon&gt;edit&lt;/mat-icon&gt;
+            &lt;span&gt;Edit&lt;/span&gt;
+        &lt;/button&gt;
+    &lt;/mat-menu&gt;
+
+&lt;/mat-card&gt;
+
+
+
+&lt;mat-card id&#x3D;&quot;middle-card&quot;&gt;
+
+    &lt;mat-card-title&gt;
+        About
+    &lt;/mat-card-title&gt;
+
+    &lt;section class&#x3D;&quot;double-columns&quot;&gt;
+
+        &lt;div&gt;
+            &lt;mat-card-subtitle&gt;
+                Position
+            &lt;/mat-card-subtitle&gt;
+            {{ employee.position }}
+        &lt;/div&gt;
+
+        &lt;div&gt;
+            &lt;mat-card-subtitle&gt;
+                Department
+            &lt;/mat-card-subtitle&gt;
+            {{ employee.department }}
+        &lt;/div&gt;
+
+        &lt;button class&#x3D;&quot;card-options&quot; mat-icon-button [matMenuTriggerFor]&#x3D;&quot;menu2&quot;&gt;
+            &lt;mat-icon&gt;more_vert&lt;/mat-icon&gt;
+        &lt;/button&gt;
+
+        &lt;mat-menu #menu2&#x3D;&quot;matMenu&quot;&gt;
+            &lt;button mat-menu-item (click)&#x3D;&quot;openEditEmployeeDialog(&#x27;position+department&#x27;)&quot;&gt;
+                &lt;mat-icon&gt;edit&lt;/mat-icon&gt;
+                &lt;span&gt;Edit&lt;/span&gt;
+            &lt;/button&gt;
+        &lt;/mat-menu&gt;
+
+    &lt;/section&gt;
+
+    &lt;mat-divider&gt;&lt;/mat-divider&gt;
+
+    &lt;section class&#x3D;&quot;double-columns&quot;&gt;
+
+        &lt;div&gt;
+            &lt;mat-card-subtitle&gt;
+                Date of Birth
+            &lt;/mat-card-subtitle&gt;
+            {{ employee.birthDate ?
+            (dateService.returnTimestampAsDateString(employee.birthDate) + &#x27; (Age: &#x27; +
+            dateService.returnAge(employee.birthDate)) + &#x27;)&#x27; : &#x27;&#x27; }}
+        &lt;/div&gt;
+
+        &lt;div&gt;
+            &lt;mat-card-subtitle&gt;
+                Supervisor
+            &lt;/mat-card-subtitle&gt;
+
+            @if (linkToSupervisor.length) {
+
+            &lt;a mat-raised-button [routerLink]&#x3D;&quot;linkToSupervisor&quot;&gt;
+                {{ commonService.returnFormattedName(employee.supervisor) }}
+            &lt;/a&gt;
+
+            } @else {
+            {{ employee.supervisor ? commonService.returnFormattedName(employee.supervisor) : &#x27;&#x27; }}
+            }
+
+        &lt;/div&gt;
+
+        &lt;button class&#x3D;&quot;card-options&quot; mat-icon-button [matMenuTriggerFor]&#x3D;&quot;menu3&quot;&gt;
+            &lt;mat-icon&gt;more_vert&lt;/mat-icon&gt;
+        &lt;/button&gt;
+
+        &lt;mat-menu #menu3&#x3D;&quot;matMenu&quot;&gt;
+            &lt;button mat-menu-item (click)&#x3D;&quot;openEditEmployeeDialog(&#x27;birthDate+supervisor&#x27;)&quot;&gt;
+                &lt;mat-icon&gt;edit&lt;/mat-icon&gt;
+                &lt;span&gt;Edit&lt;/span&gt;
+            &lt;/button&gt;
+        &lt;/mat-menu&gt;
+
+    &lt;/section&gt;
+
+&lt;/mat-card&gt;
+
+&lt;mat-card id&#x3D;&quot;bottom-card&quot;&gt;
+
+    &lt;mat-card-title&gt;
+        Closings
+
+        &lt;div id&#x3D;&quot;accordion-buttons&quot;&gt;
+            &lt;button mat-raised-button (click)&#x3D;&quot;accordion.openAll()&quot;&gt;Expand All&lt;/button&gt;
+            &lt;button mat-raised-button (click)&#x3D;&quot;accordion.closeAll()&quot;&gt;Collapse All&lt;/button&gt;
+        &lt;/div&gt;
+
+    &lt;/mat-card-title&gt;
+
+    &lt;mat-accordion class&#x3D;&quot;example-headers-align&quot; multi&gt;
+
+        @for (transfer of closings; track $index) {
+
+        &lt;mat-expansion-panel&gt;
+
+            &lt;mat-expansion-panel-header&gt;
+                &lt;mat-panel-title&gt;
+                    {{transfer.title}}
+                &lt;/mat-panel-title&gt;
+                &lt;mat-panel-description&gt;
+                    &lt;div&gt;
+                        &lt;mat-icon&gt;euro&lt;/mat-icon&gt;
+                        {{transfer.amount}}
+                    &lt;/div&gt;
+
+                    &lt;div&gt;
+                        &lt;mat-icon&gt;calendar_month&lt;/mat-icon&gt;
+                        {{ dateService.returnTimestampAsDateString(transfer.date) }}
+                    &lt;/div&gt;
+
+                &lt;/mat-panel-description&gt;
+                &lt;mat-divider&gt;&lt;/mat-divider&gt;
+            &lt;/mat-expansion-panel-header&gt;
+
+            &lt;div class&#x3D;&quot;expanded-container&quot;&gt;
+                {{ commonService.returnFormattedName(transfer.payer) }}
+                &lt;mat-icon&gt;arrow_forward&lt;/mat-icon&gt;
+                {{ commonService.returnFormattedName(transfer.recipient) }}
+
+            &lt;/div&gt;
+
+            &lt;!-- &lt;a class&#x3D;&quot;button-open-transaction-details&quot; mat-icon-button matTooltip&#x3D;&quot;Transaction details&quot;
+                [matTooltipPosition]&#x3D;&quot;&#x27;left&#x27;&quot; [routerLink]&#x3D;&quot;[&#x27;/transfers&#x27;, transfer.id]&quot; target&#x3D;&quot;_blank&quot;&gt;
+                &lt;mat-icon&gt;open_in_new&lt;/mat-icon&gt;
+            &lt;/a&gt; --&gt;
+
+
+        &lt;/mat-expansion-panel&gt;
+
+        &lt;mat-divider&gt;&lt;/mat-divider&gt;
+
+        }
+    &lt;/mat-accordion&gt;
+&lt;/mat-card&gt;
+
+&lt;div id&#x3D;&quot;buttons&quot;&gt;
+    &lt;button id&#x3D;&quot;button-edit&quot; mat-fab color&#x3D;&quot;primary&quot; matTooltip&#x3D;&quot;Edit employee&quot; [matTooltipPosition]&#x3D;&quot;&#x27;left&#x27;&quot;
+        (click)&#x3D;&quot;openEditEmployeeDialog(&#x27;all&#x27;)&quot;&gt;
+        &lt;mat-icon&gt;edit&lt;/mat-icon&gt;
+    &lt;/button&gt;
+
+    &lt;button id&#x3D;&quot;button-delete&quot; mat-fab color&#x3D;&quot;primary&quot; matTooltip&#x3D;&quot;Delete employee&quot; [matTooltipPosition]&#x3D;&quot;&#x27;left&#x27;&quot;
+        (click)&#x3D;&quot;openDeleteEmployeeDialog()&quot;&gt;
+        &lt;mat-icon&gt;delete&lt;/mat-icon&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><mat-card id="top-card" color="primary">    @if (employee.imageUrl) {    <img id="profile-img" [src]="\'./assets/img/profiles/\' + employee.imageUrl" alt="profile image">    } @else {    <img id="profile-img" src="../assets/img/profile_placeholder.svg" alt="placeholder for profile">    }    <mat-card-header>        <mat-card-title>{{ employee.firstName + \' \' + employee.lastName }}</mat-card-title>        <mat-card-subtitle>            @if (employee.email) {            <a mat-raised-button href="mailto:{{ employee.email }}">                <mat-icon>mail</mat-icon>                <span>                    {{ employee.email }}                </span>            </a>            } @else {            <button mat-raised-button (click)="openEditEmployeeDialog(\'name+email+phone\')">                <mat-icon>mail</mat-icon>                <span>                    Add e-mail                </span>            </button>            }            @if (employee.phone) {            <a mat-raised-button href="tel:{{ employee.phone }}">                <mat-icon>call</mat-icon>                <span>                    {{ employee.phone }}                </span>            </a>            } @else {            <button mat-raised-button (click)="openEditEmployeeDialog(\'name+email+phone\')">                <mat-icon>call</mat-icon>                <span>                    Add phone                </span>            </button>            }        </mat-card-subtitle>    </mat-card-header>    <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu1">        <mat-icon>more_vert</mat-icon>    </button>    <mat-menu #menu1="matMenu">        <button mat-menu-item (click)="openEditEmployeeDialog(\'name+email+phone\')">            <mat-icon>edit</mat-icon>            <span>Edit</span>        </button>    </mat-menu></mat-card><mat-card id="middle-card">    <mat-card-title>        About    </mat-card-title>    <section class="double-columns">        <div>            <mat-card-subtitle>                Position            </mat-card-subtitle>            {{ employee.position }}        </div>        <div>            <mat-card-subtitle>                Department            </mat-card-subtitle>            {{ employee.department }}        </div>        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">            <mat-icon>more_vert</mat-icon>        </button>        <mat-menu #menu2="matMenu">            <button mat-menu-item (click)="openEditEmployeeDialog(\'position+department\')">                <mat-icon>edit</mat-icon>                <span>Edit</span>            </button>        </mat-menu>    </section>    <mat-divider></mat-divider>    <section class="double-columns">        <div>            <mat-card-subtitle>                Date of Birth            </mat-card-subtitle>            {{ employee.birthDate ?            (dateService.returnTimestampAsDateString(employee.birthDate) + \' (Age: \' +            dateService.returnAge(employee.birthDate)) + \')\' : \'\' }}        </div>        <div>            <mat-card-subtitle>                Supervisor            </mat-card-subtitle>            @if (linkToSupervisor.length) {            <a mat-raised-button [routerLink]="linkToSupervisor">                {{ commonService.returnFormattedName(employee.supervisor) }}            </a>            } @else {            {{ employee.supervisor ? commonService.returnFormattedName(employee.supervisor) : \'\' }}            }        </div>        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu3">            <mat-icon>more_vert</mat-icon>        </button>        <mat-menu #menu3="matMenu">            <button mat-menu-item (click)="openEditEmployeeDialog(\'birthDate+supervisor\')">                <mat-icon>edit</mat-icon>                <span>Edit</span>            </button>        </mat-menu>    </section></mat-card><mat-card id="bottom-card">    <mat-card-title>        Closings        <div id="accordion-buttons">            <button mat-raised-button (click)="accordion.openAll()">Expand All</button>            <button mat-raised-button (click)="accordion.closeAll()">Collapse All</button>        </div>    </mat-card-title>    <mat-accordion class="example-headers-align" multi>        @for (transfer of closings; track $index) {        <mat-expansion-panel>            <mat-expansion-panel-header>                <mat-panel-title>                    {{transfer.title}}                </mat-panel-title>                <mat-panel-description>                    <div>                        <mat-icon>euro</mat-icon>                        {{transfer.amount}}                    </div>                    <div>                        <mat-icon>calendar_month</mat-icon>                        {{ dateService.returnTimestampAsDateString(transfer.date) }}                    </div>                </mat-panel-description>                <mat-divider></mat-divider>            </mat-expansion-panel-header>            <div class="expanded-container">                {{ commonService.returnFormattedName(transfer.payer) }}                <mat-icon>arrow_forward</mat-icon>                {{ commonService.returnFormattedName(transfer.recipient) }}            </div>            <!-- <a class="button-open-transaction-details" mat-icon-button matTooltip="Transaction details"                [matTooltipPosition]="\'left\'" [routerLink]="[\'/transfers\', transfer.id]" target="_blank">                <mat-icon>open_in_new</mat-icon>            </a> -->        </mat-expansion-panel>        <mat-divider></mat-divider>        }    </mat-accordion></mat-card><div id="buttons">    <button id="button-edit" mat-fab color="primary" matTooltip="Edit employee" [matTooltipPosition]="\'left\'"        (click)="openEditEmployeeDialog(\'all\')">        <mat-icon>edit</mat-icon>    </button>    <button id="button-delete" mat-fab color="primary" matTooltip="Delete employee" [matTooltipPosition]="\'left\'"        (click)="openDeleteEmployeeDialog()">        <mat-icon>delete</mat-icon>    </button></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CashflowChartComponent', 'selector': 'app-cashflow-chart'},{'name': 'ContactDetailComponent', 'selector': 'app-contact-detail'},{'name': 'ContactsTableComponent', 'selector': 'app-contacts-table'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataProtectionComponent', 'selector': 'app-data-protection'},{'name': 'DialogAddContactComponent', 'selector': 'app-dialog-add-contact'},{'name': 'DialogAddEmployeeComponent', 'selector': 'app-dialog-add-employee'},{'name': 'DialogAddTransferComponent', 'selector': 'app-dialog-add-transfer'},{'name': 'DialogDeleteContactComponent', 'selector': 'app-dialog-delete-contact'},{'name': 'DialogDeleteEmployeeComponent', 'selector': 'app-dialog-delete-employee'},{'name': 'DialogDeleteTransferComponent', 'selector': 'app-dialog-delete-transfer'},{'name': 'DialogEditContactComponent', 'selector': 'app-dialog-edit-contact'},{'name': 'DialogEditEmployeeComponent', 'selector': 'app-dialog-edit-employee'},{'name': 'DialogEditTransferComponent', 'selector': 'app-dialog-edit-transfer'},{'name': 'EmployeeDetailComponent', 'selector': 'app-employee-detail'},{'name': 'EmployeesTableComponent', 'selector': 'app-employees-table'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'OverviewComponent', 'selector': 'app-overview'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'TopRevenueEmployeeComponent', 'selector': 'app-top-revenue-employee'},{'name': 'TransferDetailComponent', 'selector': 'app-transfer-detail'},{'name': 'TransfersTableComponent', 'selector': 'app-transfers-table'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'EmployeeDetailComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'EmployeeDetailComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,404 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>simple-crm documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">simple-crm documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ImprintComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/imprint/imprint.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-imprint</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./imprint.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./imprint.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+
+@Component({
+  selector: &#x27;app-imprint&#x27;,
+  standalone: true,
+  imports: [],
+  templateUrl: &#x27;./imprint.component.html&#x27;,
+  styleUrl: &#x27;./imprint.component.scss&#x27;
+})
+export class ImprintComponent {
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h2&gt;Imprint&lt;/h2&gt;
+&lt;p&gt;Details according to § 5 TMG&lt;/p&gt;
+&lt;p&gt;Maximilian Schuh &lt;br&gt;Heideweg 9&lt;br&gt;85598 Baldham&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;Contact:&lt;/h3&gt;
+&lt;p&gt;E-mail: &lt;a href&#x3D;&#x27;mailto:max@mjschuh.com&#x27;&gt;max&amp;#64;mjschuh.com&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Disclaimer&lt;/h3&gt;
+&lt;h4&gt;Liability for content&lt;/h4&gt;
+&lt;p&gt;The content of our website has been created with the utmost care. However, we cannot assume any liability for the
+    correctness, completeness and topicality of the contents. As a service provider, we are responsible for our own
+    content on these pages in accordance with § 7 para.1 TMG (German Telemedia Act) and general laws. According to §§ 8
+    to 10 TMG, however, we as a service provider are not obliged to monitor transmitted or stored third-party
+    information or to investigate circumstances that indicate illegal activity. Obligations to remove or block the use
+    of information in accordance with general legislation remain unaffected by this. However, liability in this respect
+    is only possible from the time of knowledge of a specific infringement. As soon as we become aware of any such legal
+    infringements, we will remove this content immediately.&lt;/p&gt;
+&lt;h4&gt;Liability for links&lt;/h4&gt;
+&lt;p&gt;Our website contains links to external third-party websites over whose content we have no influence. Therefore, we
+    cannot accept any liability for this third-party content. The respective provider or operator of the pages is always
+    responsible for the content of the linked pages. The linked pages were checked for possible legal violations at the
+    time of linking. Illegal content was not recognizable at the time of linking. However, permanent monitoring of the
+    content of the linked pages is not reasonable without concrete evidence of an infringement. If we become aware of
+    any legal infringements, we will remove such links immediately.&lt;/p&gt;
+&lt;h3&gt;Copyright&lt;/h3&gt;
+&lt;p&gt;The content and works created by the site operators on these pages are subject to German copyright law. Duplication,
+    processing, distribution and any form of commercialization of such material beyond the scope of the copyright law
+    shall require the prior written consent of its respective author or creator. Downloads and copies of this site are
+    only permitted for private, non-commercial use. Insofar as the content on this site was not created by the operator,
+    the copyrights of third parties are respected. In particular, third-party content is identified as such. Should you
+    nevertheless become aware of a copyright infringement, please inform us accordingly. If we become aware of any legal
+    infringements, we will remove such content immediately.&lt;/p&gt;
+&lt;h3&gt;Privacy&lt;/h3&gt;
+&lt;p&gt;As a rule, it is possible to use our website without providing personal data. Insofar as personal data (e.g. name,
+    address or e-mail addresses) is collected on our website, this is always done on a voluntary basis as far as
+    possible. This data will not be passed on to third parties without your express consent.&lt;br&gt;We would like to point
+    out that data transmission over the Internet (e.g. when communicating by e-mail) can have security gaps. Complete
+    protection of data against access by third parties is not possible. &lt;br&gt;We hereby expressly prohibit the use of
+    contact data published as part of our duty to provide a legal notice by third parties for the purpose of sending
+    unsolicited advertising and information material. The operators of the pages expressly reserve the right to take
+    legal action in the event of the unsolicited sending of advertising information, such as spam emails.&lt;/p&gt;
+&lt;p&gt;Imprint from the &lt;a href&#x3D;&#x27;https://www.impressum-generator.de&#x27; target&#x3D;&#x27;_blank&#x27; rel&#x3D;&#x27;noopener noreferrer&#x27;&gt;Imprint
+        generator&lt;/a&gt; of &lt;a href&#x3D;&#x27;https://www.kanzlei-hasselbach.de/standorte/frankfurt/&#x27; target&#x3D;&#x27;_blank&#x27;
+        rel&#x3D;&#x27;noopener noreferrer&#x27;&gt;Kanzlei Hasselbach, Frankfurt&lt;/a&gt;&lt;/p&gt;
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;h3&gt;Attribution / Image Sources&lt;/h3&gt;
+
+&lt;p&gt;&quot;Maren Schulte&quot;: &lt;a
+        href&#x3D;&quot;https://www.freepik.com/free-photo/woman-white-shirt-showing-emotions-blue_20999788.htm#query&#x3D;portrait%20corporate&amp;position&#x3D;0&amp;from_view&#x3D;keyword&amp;track&#x3D;ais&amp;uuid&#x3D;51a0c92e-ef59-4a56-a3f0-73d22edbc835&quot;&gt;Image
+        by senivpetro on Freepik&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&quot;Karl-Heinz Müller&quot;: &lt;a
+        href&#x3D;&quot;https://www.freepik.com/free-photo/portrait-business-man-wearing-formal-suit_13698352.htm&quot;&gt;Image by
+        freepik&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&quot;Sara Fischer&quot;: &lt;a
+        href&#x3D;&quot;https://www.freepik.com/free-photo/afro-american-woman-smiling-close-up_5914041.htm#fromView&#x3D;search&amp;page&#x3D;1&amp;position&#x3D;0&amp;uuid&#x3D;d2e83318-5a65-4271-b2a0-e117843ec661&quot;&gt;Image
+        by freepik&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&quot;Mia Weber&quot;: &lt;a
+        href&#x3D;&quot;https://www.freepik.com/free-photo/asian-girl-with-laptop-smartphone-standing-street-city-centre-smiling-camera_34229359.htm&quot;&gt;Image
+        by benzoix on Freepik&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&quot;Amir Kovačević&quot;: &lt;a
+        href&#x3D;&quot;https://www.freepik.com/free-photo/cheerful-handsome-man-wearing-casual-t-shirt-jeans-sitting-couch-home-keeping-hands-lap-looking-away-smiling-male-portrait-concept_11293719.htm&quot;&gt;Image
+        by pch.vector on Freepik&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&quot;Aylin Demir&quot;: &lt;a href&#x3D;&quot;https://www.freepik.com/free-photo/portrait-woman-wearing-formal-suit_13661544.htm&quot;&gt;Image by
+        freepik&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&quot;Fabio Beck&quot;: &lt;a
+        href&#x3D;&quot;https://www.freepik.com/free-photo/blue-polo-shirt-casual-apparel-outdoor-shoot_15438438.htm&quot;&gt;Image
+        by rawpixel.com on Freepik&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&quot;Hassan Schmidt&quot;: &lt;a
+        href&#x3D;&quot;https://www.freepik.com/free-photo/young-successful-businessman-smiling-holding-tablet-sitting-workplace_7591164.htm&quot;&gt;Image
+        by cookie_studio on Freepik&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&quot;Tobias Chen&quot;: &lt;a
+        href&#x3D;&quot;https://www.freepik.com/free-photo/young-businessman-smiling_851247.htm#fromView&#x3D;search&amp;page&#x3D;2&amp;position&#x3D;32&amp;uuid&#x3D;358ff76d-868e-4767-a2ed-47d94c6c2b15&quot;&gt;Image
+        by pressfoto on Freepik&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&quot;Mehmet Yilmaz&quot;: &lt;a
+        href&#x3D;&quot;https://www.freepik.com/free-photo/happy-bearded-man-business-clothes-looking-camera_7500630.htm&quot;&gt;Image
+        by drobotdean on Freepik&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Website Logo by &lt;a href&#x3D;&quot;https://logomakr.com/&quot;&gt;logomakr.com&lt;/a&gt;&lt;/p&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h2>Imprint</h2><p>Details according to § 5 TMG</p><p>Maximilian Schuh <br>Heideweg 9<br>85598 Baldham<br></p><h3>Contact:</h3><p>E-mail: <a href=\'mailto:max@mjschuh.com\'>max&#64;mjschuh.com</a></p><h3>Disclaimer</h3><h4>Liability for content</h4><p>The content of our website has been created with the utmost care. However, we cannot assume any liability for the    correctness, completeness and topicality of the contents. As a service provider, we are responsible for our own    content on these pages in accordance with § 7 para.1 TMG (German Telemedia Act) and general laws. According to §§ 8    to 10 TMG, however, we as a service provider are not obliged to monitor transmitted or stored third-party    information or to investigate circumstances that indicate illegal activity. Obligations to remove or block the use    of information in accordance with general legislation remain unaffected by this. However, liability in this respect    is only possible from the time of knowledge of a specific infringement. As soon as we become aware of any such legal    infringements, we will remove this content immediately.</p><h4>Liability for links</h4><p>Our website contains links to external third-party websites over whose content we have no influence. Therefore, we    cannot accept any liability for this third-party content. The respective provider or operator of the pages is always    responsible for the content of the linked pages. The linked pages were checked for possible legal violations at the    time of linking. Illegal content was not recognizable at the time of linking. However, permanent monitoring of the    content of the linked pages is not reasonable without concrete evidence of an infringement. If we become aware of    any legal infringements, we will remove such links immediately.</p><h3>Copyright</h3><p>The content and works created by the site operators on these pages are subject to German copyright law. Duplication,    processing, distribution and any form of commercialization of such material beyond the scope of the copyright law    shall require the prior written consent of its respective author or creator. Downloads and copies of this site are    only permitted for private, non-commercial use. Insofar as the content on this site was not created by the operator,    the copyrights of third parties are respected. In particular, third-party content is identified as such. Should you    nevertheless become aware of a copyright infringement, please inform us accordingly. If we become aware of any legal    infringements, we will remove such content immediately.</p><h3>Privacy</h3><p>As a rule, it is possible to use our website without providing personal data. Insofar as personal data (e.g. name,    address or e-mail addresses) is collected on our website, this is always done on a voluntary basis as far as    possible. This data will not be passed on to third parties without your express consent.<br>We would like to point    out that data transmission over the Internet (e.g. when communicating by e-mail) can have security gaps. Complete    protection of data against access by third parties is not possible. <br>We hereby expressly prohibit the use of    contact data published as part of our duty to provide a legal notice by third parties for the purpose of sending    unsolicited advertising and information material. The operators of the pages expressly reserve the right to take    legal action in the event of the unsolicited sending of advertising information, such as spam emails.</p><p>Imprint from the <a href=\'https://www.impressum-generator.de\' target=\'_blank\' rel=\'noopener noreferrer\'>Imprint        generator</a> of <a href=\'https://www.kanzlei-hasselbach.de/standorte/frankfurt/\' target=\'_blank\'        rel=\'noopener noreferrer\'>Kanzlei Hasselbach, Frankfurt</a></p><br><br><h3>Attribution / Image Sources</h3><p>"Maren Schulte": <a        href="https://www.freepik.com/free-photo/woman-white-shirt-showing-emotions-blue_20999788.htm#query=portrait%20corporate&position=0&from_view=keyword&track=ais&uuid=51a0c92e-ef59-4a56-a3f0-73d22edbc835">Image        by senivpetro on Freepik</a></p><p>"Karl-Heinz Müller": <a        href="https://www.freepik.com/free-photo/portrait-business-man-wearing-formal-suit_13698352.htm">Image by        freepik</a></p><p>"Sara Fischer": <a        href="https://www.freepik.com/free-photo/afro-american-woman-smiling-close-up_5914041.htm#fromView=search&page=1&position=0&uuid=d2e83318-5a65-4271-b2a0-e117843ec661">Image        by freepik</a></p><p>"Mia Weber": <a        href="https://www.freepik.com/free-photo/asian-girl-with-laptop-smartphone-standing-street-city-centre-smiling-camera_34229359.htm">Image        by benzoix on Freepik</a></p><p>"Amir Kovačević": <a        href="https://www.freepik.com/free-photo/cheerful-handsome-man-wearing-casual-t-shirt-jeans-sitting-couch-home-keeping-hands-lap-looking-away-smiling-male-portrait-concept_11293719.htm">Image        by pch.vector on Freepik</a></p><p>"Aylin Demir": <a href="https://www.freepik.com/free-photo/portrait-woman-wearing-formal-suit_13661544.htm">Image by        freepik</a></p><p>"Fabio Beck": <a        href="https://www.freepik.com/free-photo/blue-polo-shirt-casual-apparel-outdoor-shoot_15438438.htm">Image        by rawpixel.com on Freepik</a></p><p>"Hassan Schmidt": <a        href="https://www.freepik.com/free-photo/young-successful-businessman-smiling-holding-tablet-sitting-workplace_7591164.htm">Image        by cookie_studio on Freepik</a></p><p>"Tobias Chen": <a        href="https://www.freepik.com/free-photo/young-businessman-smiling_851247.htm#fromView=search&page=2&position=32&uuid=358ff76d-868e-4767-a2ed-47d94c6c2b15">Image        by pressfoto on Freepik</a></p><p>"Mehmet Yilmaz": <a        href="https://www.freepik.com/free-photo/happy-bearded-man-business-clothes-looking-camera_7500630.htm">Image        by drobotdean on Freepik</a></p><p>Website Logo by <a href="https://logomakr.com/">logomakr.com</a></p></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CashflowChartComponent', 'selector': 'app-cashflow-chart'},{'name': 'ContactDetailComponent', 'selector': 'app-contact-detail'},{'name': 'ContactsTableComponent', 'selector': 'app-contacts-table'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataProtectionComponent', 'selector': 'app-data-protection'},{'name': 'DialogAddContactComponent', 'selector': 'app-dialog-add-contact'},{'name': 'DialogAddEmployeeComponent', 'selector': 'app-dialog-add-employee'},{'name': 'DialogAddTransferComponent', 'selector': 'app-dialog-add-transfer'},{'name': 'DialogDeleteContactComponent', 'selector': 'app-dialog-delete-contact'},{'name': 'DialogDeleteEmployeeComponent', 'selector': 'app-dialog-delete-employee'},{'name': 'DialogDeleteTransferComponent', 'selector': 'app-dialog-delete-transfer'},{'name': 'DialogEditContactComponent', 'selector': 'app-dialog-edit-contact'},{'name': 'DialogEditEmployeeComponent', 'selector': 'app-dialog-edit-employee'},{'name': 'DialogEditTransferComponent', 'selector': 'app-dialog-edit-transfer'},{'name': 'EmployeeDetailComponent', 'selector': 'app-employee-detail'},{'name': 'EmployeesTableComponent', 'selector': 'app-employees-table'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'OverviewComponent', 'selector': 'app-overview'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'TopRevenueEmployeeComponent', 'selector': 'app-top-revenue-employee'},{'name': 'TransferDetailComponent', 'selector': 'app-transfer-detail'},{'name': 'TransfersTableComponent', 'selector': 'app-transfers-table'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ImprintComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ImprintComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

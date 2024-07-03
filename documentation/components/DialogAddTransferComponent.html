@@ -1,0 +1,2077 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>simple-crm documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">simple-crm documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DialogAddTransferComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>provideNativeDateAdapter()</code>
+                            <code>{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] }</code>
+                            <code>{ provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT }</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-dialog-add-transfer</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>FormsModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatDatepickerModule</code>
+                            <code>MatDialogActions</code>
+                            <code>MatDialogClose</code>
+                            <code>MatDialogContent</code>
+                            <code>MatDialogTitle</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatProgressBarModule</code>
+                            <code>NgIf</code>
+                            <code>MatSelectModule</code>
+                            <code>MatAutocompleteModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>AsyncPipe</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./dialog-add-transfer.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./dialog-add-transfer.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#changedTypeBefore" >changedTypeBefore</a>
+                            </li>
+                            <li>
+                                <a href="#contacts" >contacts</a>
+                            </li>
+                            <li>
+                                <a href="#contactsSubscriber" >contactsSubscriber</a>
+                            </li>
+                            <li>
+                                <a href="#date" >date</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dateService" >dateService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#demoOwner" >demoOwner</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialogRef" >dialogRef</a>
+                            </li>
+                            <li>
+                                <a href="#employeePicker" >employeePicker</a>
+                            </li>
+                            <li>
+                                <a href="#employeePickerFilteredOptions" >employeePickerFilteredOptions</a>
+                            </li>
+                            <li>
+                                <a href="#employeePickerOptions" >employeePickerOptions</a>
+                            </li>
+                            <li>
+                                <a href="#employees" >employees</a>
+                            </li>
+                            <li>
+                                <a href="#employeesSubscriber" >employeesSubscriber</a>
+                            </li>
+                            <li>
+                                <a href="#form" >form</a>
+                            </li>
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                <a href="#payerPicker" >payerPicker</a>
+                            </li>
+                            <li>
+                                <a href="#payerPickerFilteredOptions" >payerPickerFilteredOptions</a>
+                            </li>
+                            <li>
+                                <a href="#payerPickerOptions" >payerPickerOptions</a>
+                            </li>
+                            <li>
+                                <a href="#recipientPicker" >recipientPicker</a>
+                            </li>
+                            <li>
+                                <a href="#recipientPickerFilteredOptions" >recipientPickerFilteredOptions</a>
+                            </li>
+                            <li>
+                                <a href="#recipientPickerOptions" >recipientPickerOptions</a>
+                            </li>
+                            <li>
+                                <a href="#transfer" >transfer</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_filter" >_filter</a>
+                            </li>
+                            <li>
+                                <a href="#addPersonFromPicker" >addPersonFromPicker</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onNoClick" >onNoClick</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveTransfer" >saveTransfer</a>
+                            </li>
+                            <li>
+                                <a href="#setDialogLoading" >setDialogLoading</a>
+                            </li>
+                            <li>
+                                <a href="#setPayerRecipient" >setPayerRecipient</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dialogRef: <a href="../classes/Transfer.html" target="_self">MatDialogRef&lt;DialogAddTransferComponent&gt;</a>, firestoreService: <a href="../injectables/FirestoreService.html" target="_self">FirestoreService</a>, dateService: <a href="../injectables/DateService.html" target="_self">DateService</a>, commonService: <a href="../injectables/CommonService.html" target="_self">CommonService</a>, fb: FormBuilder)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:95</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dialogRef</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/Transfer.html" target="_self" >MatDialogRef&lt;DialogAddTransferComponent&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>firestoreService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FirestoreService.html" target="_self" >FirestoreService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dateService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DateService.html" target="_self" >DateService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>commonService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CommonService.html" target="_self" >CommonService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_filter"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_filter</b></span>
+                        <a href="#_filter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>_filter(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, pickerOptions: string[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="183"
+                                    class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:183</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Filters the available persons in the person picker by the user input.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>string that the user typed into the input field</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>pickerOptions</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>array of strings that should be returned filtered</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>string[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>array of names</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addPersonFromPicker"></a>
+                    <span class="name">
+                        <span ><b>addPersonFromPicker</b></span>
+                        <a href="#addPersonFromPicker"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addPersonFromPicker(nameField: "recipient" | "payer" | "closedBy", idField: "recipientId" | "payerId" | "closedById", name: string | null, collection: Employee[] | Contact[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="243"
+                                    class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:243</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Adds a person and the corresponding document id to a specific key in the transfer object.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>nameField</td>
+                                            <td>
+                                                        <code>&quot;recipient&quot; | &quot;payer&quot; | &quot;closedBy&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>key in the transfer object where the name of the person should be saved</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>idField</td>
+                                            <td>
+                                                        <code>&quot;recipientId&quot; | &quot;payerId&quot; | &quot;closedById&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>key in the transfer object where the corresponding document id should be saved</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                        <code>string | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>of the person</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>collection</td>
+                                            <td>
+                                                        <code>Employee[] | Contact[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>where the person should found in (Employees or Contacts)</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>if there is no supervisor selected in the specific picker, i.e. the input field is empty</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="171"
+                                    class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:171</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Unsubscribes from all subscriptions in this component.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="124"
+                                    class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:124</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Creates a Angular Material Form, which controls the input fields in this dialog component. Initializes the person pickers for the input fields &quot;payer&quot;, &quot;recipient&quot; and &quot;closedBy&quot;.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onNoClick"></a>
+                    <span class="name">
+                        <span ><b>onNoClick</b></span>
+                        <a href="#onNoClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onNoClick()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="193"
+                                    class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:193</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Closes this dialog. Is called when the user clicks outside of the dialog or the &quot;cancel&quot;-button.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveTransfer"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>saveTransfer</b></span>
+                        <a href="#saveTransfer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveTransfer()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="202"
+                                    class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:202</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Saves a new transfer (called &quot;transaction&quot; in the UI) with the inputted data to the database and closes the dialog.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>if the form is not filled in with valid data</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setDialogLoading"></a>
+                    <span class="name">
+                        <span ><b>setDialogLoading</b></span>
+                        <a href="#setDialogLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setDialogLoading()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="223"
+                                    class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:223</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Shows a loading / progress bar and disables all input fields and buttons.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setPayerRecipient"></a>
+                    <span class="name">
+                        <span ><b>setPayerRecipient</b></span>
+                        <a href="#setPayerRecipient"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setPayerRecipient(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="263"
+                                    class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:263</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>When the user chooses &quot;sale&quot; as transaction action, this function fills in the CRM Owner in the &quot;recipient&quot; input field, otherwise in the &quot;payer&quot; input field.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>of transfer (called &quot;transaction&quot; in the UI): &quot;Sale&quot;, &quot;Purchase&quot; or &quot;Refund&quot;</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changedTypeBefore"></a>
+                    <span class="name">
+                        <span ><b>changedTypeBefore</b></span>
+                        <a href="#changedTypeBefore"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contacts"></a>
+                    <span class="name">
+                        <span ><b>contacts</b></span>
+                        <a href="#contacts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Contact.html" target="_self" >Contact[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contactsSubscriber"></a>
+                    <span class="name">
+                        <span ><b>contactsSubscriber</b></span>
+                        <a href="#contactsSubscriber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subscription</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="date"></a>
+                    <span class="name">
+                        <span ><b>date</b></span>
+                        <a href="#date"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Moment | undefined</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>undefined</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dateService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dateService</b></span>
+                        <a href="#dateService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/DateService.html" target="_self" >DateService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="100" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:100</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="demoOwner"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>demoOwner</b></span>
+                        <a href="#demoOwner"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Doe Demo-Owner, John&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialogRef"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialogRef</b></span>
+                        <a href="#dialogRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Transfer.html" target="_self" >MatDialogRef&lt;DialogAddTransferComponent&gt;</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="employeePicker"></a>
+                    <span class="name">
+                        <span ><b>employeePicker</b></span>
+                        <a href="#employeePicker"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>AbstractControl | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:88</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="employeePickerFilteredOptions"></a>
+                    <span class="name">
+                        <span ><b>employeePickerFilteredOptions</b></span>
+                        <a href="#employeePickerFilteredOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Observable&lt;string[]&gt;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="employeePickerOptions"></a>
+                    <span class="name">
+                        <span ><b>employeePickerOptions</b></span>
+                        <a href="#employeePickerOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:89</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="employees"></a>
+                    <span class="name">
+                        <span ><b>employees</b></span>
+                        <a href="#employees"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Employee.html" target="_self" >Employee[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="employeesSubscriber"></a>
+                    <span class="name">
+                        <span ><b>employeesSubscriber</b></span>
+                        <a href="#employeesSubscriber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subscription</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="form"></a>
+                    <span class="name">
+                        <span ><b>form</b></span>
+                        <a href="#form"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="payerPicker"></a>
+                    <span class="name">
+                        <span ><b>payerPicker</b></span>
+                        <a href="#payerPicker"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>AbstractControl | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="payerPickerFilteredOptions"></a>
+                    <span class="name">
+                        <span ><b>payerPickerFilteredOptions</b></span>
+                        <a href="#payerPickerFilteredOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Observable&lt;string[]&gt;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="payerPickerOptions"></a>
+                    <span class="name">
+                        <span ><b>payerPickerOptions</b></span>
+                        <a href="#payerPickerOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recipientPicker"></a>
+                    <span class="name">
+                        <span ><b>recipientPicker</b></span>
+                        <a href="#recipientPicker"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>AbstractControl | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recipientPickerFilteredOptions"></a>
+                    <span class="name">
+                        <span ><b>recipientPickerFilteredOptions</b></span>
+                        <a href="#recipientPickerFilteredOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Observable&lt;string[]&gt;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recipientPickerOptions"></a>
+                    <span class="name">
+                        <span ><b>recipientPickerOptions</b></span>
+                        <a href="#recipientPickerOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="transfer"></a>
+                    <span class="name">
+                        <span ><b>transfer</b></span>
+                        <a href="#transfer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Transfer()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/transfers/dialog-add-transfer/dialog-add-transfer.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DateService } from &#x27;../../services/date/date.service&#x27;;
+import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FirestoreService } from &#x27;../../services/firestore/firestore.service&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatProgressBarModule } from &#x27;@angular/material/progress-bar&#x27;;
+import { NgIf } from &#x27;@angular/common&#x27;;
+import { provideNativeDateAdapter } from &#x27;@angular/material/core&#x27;;
+import { Transfer } from &#x27;../../models/transfer.class&#x27;;
+import { MatSelectModule } from &#x27;@angular/material/select&#x27;;
+import { Observable, Subscription } from &#x27;rxjs&#x27;;
+import { map, startWith } from &#x27;rxjs/operators&#x27;;
+import { AsyncPipe } from &#x27;@angular/common&#x27;;
+import { MatAutocompleteModule } from &#x27;@angular/material/autocomplete&#x27;;
+import { Contact } from &#x27;../../models/contact.class&#x27;;
+import { Employee } from &#x27;../../models/employee.class&#x27;;
+import { CommonService } from &#x27;../../services/common/common.service&#x27;;
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from &#x27;@angular/material/core&#x27;;
+import { MatDatepickerModule } from &#x27;@angular/material/datepicker&#x27;;
+import { MomentDateAdapter } from &#x27;@angular/material-moment-adapter&#x27;;
+import { Moment } from &#x27;moment&#x27;;
+
+
+const CUSTOM_DATE_FORMAT &#x3D; {
+  parse: {
+    dateInput: &#x27;DD/MM/YYYY&#x27;,
+  },
+  display: {
+    dateInput: &#x27;DD/MM/YYYY&#x27;,
+    monthYearLabel: &#x27;MMMM YYYY&#x27;,
+    dateA11yLabel: &#x27;LL&#x27;,
+    monthYearA11yLabel: &#x27;MMMM YYYY&#x27;
+  }
+};
+
+
+@Component({
+  selector: &#x27;app-dialog-add-transfer&#x27;,
+  standalone: true,
+  imports: [
+    FormsModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
+    MatDialogTitle,
+    MatFormFieldModule,
+    MatInputModule,
+    MatProgressBarModule,
+    NgIf,
+    MatSelectModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    AsyncPipe
+  ],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT }
+  ],
+  templateUrl: &#x27;./dialog-add-transfer.component.html&#x27;,
+  styleUrl: &#x27;./dialog-add-transfer.component.scss&#x27;
+})
+export class DialogAddTransferComponent implements OnInit {
+
+  contactsSubscriber &#x3D; new Subscription;
+  contacts: Contact[] &#x3D; [];
+
+  employeesSubscriber &#x3D; new Subscription;
+  employees: Employee[] &#x3D; [];
+
+  transfer &#x3D; new Transfer();
+  date: Moment | undefined &#x3D; undefined;
+  loading &#x3D; false;
+
+  payerPicker: AbstractControl | null &#x3D; null;
+  payerPickerOptions: string[] &#x3D; [];
+  payerPickerFilteredOptions &#x3D; new Observable&lt;string[]&gt;;
+
+  recipientPicker: AbstractControl | null &#x3D; null;
+  recipientPickerOptions: string[] &#x3D; [];
+  recipientPickerFilteredOptions &#x3D; new Observable&lt;string[]&gt;;
+
+  employeePicker: AbstractControl | null &#x3D; null;
+  employeePickerOptions: string[] &#x3D; [];
+  employeePickerFilteredOptions &#x3D; new Observable&lt;string[]&gt;;
+
+  changedTypeBefore &#x3D; false;
+  readonly demoOwner &#x3D; &#x27;Doe Demo-Owner, John&#x27;;
+
+  form!: FormGroup;
+
+  constructor(
+    public dialogRef: MatDialogRef&lt;DialogAddTransferComponent&gt;,
+    private firestoreService: FirestoreService,
+    public dateService: DateService,
+    private commonService: CommonService,
+    private fb: FormBuilder
+  ) {
+
+    this.contactsSubscriber &#x3D;
+      this.firestoreService
+        .contactsFrontendDistributor
+        .subscribe(contacts &#x3D;&gt; {
+          this.contacts &#x3D; contacts;
+        });
+
+    this.employeesSubscriber &#x3D;
+      this.firestoreService
+        .employeesFrontendDistributor
+        .subscribe(employees &#x3D;&gt; {
+          this.employees &#x3D; employees;
+        });;
+  }
+
+
+  /**
+   * Creates a Angular Material Form, which controls the input fields in this dialog component. Initializes the person pickers for the input fields &quot;payer&quot;, &quot;recipient&quot; and &quot;closedBy&quot;.
+   */
+  ngOnInit(): void {
+
+    this.form &#x3D; this.fb.group({
+      title: [&#x27;&#x27;, Validators.required],
+      description: [&#x27;&#x27;],
+      type: [&#x27;&#x27;, Validators.required],
+      amount: [&#x27;&#x27;, [Validators.required, this.commonService.greaterThanZeroValidator()]],
+      payer: [&#x27;&#x27;, Validators.required],
+      recipient: [&#x27;&#x27;, Validators.required],
+      date: [&#x27;&#x27;, [Validators.required, this.commonService.dateNotInFutureValidator()]],
+      closedBy: [&#x27;&#x27;, Validators.required],
+    });
+
+    this.payerPickerOptions &#x3D; this.commonService.returnDataForPersonPicker(this.contacts);
+    this.recipientPickerOptions &#x3D; this.commonService.returnDataForPersonPicker(this.contacts);
+    this.employeePickerOptions &#x3D; this.commonService.returnDataForPersonPicker(this.employees);
+
+    this.payerPicker &#x3D; this.form.get(&#x27;payer&#x27;);
+    this.recipientPicker &#x3D; this.form.get(&#x27;recipient&#x27;);
+    this.employeePicker &#x3D; this.form.get(&#x27;closedBy&#x27;);
+
+
+    if (this.payerPicker &amp;&amp; this.recipientPicker &amp;&amp; this.employeePicker) {
+
+      this.payerPickerFilteredOptions &#x3D; this.payerPicker.valueChanges.pipe(
+        startWith(&#x27;&#x27;),
+        map(value &#x3D;&gt; this._filter(value || &#x27;&#x27;, this.payerPickerOptions))
+      );
+
+      this.recipientPickerFilteredOptions &#x3D; this.recipientPicker.valueChanges.pipe(
+        startWith(&#x27;&#x27;),
+        map(value &#x3D;&gt; this._filter(value || &#x27;&#x27;, this.recipientPickerOptions)),
+      );
+
+      this.employeePickerFilteredOptions &#x3D; this.employeePicker.valueChanges.pipe(
+        startWith(&#x27;&#x27;),
+        map(value &#x3D;&gt; this._filter(value || &#x27;&#x27;, this.employeePickerOptions)),
+      );
+
+    } else throw new Error(&#x27;Component did not initialize correctly&#x27;);
+
+  }
+
+
+  /**
+   * Unsubscribes from all subscriptions in this component.
+   */
+  ngOnDestroy(): void {
+    this.employeesSubscriber.unsubscribe();
+    this.contactsSubscriber.unsubscribe();
+  }
+
+
+  /**
+   * Filters the available persons in the person picker by the user input.
+   * @param value string that the user typed into the input field
+   * @param pickerOptions array of strings that should be returned filtered
+   * @returns array of names
+   */
+  private _filter(value: string, pickerOptions: string[]): string[] {
+    const filterValue &#x3D; value.toLowerCase();
+
+    return pickerOptions.filter(option &#x3D;&gt; option.toLowerCase().includes(filterValue));
+  }
+
+
+  /**
+   * Closes this dialog. Is called when the user clicks outside of the dialog or the &quot;cancel&quot;-button.
+   */
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
+  /**
+   * Saves a new transfer (called &quot;transaction&quot; in the UI) with the inputted data to the database and closes the dialog.
+   * @returns if the form is not filled in with valid data
+   */
+  async saveTransfer(): Promise&lt;void&gt; {
+
+    if (!this.form.valid) return;
+
+    this.setDialogLoading();
+
+    this.addPersonFromPicker(&#x27;payer&#x27;, &#x27;payerId&#x27;, this.payerPicker?.value, this.contacts);
+    this.addPersonFromPicker(&#x27;recipient&#x27;, &#x27;recipientId&#x27;, this.recipientPicker?.value, this.contacts);
+    this.addPersonFromPicker(&#x27;closedBy&#x27;, &#x27;closedById&#x27;, this.employeePicker?.value, this.employees);
+    this.transfer.date &#x3D; this.date!.valueOf();
+    this.transfer.amount &#x3D; this.commonService.invertValueIfOutgoingPayment(this.transfer);
+
+    await this.firestoreService.addDocument(&#x27;transfers&#x27;, this.transfer.toJSON());
+
+    setTimeout(() &#x3D;&gt; this.dialogRef.close(), 1000);
+  }
+
+
+  /**
+   * Shows a loading / progress bar and disables all input fields and buttons.
+   */
+  setDialogLoading(): void {
+
+    this.loading &#x3D; true;
+    const fieldIds &#x3D; [&#x27;title&#x27;, &#x27;description&#x27;, &#x27;type&#x27;, &#x27;amount&#x27;, &#x27;payer&#x27;, &#x27;recipient&#x27;, &#x27;date&#x27;, &#x27;closedBy&#x27;];
+
+    fieldIds.forEach(id &#x3D;&gt; {
+
+      this.form.get(id)?.disable();
+    });
+  }
+
+
+  /**
+   * Adds a person and the corresponding document id to a specific key in the transfer object.
+   * @param nameField key in the transfer object where the name of the person should be saved
+   * @param idField key in the transfer object where the corresponding document id should be saved
+   * @param name of the person
+   * @param collection where the person should found in (Employees or Contacts)
+   * @returns if there is no supervisor selected in the specific picker, i.e. the input field is empty
+   */
+  addPersonFromPicker(
+    nameField: &#x27;recipient&#x27; | &#x27;payer&#x27; | &#x27;closedBy&#x27;,
+    idField: &#x27;recipientId&#x27; | &#x27;payerId&#x27; | &#x27;closedById&#x27;,
+    name: string | null,
+    collection: Employee[] | Contact[]): void {
+
+    this.transfer[nameField] &#x3D; &#x27;&#x27;;
+    this.transfer[idField] &#x3D; &#x27;&#x27;;
+
+    if (!name) return;
+
+    this.transfer[nameField] &#x3D; name;
+    this.transfer[idField] &#x3D; this.commonService.returnIdByName(name, collection);
+  }
+
+
+  /**
+   * When the user chooses &quot;sale&quot; as transaction action, this function fills in the CRM Owner in the &quot;recipient&quot; input field, otherwise in the &quot;payer&quot; input field.
+   * @param type of transfer (called &quot;transaction&quot; in the UI): &quot;Sale&quot;, &quot;Purchase&quot; or &quot;Refund&quot;
+   */
+  setPayerRecipient(type: string): void {
+
+    if (this.changedTypeBefore) {
+
+      this.payerPicker?.setValue(&#x27;&#x27;);
+      this.payerPicker?.enable();
+
+      this.recipientPicker?.setValue(&#x27;&#x27;);
+      this.recipientPicker?.enable();
+    }
+
+    if (type &#x3D;&#x3D;&#x3D; &#x27;Sale&#x27;) {
+
+      this.recipientPicker?.setValue(this.demoOwner);
+      this.recipientPicker?.disable();
+
+    } else {
+
+      this.payerPicker?.setValue(this.demoOwner);
+      this.payerPicker?.disable();
+    }
+
+    this.changedTypeBefore &#x3D; true;
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h2 mat-dialog-title&gt;Add Transaction&lt;/h2&gt;
+
+&lt;form [formGroup]&#x3D;&quot;form&quot; (ngSubmit)&#x3D;&quot;saveTransfer()&quot;&gt;
+
+    &lt;mat-dialog-content&gt;
+
+        &lt;div id&#x3D;&quot;inputs&quot;&gt;
+
+            &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                &lt;mat-label&gt;Title&lt;/mat-label&gt;
+                &lt;input cdkFocusInitial matInput [(ngModel)]&#x3D;&quot;transfer.title&quot; type&#x3D;&quot;text&quot; required
+                    formControlName&#x3D;&quot;title&quot;&gt;
+                &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;title&#x27;)?.hasError(&#x27;required&#x27;)&quot;&gt;
+                    Title is required
+                &lt;/mat-error&gt;
+            &lt;/mat-form-field&gt;
+
+            &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                &lt;mat-label&gt;Description&lt;/mat-label&gt;
+                &lt;textarea matInput [(ngModel)]&#x3D;&quot;transfer.description&quot; formControlName&#x3D;&quot;description&quot;&gt;&lt;/textarea&gt;
+            &lt;/mat-form-field&gt;
+
+            &lt;div class&#x3D;&quot;inputs-row&quot;&gt;
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;Type&lt;/mat-label&gt;
+                    &lt;mat-select required [(value)]&#x3D;&quot;transfer.type&quot; (selectionChange)&#x3D;&quot;setPayerRecipient($event.value)&quot;
+                        formControlName&#x3D;&quot;type&quot;&gt;
+                        &lt;mat-option value&#x3D;&quot;Sale&quot;&gt;{{&#x27;Sale&#x27;}}&lt;/mat-option&gt;
+                        &lt;mat-option value&#x3D;&quot;Purchase&quot;&gt;{{&#x27;Purchase&#x27;}}&lt;/mat-option&gt;
+                        &lt;mat-option value&#x3D;&quot;Refund&quot;&gt;{{&#x27;Refund&#x27;}}&lt;/mat-option&gt;
+                    &lt;/mat-select&gt;
+                    &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;type&#x27;)?.hasError(&#x27;required&#x27;)&quot;&gt;
+                        Type is required
+                    &lt;/mat-error&gt;
+                &lt;/mat-form-field&gt;
+
+
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;Amount&lt;/mat-label&gt;
+                    &lt;input matInput [(ngModel)]&#x3D;&quot;transfer.amount&quot; type&#x3D;&quot;number&quot; required formControlName&#x3D;&quot;amount&quot;
+                        min&#x3D;&quot;0&quot;&gt;
+                    &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;amount&#x27;)?.hasError(&#x27;required&#x27;)&quot;&gt;
+                        Amount is required
+                    &lt;/mat-error&gt;
+                    &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;amount&#x27;)?.hasError(&#x27;greaterThanZero&#x27;)&quot;&gt;
+                        Amount must be greater than 0
+                    &lt;/mat-error&gt;
+                &lt;/mat-form-field&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;inputs-row&quot;&gt;
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;Payer&lt;/mat-label&gt;
+                    &lt;input type&#x3D;&quot;text&quot; matInput [matAutocomplete]&#x3D;&quot;auto1&quot; required formControlName&#x3D;&quot;payer&quot;&gt;
+
+                    &lt;mat-autocomplete autoActiveFirstOption #auto1&#x3D;&quot;matAutocomplete&quot;&gt;
+
+                        @for (payer of payerPickerFilteredOptions | async; track payer; let index &#x3D; $index ) {
+                        &lt;mat-option [value]&#x3D;&quot;payer&quot;&gt;{{payer}}&lt;/mat-option&gt;
+                        }
+                    &lt;/mat-autocomplete&gt;
+                    &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;payer&#x27;)?.hasError(&#x27;required&#x27;)&quot;&gt;
+                        Payer is required
+                    &lt;/mat-error&gt;
+                &lt;/mat-form-field&gt;
+
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;Recipient&lt;/mat-label&gt;
+                    &lt;input type&#x3D;&quot;text&quot; matInput [matAutocomplete]&#x3D;&quot;auto2&quot; required formControlName&#x3D;&quot;recipient&quot;&gt;
+
+                    &lt;mat-autocomplete autoActiveFirstOption #auto2&#x3D;&quot;matAutocomplete&quot;&gt;
+
+                        @for (recipient of recipientPickerFilteredOptions | async; track recipient; let index &#x3D; $index )
+                        {
+                        &lt;mat-option [value]&#x3D;&quot;recipient&quot;&gt;{{recipient}}&lt;/mat-option&gt;
+                        }
+
+                    &lt;/mat-autocomplete&gt;
+                    &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;recipient&#x27;)?.hasError(&#x27;required&#x27;)&quot;&gt;
+                        Recipient is required
+                    &lt;/mat-error&gt;
+                &lt;/mat-form-field&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;inputs-row&quot;&gt;
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;Date&lt;/mat-label&gt;
+                    &lt;input matInput [matDatepicker]&#x3D;&quot;picker&quot; [(ngModel)]&#x3D;&quot;date&quot; required [max]&#x3D;&quot;dateService.getToday()&quot;
+                        formControlName&#x3D;&quot;date&quot;&gt;
+                    &lt;mat-datepicker-toggle matIconSuffix [for]&#x3D;&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+                    &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt;
+                    &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;date&#x27;)?.hasError(&#x27;required&#x27;)&quot;&gt;
+                        Date is required
+                    &lt;/mat-error&gt;
+                    &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;date&#x27;)?.hasError(&#x27;dateNotInFuture&#x27;)&quot;&gt;
+                        Date may not be in the future
+                    &lt;/mat-error&gt;
+                &lt;/mat-form-field&gt;
+
+                &lt;mat-form-field appearance&#x3D;&quot;outline&quot; [color]&#x3D;&quot;&#x27;accent&#x27;&quot;&gt;
+                    &lt;mat-label&gt;Closed by&lt;/mat-label&gt;
+                    &lt;input type&#x3D;&quot;text&quot; matInput [matAutocomplete]&#x3D;&quot;auto3&quot; required formControlName&#x3D;&quot;closedBy&quot;&gt;
+
+                    &lt;mat-autocomplete autoActiveFirstOption #auto3&#x3D;&quot;matAutocomplete&quot;&gt;
+
+                        @for (employee of employeePickerFilteredOptions | async; track employee; let index &#x3D; $index ) {
+                        &lt;mat-option [value]&#x3D;&quot;employee&quot;&gt;{{employee}}&lt;/mat-option&gt;
+                        }
+                    &lt;/mat-autocomplete&gt;
+                    &lt;mat-error *ngIf&#x3D;&quot;form.get(&#x27;closedBy&#x27;)?.hasError(&#x27;required&#x27;)&quot;&gt;
+                        Employee that closed the transaction is required
+                    &lt;/mat-error&gt;
+                &lt;/mat-form-field&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/mat-dialog-content&gt;
+
+    &lt;mat-dialog-actions&gt;
+        &lt;button mat-button type&#x3D;&quot;button&quot; (click)&#x3D;&quot;onNoClick()&quot; [disabled]&#x3D;&quot;loading&quot;&gt;Cancel&lt;/button&gt;
+        &lt;button mat-button type&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;loading&quot;&gt;Save&lt;/button&gt;
+    &lt;/mat-dialog-actions&gt;
+
+    &lt;mat-progress-bar *ngIf&#x3D;&quot;loading&quot; id&#x3D;&quot;progess-bar&quot; mode&#x3D;&quot;indeterminate&quot;&gt;&lt;/mat-progress-bar&gt;
+
+&lt;/form&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h2 mat-dialog-title>Add Transaction</h2><form [formGroup]="form" (ngSubmit)="saveTransfer()">    <mat-dialog-content>        <div id="inputs">            <mat-form-field appearance="outline" [color]="\'accent\'">                <mat-label>Title</mat-label>                <input cdkFocusInitial matInput [(ngModel)]="transfer.title" type="text" required                    formControlName="title">                <mat-error *ngIf="form.get(\'title\')?.hasError(\'required\')">                    Title is required                </mat-error>            </mat-form-field>            <mat-form-field appearance="outline" [color]="\'accent\'">                <mat-label>Description</mat-label>                <textarea matInput [(ngModel)]="transfer.description" formControlName="description"></textarea>            </mat-form-field>            <div class="inputs-row">                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>Type</mat-label>                    <mat-select required [(value)]="transfer.type" (selectionChange)="setPayerRecipient($event.value)"                        formControlName="type">                        <mat-option value="Sale">{{\'Sale\'}}</mat-option>                        <mat-option value="Purchase">{{\'Purchase\'}}</mat-option>                        <mat-option value="Refund">{{\'Refund\'}}</mat-option>                    </mat-select>                    <mat-error *ngIf="form.get(\'type\')?.hasError(\'required\')">                        Type is required                    </mat-error>                </mat-form-field>                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>Amount</mat-label>                    <input matInput [(ngModel)]="transfer.amount" type="number" required formControlName="amount"                        min="0">                    <mat-error *ngIf="form.get(\'amount\')?.hasError(\'required\')">                        Amount is required                    </mat-error>                    <mat-error *ngIf="form.get(\'amount\')?.hasError(\'greaterThanZero\')">                        Amount must be greater than 0                    </mat-error>                </mat-form-field>            </div>            <div class="inputs-row">                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>Payer</mat-label>                    <input type="text" matInput [matAutocomplete]="auto1" required formControlName="payer">                    <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">                        @for (payer of payerPickerFilteredOptions | async; track payer; let index = $index ) {                        <mat-option [value]="payer">{{payer}}</mat-option>                        }                    </mat-autocomplete>                    <mat-error *ngIf="form.get(\'payer\')?.hasError(\'required\')">                        Payer is required                    </mat-error>                </mat-form-field>                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>Recipient</mat-label>                    <input type="text" matInput [matAutocomplete]="auto2" required formControlName="recipient">                    <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">                        @for (recipient of recipientPickerFilteredOptions | async; track recipient; let index = $index )                        {                        <mat-option [value]="recipient">{{recipient}}</mat-option>                        }                    </mat-autocomplete>                    <mat-error *ngIf="form.get(\'recipient\')?.hasError(\'required\')">                        Recipient is required                    </mat-error>                </mat-form-field>            </div>            <div class="inputs-row">                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>Date</mat-label>                    <input matInput [matDatepicker]="picker" [(ngModel)]="date" required [max]="dateService.getToday()"                        formControlName="date">                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>                    <mat-datepicker #picker></mat-datepicker>                    <mat-error *ngIf="form.get(\'date\')?.hasError(\'required\')">                        Date is required                    </mat-error>                    <mat-error *ngIf="form.get(\'date\')?.hasError(\'dateNotInFuture\')">                        Date may not be in the future                    </mat-error>                </mat-form-field>                <mat-form-field appearance="outline" [color]="\'accent\'">                    <mat-label>Closed by</mat-label>                    <input type="text" matInput [matAutocomplete]="auto3" required formControlName="closedBy">                    <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete">                        @for (employee of employeePickerFilteredOptions | async; track employee; let index = $index ) {                        <mat-option [value]="employee">{{employee}}</mat-option>                        }                    </mat-autocomplete>                    <mat-error *ngIf="form.get(\'closedBy\')?.hasError(\'required\')">                        Employee that closed the transaction is required                    </mat-error>                </mat-form-field>            </div>        </div>    </mat-dialog-content>    <mat-dialog-actions>        <button mat-button type="button" (click)="onNoClick()" [disabled]="loading">Cancel</button>        <button mat-button type="submit" [disabled]="loading">Save</button>    </mat-dialog-actions>    <mat-progress-bar *ngIf="loading" id="progess-bar" mode="indeterminate"></mat-progress-bar></form></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CashflowChartComponent', 'selector': 'app-cashflow-chart'},{'name': 'ContactDetailComponent', 'selector': 'app-contact-detail'},{'name': 'ContactsTableComponent', 'selector': 'app-contacts-table'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataProtectionComponent', 'selector': 'app-data-protection'},{'name': 'DialogAddContactComponent', 'selector': 'app-dialog-add-contact'},{'name': 'DialogAddEmployeeComponent', 'selector': 'app-dialog-add-employee'},{'name': 'DialogAddTransferComponent', 'selector': 'app-dialog-add-transfer'},{'name': 'DialogDeleteContactComponent', 'selector': 'app-dialog-delete-contact'},{'name': 'DialogDeleteEmployeeComponent', 'selector': 'app-dialog-delete-employee'},{'name': 'DialogDeleteTransferComponent', 'selector': 'app-dialog-delete-transfer'},{'name': 'DialogEditContactComponent', 'selector': 'app-dialog-edit-contact'},{'name': 'DialogEditEmployeeComponent', 'selector': 'app-dialog-edit-employee'},{'name': 'DialogEditTransferComponent', 'selector': 'app-dialog-edit-transfer'},{'name': 'EmployeeDetailComponent', 'selector': 'app-employee-detail'},{'name': 'EmployeesTableComponent', 'selector': 'app-employees-table'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'OverviewComponent', 'selector': 'app-overview'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'TopRevenueEmployeeComponent', 'selector': 'app-top-revenue-employee'},{'name': 'TransferDetailComponent', 'selector': 'app-transfer-detail'},{'name': 'TransfersTableComponent', 'selector': 'app-transfers-table'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'DialogAddTransferComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DialogAddTransferComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
