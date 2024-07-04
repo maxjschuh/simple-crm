@@ -20,7 +20,7 @@
                 <textarea matInput [(ngModel)]="transfer.description" formControlName="description"></textarea>
             </mat-form-field>
 
-            <div class="inputs-row">
+            <div class="landscape-mode-row">
                 <mat-form-field appearance="outline" [color]="'accent'">
                     <mat-label>Type</mat-label>
                     <mat-select required [(value)]="transfer.type" (selectionChange)="setPayerRecipient($event.value)"
@@ -48,7 +48,7 @@
                 </mat-form-field>
             </div>
 
-            <div class="inputs-row">
+            <div class="landscape-mode-row">
                 <mat-form-field appearance="outline" [color]="'accent'">
                     <mat-label>Payer</mat-label>
                     <input type="text" matInput [matAutocomplete]="auto1" required formControlName="payer">
@@ -82,7 +82,7 @@
                 </mat-form-field>
             </div>
 
-            <div class="inputs-row">
+            <div class="landscape-mode-row">
                 <mat-form-field appearance="outline" [color]="'accent'">
                     <mat-label>Date</mat-label>
                     <input matInput [matDatepicker]="picker" [(ngModel)]="date" required [max]="dateService.getToday()"

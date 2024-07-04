@@ -7,8 +7,6 @@ mat-sidenav-container {
 
     mat-sidenav {
 
-        width: 250px;
-
         #sidenav-container {
             display: flex;
             flex-direction: column;
@@ -56,7 +54,6 @@ mat-sidenav-container {
                 }
 
                 #imprint-links {
-                    flex-direction: row;
                     gap: 4px;
                     margin: 0;
                 }

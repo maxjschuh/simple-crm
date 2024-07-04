@@ -6,12 +6,20 @@
         padding: 8px 0;
     }
 
-    .inputs-row {
-        display: flex;
-        gap: 16px;
+    .landscape-mode-row {
 
         mat-form-field {
-            width: calc(50% - 8px);
+            width: 100%;
+        }
+
+        @media (min-width: 500px) {
+
+            display: flex;
+            gap: 16px;
+
+            mat-form-field {
+                width: calc(50% - 8px);
+            }
         }
     }
 }

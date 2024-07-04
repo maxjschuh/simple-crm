@@ -37,7 +37,7 @@
             fieldsToEdit === 'type+amount+payer+recipient' ||
             fieldsToEdit === 'all'
             ) {
-            <div class="inputs-row">
+            <div class="landscape-mode-row">
                 <mat-form-field appearance="outline" [color]="'accent'">
                     <mat-label>Type</mat-label>
                     <mat-select required [(value)]="transfer.type" (selectionChange)="setPayerRecipient($event.value)"
@@ -70,7 +70,7 @@
             fieldsToEdit === 'type+amount+payer+recipient' ||
             fieldsToEdit === 'all'
             ) {
-            <div class="inputs-row">
+            <div class="landscape-mode-row">
                 <mat-form-field appearance="outline" [color]="'accent'">
                     <mat-label>Payer</mat-label>
                     <input type="text" matInput [matAutocomplete]="auto1" required formControlName="payer">
@@ -109,7 +109,7 @@
             fieldsToEdit === 'closedBy+date' ||
             fieldsToEdit === 'all'
             ) {
-            <div class="inputs-row">
+            <div class="landscape-mode-row">
                 <mat-form-field appearance="outline" [color]="'accent'">
                     <mat-label>Date</mat-label>
                     <input matInput [matDatepicker]="picker" [(ngModel)]="date" required [max]="dateService.getToday()"

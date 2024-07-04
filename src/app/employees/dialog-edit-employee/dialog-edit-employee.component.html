@@ -10,7 +10,7 @@
             fieldsToEdit === 'name+email+phone' ||
             fieldsToEdit === 'all'
             ) {
-            <div class="inputs-row">
+            <div class="landscape-mode-row">
                 <mat-form-field appearance="outline" [color]="'accent'">
                     <mat-label>First name</mat-label>
                     <input matInput [(ngModel)]="employee.firstName" type="text" cdkFocusInitial required
@@ -50,7 +50,7 @@
             fieldsToEdit === 'name+email+phone' ||
             fieldsToEdit === 'all'
             ) {
-            <div class="inputs-row">
+            <div class="landscape-mode-row">
                 <mat-form-field appearance="outline" [color]="'accent'">
                     <mat-label>E-mail</mat-label>
                     <input matInput [(ngModel)]="employee.email" type="email" formControlName="email" required>
@@ -73,7 +73,7 @@
             fieldsToEdit === 'position+department' ||
             fieldsToEdit === 'all'
             ) {
-            <div class="inputs-row">
+            <div class="landscape-mode-row">
                 <mat-form-field appearance="outline" [color]="'accent'">
                     <mat-label>Position</mat-label>
                     <input matInput [(ngModel)]="employee.position" type="text" formControlName="position">
