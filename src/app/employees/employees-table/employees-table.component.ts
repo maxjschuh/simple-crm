@@ -57,10 +57,10 @@ export class EmployeesTableComponent implements AfterViewInit {
 
   columnSelectorButtons = {
     birthDate: false,
-    email: false,
+    email: true,
     phone: false,
     department: false,
-    position: false,
+    position: true,
     supervisor: false
   }
 
