@@ -23,6 +23,7 @@ export class AppComponent implements AfterViewInit {
   title = '';
   titleSubscriber = new Subscription;
   isMobileView: boolean = true;
+  readonly mobileSideNavBreakpoint = 1050;
   @ViewChild('sidenav') sidenav!: MatSidenav;
   @ViewChild('toggleSidenavButton') toggleSidenavButton!: MatButton;
 
@@ -46,10 +47,10 @@ export class AppComponent implements AfterViewInit {
 
 
   /**
-   * Implements a method that sets the boolean variable "isMobileView" to true if the viewport width is less than 800 pixels.
+   * Implements a method that sets the boolean variable "isMobileView" to true if the viewport width is less than 1050 pixels.
    */
   ngOnInit(): void {
-    this.breakpointObserver.observe(['(max-width: 800px)']).subscribe(result => {
+    this.breakpointObserver.observe([`(max-width: ${this.mobileSideNavBreakpoint}px)`]).subscribe(result => {
       this.isMobileView = result.matches;
     });
   }

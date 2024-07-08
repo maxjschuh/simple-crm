@@ -31,13 +31,17 @@
 
             <a mat-raised-button href="mailto:{{ contact.email }}">
                 <mat-icon>mail</mat-icon>
-                {{ contact.email }}
+                <span>
+                    {{ contact.email }}
+                </span>
             </a>
             } @else {
 
             <button mat-raised-button (click)="openEditContactDialog('name+email+phone')">
                 <mat-icon>mail</mat-icon>
-                Add e-mail
+                <span>
+                    Add e-mail
+                </span>
             </button>
             }
 
@@ -45,13 +49,17 @@
 
             <a mat-raised-button href="tel:{{ contact.phone }}">
                 <mat-icon>call</mat-icon>
-                {{ contact.phone }}
+                <span>
+                    {{ contact.phone }}
+                </span>
             </a>
             } @else {
 
             <button mat-raised-button (click)="openEditContactDialog('name+email+phone')">
                 <mat-icon>call</mat-icon>
-                Add phone
+                <span>
+                    Add phone
+                </span>
             </button>
             }
 
@@ -60,7 +68,7 @@
 
     @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
 
-    <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu1">
+    <button id="top-card-options" class="card-options" mat-icon-button [matMenuTriggerFor]="menu1">
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu1="matMenu">

@@ -2,45 +2,95 @@
     height: 200px;
     display: flex;
     flex-direction: row;
-    gap: 8px;
+    gap: 24px;
     align-items: flex-end;
     padding: 24px;
     background-color: #7B1FA2;
     position: relative;
 
     #profile-img {
-        height: 100%;
-        width: unset;
+        height: 152px;
+        width: 152px;
         border-radius: 16px;
+
+        @media (max-width: 400px) {
+            height: unset;
+            width: calc(100vw - 80px);
+        }
     }
 
     mat-card-header {
-        flex: 1;
-        max-width: 100%;
+        padding: unset;
+        width: calc(100vw - 256px);
     }
 
     mat-card-title {
         margin-bottom: 8px;
         padding: 0;
+        width: calc(100vw - 256px);
     }
 
     mat-card-subtitle {
         display: flex;
         gap: 8px;
         align-items: center;
+        width: calc(100vw - 256px);
 
         @media (max-width: 600px) {
             flex-direction: column;
             align-items: flex-start;
+        }
+
+        button,
+        a {
+            max-width: calc(((100vw - 266px) / 2) + 32px);
+
+            mat-icon {
+                margin: unset;
+                margin-right: 8px;
+            }
 
             span {
                 width: fit-content;
-                max-width: calc(100vw - 296px);
+                max-width: calc(((100vw - 266px) / 2) - 58px);
                 display: block;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
+
+            @media (min-width: 832px) {
+                max-width: 316px;
+
+                span {
+                    max-width: 219px;
+                }
+            }
+
+            @media (max-width: 600px) {
+                max-width: calc((100vw - 256px) + 32px);
+
+                span {
+                    max-width: calc((100vw - 266px) - 58px);
+                }
+            }
+
+            @media (max-width: 400px) {
+                max-width: calc(100vw - 80px);
+
+                span {
+                    max-width: calc(100vw - 80px - 58px);
+                }
+            }
+        }
+    }
+
+    @media (min-width: 832px) {
+
+        mat-card-header,
+        mat-card-title,
+        mat-card-subtitle {
+            width: 576px;
         }
     }
 
@@ -48,6 +98,12 @@
         flex-direction: column;
         align-items: flex-start;
         height: unset;
+
+        mat-card-header,
+        mat-card-title,
+        mat-card-subtitle {
+            width: calc(100vw - 80px);
+        }
     }
 }
 
@@ -78,6 +134,16 @@
         #accordion-buttons {
             display: flex;
             align-items: center;
+            gap: 16px;
+
+            @media (max-width: 340px) {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 400px) {
+            flex-direction: column;
             gap: 16px;
         }
     }
@@ -152,6 +218,14 @@ mat-card-title {
     position: absolute;
     right: 8px;
     top: 8px;
+}
+
+#top-card-options {
+
+    @media(max-width: 400px) {
+        top: 20px;
+        right: 10px;
+    }
 }
 
 

@@ -24,6 +24,7 @@
             } @else {
 
             <button mat-raised-button (click)="openEditEmployeeDialog('name+email+phone')">
+
                 <mat-icon>mail</mat-icon>
                 <span>
                     Add e-mail
@@ -52,7 +53,7 @@
         </mat-card-subtitle>
     </mat-card-header>
 
-    <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu1">
+    <button id="top-card-options" class="card-options" mat-icon-button [matMenuTriggerFor]="menu1">
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu1="matMenu">
