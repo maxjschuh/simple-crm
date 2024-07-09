@@ -1,8 +1,8 @@
 # SimpleCrm
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.5.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.7.
 
-Full documentation of methods can be found here:
+Full documentation can be found here:
 
 [crm.mjschuh.com/docs](https://crm.mjschuh.com/docs/index.html)
 
