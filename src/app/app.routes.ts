@@ -10,6 +10,8 @@ import { ImprintComponent } from './imprint/imprint.component';
 import { DataProtectionComponent } from './data-protection/data-protection.component';
 
 export const routes: Routes = [
+    { path: '**', component: DashboardComponent, title: "Easy-CRM | Dashboard"},
+    { path: "", component: DashboardComponent, title: "Easy-CRM | Dashboard"},
     { path: "dashboard", component: DashboardComponent, title: "Easy-CRM | Dashboard"},
     { path: "contacts", component: ContactsTableComponent, title: "Easy-CRM | Contacts"}, 
     { path: "contacts/:id", component: ContactDetailComponent, title: "Easy-CRM | Contact-Details" },
